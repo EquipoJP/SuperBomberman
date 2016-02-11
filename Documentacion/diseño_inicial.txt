@@ -1,0 +1,150 @@
+-----------------------------------------------------------
+  *--*--*--*--*--*--* Super Bomberman *--*--*--*--*--*--*
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+Idea:
+-----------------------------------------------------------
+El juego será a lo Bomberman. Incluirá dos modos de juego:
+	- Modo tradicional: el jugador encarna a un Bomberman, 
+	teniendo que limpiar los niveles del juego de los 
+	enemigos que haya. No contará con secciones de jefes.
+	- Modo Super-Bomba: el jugador se enfrentará a otros 
+	Bomberman a través de varios niveles. La IA controlará 
+	a los Bomberman enemigos, aumentando la dificultad en 
+	cada nivel.
+	
+	---------------------------------------------------
+	Modo tradicional:
+	---------------------------------------------------
+	En el modo tradicional de juego Bomberman deberá
+	superar una serie de niveles. Cada nivel tendrá 
+	una serie de enemigos que Bomberman deberá 
+	eliminar para poder superarlo. A su vez, cada 
+	nivel tendrá unas estructuras rompibles y otras 
+	estructuras irrompibles.
+	
+	---------------------------------------------------
+	Modo Super-Bomba:
+	---------------------------------------------------
+	En el modo Super-Bomba Bomberman deberá enfrentarse 
+	en diversos escenarios (los escenarios serán los 
+	mismos que en el modo tradicional, pero dependerá 
+	del azar el escenario donde jugar en cada nivel) 
+	a otros Bomberman controlados por la IA.
+	
+	---------------------------------------------------
+	Enemigos:
+	---------------------------------------------------
+	En el modo tradicional de juego se encontrarán 
+	solo los enemigos con IA mínima, que se dedicarán 
+	a deambular en rutas predefinidas (o no, pueden 
+	generarse aleatoriamente una vez por nivel).
+	
+	En el modo Super-Bomba se encontrarán enemigos con 
+	IA más avanzada, que colocarán bombas de la misma 
+	forma en que el jugador coloca bombas; teniendo 
+	las mismas restricciones que el jugador y pudiendo 
+	obtener los powerups disponibles.
+	
+	---------------------------------------------------
+	Victoria:
+	---------------------------------------------------
+	El jugador obtendrá Victoria cada vez que complete 
+	un nivel, ya sea del modo tradicional como del modo
+	Super-Bomba.
+	
+	Si el jugador completa todos los niveles del modo 
+	tradicional en una partida (es decir, en una 
+	ejecución del programa), se le ofrecerá la 
+	oportunidad de poder elegir para el modo 
+	tradicional de juego el nivel que quiere jugar.
+	
+	Cuando el jugador termine su partida en el modo 
+	Super-Bomba, se le ofrecerá la posibilidad de 
+	insertar su nombre en un ranking de tiempo (cuanto 
+	más tiempo haya sobrevivido, más alto será su 
+	puesto en el TOP 10).
+	
+	---------------------------------------------------
+	Fin del juego:
+	---------------------------------------------------
+	La partida terminará cuando Bomberman muera. Esto 
+	puede suceder por varias causas: un enemigo del 
+	modo tradicional toque a Bomberman; o una bomba,
+	ya sea del jugador como de otro Bomberman enemigo, 
+	toque al jugador Bomberman.
+	
+-----------------------------------------------------------
+Controles:
+-----------------------------------------------------------
+El juego será para PC, y se controlará a través de teclado 
+y ratón. Durante el juego, se utilizarán las flechas de 
+dirección para mover al personaje y la barra espaciadora 
+[SPACE] para colocar una bomba en el suelo.
+Así mismo, la tecla de escape [ESC] servirá para poner el 
+juego en pausa.
+En los menús, incluido el menú de pausa, se utilizarán las 
+flechas de dirección para moverse por la opciones y la 
+tecla de intro [ENTER] para seleccionar la opción. También 
+será posible utilizar el ratón para moverse por los menús.
+
+-----------------------------------------------------------
+Gráficos:
+-----------------------------------------------------------
+Los gráficos serán píxel-art, específicamente los sprites 
+de otros juegos de Bomberman (Super Bomberman 5).
+Los gráficos que se pretenden utilizar se encuentran en:
+	http://www.spriters-resource.com/snes/sbomber5/
+
+-----------------------------------------------------------
+Sonido:
+-----------------------------------------------------------
+Se intentará obtener los sonidos de otros juegos de 
+Bomberman, o si no se pudiera, recrearlos para que suenen 
+de forma parecida.
+Es posible que la banda sonora se encuentre en:
+http://snesmusic.org/v2/profile.php?selected=15917&profile=set
+
+-----------------------------------------------------------
+Detalles de implementación:
+-----------------------------------------------------------
+El juego se llevará a cabo en el lenguaje de programación 
+Java. Se utilizará Github como control de versiones y 
+Trello para la gestión del proyecto.
+
+-----------------------------------------------------------
+Miscelánea:
+-----------------------------------------------------------
+A continuación se describen detalles del juego no 
+contemplados en las secciones anteriores:
+
+	No se permitirá guardar la partida al usuario, teniendo 
+	que reiniciar desde el nivel 1* cada vez que quiera 
+	jugar.
+		* Opcionalmente, se puede añadir un menú de 
+		selección de niveles.
+	No obstante, sí que se guardará una lista con los diez 
+	mejores jugadores (los que más tiempo han sobrevivido) 
+	en el modo de juego Super-Bomba.
+	
+	Paso a 3D: la cámara flotará en el aire, dando una 
+	visión del juego parecida a la visión en 2D.
+	
+	---------------------------------------------------
+	Powerups disponibles:
+	---------------------------------------------------
+	- Fuego: powerup que incrementa la capacidad de 
+	explosión de la bombas del Bomberman al que se le 
+	aplique en 1 (la explosión de las bombas llega una 
+	casilla más lejos).
+		Su icono es una llama.
+	- Bomba: powerup que incrementa la capidad de 
+	bombas del Bomberman al que le le aplique en 1 (el 
+	Bomberman podrá tener en pantalla dos bombas a la 
+	vez en lugar de solo una).
+		Su icono es una bomba.
+	- Patines: powerup que incrementa la velocidad del 
+	Bomberman al que se le aplique en 1 (el Bomberman 
+	se moverá el doble de rápido que sin este powerup).
+		Su icono es unos patines.
