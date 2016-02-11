@@ -1,3 +1,3 @@
 # SuperBomberman
 
-A SuperBomberman game for Videogames subject on Unizar.
+A SuperBomberman game for Videogames subject on Unizar (Group 04).
