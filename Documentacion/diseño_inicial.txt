@@ -75,6 +75,9 @@ El juego será a lo Bomberman. Incluirá dos modos de juego:
 	ya sea del jugador como de otro Bomberman enemigo, 
 	toque al jugador Bomberman.
 	
+Información acerca del juego:
+	http://bomberman.wikia.com/wiki/Super_Bomberman
+	
 -----------------------------------------------------------
 Controles:
 -----------------------------------------------------------
@@ -96,8 +99,13 @@ Los gráficos serán píxel-art, específicamente los sprites
 de otros juegos de Bomberman (Super Bomberman 5).
 Los gráficos que se pretenden utilizar se encuentran en:
 	http://www.spriters-resource.com/snes/sbomber5/
+	
 Más gráficos en:
 	http://spritedatabase.net/system/snes#S
+	http://www.kousougames.com/sprites.php?show=Sprites%20from%20Super%20Bomberman
+
+Backgrounds:
+	http://spritedatabase.net/file/15504
 
 -----------------------------------------------------------
 Sonido:
