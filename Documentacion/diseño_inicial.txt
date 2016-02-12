@@ -5,44 +5,44 @@
 -----------------------------------------------------------
 Idea:
 -----------------------------------------------------------
-El juego ser· a lo Bomberman. Incluir· dos modos de juego:
+El juego ser√° a lo Bomberman. Incluir√° dos modos de juego:
 	- Modo tradicional: el jugador encarna a un Bomberman, 
 	teniendo que limpiar los niveles del juego de los 
-	enemigos que haya. No contar· con secciones de jefes.
-	- Modo Super-Bomba: el jugador se enfrentar· a otros 
-	Bomberman a travÈs de varios niveles. La IA controlar· 
+	enemigos que haya. No contar√° con secciones de jefes.
+	- Modo Super-Bomba: el jugador se enfrentar√° a otros 
+	Bomberman a trav√©s de varios niveles. La IA controlar√° 
 	a los Bomberman enemigos, aumentando la dificultad en 
 	cada nivel.
 	
 	---------------------------------------------------
 	Modo tradicional:
 	---------------------------------------------------
-	En el modo tradicional de juego Bomberman deber·
-	superar una serie de niveles. Cada nivel tendr· 
-	una serie de enemigos que Bomberman deber· 
+	En el modo tradicional de juego Bomberman deber√°
+	superar una serie de niveles. Cada nivel tendr√° 
+	una serie de enemigos que Bomberman deber√° 
 	eliminar para poder superarlo. A su vez, cada 
-	nivel tendr· unas estructuras rompibles y otras 
+	nivel tendr√° unas estructuras rompibles y otras 
 	estructuras irrompibles.
 	
 	---------------------------------------------------
 	Modo Super-Bomba:
 	---------------------------------------------------
-	En el modo Super-Bomba Bomberman deber· enfrentarse 
-	en diversos escenarios (los escenarios ser·n los 
-	mismos que en el modo tradicional, pero depender· 
+	En el modo Super-Bomba Bomberman deber√° enfrentarse 
+	en diversos escenarios (los escenarios ser√°n los 
+	mismos que en el modo tradicional, pero depender√° 
 	del azar el escenario donde jugar en cada nivel) 
 	a otros Bomberman controlados por la IA.
 	
 	---------------------------------------------------
 	Enemigos:
 	---------------------------------------------------
-	En el modo tradicional de juego se encontrar·n 
-	solo los enemigos con IA mÌnima, que se dedicar·n 
+	En el modo tradicional de juego se encontrar√°n 
+	solo los enemigos con IA m√≠nima, que se dedicar√°n 
 	a deambular en rutas predefinidas (o no, pueden 
 	generarse aleatoriamente una vez por nivel).
 	
-	En el modo Super-Bomba se encontrar·n enemigos con 
-	IA m·s avanzada, que colocar·n bombas de la misma 
+	En el modo Super-Bomba se encontrar√°n enemigos con 
+	IA m√°s avanzada, que colocar√°n bombas de la misma 
 	forma en que el jugador coloca bombas; teniendo 
 	las mismas restricciones que el jugador y pudiendo 
 	obtener los powerups disponibles.
@@ -50,26 +50,26 @@ El juego ser· a lo Bomberman. Incluir· dos modos de juego:
 	---------------------------------------------------
 	Victoria:
 	---------------------------------------------------
-	El jugador obtendr· Victoria cada vez que complete 
+	El jugador obtendr√° Victoria cada vez que complete 
 	un nivel, ya sea del modo tradicional como del modo
 	Super-Bomba.
 	
 	Si el jugador completa todos los niveles del modo 
 	tradicional en una partida (es decir, en una 
-	ejecuciÛn del programa), se le ofrecer· la 
+	ejecuci√≥n del programa), se le ofrecer√° la 
 	oportunidad de poder elegir para el modo 
 	tradicional de juego el nivel que quiere jugar.
 	
 	Cuando el jugador termine su partida en el modo 
-	Super-Bomba, se le ofrecer· la posibilidad de 
+	Super-Bomba, se le ofrecer√° la posibilidad de 
 	insertar su nombre en un ranking de tiempo (cuanto 
-	m·s tiempo haya sobrevivido, m·s alto ser· su 
+	m√°s tiempo haya sobrevivido, m√°s alto ser√° su 
 	puesto en el TOP 10).
 	
 	---------------------------------------------------
 	Fin del juego:
 	---------------------------------------------------
-	La partida terminar· cuando Bomberman muera. Esto 
+	La partida terminar√° cuando Bomberman muera. Esto 
 	puede suceder por varias causas: un enemigo del 
 	modo tradicional toque a Bomberman; o una bomba,
 	ya sea del jugador como de otro Bomberman enemigo, 
@@ -78,73 +78,75 @@ El juego ser· a lo Bomberman. Incluir· dos modos de juego:
 -----------------------------------------------------------
 Controles:
 -----------------------------------------------------------
-El juego ser· para PC, y se controlar· a travÈs de teclado 
-y ratÛn. Durante el juego, se utilizar·n las flechas de 
-direcciÛn para mover al personaje y la barra espaciadora 
+El juego ser√° para PC, y se controlar√° a trav√©s de teclado 
+y rat√≥n. Durante el juego, se utilizar√°n las flechas de 
+direcci√≥n para mover al personaje y la barra espaciadora 
 [SPACE] para colocar una bomba en el suelo.
-AsÌ mismo, la tecla de escape [ESC] servir· para poner el 
+As√≠ mismo, la tecla de escape [ESC] servir√° para poner el 
 juego en pausa.
-En los men˙s, incluido el men˙ de pausa, se utilizar·n las 
-flechas de direcciÛn para moverse por la opciones y la 
-tecla de intro [ENTER] para seleccionar la opciÛn. TambiÈn 
-ser· posible utilizar el ratÛn para moverse por los men˙s.
+En los men√∫s, incluido el men√∫ de pausa, se utilizar√°n las 
+flechas de direcci√≥n para moverse por la opciones y la 
+tecla de intro [ENTER] para seleccionar la opci√≥n. Tambi√©n 
+ser√° posible utilizar el rat√≥n para moverse por los men√∫s.
 
 -----------------------------------------------------------
-Gr·ficos:
+Gr√°ficos:
 -----------------------------------------------------------
-Los gr·ficos ser·n pÌxel-art, especÌficamente los sprites 
+Los gr√°ficos ser√°n p√≠xel-art, espec√≠ficamente los sprites 
 de otros juegos de Bomberman (Super Bomberman 5).
-Los gr·ficos que se pretenden utilizar se encuentran en:
+Los gr√°ficos que se pretenden utilizar se encuentran en:
 	http://www.spriters-resource.com/snes/sbomber5/
+M√°s gr√°ficos en:
+	http://spritedatabase.net/system/snes#S
 
 -----------------------------------------------------------
 Sonido:
 -----------------------------------------------------------
-Se intentar· obtener los sonidos de otros juegos de 
+Se intentar√° obtener los sonidos de otros juegos de 
 Bomberman, o si no se pudiera, recrearlos para que suenen 
 de forma parecida.
 Es posible que la banda sonora se encuentre en:
 http://snesmusic.org/v2/profile.php?selected=15917&profile=set
 
 -----------------------------------------------------------
-Detalles de implementaciÛn:
+Detalles de implementaci√≥n:
 -----------------------------------------------------------
-El juego se llevar· a cabo en el lenguaje de programaciÛn 
-Java. Se utilizar· Github como control de versiones y 
-Trello para la gestiÛn del proyecto.
+El juego se llevar√° a cabo en el lenguaje de programaci√≥n 
+Java. Se utilizar√° Github como control de versiones y 
+Trello para la gesti√≥n del proyecto.
 
 -----------------------------------------------------------
-Miscel·nea:
+Miscel√°nea:
 -----------------------------------------------------------
-A continuaciÛn se describen detalles del juego no 
+A continuaci√≥n se describen detalles del juego no 
 contemplados en las secciones anteriores:
 
-	No se permitir· guardar la partida al usuario, teniendo 
+	No se permitir√° guardar la partida al usuario, teniendo 
 	que reiniciar desde el nivel 1* cada vez que quiera 
 	jugar.
-		* Opcionalmente, se puede aÒadir un men˙ de 
-		selecciÛn de niveles.
-	No obstante, sÌ que se guardar· una lista con los diez 
-	mejores jugadores (los que m·s tiempo han sobrevivido) 
+		* Opcionalmente, se puede a√±adir un men√∫ de 
+		selecci√≥n de niveles.
+	No obstante, s√≠ que se guardar√° una lista con los diez 
+	mejores jugadores (los que m√°s tiempo han sobrevivido) 
 	en el modo de juego Super-Bomba.
 	
-	Paso a 3D: la c·mara flotar· en el aire, dando una 
-	visiÛn del juego parecida a la visiÛn en 2D.
+	Paso a 3D: la c√°mara flotar√° en el aire, dando una 
+	visi√≥n del juego parecida a la visi√≥n en 2D.
 	
 	---------------------------------------------------
 	Powerups disponibles:
 	---------------------------------------------------
 	- Fuego: powerup que incrementa la capacidad de 
-	explosiÛn de la bombas del Bomberman al que se le 
-	aplique en 1 (la explosiÛn de las bombas llega una 
-	casilla m·s lejos).
+	explosi√≥n de la bombas del Bomberman al que se le 
+	aplique en 1 (la explosi√≥n de las bombas llega una 
+	casilla m√°s lejos).
 		Su icono es una llama.
 	- Bomba: powerup que incrementa la capidad de 
 	bombas del Bomberman al que le le aplique en 1 (el 
-	Bomberman podr· tener en pantalla dos bombas a la 
+	Bomberman podr√° tener en pantalla dos bombas a la 
 	vez en lugar de solo una).
 		Su icono es una bomba.
 	- Patines: powerup que incrementa la velocidad del 
 	Bomberman al que se le aplique en 1 (el Bomberman 
-	se mover· el doble de r·pido que sin este powerup).
+	se mover√° el doble de r√°pido que sin este powerup).
 		Su icono es unos patines.
