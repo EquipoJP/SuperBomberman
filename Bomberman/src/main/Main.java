@@ -4,6 +4,8 @@
 package main;
 
 import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Frame;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -13,8 +15,8 @@ import java.applet.Applet;
 public class Main extends Applet {
 	
 	/* The object that runs the game loop and its thread */
-	private GameLoop game_loop = null;
-	private Thread t_game_loop = null;
+	private GameLoop gameLoop = null;
+	private Thread tGameLoop = null;
 
 	/**
 	 * Init() method executes once, when the applet is created, and takes
@@ -22,12 +24,11 @@ public class Main extends Applet {
 	 */
 	@Override
 	public void init() {
-		super.init();
-		
-		game_loop = new GameLoop();
-		t_game_loop = new Thread(game_loop);
-		t_game_loop.start();
-		game_loop.stoped = false;
+		setSize(800, 800);
+        setBackground(Color.BLACK);
+        setFocusable(true);
+        Frame frame = (Frame) this.getParent().getParent();
+        frame.setTitle("Bomberman");
 	}
 
 	/**
@@ -37,7 +38,10 @@ public class Main extends Applet {
 	 */
 	@Override
 	public void start() {
-		super.start();
+		gameLoop = new GameLoop();
+		tGameLoop = new Thread(gameLoop);
+		tGameLoop.start();
+		gameLoop.stoped = false;
 	}
 
 	/**
@@ -55,7 +59,7 @@ public class Main extends Applet {
 	 */
 	@Override
 	public void destroy() {
-		game_loop.stoped = true;
+		gameLoop.stoped = true;
 		super.destroy();
 	}
 }
