@@ -3,20 +3,25 @@
  */
 package main;
 
-import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Frame;
+
+import javax.swing.JApplet;
+import javax.swing.JPanel;
 
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 @SuppressWarnings("serial")
-public class Main extends Applet {
+public class Main extends JApplet {
 	
 	/* The object that runs the game loop and its thread */
 	private GameLoop gameLoop = null;
 	private Thread tGameLoop = null;
+	
+	/* panel in which we'll paint */
+	private JPanel panel;
 
 	/**
 	 * Init() method executes once, when the applet is created, and takes
@@ -29,6 +34,10 @@ public class Main extends Applet {
         setFocusable(true);
         Frame frame = (Frame) this.getParent().getParent();
         frame.setTitle("Bomberman");
+        
+        panel = new JPanel();
+        panel.setBackground(getBackground());
+        this.add(panel);
 	}
 
 	/**
@@ -38,7 +47,7 @@ public class Main extends Applet {
 	 */
 	@Override
 	public void start() {
-		gameLoop = new GameLoop();
+		gameLoop = new GameLoop(panel);
 		tGameLoop = new Thread(gameLoop);
 		tGameLoop.start();
 		gameLoop.stoped = false;

@@ -18,7 +18,7 @@ public class StatesMachine {
 	public final int RANKS = 5;
 	public final int TOP10 = 6;
 
-	/* private attirbutes */
+	/* private attributes */
 	private int state;
 	private int next_state;
 	private Input input;

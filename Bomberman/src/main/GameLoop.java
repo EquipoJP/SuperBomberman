@@ -1,19 +1,22 @@
 package main;
 
+import javax.swing.JPanel;
+
 import logic.Input;
 import logic.StatesMachine;
 
 public class GameLoop implements Runnable {
 	
 	boolean stoped;
+	private Input input;
 	
-	public GameLoop() {
+	public GameLoop(JPanel panel) {
 		stoped = false;
+		input = new Input(panel);
 	}
 
 	@Override
 	public void run() {
-		Input input = new Input();
 		StatesMachine sm = new StatesMachine(input);
 		
 		while(!stoped){
