@@ -61,10 +61,8 @@ El juego será a lo Bomberman. Incluirá dos modos de juego:
 	tradicional de juego el nivel que quiere jugar.
 	
 	Cuando el jugador termine su partida en el modo 
-	Super-Bomba, se le ofrecerá la posibilidad de 
-	insertar su nombre en un ranking de tiempo (cuanto 
-	más tiempo haya sobrevivido, más alto será su 
-	puesto en el TOP 10).
+	Tradiciona, se le ofrecerá la posibilidad de 
+	insertar su nombre en un ranking de puntos.
 	
 	---------------------------------------------------
 	Fin del juego:
@@ -74,6 +72,8 @@ El juego será a lo Bomberman. Incluirá dos modos de juego:
 	modo tradicional toque a Bomberman; o una bomba,
 	ya sea del jugador como de otro Bomberman enemigo, 
 	toque al jugador Bomberman.
+	La partida también puede terminar cuando se termine 
+	el tiempo en el modo de juego tradicional.
 	
 Información acerca del juego:
 	http://bomberman.wikia.com/wiki/Super_Bomberman
@@ -129,14 +129,16 @@ Miscelánea:
 A continuación se describen detalles del juego no 
 contemplados en las secciones anteriores:
 
-	No se permitirá guardar la partida al usuario, teniendo 
-	que reiniciar desde el nivel 1* cada vez que quiera 
-	jugar.
-		* Opcionalmente, se puede añadir un menú de 
-		selección de niveles.
-	No obstante, sí que se guardará una lista con los diez 
-	mejores jugadores (los que más tiempo han sobrevivido) 
-	en el modo de juego Super-Bomba.
+	El juego contará con los modos Tradicional y 
+	Super-Bomber. El modo Super-Bomber se desbloqueará al 
+	luchar por primera vez contra los bombers en el modo de 
+	juego Tradicional.
+		* En el modo de juego Tradicional se luchará contra 
+		los bombers cada [X] niveles.
+	
+	Se guardará una lista con los diez mejores jugadores 
+	(los que más tiempo han sobrevivido) en el modo de juego 
+	Tradicional.
 	
 	Paso a 3D: la cámara flotará en el aire, dando una 
 	visión del juego parecida a la visión en 2D.
