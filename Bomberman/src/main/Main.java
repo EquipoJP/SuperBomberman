@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Frame;
 
 import javax.swing.JApplet;
-import javax.swing.JPanel;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -21,7 +20,7 @@ public class Main extends JApplet {
 	private Thread tGameLoop = null;
 	
 	/* panel in which we'll paint */
-	private JPanel panel;
+//	private JPanel panel;
 
 	/**
 	 * Init() method executes once, when the applet is created, and takes
@@ -31,13 +30,10 @@ public class Main extends JApplet {
 	public void init() {
 		setSize(800, 800);
         setBackground(Color.BLACK);
+        this.getContentPane().setBackground(getBackground());
         setFocusable(true);
         Frame frame = (Frame) this.getParent().getParent();
         frame.setTitle("Bomberman");
-        
-        panel = new JPanel();
-        panel.setBackground(getBackground());
-        this.add(panel);
 	}
 
 	/**
@@ -47,7 +43,7 @@ public class Main extends JApplet {
 	 */
 	@Override
 	public void start() {
-		gameLoop = new GameLoop(panel);
+		gameLoop = new GameLoop(this.getRootPane());
 		tGameLoop = new Thread(gameLoop);
 		tGameLoop.start();
 		gameLoop.stoped = false;

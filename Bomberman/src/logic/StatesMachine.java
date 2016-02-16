@@ -37,27 +37,29 @@ public class StatesMachine {
 	 * the game. This method will be called from GameLoop object.
 	 */
 	public void stateMachine() {
+		int key = input.getNextKey();
+		
 		switch (state) {
 		case INTRO:
-			intro();
+			intro(key);
 			break;
 		case MENU:
-			menu();
+			menu(key);
 			break;
 		case T_MODE:
-			t_mode();
+			t_mode(key);
 			break;
 		case SB_MODE:
-			sb_mode();
+			sb_mode(key);
 			break;
 		case PAUSE:
-			pause();
+			pause(key);
 			break;
 		case RANKS:
-			ranks();
+			ranks(key);
 			break;
 		case TOP10:
-			top10();
+			top10(key);
 			break;
 		}
 
@@ -66,50 +68,57 @@ public class StatesMachine {
 
 	/**
 	 * Shows the introduction of the game
+	 * @param key 
 	 */
-	private void intro() {
+	private void intro(int key) {
 
 	}
 
 	/**
 	 * Shows the menu of the game
+	 * @param key 
 	 */
-	private void menu() {
+	private void menu(int key) {
 
 	}
 
 	/**
 	 * Traditional mode of the game
+	 * @param key 
 	 */
-	private void t_mode() {
+	private void t_mode(int key) {
 
 	}
 
 	/**
 	 * Super-Bomber mode of the game
+	 * @param key 
 	 */
-	private void sb_mode() {
+	private void sb_mode(int key) {
 
 	}
 
 	/**
 	 * Pause mode
+	 * @param key 
 	 */
-	private void pause() {
+	private void pause(int key) {
 
 	}
 
 	/**
 	 * Show the ranking of the Super-Bomber mode
+	 * @param key 
 	 */
-	private void ranks() {
+	private void ranks(int key) {
 
 	}
 
 	/**
 	 * Let the player put a name to the highscore (entering the top 10)
+	 * @param key 
 	 */
-	private void top10() {
+	private void top10(int key) {
 
 	}
 }

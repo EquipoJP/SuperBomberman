@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 /**
@@ -39,9 +38,9 @@ public class Input {
 	 * 
 	 * @param main
 	 */
-	public Input(JPanel panel) {
+	public Input(JComponent jc) {
 		setNextKey(NO_KEY);
-		setKeyBindings(panel);
+		setKeyBindings(jc);
 	}
 
 	/**
@@ -72,10 +71,10 @@ public class Input {
 	 * @param panel
 	 *            main panel of the game
 	 */
-	private void setKeyBindings(JPanel panel) {
+	private void setKeyBindings(JComponent jc) {
 		// get input map and action map
-		InputMap im = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-		ActionMap am = panel.getActionMap();
+		InputMap im = jc.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap am = jc.getActionMap();
 
 		// put the key pressed & released events
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), up + pressed);

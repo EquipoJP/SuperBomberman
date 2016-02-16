@@ -1,6 +1,6 @@
 package main;
 
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 
 import logic.Input;
 import logic.StatesMachine;
@@ -10,9 +10,9 @@ public class GameLoop implements Runnable {
 	boolean stoped;
 	private Input input;
 	
-	public GameLoop(JPanel panel) {
+	public GameLoop(JComponent jc) {
 		stoped = false;
-		input = new Input(panel);
+		input = new Input(jc);
 	}
 
 	@Override
