@@ -18,9 +18,6 @@ public class Main extends JApplet {
 	/* The object that runs the game loop and its thread */
 	private GameLoop gameLoop = null;
 	private Thread tGameLoop = null;
-	
-	/* panel in which we'll paint */
-//	private JPanel panel;
 
 	/**
 	 * Init() method executes once, when the applet is created, and takes
@@ -34,6 +31,7 @@ public class Main extends JApplet {
         setFocusable(true);
         Frame frame = (Frame) this.getParent().getParent();
         frame.setTitle("Bomberman");
+        frame.setResizable(false);
 	}
 
 	/**
