@@ -59,9 +59,7 @@ public class Input {
 	 * @return the next key to be processed
 	 */
 	public synchronized int getNextKey() {
-		int value = nextKey;
-		nextKey = NO_KEY;
-		return value;
+		return nextKey;
 	}
 
 	/**

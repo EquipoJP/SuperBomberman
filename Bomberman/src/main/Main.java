@@ -41,7 +41,7 @@ public class Main extends JApplet {
 	 */
 	@Override
 	public void start() {
-		gameLoop = new GameLoop(this.getRootPane());
+		gameLoop = new GameLoop(this.getRootPane(), this.getGraphics());
 		tGameLoop = new Thread(gameLoop);
 		tGameLoop.start();
 		gameLoop.stoped = false;

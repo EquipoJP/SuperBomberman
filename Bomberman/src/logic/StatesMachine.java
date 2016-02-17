@@ -3,8 +3,17 @@
  */
 package logic;
 
-import graphics.*;
-import graphics.menus.*;
+import graphics.D2.rooms.Game;
+import graphics.D2.rooms.GameOverMenu;
+import graphics.D2.rooms.Intro;
+import graphics.D2.rooms.MainMenu;
+import graphics.D2.rooms.OptionsMenu;
+import graphics.D2.rooms.PauseMenu;
+import graphics.D2.rooms.RankMenu;
+import graphics.D2.rooms.SB_Game;
+import graphics.D2.rooms.T_Game;
+
+import java.awt.Graphics;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -13,21 +22,17 @@ import graphics.menus.*;
 public class StatesMachine {
 
 	/* machine's states */
-	public final int INTRO = 0;
-	public final int MAIN_MENU = 1;
-	public final int T_MODE = 2;
-	public final int SB_MODE = 3;
-	public final int PAUSE = 4;
-	public final int RANKS = 5;
-	public final int TOP10 = 6;
-	public final int GAME_OVER = 7;
-	public final int OPTIONS_MENU = 8;
+	public enum STATE {
+		INTRO, MAIN_MENU, OPTIONS_MENU, T_MODE, SB_MODE, PAUSE, GAME_OVER, RANKS, TOP10
+	};
 
 	/* private attributes */
-	private int state;
-	private int next_state;
+	private STATE state;
+	private STATE next_state;
+
 	private Input input;
-	
+	private Graphics graphics;
+
 	/* different screens */
 	private Intro introScreen = null;
 	private MainMenu titleScreen = null;
@@ -40,10 +45,11 @@ public class StatesMachine {
 	/**
 	 * Creation of the states machine. It starts on the game's intro
 	 */
-	public StatesMachine(Input input) {
-		state = 0;
+	public StatesMachine(Input input, Graphics g) {
+		state = STATE.INTRO;
 		next_state = state;
 		this.input = input;
+		this.graphics = g;
 	}
 
 	/**
@@ -52,7 +58,7 @@ public class StatesMachine {
 	 */
 	public void stateMachine() {
 		int key = input.getNextKey();
-		
+
 		switch (state) {
 		case INTRO:
 			intro(key);
@@ -88,69 +94,117 @@ public class StatesMachine {
 
 	/**
 	 * Shows the introduction of the game
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void intro(int key) {
 
+		if (introScreen == null) {
+			introScreen = new Intro();
+		}
+		// TODO complete the method
 	}
 
 	/**
 	 * Shows the menu of the game
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void main_menu(int key) {
 
+		if (titleScreen == null) {
+			titleScreen = new MainMenu();
+		}
+		// TODO complete the method
 	}
-	
+
 	/**
 	 * Shows the options menu of the game
+	 * 
 	 * @param key
 	 */
-	private void options_menu(int key){
-		
+	private void options_menu(int key) {
+
+		if (optionScreen == null) {
+			optionScreen = new OptionsMenu();
+		}
+		// TODO complete the method
 	}
 
 	/**
 	 * Traditional mode of the game
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void t_mode(int key) {
 
+		if (gameScreen == null) {
+			gameScreen = new T_Game();
+		}
+		// TODO complete the method
 	}
 
 	/**
 	 * Super-Bomber mode of the game
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void sb_mode(int key) {
 
+		if (gameScreen == null) {
+			gameScreen = new SB_Game();
+		}
+		// TODO complete the method
 	}
 
 	/**
 	 * Pause mode
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void pause(int key) {
 
+		if (pauseScreen == null) {
+			pauseScreen = new PauseMenu();
+		}
+		// TODO complete the method
 	}
 
 	/**
 	 * Show the ranking of the Super-Bomber mode
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void ranks(int key) {
 
+		if (rankScreen == null) {
+			rankScreen = new RankMenu();
+		}
+		// TODO complete the method
 	}
 
 	/**
 	 * Let the player put a name to the highscore (entering the top 10)
-	 * @param key 
+	 * 
+	 * @param key
 	 */
 	private void top10(int key) {
 
+		if (rankScreen == null) {
+			rankScreen = new RankMenu();
+		}
 	}
-	
 
+	/**
+	 * Show the game over menu screen
+	 * 
+	 * @param key
+	 */
 	private void game_over(int key) {
+
+		if (gameOverScreen == null) {
+			gameOverScreen = new GameOverMenu();
+		}
+		// TODO complete the method
 	}
 }
