@@ -19,7 +19,7 @@ public class Animation {
 	 * @param height height of each sprite
 	 * @return an array of sprites
 	 */
-	public BufferedImage[] getSpritesFromImage(BufferedImage sheet, int frames, 
+	public static BufferedImage[] getSpritesFromImage(BufferedImage sheet, int frames, 
 			int width, int height){
 		BufferedImage[] sprites = new BufferedImage[frames];
 		
