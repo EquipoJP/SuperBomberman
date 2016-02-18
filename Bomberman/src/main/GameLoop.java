@@ -32,6 +32,7 @@ public class GameLoop implements Runnable {
 	public GameLoop(JComponent jc, Graphics g) {
 		stoped = false;
 		input = new Input(jc);
+		this.graphics = g;
 	}
 
 	@Override
