@@ -25,7 +25,7 @@ public class Main extends JApplet {
 	 */
 	@Override
 	public void init() {
-		setSize(800, 800);
+		setSize(500, 500);
         setBackground(Color.BLACK);
         this.getContentPane().setBackground(getBackground());
         setFocusable(true);

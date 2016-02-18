@@ -102,6 +102,12 @@ public class StatesMachine {
 		if (introScreen == null) {
 			introScreen = new Intro();
 		}
+		else{
+			if(key==3){
+				introScreen.action(key);
+			}
+			introScreen.render(graphics);
+		}
 		// TODO complete the method
 	}
 

@@ -40,6 +40,7 @@ public class GameLoop implements Runnable {
 		StatesMachine sm = new StatesMachine(input, graphics);
 
 		while (!stoped) {
+			graphics.clearRect(0, 0, 500, 500);
 			sm.stateMachine();
 			try {
 				// 17 ms => 60 fps
