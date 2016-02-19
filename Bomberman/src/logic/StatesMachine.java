@@ -3,6 +3,8 @@
  */
 package logic;
 
+import java.awt.Graphics;
+
 import graphics.D2.rooms.Game;
 import graphics.D2.rooms.GameOverMenu;
 import graphics.D2.rooms.Intro;
@@ -12,8 +14,7 @@ import graphics.D2.rooms.PauseMenu;
 import graphics.D2.rooms.RankMenu;
 import graphics.D2.rooms.SB_Game;
 import graphics.D2.rooms.T_Game;
-
-import java.awt.Graphics;
+import logic.Input.KEY;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -31,7 +32,6 @@ public class StatesMachine {
 	private STATE next_state;
 
 	private Input input;
-	private Graphics graphics;
 
 	/* different screens */
 	private Intro introScreen = null;
@@ -45,11 +45,11 @@ public class StatesMachine {
 	/**
 	 * Creation of the states machine. It starts on the game's intro
 	 */
-	public StatesMachine(Input input, Graphics g) {
+	public StatesMachine(Input input) {
 		state = STATE.INTRO;
 		next_state = state;
 		this.input = input;
-		this.graphics = g;
+		intro(KEY.NO_KEY);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class StatesMachine {
 	 * the game. This method will be called from GameLoop object.
 	 */
 	public void stateMachine() {
-		int key = input.getNextKey();
+		Input.KEY key = input.getKey();
 
 		switch (state) {
 		case INTRO:
@@ -92,21 +92,47 @@ public class StatesMachine {
 		state = next_state;
 	}
 
+	public void render(Graphics g) {
+		switch (state) {
+		case INTRO:
+			introScreen.render(g);
+			break;
+		case MAIN_MENU:
+			titleScreen.render(g);
+			break;
+		case OPTIONS_MENU:
+			optionScreen.render(g);
+			break;
+		case T_MODE:
+			gameScreen.render(g);
+			break;
+		case SB_MODE:
+			gameScreen.render(g);
+			break;
+		case PAUSE:
+			pauseScreen.render(g);
+			break;
+		case RANKS:
+			rankScreen.render(g);
+			break;
+		case TOP10:
+			rankScreen.render(g);
+			break;
+		case GAME_OVER:
+			gameOverScreen.render(g);
+			break;
+		}
+	}
+
 	/**
 	 * Shows the introduction of the game
 	 * 
 	 * @param key
 	 */
-	private void intro(int key) {
+	private void intro(KEY key) {
 
 		if (introScreen == null) {
 			introScreen = new Intro();
-		}
-		else{
-			if(key==3){
-				introScreen.action(key);
-			}
-			introScreen.render(graphics);
 		}
 		// TODO complete the method
 	}
@@ -116,7 +142,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void main_menu(int key) {
+	private void main_menu(KEY key) {
 
 		if (titleScreen == null) {
 			titleScreen = new MainMenu();
@@ -129,7 +155,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void options_menu(int key) {
+	private void options_menu(KEY key) {
 
 		if (optionScreen == null) {
 			optionScreen = new OptionsMenu();
@@ -142,7 +168,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void t_mode(int key) {
+	private void t_mode(KEY key) {
 
 		if (gameScreen == null) {
 			gameScreen = new T_Game();
@@ -155,7 +181,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void sb_mode(int key) {
+	private void sb_mode(KEY key) {
 
 		if (gameScreen == null) {
 			gameScreen = new SB_Game();
@@ -168,7 +194,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void pause(int key) {
+	private void pause(KEY key) {
 
 		if (pauseScreen == null) {
 			pauseScreen = new PauseMenu();
@@ -181,7 +207,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void ranks(int key) {
+	private void ranks(KEY key) {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu();
@@ -194,7 +220,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void top10(int key) {
+	private void top10(KEY key) {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu();
@@ -206,7 +232,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void game_over(int key) {
+	private void game_over(KEY key) {
 
 		if (gameOverScreen == null) {
 			gameOverScreen = new GameOverMenu();

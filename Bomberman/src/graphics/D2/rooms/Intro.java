@@ -30,7 +30,8 @@ public class Intro implements Room {
 	public Intro() {
 		BufferedImage img;
 		try {
-			img = ImageIO.read(new File("../resources/sprites/whiteBomber/walkdown.png"));
+//			System.out.println(getClass().getResource("../../../whiteBomber/"));
+			img = ImageIO.read(getClass().getResource("../../../whiteBomber/walkdown.png"));
 			sprites = Animation.getSpritesFromImage(img, 8, 14, 24);
 			frames = 8;
 			i = 0;
@@ -44,7 +45,6 @@ public class Intro implements Room {
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
 		g.drawImage(sprites[i], x, y, null);
 		iD = iD + spriteSpeed;
 		i = (((int) Math.floor(iD))) % frames;
