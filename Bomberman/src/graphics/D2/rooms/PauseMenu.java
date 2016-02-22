@@ -23,4 +23,10 @@ public class PauseMenu implements Room {
 		
 	}
 
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

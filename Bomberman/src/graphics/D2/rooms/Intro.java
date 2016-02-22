@@ -55,4 +55,12 @@ public class Intro implements Room {
 		x += 200;
 	}
 
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
 }

@@ -23,4 +23,10 @@ public class T_Game extends Game{
 		
 	}
 
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -23,4 +23,10 @@ public class RankMenu implements Room{
 		
 	}
 
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

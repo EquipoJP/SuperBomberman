@@ -26,4 +26,12 @@ public interface Room {
 	 *            graphics section to paint
 	 */
 	public void render(Graphics g);
+	
+	/**
+	 * Method to process a step in the actual room
+	 * 
+	 * @param g
+	 *            graphics section to paint
+	 */
+	public void step();
 }
