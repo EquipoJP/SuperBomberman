@@ -4,15 +4,33 @@
 package graphics.D2.rooms;
 
 import java.awt.Graphics;
+import java.util.Collections;
+import java.util.List;
+
+import logic.Objeto;
+import logic.ObjetoComparator;
 
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
-public interface Room {
+public abstract class Room {
 
-	public int width = 0;
-	public int height = 0;
+	public int width;
+	public int height;
+	public String name;
+	public List<Objeto> objetos;
+	
+	public Room(int w, int h, String n, List<Objeto> objs) {
+		width = w;
+		height = h;
+		name = n;
+	}
+	
+	public void addObjeto(Objeto o){
+		objetos.add(o);
+		Collections.sort(objetos,new ObjetoComparator());
+	}
 	
 	/**
 	 * Method to process a key in the actual state of the room/screen
@@ -20,7 +38,7 @@ public interface Room {
 	 * @param key
 	 *            key to be processed
 	 */
-	public void action(int key);
+	public abstract void action(int key);
 
 	/**
 	 * Method to paint the screen
@@ -28,7 +46,7 @@ public interface Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public void render(Graphics g);
+	public abstract void render(Graphics g);
 	
 	/**
 	 * Method to process a step in the actual room
@@ -36,5 +54,5 @@ public interface Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public void step();
+	public abstract void step();
 }

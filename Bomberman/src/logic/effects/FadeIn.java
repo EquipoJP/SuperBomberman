@@ -10,20 +10,20 @@ import graphics.D2.rooms.Room;
 import logic.Objeto;
 import main.Game;
 
-public class FadeIn<T extends Room> extends Objeto<T> {
+public class FadeIn extends Objeto {
 
 	private int alarm0 = -1;
 	private BufferedImage curtain;
 	private float alpha = 1.0f;
 	private float resta = 0.0001f;
 
-	public FadeIn(int x, int y, T room) {
+	public FadeIn(int x, int y, Room room) {
 		super(x, y, room);
 		this.x = 0;
 		this.y = 0;
 	}
 
-	public FadeIn(int x, int y, int depth, T room) {
+	public FadeIn(int x, int y, int depth, Room room) {
 		super(x, y, depth, room);
 		this.x = 0;
 		this.y = 0;

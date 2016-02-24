@@ -4,12 +4,20 @@
 package graphics.D2.rooms;
 
 import java.awt.Graphics;
+import java.util.List;
+
+import logic.Objeto;
 
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public class SB_Game extends Game{
+
+	public SB_Game(int w, int h, String n, List<Objeto> objs) {
+		super(w, h, n, objs);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void action(int key) {

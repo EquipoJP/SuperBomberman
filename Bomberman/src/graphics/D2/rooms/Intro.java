@@ -9,9 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import logic.Objeto;
 import logic.effects.FadeIn;
 import main.Game;
 import utils.Animation;
@@ -20,7 +22,7 @@ import utils.Animation;
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
-public class Intro implements Room {
+public class Intro extends Room {
 
 	private BufferedImage[] sprites;
 	private int i;
@@ -32,7 +34,8 @@ public class Intro implements Room {
 	public int x = 200;
 	public int y = 200;
 
-	public Intro() {
+	public Intro(int w, int h, String n, List<Objeto> objs) {
+		super(w,h,n,objs);
 		BufferedImage img;
 		try {
 //			System.out.println(getClass().getResource("../../../whiteBomber/"));

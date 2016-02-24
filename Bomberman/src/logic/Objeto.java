@@ -4,15 +4,15 @@ import java.awt.Graphics;
 
 import graphics.D2.rooms.Room;
 
-public abstract class Objeto <T extends Room>{
+public abstract class Objeto{
 
 	public int x;
 	public int y;
 	public int depth;
 	public Sprite sprite_index;
-	public T room;
+	public Room room;
 	
-	public Objeto(int x, int y, int depth, T room) {
+	public Objeto(int x, int y, int depth, Room room) {
 		this.x = x;
 		this.y = y;
 		this.depth = depth;
@@ -20,7 +20,7 @@ public abstract class Objeto <T extends Room>{
 		create();
 	}
 	
-	public Objeto(int x, int y, T room){
+	public Objeto(int x, int y, Room room){
 		this.x = x;
 		this.y = y;
 		depth = 0;
