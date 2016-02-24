@@ -11,6 +11,9 @@ import java.awt.Graphics;
  */
 public interface Room {
 
+	public int width = 0;
+	public int height = 0;
+	
 	/**
 	 * Method to process a key in the actual state of the room/screen
 	 * 
