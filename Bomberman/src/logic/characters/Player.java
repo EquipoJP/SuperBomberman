@@ -1,17 +1,39 @@
 package logic.characters;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
+import logic.Objeto;
 import main.Initialization;
 
-public class Player {
+public class Player extends Objeto{
 	
 	/* Info to get Sprites */
 	private Map<String, BufferedImage[]> sprites;
 
-	public Player() {
+	public Player(int x, int y, int depth) {
+		super(x, y, depth);
 		sprites = Initialization.getSprites(Initialization.SPRITES[0]);
 	}
+	
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

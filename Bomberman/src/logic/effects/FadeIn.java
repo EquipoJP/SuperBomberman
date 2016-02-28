@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import graphics.D2.rooms.Room;
 import logic.Objeto;
 import main.Game;
 
@@ -17,16 +16,12 @@ public class FadeIn extends Objeto {
 	private float alpha = 1.0f;
 	private float resta = 0.0005f;
 
-	public FadeIn(int x, int y, Room room) {
-		super(x, y, room);
-		this.x = 0;
-		this.y = 0;
+	public FadeIn(int x, int y) {
+		super(x, y);
 	}
 
-	public FadeIn(int x, int y, int depth, Room room) {
-		super(x, y, depth, room);
-		this.x = 0;
-		this.y = 0;
+	public FadeIn(int x, int y, int depth) {
+		super(x, y, depth);
 	}
 
 	@Override

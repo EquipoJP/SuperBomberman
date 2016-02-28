@@ -7,16 +7,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import logic.Objeto;
 import logic.effects.FadeIn;
 import main.Game;
-import utils.Animation;
+import main.Initialization;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -35,35 +31,32 @@ public class Intro extends Room {
 	public int y = 200;
 
 	public Intro(int w, int h, String n, List<Objeto> objs) {
-		super(w,h,n,objs);
-		BufferedImage img;
-		try {
-//			System.out.println(getClass().getResource("../../../whiteBomber/"));
-			img = ImageIO.read(getClass().getResource("../../../whiteBomber/walkdown.png"));
-			sprites = Animation.getSpritesFromImage(img, 8, 14, 24);
-			frames = 8;
-			i = 0;
+		super(w, h, n, objs);
+		// System.out.println(getClass().getResource("../../../whiteBomber/"));
+		// img =
+		// ImageIO.read(getClass().getResource("../../../whiteBomber/walkdown.png"));
+		// sprites = Animation.getSpritesFromImage(img, 8, 14, 24);
+		sprites = Initialization.getSprites(Initialization.SPRITES[0]).get(
+				Initialization.SPRITE_NAMES[1]);
+		frames = 8;
+		i = 0;
 
-			iD = 0;
-			spriteSpeed = 0.15;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		f = new FadeIn(0,0,this);
+		iD = 0;
+		spriteSpeed = 0.15;
+
+		f = new FadeIn(0, 0);
 	}
 
 	@Override
 	public void render(Graphics g) {
 		// TODO Draw Background
 		/*
-		g.drawImage(sprites[i], x, y, null);
-		iD = iD + spriteSpeed;
-		i = (((int) Math.floor(iD))) % frames;
-		*/
+		 * g.drawImage(sprites[i], x, y, null); iD = iD + spriteSpeed; i =
+		 * (((int) Math.floor(iD))) % frames;
+		 */
 		f.step();
-		BufferedImage curtain = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		BufferedImage curtain = new BufferedImage(Game.WIDTH, Game.HEIGHT,
+				BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(255, 255, 255));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
@@ -79,9 +72,7 @@ public class Intro extends Room {
 	@Override
 	public void step() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
 
 }

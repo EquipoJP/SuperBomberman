@@ -21,7 +21,7 @@ import utils.IniUtils;
 public class Initialization {
 
 	/* attributes */
-	public static final String SPRITE_FILE = "../iniFiles/sprites.ini";
+	public static final String SPRITE_FILE = "resources/iniFiles/sprites.ini";
 	public static final String[] SPRITE_NAMES = { "IDLE", "WALKDOWN",
 			"WALKSIDE", "WALKUP", "VICTORY" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET",
@@ -56,7 +56,8 @@ public class Initialization {
 
 			BufferedImage sheet = null;
 			try {
-				sheet = ImageIO.read(new File("../" + spriteSheet));
+				System.out.println(System.getProperty("user.dir") + "/resources/" + spriteSheet);
+				sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
