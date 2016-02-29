@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import graphics.D2.rooms.Room;
+import logic.Input.KEY;
 
 public abstract class Objeto{
 
@@ -41,12 +42,14 @@ public abstract class Objeto{
 	
 	public abstract void customDestroy();
 	
-	public void step(){
+	public abstract void processKey(KEY key);
+	
+	public void step(KEY key){
 		alarmHandling();
 		alarmCode();
 		customStep();
 		// Collision?
-		// Process key?
+		processKey(key);
 	}
 	
 	private void alarmHandling(){
@@ -67,7 +70,6 @@ public abstract class Objeto{
 	private void alarmCode(){
 		for(int i : alarmsOff){
 			alarm(i);
-			System.out.println("Se ha llamado a alarm"+i);
 		}
 		
 		for(int i = 0; i < alarmsOff.size();){

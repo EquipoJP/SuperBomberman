@@ -3,6 +3,7 @@ package graphics.effects;
 import java.awt.Graphics;
 
 import graphics.D2.rooms.Room;
+import logic.Input.KEY;
 import logic.Objeto;
 
 public class IntroTemporizer extends Objeto{
@@ -36,6 +37,11 @@ public class IntroTemporizer extends Objeto{
 		if(alarmNo == 0){
 			destroy();
 		}
+	}
+
+	@Override
+	public void processKey(KEY key) {
+		// Nothing
 	}
 
 }

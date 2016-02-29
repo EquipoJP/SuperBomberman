@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 
 import graphics.D2.rooms.Room;
+import logic.Input.KEY;
 import logic.Objeto;
 import main.Initialization;
 
@@ -25,7 +26,7 @@ public class Player extends Objeto{
 	}
 
 	@Override
-	public void step() {
+	public void step(KEY key) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -49,6 +50,12 @@ public class Player extends Objeto{
 
 	@Override
 	public void alarm(int alarmNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void processKey(KEY key) {
 		// TODO Auto-generated method stub
 		
 	}

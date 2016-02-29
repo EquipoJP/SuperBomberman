@@ -6,6 +6,7 @@ package graphics.D2.rooms;
 import java.awt.Graphics;
 import java.util.List;
 
+import logic.Input.KEY;
 import logic.Objeto;
 
 /**
@@ -26,13 +27,13 @@ public class GameOverMenu extends Room{
 	}
 
 	@Override
-	public void action(int key) {
+	public void drawBackground(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void step() {
+	public void step(KEY key) {
 		// TODO Auto-generated method stub
 		
 	}
