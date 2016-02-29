@@ -76,11 +76,11 @@ public class Game extends Canvas implements Runnable {
 
 			if (delta >= 1) {
 				StatesMachine.stateMachine();
+				render();
 				updates++;
 				delta--;
 			}
 
-			render();
 			frames++;
 
 			if (System.currentTimeMillis() - timer > 1000) {

@@ -1,11 +1,9 @@
 package graphics.effects;
 
-import java.awt.Graphics;
-
 import graphics.D2.rooms.Room;
 import logic.Input.KEY;
-import main.Initialization;
 import logic.Objeto;
+import main.Initialization;
 
 public class Logo extends Objeto {
 
@@ -19,17 +17,11 @@ public class Logo extends Objeto {
 	}
 
 	@Override
-	public void customStep() {
+	public void customStep(KEY key) {
 	}
 
 	@Override
 	public void alarm(int alarmNo) {
-	}
-
-	@Override
-	public void render(Graphics g) {
-		g.drawImage(sprite_index.getSubsprites()[0], x - sprite_index.getCenterX(), y - sprite_index.getCenterY(),
-				null);
 	}
 
 	@Override

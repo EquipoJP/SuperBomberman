@@ -34,8 +34,8 @@ public class Initialization {
 	 *            name of the sprite
 	 * @return a map with the different sprites
 	 */
-	public static Map<String, BufferedImage[]> getSprites(String name) {
-		Map<String, BufferedImage[]> sprites = new HashMap<String, BufferedImage[]>();
+	public static Map<String, Sprite> getSprites(String name) {
+		Map<String, Sprite> sprites = new HashMap<String, Sprite>();
 
 		for (int i = 0; i < SPRITE_NAMES.length; i++) {
 			String section = name + "_" + SPRITE_NAMES[i];
@@ -58,7 +58,7 @@ public class Initialization {
 			}
 
 			BufferedImage[] sprSheet = Animation.getSpritesFromImage(sheet, frames, width, height);
-			sprites.put(SPRITE_NAMES[i], sprSheet);
+			sprites.put(SPRITE_NAMES[i], new Sprite(sprSheet, frames, width, height));
 		}
 
 		return sprites;

@@ -24,11 +24,11 @@ public class IntroTemporizer extends Objeto{
 
 	@Override
 	public void customDestroy() {
-		myRoom.addObjeto(new FadeOut(0,0,myRoom));
+		myRoom.addObjeto(new Fade(0,0,myRoom,true));
 	}
 
 	@Override
-	public void customStep() {
+	public void customStep(KEY key) {
 		// Nothing
 	}
 

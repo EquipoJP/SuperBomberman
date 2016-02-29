@@ -12,10 +12,15 @@ public abstract class Objeto{
 	public int x;
 	public int y;
 	public int depth;
+	
 	public Sprite sprite_index;
+	private int index;
+	
 	public Room myRoom;
+	
 	public int alarm[];
 	public int alarmsSet;
+	
 	private List<Integer> alarmsOff;
 	
 	public Objeto(int x, int y, Room r){
@@ -29,16 +34,28 @@ public abstract class Objeto{
 		alarmsSet = 0;
 		myRoom = r;
 		alarmsOff = new LinkedList<Integer>();
+		sprite_index = null;
+		index = -1;
 		create();
 	}
 	
 	public abstract void create();
 	
-	public abstract void customStep();
+	public abstract void customStep(KEY key);
 	
 	public abstract void alarm(int alarmNo);
 	
-	public abstract void render(Graphics g);
+	public void render(Graphics g){
+		if(sprite_index != null){
+			if(index < 0){
+				index = 0;
+			}
+			g.drawImage(sprite_index.getSubsprites()[index], x - sprite_index.getCenterX(), y - sprite_index.getCenterY(),
+				null);
+			
+			index = (index + 1) % sprite_index.getSubimages();
+		}
+	}
 	
 	public abstract void customDestroy();
 	
@@ -47,7 +64,7 @@ public abstract class Objeto{
 	public void step(KEY key){
 		alarmHandling();
 		alarmCode();
-		customStep();
+		customStep(key);
 		// Collision?
 		processKey(key);
 	}
