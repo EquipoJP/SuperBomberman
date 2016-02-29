@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import graphics.effects.FadeIn;
+import graphics.effects.FadeOut;
 import logic.Objeto;
 import main.Game;
 

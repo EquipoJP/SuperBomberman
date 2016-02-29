@@ -7,7 +7,7 @@ import logic.Objeto;
 
 public class IntroTemporizer extends Objeto{
 
-	private int alarm0 = -1;
+	private int alarm0;
 	
 	public IntroTemporizer(int x, int y, Room r) {
 		super(x, y, r);
@@ -15,7 +15,7 @@ public class IntroTemporizer extends Objeto{
 
 	@Override
 	public void create() {
-		alarm0 = 120;
+		alarm0 = 80;
 	}
 
 	@Override

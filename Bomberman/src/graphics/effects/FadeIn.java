@@ -14,7 +14,7 @@ public class FadeIn extends Objeto {
 
 	private BufferedImage curtain;
 	private float alpha = 1.0f;
-	private float resta = 0.0005f;
+	private float resta = 0.02f;
 
 	public FadeIn(int x, int y, Room r) {
 		super(x, y, r);
@@ -28,7 +28,6 @@ public class FadeIn extends Objeto {
 	public void create() {
 		// Create black curtain for further usage
 		curtain = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
@@ -51,6 +50,9 @@ public class FadeIn extends Objeto {
 
 	@Override
 	public void render(Graphics g) {
+		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
+		graphics.setPaint(new Color(0, 0, 0));
+		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
 		BufferedImage tmpImg = new BufferedImage(curtain.getWidth(), curtain.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = (Graphics2D) tmpImg.getGraphics();
 		g2d.setComposite(AlphaComposite.SrcOver.derive(alpha));
