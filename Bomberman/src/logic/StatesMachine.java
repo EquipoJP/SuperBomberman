@@ -30,7 +30,6 @@ public class StatesMachine {
 
 	/* private attributes */
 	private static STATE state = STATE.INTRO;
-	private static STATE next_state;
 	private static Input input;
 
 	/* different screens */
@@ -47,7 +46,6 @@ public class StatesMachine {
 	 */
 	public static void initStatesMachine(Input in) {
 		state = STATE.INTRO;
-		next_state = state;
 		input = in;
 		stateMachine();
 	}
@@ -89,7 +87,6 @@ public class StatesMachine {
 			break;
 		}
 
-		state = next_state;
 	}
 
 	public static void render(Graphics g) {
@@ -124,6 +121,11 @@ public class StatesMachine {
 		}
 	}
 
+	public static void goToRoom(STATE st){
+		state = st;
+		stateMachine();
+	}
+	
 	/**
 	 * Shows the introduction of the game
 	 * 

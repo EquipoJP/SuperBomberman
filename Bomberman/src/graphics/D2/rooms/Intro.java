@@ -11,7 +11,9 @@ import java.awt.image.BufferedImage;
 import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Logo;
+import logic.StatesMachine;
 import logic.Input.KEY;
+import logic.StatesMachine.STATE;
 import main.Game;
 
 /**
@@ -23,27 +25,40 @@ public class Intro extends Room {
 	public int x = 200;
 	public int y = 200;
 	public boolean created;
+	public boolean fadeOutCreated;
 
 	public Intro(int w, int h, String n) {
 		super(w, h, n);
 		addObjeto(new Fade(0,0,this,false));
 		addObjeto(new Logo(w/2,h/2,this));
 		created = false;
+		fadeOutCreated = false;
 	}
 
 	@Override
 	public void step(KEY key) {
-		boolean found = false;
+		boolean fadeInFound = false;
+		boolean fadeOutFound = false;
 		for(int i = 0; i < objetos.size(); i++){
 			if(objetos.get(i) instanceof Fade){
-				found = true;
+				Fade f = (Fade) objetos.get(i);
+				if(!f.isFadeOut())
+					fadeInFound = true;
+				else {
+					fadeOutCreated = true;
+					fadeOutFound = true;
+				}
 			}
 			objetos.get(i).step(key);
 		}
 		
-		if(found && !created){
+		if(fadeInFound && !created){
 			created = true;
 			objetos.add(new IntroTemporizer(0,0,this));
+		}
+		
+		if(!fadeOutFound && fadeOutCreated){
+			StatesMachine.goToRoom(STATE.MAIN_MENU);
 		}
 	}
 

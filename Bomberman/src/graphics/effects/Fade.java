@@ -98,4 +98,8 @@ public class Fade extends Objeto {
 	public void processKey(KEY key) {
 		// Nothing		
 	}
+	
+	public boolean isFadeOut(){
+		return sum;
+	}
 }
