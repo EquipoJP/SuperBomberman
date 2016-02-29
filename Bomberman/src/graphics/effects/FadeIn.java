@@ -1,4 +1,4 @@
-package logic.effects;
+package graphics.effects;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

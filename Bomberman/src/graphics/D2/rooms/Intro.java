@@ -9,8 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import graphics.effects.FadeIn;
 import logic.Objeto;
-import logic.effects.FadeIn;
 import main.Game;
 import main.Initialization;
 
