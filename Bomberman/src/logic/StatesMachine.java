@@ -29,35 +29,34 @@ public class StatesMachine {
 	};
 
 	/* private attributes */
-	private STATE state;
-	private STATE next_state;
-
-	private Input input;
+	private static STATE state = STATE.INTRO;
+	private static STATE next_state;
+	private static Input input;
 
 	/* different screens */
-	private Intro introScreen = null;
-	private MainMenu titleScreen = null;
-	private OptionsMenu optionScreen = null;
-	private RankMenu rankScreen = null;
-	private Game gameScreen = null;
-	private PauseMenu pauseScreen = null;
-	private GameOverMenu gameOverScreen = null;
+	private static Intro introScreen = null;
+	private static MainMenu titleScreen = null;
+	private static OptionsMenu optionScreen = null;
+	private static RankMenu rankScreen = null;
+	private static Game gameScreen = null;
+	private static PauseMenu pauseScreen = null;
+	private static GameOverMenu gameOverScreen = null;
 
 	/**
 	 * Creation of the states machine. It starts on the game's intro
 	 */
-	public StatesMachine(Input input) {
+	public static void initStatesMachine(Input in) {
 		state = STATE.INTRO;
 		next_state = state;
-		this.input = input;
-		intro(KEY.NO_KEY);
+		input = in;
+		stateMachine();
 	}
 
 	/**
 	 * One iteration of the states machine. An iteration represents a frame of
 	 * the game. This method will be called from GameLoop object.
 	 */
-	public void stateMachine() {
+	public static void stateMachine() {
 		Input.KEY key = input.getKey();
 
 		switch (state) {
@@ -93,7 +92,7 @@ public class StatesMachine {
 		state = next_state;
 	}
 
-	public void render(Graphics g) {
+	public static void render(Graphics g) {
 		switch (state) {
 		case INTRO:
 			introScreen.render(g);
@@ -130,7 +129,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void intro(KEY key) {
+	private static void intro(KEY key) {
 
 		if (introScreen == null) {
 			introScreen = new Intro(main.Game.WIDTH, main.Game.HEIGHT, "Intro");
@@ -143,7 +142,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void main_menu(KEY key) {
+	private static void main_menu(KEY key) {
 
 		if (titleScreen == null) {
 			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT, "Main menu", new ArrayList<Objeto>());
@@ -156,7 +155,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void options_menu(KEY key) {
+	private static void options_menu(KEY key) {
 
 		if (optionScreen == null) {
 			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT, "Options menu", new ArrayList<Objeto>());
@@ -169,7 +168,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void t_mode(KEY key) {
+	private static void t_mode(KEY key) {
 
 		if (gameScreen == null) {
 			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode");
@@ -182,7 +181,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void sb_mode(KEY key) {
+	private static void sb_mode(KEY key) {
 
 		if (gameScreen == null) {
 			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode");
@@ -195,7 +194,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void pause(KEY key) {
+	private static void pause(KEY key) {
 
 		if (pauseScreen == null) {
 			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT, "Pause", new ArrayList<Objeto>());
@@ -208,7 +207,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void ranks(KEY key) {
+	private static void ranks(KEY key) {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Ranks", new ArrayList<Objeto>());
@@ -221,7 +220,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void top10(KEY key) {
+	private static void top10(KEY key) {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10", new ArrayList<Objeto>());
@@ -233,7 +232,7 @@ public class StatesMachine {
 	 * 
 	 * @param key
 	 */
-	private void game_over(KEY key) {
+	private static void game_over(KEY key) {
 
 		if (gameOverScreen == null) {
 			gameOverScreen = new GameOverMenu(main.Game.WIDTH, main.Game.HEIGHT, "Game over", new ArrayList<Objeto>());

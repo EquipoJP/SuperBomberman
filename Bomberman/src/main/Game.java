@@ -21,7 +21,6 @@ public class Game extends Canvas implements Runnable {
 
 	public static JFrame frame;
 	public Input input;
-	public StatesMachine sm;
 
 	private boolean running = false;
 	private Thread thread;
@@ -53,7 +52,7 @@ public class Game extends Canvas implements Runnable {
 
 	private synchronized void init() {
 		input = new Input(this);
-		sm = new StatesMachine(input);
+		StatesMachine.initStatesMachine(input);
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class Game extends Canvas implements Runnable {
 			lastTime = now;
 
 			if (delta >= 1) {
-				sm.stateMachine();
+				StatesMachine.stateMachine();
 				updates++;
 				delta--;
 			}
@@ -110,7 +109,7 @@ public class Game extends Canvas implements Runnable {
 		///////////////////////////////////////////////////
 
 		Graphics gg = image.createGraphics();
-		sm.render(gg);
+		StatesMachine.render(gg);
 		gg.dispose();
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
