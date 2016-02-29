@@ -5,6 +5,7 @@ package graphics.D2.rooms;
 
 import java.awt.Graphics;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import logic.Objeto;
@@ -21,15 +22,21 @@ public abstract class Room {
 	public String name;
 	public List<Objeto> objetos;
 	
-	public Room(int w, int h, String n, List<Objeto> objs) {
+	public Room(int w, int h, String n) {
 		width = w;
 		height = h;
 		name = n;
+		objetos = new LinkedList<Objeto>();
 	}
 	
 	public void addObjeto(Objeto o){
 		objetos.add(o);
 		Collections.sort(objetos,new ObjetoComparator());
+	}
+	
+	public void destroy(Objeto o){
+		objetos.remove(o);
+		Collections.sort(objetos, new ObjetoComparator());
 	}
 	
 	/**
@@ -55,4 +62,5 @@ public abstract class Room {
 	 *            graphics section to paint
 	 */
 	public abstract void step();
+	
 }

@@ -10,17 +10,17 @@ import graphics.D2.rooms.Room;
 import logic.Objeto;
 import main.Game;
 
-public class FadeIn extends Objeto {
+public class FadeOut extends Objeto {
 
 	private BufferedImage curtain;
-	private float alpha = 1.0f;
-	private float resta = 0.0005f;
+	private float alpha = 0.0f;
+	private float suma = 0.0005f;
 
-	public FadeIn(int x, int y, Room r) {
+	public FadeOut(int x, int y, Room r) {
 		super(x, y, r);
 	}
 
-	public FadeIn(int x, int y, Room r, int depth) {
+	public FadeOut(int x, int y, Room r, int depth) {
 		super(x, y, r, depth);
 	}
 
@@ -28,7 +28,6 @@ public class FadeIn extends Objeto {
 	public void create() {
 		// Create black curtain for further usage
 		curtain = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
@@ -36,15 +35,15 @@ public class FadeIn extends Objeto {
 
 	@Override
 	public void step() {
-		if (alpha > 0) {
-			alpha = alpha - resta;
+		if (alpha < 1.0f) {
+			alpha = alpha + suma;
 		}
-		if (alpha < 0) {
-			alpha = 0;
+		if (alpha > 1.0f) {
+			alpha = 1.0f;
 		}
 		
-		// Destroy if alpha = 0
-		if(alpha==0){
+		// Destroy if alpha = 1
+		if(alpha == 1.0f){
 			destroy();
 		}
 	}
@@ -61,7 +60,7 @@ public class FadeIn extends Objeto {
 
 	@Override
 	public void customDestroy() {
-		myRoom.addObjeto(new IntroTemporizer(0,0,myRoom));
+		
 	}
 
 }

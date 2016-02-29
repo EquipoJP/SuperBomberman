@@ -133,9 +133,9 @@ public class StatesMachine {
 	private void intro(KEY key) {
 
 		if (introScreen == null) {
-			introScreen = new Intro(main.Game.WIDTH, main.Game.HEIGHT, "Intro", new ArrayList<Objeto>());
+			introScreen = new Intro(main.Game.WIDTH, main.Game.HEIGHT, "Intro");
 		}
-		// TODO complete the method
+		introScreen.step();
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class StatesMachine {
 	private void t_mode(KEY key) {
 
 		if (gameScreen == null) {
-			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode", new ArrayList<Objeto>());
+			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode");
 		}
 		// TODO complete the method
 	}
@@ -185,7 +185,7 @@ public class StatesMachine {
 	private void sb_mode(KEY key) {
 
 		if (gameScreen == null) {
-			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode", new ArrayList<Objeto>());
+			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode");
 		}
 		// TODO complete the method
 	}

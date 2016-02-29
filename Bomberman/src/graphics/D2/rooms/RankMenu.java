@@ -15,7 +15,7 @@ import logic.Objeto;
 public class RankMenu extends Room{
 
 	public RankMenu(int w, int h, String n, List<Objeto> objs) {
-		super(w, h, n, objs);
+		super(w, h, n);
 		// TODO Auto-generated constructor stub
 	}
 

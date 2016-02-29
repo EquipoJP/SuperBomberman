@@ -4,9 +4,6 @@
 package graphics.D2.rooms;
 
 import java.awt.Graphics;
-import java.util.List;
-
-import logic.Objeto;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -14,8 +11,8 @@ import logic.Objeto;
  */
 public class T_Game extends Game{
 
-	public T_Game(int w, int h, String n, List<Objeto> objs) {
-		super(w, h, n, objs);
+	public T_Game(int w, int h, String n) {
+		super(w, h, n);
 		// TODO Auto-generated constructor stub
 	}
 
