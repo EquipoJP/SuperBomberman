@@ -47,10 +47,10 @@ public class Player extends Objeto{
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
 			break;
 		case UP:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
+			sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
 			break;
 		case LEFT:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
+			sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
 			break;
 		case RIGHT:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);

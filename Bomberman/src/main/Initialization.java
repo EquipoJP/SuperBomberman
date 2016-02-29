@@ -23,7 +23,8 @@ public class Initialization {
 
 	/* attributes */
 	public static final String SPRITE_FILE = "resources/iniFiles/sprites.ini";
-	public static final String[] SPRITE_NAMES = { "IDLE", "WALKDOWN", "WALKSIDE", "WALKUP", "VICTORY" };
+	public static final String[] SPRITE_NAMES = { "IDLE", "WALKDOWN", "WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP",
+			"VICTORY" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 	public static final String[] SPRITES = { "WHITE_BOMBER" };
 
@@ -51,7 +52,6 @@ public class Initialization {
 
 			BufferedImage sheet = null;
 			try {
-				System.out.println(System.getProperty("user.dir") + "/resources/" + spriteSheet);
 				sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -82,6 +82,7 @@ public class Initialization {
 		int width = Integer.parseInt(strWidth);
 		int height = Integer.parseInt(strHeight);
 
-		return new Sprite(new File("resources/"+spriteSheet),frames,width/2,height/2,width,height);
+		return new Sprite(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet), frames, width / 2,
+				height / 2, width, height);
 	}
 }
