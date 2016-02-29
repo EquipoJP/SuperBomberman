@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import graphics.D2.rooms.Room;
+import logic.Input.KEY;
 import logic.Objeto;
 import main.Game;
 
@@ -64,6 +65,11 @@ public class FadeOut extends Objeto {
 
 	@Override
 	public void alarm(int alarmNo) {
+		// Nothing
+	}
+
+	@Override
+	public void processKey(KEY key) {
 		// Nothing
 	}
 

@@ -135,7 +135,7 @@ public class StatesMachine {
 		if (introScreen == null) {
 			introScreen = new Intro(main.Game.WIDTH, main.Game.HEIGHT, "Intro");
 		}
-		introScreen.step();
+		introScreen.step(key);
 	}
 
 	/**

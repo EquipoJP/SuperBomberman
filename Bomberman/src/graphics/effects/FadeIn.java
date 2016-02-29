@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import graphics.D2.rooms.Room;
+import logic.Input.KEY;
 import logic.Objeto;
 import main.Game;
 
@@ -31,6 +32,7 @@ public class FadeIn extends Objeto {
 
 	@Override
 	public void render(Graphics g) {
+		// Dibuja la cortina negra
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
@@ -44,7 +46,7 @@ public class FadeIn extends Objeto {
 
 	@Override
 	public void customDestroy() {
-		myRoom.addObjeto(new IntroTemporizer(0,0,myRoom));
+		// Nothing
 	}
 
 	@Override
@@ -64,7 +66,12 @@ public class FadeIn extends Objeto {
 
 	@Override
 	public void alarm(int alarmNo) {
-		
+		// Nothing
+	}
+
+	@Override
+	public void processKey(KEY key) {
+		// Nothing		
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import logic.Input.KEY;
 import logic.Objeto;
 import logic.ObjetoComparator;
 
@@ -38,14 +39,6 @@ public abstract class Room {
 		objetos.remove(o);
 		Collections.sort(objetos, new ObjetoComparator());
 	}
-	
-	/**
-	 * Method to process a key in the actual state of the room/screen
-	 * 
-	 * @param key
-	 *            key to be processed
-	 */
-	public abstract void action(int key);
 
 	/**
 	 * Method to paint the screen
@@ -53,7 +46,17 @@ public abstract class Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public abstract void render(Graphics g);
+	public void render(Graphics g){
+		drawBackground(g);
+		for(Objeto o : objetos){
+			o.render(g);
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public abstract void drawBackground(Graphics g);
 	
 	/**
 	 * Method to process a step in the actual room
@@ -61,6 +64,6 @@ public abstract class Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public abstract void step();
+	public abstract void step(KEY key);
 	
 }
