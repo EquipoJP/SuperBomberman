@@ -7,26 +7,13 @@ import logic.Objeto;
 
 public class IntroTemporizer extends Objeto{
 
-	private int alarm0;
-	
 	public IntroTemporizer(int x, int y, Room r) {
 		super(x, y, r);
 	}
 
 	@Override
 	public void create() {
-		alarm0 = 80;
-	}
-
-	@Override
-	public void step() {
-		if(alarm0 > 0){
-			alarm0--;
-		}
-		
-		if(alarm0 == 0){
-			destroy();
-		}
+		setAlarm(0,80);
 	}
 
 	@Override
@@ -37,6 +24,18 @@ public class IntroTemporizer extends Objeto{
 	@Override
 	public void customDestroy() {
 		myRoom.addObjeto(new FadeOut(0,0,myRoom));
+	}
+
+	@Override
+	public void customStep() {
+		// Nothing
+	}
+
+	@Override
+	public void alarm(int alarmNo) {
+		if(alarmNo == 0){
+			destroy();
+		}
 	}
 
 }

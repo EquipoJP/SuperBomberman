@@ -14,7 +14,7 @@ public class Player extends Objeto{
 	private Map<String, BufferedImage[]> sprites;
 
 	public Player(int x, int y, Room r, int depth) {
-		super(x, y, r, depth);
+		super(x, y, r);
 		sprites = Initialization.getSprites(Initialization.SPRITES[0]);
 	}
 	
@@ -38,6 +38,18 @@ public class Player extends Objeto{
 
 	@Override
 	public void customDestroy() {
+		
+	}
+
+	@Override
+	public void customStep() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void alarm(int alarmNo) {
+		// TODO Auto-generated method stub
 		
 	}
 

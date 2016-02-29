@@ -20,10 +20,6 @@ public class FadeOut extends Objeto {
 		super(x, y, r);
 	}
 
-	public FadeOut(int x, int y, Room r, int depth) {
-		super(x, y, r, depth);
-	}
-
 	@Override
 	public void create() {
 		// Create black curtain for further usage
@@ -31,21 +27,6 @@ public class FadeOut extends Objeto {
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
-	}
-
-	@Override
-	public void step() {
-		if (alpha < 1.0f) {
-			alpha = alpha + suma;
-		}
-		if (alpha > 1.0f) {
-			alpha = 1.0f;
-		}
-		
-		// Destroy if alpha = 1
-		if(alpha == 1.0f){
-			destroy();
-		}
 	}
 
 	@Override
@@ -64,6 +45,26 @@ public class FadeOut extends Objeto {
 	@Override
 	public void customDestroy() {
 		
+	}
+
+	@Override
+	public void customStep() {
+		if (alpha < 1.0f) {
+			alpha = alpha + suma;
+		}
+		if (alpha > 1.0f) {
+			alpha = 1.0f;
+		}
+		
+		// Destroy if alpha = 1
+		if(alpha == 1.0f){
+			destroy();
+		}
+	}
+
+	@Override
+	public void alarm(int alarmNo) {
+		// Nothing
 	}
 
 }

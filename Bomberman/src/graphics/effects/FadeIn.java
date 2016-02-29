@@ -20,10 +20,6 @@ public class FadeIn extends Objeto {
 		super(x, y, r);
 	}
 
-	public FadeIn(int x, int y, Room r, int depth) {
-		super(x, y, r, depth);
-	}
-
 	@Override
 	public void create() {
 		// Create black curtain for further usage
@@ -31,21 +27,6 @@ public class FadeIn extends Objeto {
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
-	}
-
-	@Override
-	public void step() {
-		if (alpha > 0) {
-			alpha = alpha - resta;
-		}
-		if (alpha < 0) {
-			alpha = 0;
-		}
-		
-		// Destroy if alpha = 0
-		if(alpha==0){
-			destroy();
-		}
 	}
 
 	@Override
@@ -64,6 +45,26 @@ public class FadeIn extends Objeto {
 	@Override
 	public void customDestroy() {
 		myRoom.addObjeto(new IntroTemporizer(0,0,myRoom));
+	}
+
+	@Override
+	public void customStep() {
+		if (alpha > 0) {
+			alpha = alpha - resta;
+		}
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		
+		// Destroy if alpha = 0
+		if(alpha==0){
+			destroy();
+		}
+	}
+
+	@Override
+	public void alarm(int alarmNo) {
+		
 	}
 
 }
