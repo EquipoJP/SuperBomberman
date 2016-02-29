@@ -3,7 +3,10 @@
  */
 package graphics.D2.rooms;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import logic.Input.KEY;
@@ -21,15 +24,15 @@ public class MainMenu extends Room{
 	}
 
 	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void drawBackground(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		BufferedImage curtain = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_RGB);
+		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
+		graphics.setPaint(new Color(255, 255, 255));
+		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
+		graphics.dispose();
+		g.drawImage(curtain, 0, 0, null);
 	}
 
 	@Override

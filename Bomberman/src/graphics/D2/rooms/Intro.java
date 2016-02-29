@@ -64,11 +64,12 @@ public class Intro extends Room {
 
 	@Override
 	public void drawBackground(Graphics g) {
-		BufferedImage curtain = new BufferedImage(Game.WIDTH, Game.HEIGHT,
+		BufferedImage curtain = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(255, 255, 255));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
+		graphics.dispose();
 		g.drawImage(curtain, 0, 0, null);
 	}
 
