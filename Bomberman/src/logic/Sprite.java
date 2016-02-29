@@ -12,8 +12,10 @@ public class Sprite {
 
 	private BufferedImage[] subsprites;
 	private int subimages;
+	
 	private int centerX;
 	private int centerY;
+	
 	private int width;
 	private int height;
 	
@@ -47,6 +49,15 @@ public class Sprite {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Sprite(BufferedImage[] sheet, int subImages, int width, int height){
+		this.subsprites = sheet;
+		this.subimages = subImages;
+		this.width = width;
+		this.height = height;
+		this.centerX = width/2;
+		this.centerY = height/2;
 	}
 	
 	public BufferedImage[] getSubsprites() {

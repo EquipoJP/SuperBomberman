@@ -8,11 +8,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import graphics.effects.FadeIn;
+import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Logo;
 import logic.Input.KEY;
-import logic.Objeto;
 import main.Game;
 
 /**
@@ -27,7 +26,7 @@ public class Intro extends Room {
 
 	public Intro(int w, int h, String n) {
 		super(w, h, n);
-		addObjeto(new FadeIn(0,0,this));
+		addObjeto(new Fade(0,0,this,false));
 		addObjeto(new Logo(w/2,h/2,this));
 		created = false;
 	}
@@ -36,7 +35,7 @@ public class Intro extends Room {
 	public void step(KEY key) {
 		boolean found = false;
 		for(int i = 0; i < objetos.size(); i++){
-			if(objetos.get(i) instanceof FadeIn){
+			if(objetos.get(i) instanceof Fade){
 				found = true;
 			}
 			objetos.get(i).step(key);
