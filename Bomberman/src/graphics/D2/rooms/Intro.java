@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import graphics.effects.FadeIn;
 import graphics.effects.IntroTemporizer;
+import graphics.effects.Logo;
 import logic.Input.KEY;
 import logic.Objeto;
 import main.Game;
@@ -26,6 +27,7 @@ public class Intro extends Room {
 	public Intro(int w, int h, String n) {
 		super(w, h, n);
 		addObjeto(new FadeIn(0,0,this));
+		addObjeto(new Logo(w/2,h/2,this));
 		created = false;
 	}
 

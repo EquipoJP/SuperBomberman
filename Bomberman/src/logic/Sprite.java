@@ -48,7 +48,7 @@ public class Sprite {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public BufferedImage[] getSubsprites() {
 		return subsprites;
 	}

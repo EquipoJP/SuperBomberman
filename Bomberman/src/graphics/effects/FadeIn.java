@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import graphics.D2.rooms.Room;
 import logic.Input.KEY;
+import logic.Global;
 import logic.Objeto;
 import main.Game;
 
@@ -19,12 +20,13 @@ public class FadeIn extends Objeto {
 
 	public FadeIn(int x, int y, Room r) {
 		super(x, y, r);
+		depth = Global.EFFECTS_DEPTH;
 	}
 
 	@Override
 	public void create() {
 		// Create black curtain for further usage
-		curtain = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		curtain = new BufferedImage(myRoom.width, myRoom.height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(0, 0, 0));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
