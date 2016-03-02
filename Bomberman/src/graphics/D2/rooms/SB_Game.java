@@ -6,6 +6,7 @@ package graphics.D2.rooms;
 import java.awt.Graphics;
 
 import logic.Input.KEY;
+import logic.characters.Player;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -16,24 +17,22 @@ public class SB_Game extends Game{
 	public SB_Game(int w, int h, String n) {
 		super(w, h, n);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		addObjeto(new Player(200, 200, this, 0));
+		System.out.println("SB_GAME");
 	}
 
 	@Override
 	public void drawBackground(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		g.clearRect(0, 0, width, height);
 	}
 
 	@Override
 	public void step(KEY key) {
 		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < objetos.size(); i++) {
+			objetos.get(i).step(key);
+		}
 	}
 
 }

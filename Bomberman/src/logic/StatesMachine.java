@@ -47,7 +47,6 @@ public class StatesMachine {
 	public static void initStatesMachine(Input in) {
 		state = STATE.INTRO;
 		input = in;
-		stateMachine();
 	}
 
 	/**
@@ -122,10 +121,44 @@ public class StatesMachine {
 	}
 
 	public static void goToRoom(STATE st){
+		clearRoom(state);
 		state = st;
 		stateMachine();
 	}
 	
+	private static void clearRoom(STATE st) {
+		// TODO Auto-generated method stub
+		switch (state) {
+		case INTRO:
+			introScreen = null;
+			break;
+		case MAIN_MENU:
+			titleScreen = null;
+			break;
+		case OPTIONS_MENU:
+			optionScreen = null;
+			break;
+		case T_MODE:
+			gameScreen = null;
+			break;
+		case SB_MODE:
+			gameScreen = null;
+			break;
+		case PAUSE:
+			pauseScreen = null;
+			break;
+		case RANKS:
+			rankScreen = null;
+			break;
+		case TOP10:
+			rankScreen = null;
+			break;
+		case GAME_OVER:
+			gameOverScreen = null;
+			break;
+		}
+	}
+
 	/**
 	 * Shows the introduction of the game
 	 * 
@@ -149,6 +182,7 @@ public class StatesMachine {
 		if (titleScreen == null) {
 			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT, "Main menu", new ArrayList<Objeto>());
 		}
+		titleScreen.step(key);
 		// TODO complete the method
 	}
 
@@ -162,6 +196,7 @@ public class StatesMachine {
 		if (optionScreen == null) {
 			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT, "Options menu", new ArrayList<Objeto>());
 		}
+		optionScreen.step(key);
 		// TODO complete the method
 	}
 
@@ -175,6 +210,7 @@ public class StatesMachine {
 		if (gameScreen == null) {
 			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode");
 		}
+		gameScreen.step(key);
 		// TODO complete the method
 	}
 
@@ -188,6 +224,7 @@ public class StatesMachine {
 		if (gameScreen == null) {
 			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode");
 		}
+		gameScreen.step(key);
 		// TODO complete the method
 	}
 
@@ -201,6 +238,7 @@ public class StatesMachine {
 		if (pauseScreen == null) {
 			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT, "Pause", new ArrayList<Objeto>());
 		}
+		pauseScreen.step(key);
 		// TODO complete the method
 	}
 
@@ -214,6 +252,7 @@ public class StatesMachine {
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Ranks", new ArrayList<Objeto>());
 		}
+		rankScreen.step(key);
 		// TODO complete the method
 	}
 
@@ -227,6 +266,7 @@ public class StatesMachine {
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10", new ArrayList<Objeto>());
 		}
+		rankScreen.step(key);
 	}
 
 	/**
@@ -239,6 +279,7 @@ public class StatesMachine {
 		if (gameOverScreen == null) {
 			gameOverScreen = new GameOverMenu(main.Game.WIDTH, main.Game.HEIGHT, "Game over", new ArrayList<Objeto>());
 		}
+		gameOverScreen.step(key);
 		// TODO complete the method
 	}
 }

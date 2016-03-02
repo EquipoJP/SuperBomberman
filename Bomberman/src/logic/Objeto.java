@@ -14,7 +14,7 @@ public abstract class Objeto{
 	public int depth;
 	
 	public Sprite sprite_index;
-	private int index;
+	protected int index;
 	
 	public Room myRoom;
 	

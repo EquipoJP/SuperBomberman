@@ -3,18 +3,18 @@
  */
 package graphics.D2.rooms;
 
+import graphics.effects.Fade;
+import graphics.effects.IntroTemporizer;
+import graphics.effects.Logo;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import graphics.effects.Fade;
-import graphics.effects.IntroTemporizer;
-import graphics.effects.Logo;
-import logic.StatesMachine;
 import logic.Input.KEY;
+import logic.StatesMachine;
 import logic.StatesMachine.STATE;
-import main.Game;
 
 /**
  * @author Patricia Lazaro Tello (554309)

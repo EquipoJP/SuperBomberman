@@ -45,21 +45,27 @@ public class Player extends Objeto{
 		switch(key){
 		case DOWN:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
+			index = 0;
 			break;
 		case UP:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
+			index = 0;
 			break;
 		case LEFT:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
+			index = 0;
 			break;
 		case RIGHT:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
+			index = 0;
 			break;
 		case SPACE:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+			index = 0;
 			break;
 		case NO_KEY:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+			index = 0;
 			break;
 		default:
 			break;
