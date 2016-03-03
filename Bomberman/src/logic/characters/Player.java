@@ -28,8 +28,8 @@ public class Player extends Objeto{
 		sprites = Initialization.getSprites(Initialization.SPRITES[0]);
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);	// idle
 		
-		modX = 5;
-		modY = 5;
+		modX = 3;
+		modY = 3;
 		
 		bombs = 0;
 		bombsLimit = 1;
@@ -42,30 +42,29 @@ public class Player extends Objeto{
 
 	@Override
 	public void customStep(KEY key) {
+		if(sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))){
+			image_speed = 0.1;
+		} else {
+			image_speed = 0.2;
+		}
 		switch(key){
 		case DOWN:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
-			index = 0;
 			break;
 		case UP:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
-			index = 0;
 			break;
 		case LEFT:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
-			index = 0;
 			break;
 		case RIGHT:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
-			index = 0;
 			break;
 		case SPACE:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
-			index = 0;
 			break;
 		case NO_KEY:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
-			index = 0;
 			break;
 		default:
 			break;
@@ -95,6 +94,8 @@ public class Player extends Objeto{
 			break;
 		case SPACE:
 			putBomb();
+			break;
+		case NO_KEY:
 			break;
 		default:
 			break;
