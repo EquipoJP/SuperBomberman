@@ -6,6 +6,7 @@ import java.util.List;
 
 import graphics.D2.rooms.Room;
 import logic.Input.KEY;
+import logic.collisions.BoundingBox;
 
 public abstract class Objeto {
 
@@ -15,6 +16,7 @@ public abstract class Objeto {
 
 	public Sprite sprite_index;
 	private Sprite prev_sprite_index;
+	public BoundingBox boundingBox;
 	protected double image_index;
 	protected double image_speed;
 
@@ -37,6 +39,7 @@ public abstract class Objeto {
 		myRoom = r;
 		alarmsOff = new LinkedList<Integer>();
 		sprite_index = null;
+		boundingBox = null;
 		prev_sprite_index = sprite_index;
 		image_index = -1;
 		image_speed = 1;
@@ -113,5 +116,30 @@ public abstract class Objeto {
 			alarm[alarmNo] = steps;
 			alarmsSet++;
 		}
+	}
+	
+	public void tryToMove(int modX, int modY){
+		BoundingBox bbAux = boundingBox.copy();
+		bbAux.update(modX, modY);
+		
+		if(collision()){
+			;
+		}
+		else{
+			boundingBox.update(modX, modY);
+			x = x + modX;
+			y = y + modY;
+		}
+	}
+	
+	public boolean collision(){
+		boolean collision = false;
+		List<Objeto> objects = myRoom.objetos;
+		
+		for(Objeto obj : objects){
+			collision = collision || BoundingBox.collision(boundingBox, obj.boundingBox);
+		}
+		
+		return collision;
 	}
 }

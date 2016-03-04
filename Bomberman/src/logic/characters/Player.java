@@ -6,6 +6,7 @@ import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
+import logic.collisions.PerspectiveBoundingBox;
 import main.Initialization;
 
 public class Player extends Objeto{
@@ -27,9 +28,10 @@ public class Player extends Objeto{
 	public void create() {
 		sprites = Initialization.getSprites(Initialization.SPRITES[0]);
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);	// idle
+		boundingBox = PerspectiveBoundingBox.createBounginBox(sprite_index);
 		
-		modX = 3;
-		modY = 3;
+		modX = 2;
+		modY = 2;
 		
 		bombs = 0;
 		bombsLimit = 1;
@@ -42,11 +44,6 @@ public class Player extends Objeto{
 
 	@Override
 	public void customStep(KEY key) {
-		if(sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))){
-			image_speed = 0.1;
-		} else {
-			image_speed = 0.2;
-		}
 		switch(key){
 		case DOWN:
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
@@ -69,6 +66,13 @@ public class Player extends Objeto{
 		default:
 			break;
 		}
+		
+		// change speed
+		if(sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))){
+			image_speed = 0.1;
+		} else {
+			image_speed = 0.2;
+		}
 	}
 
 	@Override
@@ -81,16 +85,16 @@ public class Player extends Objeto{
 	public void processKey(KEY key) {
 		switch(key){
 		case DOWN:
-			y = tryToMoveY(modY);
+			tryToMove(0, modY);
 			break;
 		case UP:
-			y = tryToMoveY(-modY);
+			tryToMove(0, -modY);
 			break;
 		case LEFT:
-			x = tryToMoveX(-modX);
+			tryToMove(-modX, 0);
 			break;
 		case RIGHT:
-			x = tryToMoveX(modX);
+			tryToMove(modX, 0);
 			break;
 		case SPACE:
 			putBomb();
@@ -100,20 +104,6 @@ public class Player extends Objeto{
 		default:
 			break;
 		}
-	}
-	
-	private int tryToMoveY(int distance){
-		int _y = y + distance;
-		// TODO check collision
-		
-		return _y;
-	}
-	
-	private int tryToMoveX (int distance){
-		int _x = x + distance;
-		// TODO check collision
-		
-		return _x;
 	}
 	
 	private void putBomb(){
