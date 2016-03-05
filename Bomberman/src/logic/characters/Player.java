@@ -28,7 +28,9 @@ public class Player extends Objeto{
 	public void create() {
 		sprites = Initialization.getSprites(Initialization.SPRITES[0]);
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);	// idle
-		boundingBox = PerspectiveBoundingBox.createBounginBox(sprite_index);
+		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
+		boundingBox.update(x, y);
+		System.out.println("PLAYER " + boundingBox);
 		
 		modX = 2;
 		modY = 2;

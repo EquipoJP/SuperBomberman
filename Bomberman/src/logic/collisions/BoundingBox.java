@@ -1,10 +1,12 @@
 package logic.collisions;
 
+import java.awt.Rectangle;
+
 public class BoundingBox {
 
 	private Point2D min;
 	private Point2D max;
-	
+
 	public BoundingBox(Point2D min, Point2D max) {
 		this.min = min;
 		this.max = max;
@@ -19,12 +21,28 @@ public class BoundingBox {
 		if (bb1 == null || bb2 == null) {
 			return false;
 		}
-
-		return Point2D.lessThan(bb1.min, bb2.min) && Point2D.greaterThan(bb1.max, bb2.min);
+		Rectangle r1 = bb1.getRectangle();
+		Rectangle r2 = bb2.getRectangle();
+		
+		return r1.intersects(r2);
 	}
-	
-	public BoundingBox copy(){
+
+	private Rectangle getRectangle() {
+		int x = min.getX();
+		int y = min.getY();
+		
+		int width = max.getX() - min.getX();
+		int height = max.getY() - min.getY();
+		
+		return new Rectangle(x, y, width, height);
+	}
+
+	public BoundingBox copy() {
 		return new BoundingBox(min, max);
 	}
 
+	@Override
+	public String toString() {
+		return "[ " + min.toString() + " , " + max.toString() + " ]";
+	}
 }

@@ -26,7 +26,7 @@ public class Initialization {
 	public static final String[] SPRITE_NAMES = { "IDLE", "WALKDOWN", "WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP",
 			"VICTORY" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
-	public static final String[] SPRITES = { "WHITE_BOMBER" };
+	public static final String[] SPRITES = { "WHITE_BOMBER", "BLUE_DOLL", "PINK_DOLL" };
 
 	/**
 	 * Method to get the sprites from an ini file
@@ -81,8 +81,15 @@ public class Initialization {
 		int frames = Integer.parseInt(strNoSprites);
 		int width = Integer.parseInt(strWidth);
 		int height = Integer.parseInt(strHeight);
-
-		return new Sprite(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet), frames, width / 2,
-				height / 2, width, height);
+		
+		BufferedImage sheet = null;
+		try {
+			sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		BufferedImage[] sprSheet = Animation.getSpritesFromImage(sheet, frames, width, height);
+		return new Sprite(sprSheet, frames, width, height);
 	}
 }

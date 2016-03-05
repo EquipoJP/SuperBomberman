@@ -119,14 +119,11 @@ public abstract class Objeto {
 	}
 	
 	public void tryToMove(int modX, int modY){
-		BoundingBox bbAux = boundingBox.copy();
-		bbAux.update(modX, modY);
-		
+		boundingBox.update(modX, modY);
 		if(collision()){
-			;
+			boundingBox.update(-modX, -modY);
 		}
 		else{
-			boundingBox.update(modX, modY);
 			x = x + modX;
 			y = y + modY;
 		}
@@ -137,7 +134,12 @@ public abstract class Objeto {
 		List<Objeto> objects = myRoom.objetos;
 		
 		for(Objeto obj : objects){
-			collision = collision || BoundingBox.collision(boundingBox, obj.boundingBox);
+			if(!obj.equals(this)){
+				collision = BoundingBox.collision(boundingBox, obj.boundingBox);
+				if(collision){
+					break;
+				}
+			}
 		}
 		
 		return collision;

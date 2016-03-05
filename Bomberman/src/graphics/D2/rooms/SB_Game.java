@@ -6,6 +6,8 @@ package graphics.D2.rooms;
 import java.awt.Graphics;
 
 import logic.Input.KEY;
+import logic.characters.BlueDoll;
+import logic.characters.PinkDoll;
 import logic.characters.Player;
 
 /**
@@ -18,6 +20,8 @@ public class SB_Game extends Game{
 		super(w, h, n);
 		// TODO Auto-generated constructor stub
 		addObjeto(new Player(200, 200, this, 0));
+		addObjeto(new PinkDoll(400, 400, this));
+		addObjeto(new BlueDoll(100, 400, this));
 		System.out.println("SB_GAME");
 	}
 
