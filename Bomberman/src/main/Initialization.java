@@ -27,6 +27,15 @@ public class Initialization {
 			"VICTORY" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 	public static final String[] SPRITES = { "WHITE_BOMBER", "BLUE_DOLL", "PINK_DOLL" };
+	
+	public static final int TILE_WIDTH = 16;
+	public static final int TILE_HEIGHT = 16;
+	
+	public static final int NO_TILES_HOR = 15;
+	public static final int NO_TILES_VERT = 15;
+	
+	public static final int MAP_WIDTH = TILE_WIDTH * NO_TILES_HOR;
+	public static final int MAP_HEIGHT = TILE_HEIGHT * NO_TILES_VERT;
 
 	/**
 	 * Method to get the sprites from an ini file
