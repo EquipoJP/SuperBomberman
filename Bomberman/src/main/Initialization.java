@@ -23,22 +23,24 @@ public class Initialization {
 
 	/* attributes */
 	public static final String SPRITE_FILE = "resources/iniFiles/sprites.ini";
+	public static final String MAP_FILE = "resources/iniFiles/maps.ini";
 	public static final String[] SPRITE_NAMES = { "IDLE", "WALKDOWN", "WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP",
 			"VICTORY" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
-	public static final String[] SPRITES = { "WHITE_BOMBER", "BLUE_DOLL", "PINK_DOLL" };
-	
+
+	public static enum SPRITES {
+		WHITE_BOMBER, BLUE_DOLL, PINK_DOLL
+	};
+
+	public static enum COLOR {
+		BLACK, RED, BLUE, PURPLE, GREEN
+	};
+
 	public static final int MAP_X_OFFSET = 10;
 	public static final int MAP_Y_OFFSET = 100;
-	
+
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
-	
-	public static final int NO_TILES_HOR = 15;
-	public static final int NO_TILES_VERT = 15;
-	
-	public static final int MAP_WIDTH = TILE_WIDTH * NO_TILES_HOR;
-	public static final int MAP_HEIGHT = TILE_HEIGHT * NO_TILES_VERT;
 
 	/**
 	 * Method to get the sprites from an ini file
@@ -76,6 +78,28 @@ public class Initialization {
 		return sprites;
 	}
 
+	public static Sprite getSpriteFromMap(String name) {
+
+		String spriteSheet = IniUtils.getValue(MAP_FILE, name, SPRITE_TERMS[0]);
+		String strWidth = IniUtils.getValue(MAP_FILE, name, SPRITE_TERMS[1]);
+		String strHeight = IniUtils.getValue(MAP_FILE, name, SPRITE_TERMS[2]);
+		String strNoSprites = IniUtils.getValue(MAP_FILE, name, SPRITE_TERMS[3]);
+
+		int frames = Integer.parseInt(strNoSprites);
+		int width = Integer.parseInt(strWidth);
+		int height = Integer.parseInt(strHeight);
+
+		BufferedImage sheet = null;
+		try {
+			sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		BufferedImage[] sprSheet = Animation.getSpritesFromImage(sheet, frames, width, height);
+		return new Sprite(sprSheet, frames, width, height);
+	}
+
 	/**
 	 * Method to get a sprite from an ini file
 	 * 
@@ -93,14 +117,14 @@ public class Initialization {
 		int frames = Integer.parseInt(strNoSprites);
 		int width = Integer.parseInt(strWidth);
 		int height = Integer.parseInt(strHeight);
-		
+
 		BufferedImage sheet = null;
 		try {
 			sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		BufferedImage[] sprSheet = Animation.getSpritesFromImage(sheet, frames, width, height);
 		return new Sprite(sprSheet, frames, width, height);
 	}

@@ -7,35 +7,42 @@ import java.util.List;
 import java.util.Scanner;
 
 import graphics.D2.rooms.Room;
+import logic.characters.Block;
+import logic.characters.BlueDoll;
+import logic.characters.PinkDoll;
+import logic.characters.Player;
+import main.Initialization;
+import main.Initialization.COLOR;
 
 public class Map {
-	
+
 	public static final char DESTROYABLE_BLOCK = '0';
 	public static final char BLOCK = '1';
 	public static final char ENEMY_BLUE = '2';
 	public static final char ENEMY_PINK = '3';
 	public static final char BOMBERMAN = '4';
-	
-	public static List<Objeto> getMap(String file, Room room){
+
+	public static List<Objeto> getMap(String file, Room room, Initialization.COLOR color) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
-		// TODO leer el file y parsearlo para crear los objetos donde toca
-		// (en Initialization hay variables para tile width, height y map width...)
-		
+
+		int width = 0;
+		int height = 0;
+
 		try {
 			Scanner s = new Scanner(new File(System.getProperty("user.dir") + "/resources/" + file));
-			
+
 			int row = 0;
-			while(s.hasNextLine()){
+			while (s.hasNextLine()) {
 				String str = s.nextLine();
-				
-				for(int col = 0; col < str.length(); col++){
+
+				for (int col = 0; col < str.length(); col++) {
 					char c = str.charAt(col);
-					switch(c){
+					switch (c) {
 					case DESTROYABLE_BLOCK:
 						objetos.add(createDestroyable(row, col, room));
 						break;
 					case BLOCK:
-						objetos.add(createBlock(row, col, room));
+						objetos.add(createBlock(row, col, room, color));
 						break;
 					case ENEMY_BLUE:
 						objetos.add(createBlueEnemy(row, col, room));
@@ -48,42 +55,71 @@ public class Map {
 						break;
 					}
 				}
-				
+
+				width = str.length();
+
 				row++;
 			}
-			
+
+			height = row;
+
 			s.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		System.out.println(width + " " + height);
+		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
+				width * Initialization.TILE_WIDTH, height * Initialization.TILE_HEIGHT));
+
 		return objetos;
 	}
 
 	private static Objeto createDestroyable(int row, int col, Room room) {
 		// TODO Auto-generated method stub
+		int x = getX(row);
+		int y = getY(col);
+
 		return null;
 	}
 
-	private static Objeto createBlock(int row, int col, Room room) {
-		// TODO Auto-generated method stub
-		return null;
+	private static Objeto createBlock(int row, int col, Room room, COLOR color) {
+		int x = getX(row);
+		int y = getY(col);
+
+		return new Block(x, y, room, color);
 	}
 
 	private static Objeto createBlueEnemy(int row, int col, Room room) {
 		// TODO Auto-generated method stub
-		return null;
+		int x = getX(row);
+		int y = getY(col);
+
+		return new BlueDoll(x, y, room);
 	}
 
 	private static Objeto createPinkEnemy(int row, int col, Room room) {
 		// TODO Auto-generated method stub
-		return null;
+		int x = getX(row);
+		int y = getY(col);
+
+		return new PinkDoll(x, y, room);
 	}
 
 	private static Objeto createBomberman(int row, int col, Room room) {
 		// TODO Auto-generated method stub
-		return null;
+		int x = getX(row);
+		int y = getY(col);
+
+		return new Player(x, y, room, 0);
 	}
 
+	private static int getX(int row) {
+		return Initialization.MAP_X_OFFSET + row * Initialization.TILE_WIDTH;
+	}
+
+	private static int getY(int col) {
+		return Initialization.MAP_Y_OFFSET + col * Initialization.TILE_HEIGHT;
+	}
 }

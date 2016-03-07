@@ -17,7 +17,7 @@ public class PinkDoll extends Enemy {
 	public void create() {
 		super.create();
 
-		sprite_index = Initialization.getSprite(Initialization.SPRITES[2]);
+		sprite_index = Initialization.getSprite(Initialization.SPRITES.PINK_DOLL.toString());
 		image_speed = 0.05;
 		
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);

@@ -3,23 +3,22 @@ package logic.characters;
 import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.Objeto;
-import logic.collisions.NoPerspectiveBoundingBox;
 import main.Initialization;
+import main.Initialization.COLOR;
 
-public class Block extends Objeto{
-	
-	public Block(int x, int y, Room r, Initialization.COLOR c) {
+public class Tile extends Objeto{
+
+	public Tile(int x, int y, Room r, COLOR c) {
 		super(x, y, r);
 		
-		sprite_index = Initialization.getSpriteFromMap(c.toString() + "_BLOCK");
+		sprite_index = Initialization.getSpriteFromMap(c.toString() + "_TILE");
 		image_speed = 0;
-
-		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
-		boundingBox.update(x, y);
 	}
 
 	@Override
 	public void create() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

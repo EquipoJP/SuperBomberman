@@ -4,24 +4,41 @@
 package graphics.D2.rooms;
 
 import java.awt.Graphics;
+import java.util.List;
 
 import logic.Input.KEY;
-import logic.characters.BlueDoll;
-import logic.characters.PinkDoll;
-import logic.characters.Player;
+import logic.Level;
+import logic.Map;
+import logic.Objeto;
+import logic.Sprite;
+import main.Initialization;
+import main.Initialization.COLOR;
 
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
-public class SB_Game extends Game{
+public class SB_Game extends Game {
+
+	private Sprite tiles;
+	private Level level;
 
 	public SB_Game(int w, int h, String n) {
 		super(w, h, n);
-		// TODO Auto-generated constructor stub
-		addObjeto(new Player(200, 200, this, 0));
-		addObjeto(new PinkDoll(400, 400, this));
-		addObjeto(new BlueDoll(100, 400, this));
+
+		String file = "maps/level1.txt";
+		COLOR c = Initialization.COLOR.GREEN;
+
+		tiles = Initialization.getSpriteFromMap(c.toString() + "_TILE");
+		List<Objeto> objetos = Map.getMap(file, this, c);
+
+		for (Objeto obj : objetos) {
+			if (obj instanceof Level) {
+				level = (Level) obj;
+			} else {
+				addObjeto(obj);
+			}
+		}
 		System.out.println("SB_GAME");
 	}
 
@@ -29,6 +46,14 @@ public class SB_Game extends Game{
 	public void drawBackground(Graphics g) {
 		// TODO Auto-generated method stub
 		g.clearRect(0, 0, width, height);
+
+		if (level != null) {
+			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles.getWidth()) {
+				for (int y = level.mapInitY; y < level.mapInitY + level.mapHeight; y += tiles.getHeight()) {
+					g.drawImage(tiles.getSubsprites()[0], x - tiles.getCenterX(), y - tiles.getCenterY(), null);
+				}
+			}
+		}
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class Player extends Objeto{
 	
 	@Override
 	public void create() {
-		sprites = Initialization.getSprites(Initialization.SPRITES[0]);
+		sprites = Initialization.getSprites(Initialization.SPRITES.WHITE_BOMBER.toString());
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);	// idle
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
