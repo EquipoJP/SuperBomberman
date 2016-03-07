@@ -28,6 +28,9 @@ public class Initialization {
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 	public static final String[] SPRITES = { "WHITE_BOMBER", "BLUE_DOLL", "PINK_DOLL" };
 	
+	public static final int MAP_X_OFFSET = 10;
+	public static final int MAP_Y_OFFSET = 100;
+	
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
 	
