@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
 
+import graphics.D2.rooms.Game;
 import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.collisions.BoundingBox;
@@ -74,11 +75,24 @@ public abstract class Objeto {
 	public abstract void processKey(KEY key);
 
 	public void step(KEY key) {
+		int oldX = x;
+		int oldY = y;
+		
 		alarmHandling();
 		alarmCode();
 		customStep(key);
 		// Collision?
 		processKey(key);
+		
+		if(myRoom instanceof Game){
+			updatePosition(oldX, oldY, x, y);
+		}
+	}
+
+	private void updatePosition(int oldX, int oldY, int newX, int newY) {
+		Game g = (Game) myRoom;
+		g.map.updatePosition(oldX, oldY, null);
+		g.map.updatePosition(newX, newY, this);
 	}
 
 	private void alarmHandling() {
