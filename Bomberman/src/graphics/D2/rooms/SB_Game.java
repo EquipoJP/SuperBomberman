@@ -10,7 +10,7 @@ import logic.Input.KEY;
 import logic.Level;
 import logic.Map;
 import logic.Objeto;
-import logic.TileMap;
+import logic.Sprite;
 import main.Initialization;
 import main.Initialization.COLOR;
 
@@ -19,6 +19,9 @@ import main.Initialization.COLOR;
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public class SB_Game extends Game {
+
+	private Sprite tiles;
+	private Level level;
 
 	public SB_Game(int w, int h, String n) {
 		super(w, h, n);
@@ -36,10 +39,6 @@ public class SB_Game extends Game {
 				addObjeto(obj);
 			}
 		}
-		
-		objetos.remove(level);
-		map = new TileMap(objetos, level);
-		
 		System.out.println("SB_GAME");
 	}
 

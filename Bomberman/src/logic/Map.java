@@ -16,11 +16,11 @@ import main.Initialization.COLOR;
 
 public class Map {
 
+	public static final char DESTROYABLE_BLOCK = '0';
 	public static final char BLOCK = '1';
 	public static final char ENEMY_BLUE = '2';
 	public static final char ENEMY_PINK = '3';
 	public static final char BOMBERMAN = '4';
-	public static final char DESTROYABLE_BLOCK = '5';
 
 	public static List<Objeto> getMap(String file, Room room, Initialization.COLOR color) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
