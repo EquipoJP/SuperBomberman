@@ -29,7 +29,7 @@ public class Initialization {
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 
 	public static enum SPRITES {
-		WHITE_BOMBER, BLUE_DOLL, PINK_DOLL
+		WHITE_BOMBER, BLUE_DOLL, PINK_DOLL, EXPLOSION
 	};
 
 	public static enum COLOR {
