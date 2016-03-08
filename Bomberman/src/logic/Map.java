@@ -9,6 +9,7 @@ import java.util.Scanner;
 import graphics.D2.rooms.Room;
 import logic.characters.Block;
 import logic.characters.BlueDoll;
+import logic.characters.DestroyableBlock;
 import logic.characters.PinkDoll;
 import logic.characters.Player;
 import main.Initialization;
@@ -81,7 +82,7 @@ public class Map {
 		int x = getX(row);
 		int y = getY(col);
 
-		return null;
+		return new DestroyableBlock(x, y, room);
 	}
 
 	private static Objeto createBlock(int row, int col, Room room, COLOR color) {
@@ -115,11 +116,19 @@ public class Map {
 		return new Player(x, y, room, 0);
 	}
 
-	private static int getX(int row) {
+	public static int getX(int row) {
 		return Initialization.MAP_X_OFFSET + row * Initialization.TILE_WIDTH;
 	}
 
-	private static int getY(int col) {
+	public static int getY(int col) {
 		return Initialization.MAP_Y_OFFSET + col * Initialization.TILE_HEIGHT;
+	}
+	
+	public static int getRow(int x) {
+		return (x - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
+	}
+
+	public static int getCol(int y) {
+		return (y - Initialization.MAP_Y_OFFSET) / Initialization.TILE_HEIGHT;
 	}
 }

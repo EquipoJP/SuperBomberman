@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int HEIGHT = 600;
 	public static final String TITLE = "Super Bomberman";
 	public static final int NUM_BUFFERS = 3;
+	public static final double FPS = 60.0;
 
 	public static JFrame frame;
 	public Input input;
