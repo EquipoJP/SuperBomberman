@@ -32,6 +32,8 @@ public class MainMenu extends Room {
 	private static final int PADDING_BORDER = 25;
 	private static final int INTERBUTTON_BORDER = 25;
 	private static final int TITLEBUTTON_BORDER = 64;
+	
+	private KEY lastKey;
 
 	public MainMenu(int w, int h, String n, Sprite background) {
 		super(w, h, n);
@@ -45,6 +47,8 @@ public class MainMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
+		
+		lastKey = KEY.NO_KEY;
 
 		System.out.println("MAIN MENU");
 	}
@@ -96,14 +100,18 @@ public class MainMenu extends Room {
 	}
 	
 	private void next(){
-		int no = (selected + 1) % menuButtons.length;
-		select(no);
+		if(lastKey != KEY.DOWN){
+			int no = (selected + 1) % menuButtons.length;
+			select(no);
+		}
 	}
 	
 	private void previous(){
-		// -1 % 5 = -1. With this thing it gets 4
-		int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
-		select(no);
+		if(lastKey != KEY.UP){
+			// -1 % 5 = -1. With this thing it gets 4
+			int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
+			select(no);
+		}
 	}
 
 	private void confirm() {
@@ -155,6 +163,8 @@ public class MainMenu extends Room {
 		default:
 			break;
 		}
+		
+		lastKey = key;
 	}
 	
 }
