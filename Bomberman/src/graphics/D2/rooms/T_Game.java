@@ -3,7 +3,6 @@
  */
 package graphics.D2.rooms;
 
-import logic.Input.KEY;
 import main.Initialization.COLOR;
 
 /**
@@ -15,12 +14,6 @@ public class T_Game extends Game{
 	public T_Game(int w, int h, String n, String file, COLOR color) {
 		super(w, h, n, file, color);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void step(KEY key) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

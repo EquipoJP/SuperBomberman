@@ -9,7 +9,7 @@ public class Logo extends Objeto {
 
 	public Logo(int x, int y, Room r) {
 		super(x, y, r);
-		sprite_index = Initialization.getSprite("LOGO");
+		sprite_index = Initialization.getSpriteFromSprites("LOGO");
 	}
 
 	@Override

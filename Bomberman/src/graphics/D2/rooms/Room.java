@@ -67,6 +67,10 @@ public abstract class Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public abstract void step(KEY key);
+	public void step(KEY key){
+		for (int i = 0; i < objetos.size(); i++) {
+			objetos.get(i).step(key);
+		}
+	}
 	
 }

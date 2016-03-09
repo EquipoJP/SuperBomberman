@@ -3,7 +3,6 @@
  */
 package graphics.D2.rooms;
 
-import logic.Input.KEY;
 import main.Initialization.COLOR;
 
 /**
@@ -16,14 +15,6 @@ public class SB_Game extends Game {
 		super(w, h, n, file, color);
 
 		System.out.println("SB_GAME");
-	}
-
-	@Override
-	public void step(KEY key) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < objetos.size(); i++) {
-			objetos.get(i).step(key);
-		}
 	}
 
 }

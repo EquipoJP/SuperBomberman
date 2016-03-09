@@ -14,7 +14,7 @@ public class BlueDoll extends Enemy {
 	public void create() {
 		super.create();
 
-		sprite_index = Initialization.getSprite(Initialization.SPRITES.BLUE_DOLL.toString());
+		sprite_index = Initialization.getSpriteFromSprites(Initialization.SPRITES.BLUE_DOLL.toString());
 		image_speed = 0.05;
 
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);

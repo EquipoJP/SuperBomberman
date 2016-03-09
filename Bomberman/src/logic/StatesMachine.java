@@ -3,6 +3,7 @@
  */
 package logic;
 
+import graphics.D2.rooms.Credits;
 import graphics.D2.rooms.Game;
 import graphics.D2.rooms.GameOverMenu;
 import graphics.D2.rooms.Intro;
@@ -27,7 +28,7 @@ public class StatesMachine {
 
 	/* machine's states */
 	public enum STATE {
-		INTRO, MAIN_MENU, OPTIONS_MENU, T_MODE, SB_MODE, PAUSE, GAME_OVER, RANKS, TOP10
+		INTRO, MAIN_MENU, OPTIONS_MENU, T_MODE, SB_MODE, PAUSE, GAME_OVER, RANKS, TOP10, CREDITS
 	};
 
 	/* private attributes */
@@ -42,6 +43,7 @@ public class StatesMachine {
 	private static Game gameScreen = null;
 	private static PauseMenu pauseScreen = null;
 	private static GameOverMenu gameOverScreen = null;
+	private static Credits credits = null;
 
 	/**
 	 * Creation of the states machine. It starts on the game's intro
@@ -86,6 +88,11 @@ public class StatesMachine {
 		case GAME_OVER:
 			game_over(key);
 			break;
+		case CREDITS:
+			credits(key);
+			break;
+		default:
+			break;
 		}
 
 	}
@@ -119,15 +126,20 @@ public class StatesMachine {
 		case GAME_OVER:
 			gameOverScreen.render(g);
 			break;
+		case CREDITS:
+			credits.render(g);
+			break;
+		default:
+			break;
 		}
 	}
 
-	public static void goToRoom(STATE st){
+	public static void goToRoom(STATE st) {
 		clearRoom(state);
 		state = st;
 		stateMachine();
 	}
-	
+
 	private static void clearRoom(STATE st) {
 		// TODO Auto-generated method stub
 		switch (state) {
@@ -158,6 +170,11 @@ public class StatesMachine {
 		case GAME_OVER:
 			gameOverScreen = null;
 			break;
+		case CREDITS:
+			credits = null;
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -182,9 +199,10 @@ public class StatesMachine {
 	private static void main_menu(KEY key) {
 
 		if (titleScreen == null) {
-			//////////////////////////////////////////////////////////////////////////////////
-			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT, "Main menu", null);
-			//////////////////////////////////////////////////////////////////////////////////
+			// ////////////////////////////////////////////////////////////////////////////////
+			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Main menu", null);
+			// ////////////////////////////////////////////////////////////////////////////////
 		}
 		titleScreen.step(key);
 		// TODO complete the method
@@ -198,7 +216,8 @@ public class StatesMachine {
 	private static void options_menu(KEY key) {
 
 		if (optionScreen == null) {
-			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT, "Options menu");
+			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Options menu");
 		}
 		optionScreen.step(key);
 		// TODO complete the method
@@ -212,11 +231,12 @@ public class StatesMachine {
 	private static void t_mode(KEY key) {
 
 		if (gameScreen == null) {
-			//////////////////////////////////////////
+			// ////////////////////////////////////////
 			String file = "maps/level1.txt";
 			COLOR c = Initialization.COLOR.GREEN;
-			//////////////////////////////////////////
-			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode", file, c);
+			// ////////////////////////////////////////
+			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT,
+					"T mode", file, c);
 		}
 		gameScreen.step(key);
 		// TODO complete the method
@@ -230,11 +250,12 @@ public class StatesMachine {
 	private static void sb_mode(KEY key) {
 
 		if (gameScreen == null) {
-			///////////////////////////////////////
+			// /////////////////////////////////////
 			String file = "maps/level1.txt";
 			COLOR c = Initialization.COLOR.GREEN;
-			//////////////////////////////////////
-			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode", file, c);
+			// ////////////////////////////////////
+			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT,
+					"Super Bomber mode", file, c);
 		}
 		gameScreen.step(key);
 		// TODO complete the method
@@ -248,7 +269,8 @@ public class StatesMachine {
 	private static void pause(KEY key) {
 
 		if (pauseScreen == null) {
-			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT, "Pause");
+			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Pause");
 		}
 		pauseScreen.step(key);
 		// TODO complete the method
@@ -262,7 +284,8 @@ public class StatesMachine {
 	private static void ranks(KEY key) {
 
 		if (rankScreen == null) {
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Ranks");
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Ranks");
 		}
 		rankScreen.step(key);
 		// TODO complete the method
@@ -276,7 +299,8 @@ public class StatesMachine {
 	private static void top10(KEY key) {
 
 		if (rankScreen == null) {
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10");
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Top10");
 		}
 		rankScreen.step(key);
 	}
@@ -289,9 +313,21 @@ public class StatesMachine {
 	private static void game_over(KEY key) {
 
 		if (gameOverScreen == null) {
-			gameOverScreen = new GameOverMenu(main.Game.WIDTH, main.Game.HEIGHT, "Game over");
+			gameOverScreen = new GameOverMenu(main.Game.WIDTH,
+					main.Game.HEIGHT, "Game over");
 		}
 		gameOverScreen.step(key);
+		// TODO complete the method
+	}
+
+	private static void credits(KEY key) {
+
+		if (credits == null) {
+			// ////////////////////////////////////////////////////////////////////////////////
+			credits = new Credits(main.Game.WIDTH, main.Game.HEIGHT, "Credits");
+			// ////////////////////////////////////////////////////////////////////////////////
+		}
+		credits.step(key);
 		// TODO complete the method
 	}
 }
