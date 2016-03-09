@@ -3,9 +3,8 @@
  */
 package graphics.D2.rooms;
 
-import java.awt.Graphics;
-
 import logic.Input.KEY;
+import main.Initialization.COLOR;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -13,21 +12,9 @@ import logic.Input.KEY;
  */
 public class T_Game extends Game{
 
-	public T_Game(int w, int h, String n) {
-		super(w, h, n);
+	public T_Game(int w, int h, String n, String file, COLOR color) {
+		super(w, h, n, file, color);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void drawBackground(Graphics g) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -3,15 +3,52 @@
  */
 package graphics.D2.rooms;
 
+import java.awt.Graphics;
+import java.util.List;
+
+import logic.Level;
+import logic.Map;
+import logic.Objeto;
+import logic.Sprite;
+import main.Initialization;
+import main.Initialization.COLOR;
+
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public abstract class Game extends Room {
+	
+	protected Sprite tiles;
+	protected Level level;
 
-	public Game(int w, int h, String n) {
+	public Game(int w, int h, String n, String file, COLOR color) {
 		super(w, h, n);
-		// TODO Auto-generated constructor stub
+		
+		tiles = Initialization.getSpriteFromMap(color.toString() + "_TILE");
+		List<Objeto> objetos = Map.getMap(file, this, color);
+
+		for (Objeto obj : objetos) {
+			if (obj instanceof Level) {
+				level = (Level) obj;
+			} else {
+				addObjeto(obj);
+			}
+		}
+	}
+	
+	@Override
+	public void drawBackground(Graphics g) {
+		// TODO Auto-generated method stub
+		g.clearRect(0, 0, width, height);
+
+		if (level != null) {
+			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles.getWidth()) {
+				for (int y = level.mapInitY; y < level.mapInitY + level.mapHeight; y += tiles.getHeight()) {
+					g.drawImage(tiles.getSubsprites()[0], x - tiles.getCenterX(), y - tiles.getCenterY(), null);
+				}
+			}
+		}
 	}
 
 }

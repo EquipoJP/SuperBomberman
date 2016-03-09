@@ -3,9 +3,6 @@
  */
 package logic;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
-
 import graphics.D2.rooms.Game;
 import graphics.D2.rooms.GameOverMenu;
 import graphics.D2.rooms.Intro;
@@ -15,7 +12,12 @@ import graphics.D2.rooms.PauseMenu;
 import graphics.D2.rooms.RankMenu;
 import graphics.D2.rooms.SB_Game;
 import graphics.D2.rooms.T_Game;
+
+import java.awt.Graphics;
+
 import logic.Input.KEY;
+import main.Initialization;
+import main.Initialization.COLOR;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -180,7 +182,9 @@ public class StatesMachine {
 	private static void main_menu(KEY key) {
 
 		if (titleScreen == null) {
-			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT, "Main menu", new ArrayList<Objeto>());
+			//////////////////////////////////////////////////////////////////////////////////
+			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT, "Main menu", null);
+			//////////////////////////////////////////////////////////////////////////////////
 		}
 		titleScreen.step(key);
 		// TODO complete the method
@@ -194,7 +198,7 @@ public class StatesMachine {
 	private static void options_menu(KEY key) {
 
 		if (optionScreen == null) {
-			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT, "Options menu", new ArrayList<Objeto>());
+			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT, "Options menu");
 		}
 		optionScreen.step(key);
 		// TODO complete the method
@@ -208,7 +212,11 @@ public class StatesMachine {
 	private static void t_mode(KEY key) {
 
 		if (gameScreen == null) {
-			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode");
+			//////////////////////////////////////////
+			String file = "maps/level1.txt";
+			COLOR c = Initialization.COLOR.GREEN;
+			//////////////////////////////////////////
+			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT, "T mode", file, c);
 		}
 		gameScreen.step(key);
 		// TODO complete the method
@@ -222,7 +230,11 @@ public class StatesMachine {
 	private static void sb_mode(KEY key) {
 
 		if (gameScreen == null) {
-			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode");
+			///////////////////////////////////////
+			String file = "maps/level1.txt";
+			COLOR c = Initialization.COLOR.GREEN;
+			//////////////////////////////////////
+			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT, "Super Bomber mode", file, c);
 		}
 		gameScreen.step(key);
 		// TODO complete the method
@@ -236,7 +248,7 @@ public class StatesMachine {
 	private static void pause(KEY key) {
 
 		if (pauseScreen == null) {
-			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT, "Pause", new ArrayList<Objeto>());
+			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT, "Pause");
 		}
 		pauseScreen.step(key);
 		// TODO complete the method
@@ -250,7 +262,7 @@ public class StatesMachine {
 	private static void ranks(KEY key) {
 
 		if (rankScreen == null) {
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Ranks", new ArrayList<Objeto>());
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Ranks");
 		}
 		rankScreen.step(key);
 		// TODO complete the method
@@ -264,7 +276,7 @@ public class StatesMachine {
 	private static void top10(KEY key) {
 
 		if (rankScreen == null) {
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10", new ArrayList<Objeto>());
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10");
 		}
 		rankScreen.step(key);
 	}
@@ -277,7 +289,7 @@ public class StatesMachine {
 	private static void game_over(KEY key) {
 
 		if (gameOverScreen == null) {
-			gameOverScreen = new GameOverMenu(main.Game.WIDTH, main.Game.HEIGHT, "Game over", new ArrayList<Objeto>());
+			gameOverScreen = new GameOverMenu(main.Game.WIDTH, main.Game.HEIGHT, "Game over");
 		}
 		gameOverScreen.step(key);
 		// TODO complete the method

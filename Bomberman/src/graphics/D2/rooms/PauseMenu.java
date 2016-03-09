@@ -4,10 +4,8 @@
 package graphics.D2.rooms;
 
 import java.awt.Graphics;
-import java.util.List;
 
 import logic.Input.KEY;
-import logic.Objeto;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -15,7 +13,7 @@ import logic.Objeto;
  */
 public class PauseMenu extends Room {
 
-	public PauseMenu(int w, int h, String n, List<Objeto> objs) {
+	public PauseMenu(int w, int h, String n) {
 		super(w, h, n);
 		// TODO Auto-generated constructor stub
 	}
