@@ -36,6 +36,22 @@ public class BoundingBox {
 		
 		return new Rectangle(x, y, width, height);
 	}
+	
+	public int getX(){
+		return min.getX();
+	}
+	
+	public int getY(){
+		return min.getY();
+	}
+	
+	public int getWidth(){
+		return max.getX() - min.getX();
+	}
+	
+	public int getHeight(){
+		return max.getY() - min.getY();
+	}
 
 	public BoundingBox copy() {
 		return new BoundingBox(min, max);

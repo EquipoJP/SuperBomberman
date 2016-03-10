@@ -39,12 +39,12 @@ public class Initialization {
 		BLACK, RED, BLUE, PURPLE, GREEN
 	};
 
-	public static final int MAP_X_OFFSET = 10;
+	public static final int TILE_WIDTH = 32;
+	public static final int TILE_HEIGHT = 32;
+
+	public static final int MAP_X_OFFSET = 25;
 	public static final int MAP_Y_OFFSET = 100;
-
-	public static final int TILE_WIDTH = 16;
-	public static final int TILE_HEIGHT = 16;
-
+	
 	/**
 	 * Method to get the sprites from an ini file
 	 * 

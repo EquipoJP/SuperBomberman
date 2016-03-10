@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,6 +67,12 @@ public abstract class Objeto {
 					y - sprite_index.getCenterY(), null);
 
 			image_index = (image_index + image_speed) % sprite_index.getSubimages();
+			
+			if(Global.DEBUG && boundingBox != null){
+				g.setColor(Color.red);
+				g.drawRect(boundingBox.getX(), boundingBox.getY(), boundingBox.getWidth(), boundingBox.getHeight());
+				g.setColor(Color.black);
+			}
 		}
 	}
 
