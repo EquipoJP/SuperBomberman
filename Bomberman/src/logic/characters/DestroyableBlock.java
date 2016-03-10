@@ -12,6 +12,8 @@ import main.Initialization.TYPE;
 public class DestroyableBlock extends Objeto{
 	
 	private Sprite destroyed;
+	private boolean destruction;
+	private boolean animation_end;
 
 	public DestroyableBlock(int x, int y, Room r, STAGE stage) {
 		super(x, y, r);
@@ -23,36 +25,45 @@ public class DestroyableBlock extends Objeto{
 		boundingBox.update(x, y);
 		
 		destroyed = Initialization.getSpriteFromMap(stage.toString() + "_" + TYPE.DESTROY_BLOCK.toString());
+		destruction = false;
+		animation_end = false;
 	}
 
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void customStep(KEY key) {
-		// TODO Auto-generated method stub
+		// TODO chequear colision con explosiones y poner destruction = true si toca
+		
+		if(destruction){
+			if(sprite_index != destroyed){
+				sprite_index = destroyed;
+				image_index = 0;
+			}
+			else{
+				if(image_index == sprite_index.getSubimages()-1){
+					animation_end = true;
+				}
+				if(animation_end && image_index == 0){
+					destroy();
+				}
+			}
+		}
 		
 	}
 
 	@Override
 	public void alarm(int alarmNo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void customDestroy() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void processKey(KEY key) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

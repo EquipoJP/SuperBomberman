@@ -66,7 +66,6 @@ public class Map {
 
 			s.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -78,7 +77,6 @@ public class Map {
 	}
 
 	private static Objeto createDestroyable(int row, int col, Room room, STAGE stage) {
-		// TODO Auto-generated method stub
 		int x = getX(row);
 		int y = getY(col);
 
@@ -107,7 +105,6 @@ public class Map {
 	}
 
 	private static Objeto createBomberman(int row, int col, Room room) {
-		// TODO Auto-generated method stub
 		int x = getX(row);
 		int y = getY(col);
 
