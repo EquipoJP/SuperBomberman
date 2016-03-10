@@ -18,11 +18,20 @@ public class Input extends KeyAdapter{
 	public enum KEY{
 		UP, DOWN, LEFT, RIGHT, SPACE, ENTER, ESCAPE, NO_KEY
 	}
-	private KEY key;
+	
+	private boolean up, down, left, right, space, enter, escape;
 	
 	public Input(Game game) {
 		this.game = game;
-		this.key = KEY.NO_KEY;
+		
+		up = false;
+		down = false;
+		left = false;
+		right = false;
+		space = false;
+		enter = false;
+		escape = false;
+		
 		game.addKeyListener(this);
 	}
 	
@@ -30,48 +39,89 @@ public class Input extends KeyAdapter{
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_UP:
-			setKey(KEY.UP);
+			up = true;
 			break;
 		case KeyEvent.VK_DOWN:
-			setKey(KEY.DOWN);
+			down = true;
 			break;
 		case KeyEvent.VK_LEFT:
-			setKey(KEY.LEFT);
+			left = true;
 			break;
 		case KeyEvent.VK_RIGHT:
-			setKey(KEY.RIGHT);
+			right = true;
 			break;
 		case KeyEvent.VK_SPACE:
-			setKey(KEY.SPACE);
+			space = true;
 			break;
 		case KeyEvent.VK_ENTER:
-			setKey(KEY.ENTER);
+			enter = true;
 			break;
 		case KeyEvent.VK_ESCAPE:
-			setKey(KEY.ESCAPE);
+			escape = true;
 			break;
 		}
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP ||
-				e.getKeyCode() == KeyEvent.VK_DOWN ||
-				e.getKeyCode() == KeyEvent.VK_LEFT ||
-				e.getKeyCode() == KeyEvent.VK_RIGHT ||
-				e.getKeyCode() == KeyEvent.VK_SPACE ||
-				e.getKeyCode() == KeyEvent.VK_ENTER ||
-				e.getKeyCode() == KeyEvent.VK_ESCAPE){
-			setKey(KEY.NO_KEY);
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_UP:
+			up = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			down = false;
+			break;
+		case KeyEvent.VK_LEFT:
+			left = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			right = false;
+			break;
+		case KeyEvent.VK_SPACE:
+			space = false;
+			break;
+		case KeyEvent.VK_ENTER:
+			enter = false;
+			break;
+		case KeyEvent.VK_ESCAPE:
+			escape = false;
+			break;
 		}
 	}
 	
-	private synchronized void setKey(KEY k){
-		key = k;
-	}
-	
 	public synchronized KEY getKey(){
-		return key;
+		/*
+		 * Key's priority order:
+		 * 1. Escape
+		 * 2. Enter
+		 * 3. Space
+		 * 4. Right
+		 * 5. Left
+		 * 6. Down
+		 * 7. Up
+		 */
+		if(escape){
+			return KEY.ESCAPE;
+		}
+		if(enter){
+			return KEY.ENTER;
+		}
+		if(space){
+			return KEY.SPACE;
+		}
+		if(right){
+			return KEY.RIGHT;
+		}
+		if(left){
+			return KEY.LEFT;
+		}
+		if(down){
+			return KEY.DOWN;
+		}
+		if(up){
+			return KEY.UP;
+		}
+		return KEY.NO_KEY;
 	}
 
 }
