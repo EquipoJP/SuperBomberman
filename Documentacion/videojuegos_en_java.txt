@@ -1,3 +1,6 @@
 www.kilobolt.com/game-development-tutorial.html
 
 http://edu4java.com/es/game/game1.html
+
+Para guardar y cargar partidas en Java: interesante para guardar y cargar los rankings
+http://stackoverflow.com/questions/13593135/save-game-to-file
