@@ -1,8 +1,9 @@
 package logic.characters;
 
+import graphics.D2.rooms.Room;
+
 import java.util.Map;
 
-import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
@@ -115,21 +116,21 @@ public class Player extends Objeto {
 			KEY key = getDirectionFromSprite();
 			Point2D position = null;
 
-			int row = logic.Map.getRow(x);
-			int col = logic.Map.getCol(y);
+			int row = logic.misc.Map.getRow(x);
+			int col = logic.misc.Map.getCol(y);
 
 			switch (key) {
 			case DOWN:
-				position = new Point2D(logic.Map.getX(row), logic.Map.getY(col + 1));
+				position = new Point2D(logic.misc.Map.getX(row), logic.misc.Map.getY(col + 1));
 				break;
 			case UP:
-				position = new Point2D(logic.Map.getX(row), logic.Map.getY(col - 1));
+				position = new Point2D(logic.misc.Map.getX(row), logic.misc.Map.getY(col - 1));
 				break;
 			case LEFT:
-				position = new Point2D(logic.Map.getX(row - 1), logic.Map.getY(col));
+				position = new Point2D(logic.misc.Map.getX(row - 1), logic.misc.Map.getY(col));
 				break;
 			case RIGHT:
-				position = new Point2D(logic.Map.getX(row + 1), logic.Map.getY(col + 1));
+				position = new Point2D(logic.misc.Map.getX(row + 1), logic.misc.Map.getY(col + 1));
 				break;
 			default:
 				break;

@@ -6,8 +6,8 @@ package graphics.D2.rooms;
 import java.awt.Graphics;
 import java.util.List;
 
-import logic.Level;
-import logic.Map;
+import logic.misc.Level;
+import logic.misc.Map;
 import logic.Objeto;
 import logic.Sprite;
 import main.Initialization;

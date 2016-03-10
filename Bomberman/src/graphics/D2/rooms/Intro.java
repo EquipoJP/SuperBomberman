@@ -58,7 +58,7 @@ public class Intro extends Room {
 		}
 		
 		if(!fadeOutFound && fadeOutCreated){
-			StatesMachine.goToRoom(STATE.MAIN_MENU);
+			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 		}
 	}
 

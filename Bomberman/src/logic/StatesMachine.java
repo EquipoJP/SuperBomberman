@@ -134,8 +134,21 @@ public class StatesMachine {
 		}
 	}
 
-	public static void goToRoom(STATE st) {
-		clearRoom(state);
+	public static void goToRoom(STATE st, boolean persist) {
+		if (!persist) {
+			clearRoom(state);
+		}
+		if (persist) {
+			// we are on the game mode -> save the actual screen
+			if (state == STATE.SB_MODE || state == STATE.T_MODE) {
+				;
+			}
+			// we are not on the game mode, we can clear the screen
+			else {
+				clearRoom(state);
+			}
+		}
+
 		state = st;
 		stateMachine();
 	}

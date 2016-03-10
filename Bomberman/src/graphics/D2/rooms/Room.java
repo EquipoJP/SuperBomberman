@@ -10,8 +10,7 @@ import java.util.List;
 
 import logic.Input.KEY;
 import logic.Objeto;
-import logic.ObjetoComparator;
-import logic.ObjetoYComparator;
+import logic.misc.ObjetoComparator;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -49,7 +48,7 @@ public abstract class Room {
 	 */
 	public void render(Graphics g){
 		drawBackground(g);
-		Collections.sort(objetos, new ObjetoYComparator());
+		Collections.sort(objetos, new ObjetoComparator());
 		for(int i = 0; i < objetos.size(); i++){
 			Objeto o = objetos.get(i);
 			o.render(g);

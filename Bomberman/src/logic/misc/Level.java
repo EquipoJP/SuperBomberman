@@ -1,6 +1,7 @@
-package logic;
+package logic.misc;
 
 import logic.Input.KEY;
+import logic.Objeto;
 
 public class Level extends Objeto{
 	
@@ -18,32 +19,22 @@ public class Level extends Objeto{
 
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void customStep(KEY key) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void alarm(int alarmNo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void customDestroy() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void processKey(KEY key) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

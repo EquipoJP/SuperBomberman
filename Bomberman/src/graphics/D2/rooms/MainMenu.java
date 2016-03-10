@@ -115,16 +115,16 @@ public class MainMenu extends Room {
 	private void confirm() {
 		switch (selected) {
 		case 0:
-			StatesMachine.goToRoom(STATE.SB_MODE);
+			StatesMachine.goToRoom(STATE.SB_MODE, false);
 			break;
 		case 1:
-			StatesMachine.goToRoom(STATE.OPTIONS_MENU);
+			StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
 			break;
 		case 2:
-			StatesMachine.goToRoom(STATE.RANKS);
+			StatesMachine.goToRoom(STATE.RANKS, false);
 			break;
 		case 3:
-			StatesMachine.goToRoom(STATE.CREDITS);
+			StatesMachine.goToRoom(STATE.CREDITS, false);
 			break;
 		case 4:
 			System.exit(0);

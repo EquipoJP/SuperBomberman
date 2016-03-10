@@ -1,4 +1,4 @@
-package logic;
+package logic.misc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import graphics.D2.rooms.Room;
+import logic.Objeto;
 import logic.characters.Block;
 import logic.characters.BlueDoll;
 import logic.characters.DestroyableBlock;
@@ -23,14 +24,16 @@ public class Map {
 	public static final char ENEMY_PINK = '3';
 	public static final char BOMBERMAN = '4';
 
-	public static List<Objeto> getMap(String file, Room room, Initialization.STAGE stage) {
+	public static List<Objeto> getMap(String file, Room room,
+			Initialization.STAGE stage) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
 		int width = 0;
 		int height = 0;
 
 		try {
-			Scanner s = new Scanner(new File(System.getProperty("user.dir") + "/resources/" + file));
+			Scanner s = new Scanner(new File(System.getProperty("user.dir")
+					+ "/resources/" + file));
 
 			int row = 0;
 			while (s.hasNextLine()) {
@@ -70,13 +73,15 @@ public class Map {
 		}
 
 		System.out.println(width + " " + height);
-		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
-				width * Initialization.TILE_WIDTH, height * Initialization.TILE_HEIGHT));
+		objetos.add(new Level(Initialization.MAP_X_OFFSET,
+				Initialization.MAP_Y_OFFSET, width * Initialization.TILE_WIDTH,
+				height * Initialization.TILE_HEIGHT));
 
 		return objetos;
 	}
 
-	private static Objeto createDestroyable(int row, int col, Room room, STAGE stage) {
+	private static Objeto createDestroyable(int row, int col, Room room,
+			STAGE stage) {
 		int x = getX(row);
 		int y = getY(col);
 
@@ -118,7 +123,7 @@ public class Map {
 	public static int getY(int col) {
 		return Initialization.MAP_Y_OFFSET + col * Initialization.TILE_HEIGHT;
 	}
-	
+
 	public static int getRow(int x) {
 		return (x - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
 	}

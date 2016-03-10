@@ -1,8 +1,10 @@
-package logic;
+package logic.misc;
 
 import java.util.Comparator;
 
-public class ObjetoYComparator implements Comparator<Objeto>{
+import logic.Objeto;
+
+public class ObjetoComparator implements Comparator<Objeto>{
 
 	@Override
 	public int compare(Objeto arg0, Objeto arg1) {
