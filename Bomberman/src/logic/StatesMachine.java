@@ -135,17 +135,16 @@ public class StatesMachine {
 	}
 
 	public static void goToRoom(STATE st, boolean persist) {
-		if (!persist) {
+		if(persist && (state == STATE.SB_MODE || state == STATE.T_MODE)){
+			;
+		}
+		else{
 			clearRoom(state);
 		}
-		if (persist) {
-			// we are on the game mode -> save the actual screen
-			if (state == STATE.SB_MODE || state == STATE.T_MODE) {
-				;
-			}
-			// we are not on the game mode, we can clear the screen
-			else {
-				clearRoom(state);
+		
+		if(state == STATE.PAUSE){
+			if(st == STATE.MAIN_MENU){
+				gameScreen = null;
 			}
 		}
 
@@ -282,8 +281,18 @@ public class StatesMachine {
 	private static void pause(KEY key) {
 
 		if (pauseScreen == null) {
+			STATE mode = STATE.MAIN_MENU;
+			if(gameScreen != null){
+				if(gameScreen instanceof SB_Game){
+					mode = STATE.SB_MODE;
+				}
+				if(gameScreen instanceof T_Game){
+					mode = STATE.T_MODE;
+				}
+			}
+			
 			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT,
-					"Pause");
+					"Pause", mode);
 		}
 		pauseScreen.step(key);
 		// TODO complete the method

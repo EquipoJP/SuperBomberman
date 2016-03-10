@@ -146,7 +146,6 @@ public class MainMenu extends Room {
 	@Override
 	public void step(KEY key) {
 		super.step(key);
-		// TODO procesar la key como si se tratara de un controlador de botones
 		switch (key) {
 		case DOWN:
 			next();

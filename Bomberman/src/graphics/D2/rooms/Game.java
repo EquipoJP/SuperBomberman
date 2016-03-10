@@ -6,10 +6,13 @@ package graphics.D2.rooms;
 import java.awt.Graphics;
 import java.util.List;
 
-import logic.misc.Level;
-import logic.misc.Map;
+import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
+import logic.StatesMachine;
+import logic.StatesMachine.STATE;
+import logic.misc.Level;
+import logic.misc.Map;
 import main.Initialization;
 import main.Initialization.STAGE;
 
@@ -47,6 +50,16 @@ public abstract class Game extends Room {
 					g.drawImage(tiles.getSubsprites()[0], x - tiles.getCenterX(), y - tiles.getCenterY(), null);
 				}
 			}
+		}
+	}
+	
+	@Override
+	public void step(KEY key) {
+		super.step(key);
+		
+		if(key == KEY.ESCAPE){
+			// Pause menu being persistent
+			StatesMachine.goToRoom(STATE.PAUSE, true);
 		}
 	}
 
