@@ -54,8 +54,6 @@ public class MainMenu extends Room {
 	}
 
 	private void createButtons() {
-		// TODO create buttons for the menu
-
 		menuButtons = new Button[selection.values().length];
 
 		// variables
@@ -139,7 +137,6 @@ public class MainMenu extends Room {
 	
 	@Override
 	public void drawBackground(Graphics g) {
-		// TODO Auto-generated method stub
 		g.clearRect(0, 0, width, height);
 		if (background != null) {
 			g.drawImage(background.getSubsprites()[0], 0, 0, null);
