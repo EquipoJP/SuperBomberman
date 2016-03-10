@@ -13,7 +13,7 @@ import logic.characters.DestroyableBlock;
 import logic.characters.PinkDoll;
 import logic.characters.Player;
 import main.Initialization;
-import main.Initialization.COLOR;
+import main.Initialization.STAGE;
 
 public class Map {
 
@@ -23,7 +23,7 @@ public class Map {
 	public static final char ENEMY_PINK = '3';
 	public static final char BOMBERMAN = '4';
 
-	public static List<Objeto> getMap(String file, Room room, Initialization.COLOR color) {
+	public static List<Objeto> getMap(String file, Room room, Initialization.STAGE stage) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
 		int width = 0;
@@ -40,10 +40,10 @@ public class Map {
 					char c = str.charAt(col);
 					switch (c) {
 					case DESTROYABLE_BLOCK:
-						objetos.add(createDestroyable(row, col, room));
+						objetos.add(createDestroyable(row, col, room, stage));
 						break;
 					case BLOCK:
-						objetos.add(createBlock(row, col, room, color));
+						objetos.add(createBlock(row, col, room, stage));
 						break;
 					case ENEMY_BLUE:
 						objetos.add(createBlueEnemy(row, col, room));
@@ -77,23 +77,22 @@ public class Map {
 		return objetos;
 	}
 
-	private static Objeto createDestroyable(int row, int col, Room room) {
+	private static Objeto createDestroyable(int row, int col, Room room, STAGE stage) {
 		// TODO Auto-generated method stub
 		int x = getX(row);
 		int y = getY(col);
 
-		return new DestroyableBlock(x, y, room);
+		return new DestroyableBlock(x, y, room, stage);
 	}
 
-	private static Objeto createBlock(int row, int col, Room room, COLOR color) {
+	private static Objeto createBlock(int row, int col, Room room, STAGE stage) {
 		int x = getX(row);
 		int y = getY(col);
 
-		return new Block(x, y, room, color);
+		return new Block(x, y, room, stage);
 	}
 
 	private static Objeto createBlueEnemy(int row, int col, Room room) {
-		// TODO Auto-generated method stub
 		int x = getX(row);
 		int y = getY(col);
 
@@ -101,7 +100,6 @@ public class Map {
 	}
 
 	private static Objeto createPinkEnemy(int row, int col, Room room) {
-		// TODO Auto-generated method stub
 		int x = getX(row);
 		int y = getY(col);
 

@@ -11,7 +11,7 @@ import logic.Map;
 import logic.Objeto;
 import logic.Sprite;
 import main.Initialization;
-import main.Initialization.COLOR;
+import main.Initialization.STAGE;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -22,11 +22,11 @@ public abstract class Game extends Room {
 	protected Sprite tiles;
 	protected Level level;
 
-	public Game(int w, int h, String n, String file, COLOR color) {
+	public Game(int w, int h, String n, String file, STAGE stage) {
 		super(w, h, n);
 		
-		tiles = Initialization.getSpriteFromMap(color.toString() + "_TILE");
-		List<Objeto> objetos = Map.getMap(file, this, color);
+		tiles = Initialization.getSpriteFromMap(stage.toString() + "_" + Initialization.TYPE.TILE.toString());
+		List<Objeto> objetos = Map.getMap(file, this, stage);
 
 		for (Objeto obj : objetos) {
 			if (obj instanceof Level) {
@@ -39,7 +39,6 @@ public abstract class Game extends Room {
 	
 	@Override
 	public void drawBackground(Graphics g) {
-		// TODO Auto-generated method stub
 		g.clearRect(0, 0, width, height);
 
 		if (level != null) {

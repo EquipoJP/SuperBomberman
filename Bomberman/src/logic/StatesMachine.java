@@ -18,7 +18,7 @@ import java.awt.Graphics;
 
 import logic.Input.KEY;
 import main.Initialization;
-import main.Initialization.COLOR;
+import main.Initialization.STAGE;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -233,10 +233,10 @@ public class StatesMachine {
 		if (gameScreen == null) {
 			// ////////////////////////////////////////
 			String file = "maps/level1.txt";
-			COLOR c = Initialization.COLOR.GREEN;
+			STAGE stage = Initialization.STAGE.GREENVILLAGE;
 			// ////////////////////////////////////////
 			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT,
-					"T mode", file, c);
+					"T mode", file, stage);
 		}
 		gameScreen.step(key);
 		// TODO complete the method
@@ -252,10 +252,10 @@ public class StatesMachine {
 		if (gameScreen == null) {
 			// /////////////////////////////////////
 			String file = "maps/level1.txt";
-			COLOR c = Initialization.COLOR.GREEN;
+			STAGE stage = Initialization.STAGE.PEACETOWN;
 			// ////////////////////////////////////
 			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT,
-					"Super Bomber mode", file, c);
+					"Super Bomber mode", file, stage);
 		}
 		gameScreen.step(key);
 		// TODO complete the method

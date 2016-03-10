@@ -5,14 +5,15 @@ import logic.Input.KEY;
 import logic.Objeto;
 import logic.collisions.NoPerspectiveBoundingBox;
 import main.Initialization;
+import main.Initialization.TYPE;
 
 public class Block extends Objeto{
 	
-	public Block(int x, int y, Room r, Initialization.COLOR c) {
+	public Block(int x, int y, Room r, Initialization.STAGE stage) {
 		super(x, y, r);
 		
-		sprite_index = Initialization.getSpriteFromMap(c.toString() + "_BLOCK");
-		image_speed = 0;
+		sprite_index = Initialization.getSpriteFromMap(stage.toString() + "_" + TYPE.BLOCK.toString());
+		image_speed = 0.5;
 
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);

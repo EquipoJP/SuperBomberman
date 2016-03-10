@@ -35,9 +35,13 @@ public class Initialization {
 		WHITE_BOMBER, BLUE_DOLL, PINK_DOLL, EXPLOSION_CORE, EXPLOSION_MID_VER, EXPLOSION_MID_HOR, EXPLOSION_EDGE_UP, EXPLOSION_EDGE_DOWN, EXPLOSION_EDGE_LEFT, EXPLOSION_EDGE_RIGHT
 	};
 
-	public static enum COLOR {
-		BLACK, RED, BLUE, PURPLE, GREEN
+	public static enum STAGE {
+		PEACETOWN, GREENVILLAGE
 	};
+	
+	public static enum TYPE{
+		BLOCK, TILE, DESTROYABLE_BLOCK, DESTROY_BLOCK
+	}
 
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;

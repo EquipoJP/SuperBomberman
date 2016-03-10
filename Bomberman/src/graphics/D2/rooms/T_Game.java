@@ -3,7 +3,7 @@
  */
 package graphics.D2.rooms;
 
-import main.Initialization.COLOR;
+import main.Initialization.STAGE;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -11,7 +11,7 @@ import main.Initialization.COLOR;
  */
 public class T_Game extends Game{
 
-	public T_Game(int w, int h, String n, String file, COLOR color) {
+	public T_Game(int w, int h, String n, String file, STAGE color) {
 		super(w, h, n, file, color);
 		// TODO Auto-generated constructor stub
 	}

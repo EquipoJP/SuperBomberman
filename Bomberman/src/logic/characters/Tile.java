@@ -4,11 +4,11 @@ import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.Objeto;
 import main.Initialization;
-import main.Initialization.COLOR;
+import main.Initialization.STAGE;
 
 public class Tile extends Objeto{
 
-	public Tile(int x, int y, Room r, COLOR c) {
+	public Tile(int x, int y, Room r, STAGE c) {
 		super(x, y, r);
 		
 		sprite_index = Initialization.getSpriteFromMap(c.toString() + "_TILE");
