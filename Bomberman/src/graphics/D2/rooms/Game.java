@@ -56,11 +56,13 @@ public abstract class Game extends Room {
 	@Override
 	public void step(KEY key) {
 		super.step(key);
-		
-		if(key == KEY.ESCAPE){
+		if ((key == KEY.ENTER && lastKey != KEY.ENTER) ||
+				(key == KEY.ESCAPE && lastKey != KEY.ESCAPE)){
 			// Pause menu being persistent
 			StatesMachine.goToRoom(STATE.PAUSE, true);
 		}
+		
+		lastKey = key;
 	}
 
 }

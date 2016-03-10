@@ -10,6 +10,7 @@ import java.util.List;
 
 import logic.Input.KEY;
 import logic.Objeto;
+import logic.StatesMachine;
 import logic.misc.ObjetoComparator;
 
 /**
@@ -23,11 +24,15 @@ public abstract class Room {
 	public String name;
 	public List<Objeto> objetos;
 	
+	protected KEY lastKey;
+	
 	public Room(int w, int h, String n) {
 		width = w;
 		height = h;
 		name = n;
 		objetos = new LinkedList<Objeto>();
+		
+		lastKey = StatesMachine.input.getKey();
 	}
 	
 	public void addObjeto(Objeto o){

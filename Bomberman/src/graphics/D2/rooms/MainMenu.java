@@ -32,8 +32,6 @@ public class MainMenu extends Room {
 	private static final int PADDING_BORDER = 25;
 	private static final int INTERBUTTON_BORDER = 25;
 	private static final int TITLEBUTTON_BORDER = 64;
-	
-	private KEY lastKey;
 
 	public MainMenu(int w, int h, String n, Sprite background) {
 		super(w, h, n);
@@ -48,7 +46,7 @@ public class MainMenu extends Room {
 		selected = 0;
 		select(0);
 		
-		lastKey = KEY.NO_KEY;
+		lastKey = StatesMachine.input.getKey();
 
 		System.out.println("MAIN MENU");
 	}
@@ -113,25 +111,27 @@ public class MainMenu extends Room {
 	}
 
 	private void confirm() {
-		switch (selected) {
-		case 0:
-			StatesMachine.goToRoom(STATE.SB_MODE, false);
-			break;
-		case 1:
-			StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
-			break;
-		case 2:
-			StatesMachine.goToRoom(STATE.RANKS, false);
-			break;
-		case 3:
-			StatesMachine.goToRoom(STATE.CREDITS, false);
-			break;
-		case 4:
-			System.exit(0);
-			break;
-		default:
-			System.exit(-1);
-			break;
+		if(lastKey != KEY.ENTER){
+			switch (selected) {
+			case 0:
+				StatesMachine.goToRoom(STATE.SB_MODE, false);
+				break;
+			case 1:
+				StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
+				break;
+			case 2:
+				StatesMachine.goToRoom(STATE.RANKS, false);
+				break;
+			case 3:
+				StatesMachine.goToRoom(STATE.CREDITS, false);
+				break;
+			case 4:
+				System.exit(0);
+				break;
+			default:
+				System.exit(-1);
+				break;
+			}
 		}
 	}
 	

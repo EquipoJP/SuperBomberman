@@ -33,7 +33,7 @@ public class StatesMachine {
 
 	/* private attributes */
 	private static STATE state = STATE.INTRO;
-	private static Input input;
+	public static Input input;
 
 	/* different screens */
 	private static Intro introScreen = null;

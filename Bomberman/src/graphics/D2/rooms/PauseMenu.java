@@ -50,7 +50,7 @@ public class PauseMenu extends Room {
 		selected = 0;
 		select(0);
 		
-		lastKey = KEY.NO_KEY;
+		lastKey = StatesMachine.input.getKey();
 		this.mode = mode;
 	}
 	
@@ -107,13 +107,15 @@ public class PauseMenu extends Room {
 	}
 
 	private void confirm() {
-		switch (selected) {
-		case 0:
-			StatesMachine.goToRoom(mode, false);
-			break;
-		case 1:
-			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
-			break;
+		if(lastKey != KEY.ENTER){
+			switch (selected) {
+			case 0:
+				StatesMachine.goToRoom(mode, false);
+				break;
+			case 1:
+				StatesMachine.goToRoom(STATE.MAIN_MENU, false);
+				break;
+			}
 		}
 	}
 	
