@@ -37,7 +37,7 @@ public class MainMenu extends Room {
 	public MainMenu(int w, int h, String n, Sprite background) {
 		super(w, h, n);
 
-		Sprite title = Initialization.getSpriteFromMenu("TITLE_BUTTON");
+		Sprite title = Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString());
 		int x = w / 2;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 
@@ -58,31 +58,31 @@ public class MainMenu extends Room {
 		// variables
 		int x = this.width / 2;
 		int y = PADDING_BORDER
-				+ Initialization.getSpriteFromMenu("TITLE_BUTTON").getHeight()
+				+ Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString()).getHeight()
 				+ TITLEBUTTON_BORDER;
 
 		// Game button
-		Sprite sprite = Initialization.getSpriteFromMenu("GAME_BUTTON");
+		Sprite sprite = Initialization.getSpriteFromMenu(Initialization.BUTTONS.GAME_BUTTON.toString());
 		menuButtons[0] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		
 		// Options button
-		sprite = Initialization.getSpriteFromMenu("OPTIONS_BUTTON");
+		sprite = Initialization.getSpriteFromMenu(Initialization.BUTTONS.OPTIONS_BUTTON.toString());
 		menuButtons[1] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		
 		// Ranking button
-		sprite = Initialization.getSpriteFromMenu("GAME_BUTTON");
+		sprite = Initialization.getSpriteFromMenu(Initialization.BUTTONS.RANKING_BUTTON.toString());
 		menuButtons[2] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		
 		// Credits button
-		sprite = Initialization.getSpriteFromMenu("CREDITS_BUTTON");
+		sprite = Initialization.getSpriteFromMenu(Initialization.BUTTONS.CREDITS_BUTTON.toString());
 		menuButtons[3] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		
 		// Quit button
-		sprite = Initialization.getSpriteFromMenu("QUIT_BUTTON");
+		sprite = Initialization.getSpriteFromMenu(Initialization.BUTTONS.QUIT_BUTTON.toString());
 		menuButtons[4] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
 		
 		for(Button b : menuButtons){

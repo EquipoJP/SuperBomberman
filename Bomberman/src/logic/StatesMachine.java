@@ -325,7 +325,7 @@ public class StatesMachine {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
-					"Ranks");
+					"Ranks", null);
 		}
 		rankScreen.step(key);
 		// TODO complete the method
@@ -340,7 +340,7 @@ public class StatesMachine {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
-					"Top10");
+					"Top10", null);
 		}
 		rankScreen.step(key);
 	}

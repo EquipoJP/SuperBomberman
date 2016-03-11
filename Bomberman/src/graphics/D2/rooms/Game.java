@@ -15,6 +15,7 @@ import logic.misc.Level;
 import logic.misc.Map;
 import main.Initialization;
 import main.Initialization.STAGE;
+import sound.SoundTrack;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -38,6 +39,8 @@ public abstract class Game extends Room {
 				addObjeto(obj);
 			}
 		}
+		
+		setMusic(SoundTrack.BATTLE_MUSIC);
 	}
 	
 	@Override

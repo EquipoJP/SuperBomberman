@@ -40,7 +40,7 @@ public class PauseMenu extends Room {
 		super(w, h, n);
 
 		bg = null; // TODO get the sprite for the background
-		Sprite title = Initialization.getSpriteFromMenu("TITLE_BUTTON");
+		Sprite title = Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString());
 		int x = w / 2;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 
@@ -60,11 +60,11 @@ public class PauseMenu extends Room {
 		// variables
 		int x = this.width / 2;
 		int y = PADDING_BORDER
-				+ Initialization.getSpriteFromMenu("TITLE_BUTTON").getHeight()
+				+ Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString()).getHeight()
 				+ TITLEBUTTON_BORDER;
 
 		// Continue button
-		Sprite sprite = Initialization.getSpriteFromMenu("CONTINUE_BUTTON");
+		Sprite sprite = Initialization.getSpriteFromMenu(Initialization.BUTTONS.CONTINUE_BUTTON.toString());
 		menuButtons[0] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		
