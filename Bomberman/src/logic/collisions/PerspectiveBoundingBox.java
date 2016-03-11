@@ -9,11 +9,11 @@ public class PerspectiveBoundingBox extends BoundingBox {
 			return null;
 		}
 		
-		int minX = -s.getWidth()/2 + s.getWidth() / 10;
+		int minX = -s.getWidth()/2 + s.getWidth() / 8;
 		int minY = s.getHeight() / 10;
 		Point2D min = new Point2D(minX, minY);
 		
-		int maxX = s.getWidth()/2 - s.getWidth() / 10;
+		int maxX = s.getWidth()/2 - s.getWidth() / 8;
 		int maxY = s.getHeight()/2 - s.getHeight() / 10;
 		Point2D max = new Point2D(maxX, maxY);
 		

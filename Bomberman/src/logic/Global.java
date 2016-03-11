@@ -7,7 +7,7 @@ public class Global {
 
 	public static final int EFFECTS_DEPTH = -3000;
 	public static final boolean DEBUG = true;
-	public static final String SAVE = "";
+	public static final String SAVE = System.getProperty("user.dir") + "/savefile.sav";
 	
 	public static Ranking ranking;
 	

@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -24,7 +25,7 @@ public class SaveSystemService {
 	
 	public static Ranking load (String file){
 		Ranking object = null;
-		if(file.contains(".dat")){
+		if(file.contains(".sav") && new File(file).exists()){
 	        try {
 	            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 	            object = (Ranking) ois.readObject();
@@ -33,6 +34,9 @@ public class SaveSystemService {
 	            ex.printStackTrace();
 	        }
 	    }
+		else{
+			object = new Ranking();
+		}
 		return object;
 	}
 
