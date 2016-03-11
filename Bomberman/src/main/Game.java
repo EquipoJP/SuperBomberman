@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import kuusisto.tinysound.TinySound;
 import logic.Global;
 import logic.Input;
 import logic.StatesMachine;
@@ -54,6 +55,7 @@ public class Game extends Canvas implements Runnable {
 
 	private synchronized void init() {
 		Global.createRanking();
+		TinySound.init();
 		input = new Input(this);
 		StatesMachine.initStatesMachine(input);
 	}

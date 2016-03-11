@@ -1,5 +1,6 @@
 package logic;
 
+import kuusisto.tinysound.TinySound;
 import logic.misc.Ranking;
 import utils.SaveSystemService;
 
@@ -13,6 +14,7 @@ public class Global {
 	
 	public static void stopGame(){
 		saveRanking();
+		TinySound.shutdown();
 	}
 	
 	public static void createRanking(){
