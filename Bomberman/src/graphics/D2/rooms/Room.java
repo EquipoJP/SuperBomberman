@@ -4,10 +4,13 @@
 package graphics.D2.rooms;
 
 import java.awt.Graphics;
+import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.StatesMachine;
@@ -26,6 +29,8 @@ public abstract class Room {
 	
 	protected KEY lastKey;
 	
+	private Music music;
+	
 	public Room(int w, int h, String n) {
 		width = w;
 		height = h;
@@ -33,6 +38,11 @@ public abstract class Room {
 		objetos = new LinkedList<Objeto>();
 		
 		lastKey = StatesMachine.input.getKey();
+	}
+	
+	public void setMusic(String filename){
+		music = TinySound.loadMusic(new File(filename));
+		music.play(true);
 	}
 	
 	public void addObjeto(Objeto o){
@@ -74,6 +84,26 @@ public abstract class Room {
 	public void step(KEY key){
 		for (int i = 0; i < objetos.size(); i++) {
 			objetos.get(i).step(key);
+		}
+	}
+	
+	public void destroy(){
+		if(music != null){
+			music.stop();
+			music.unload();
+		}
+		objetos = null;
+	}
+	
+	public void pause(){
+		if(music != null){
+			music.pause();
+		}
+	}
+	
+	public void resume(){
+		if(music != null){
+			music.resume();
 		}
 	}
 	

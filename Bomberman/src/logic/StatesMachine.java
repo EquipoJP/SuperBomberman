@@ -136,7 +136,7 @@ public class StatesMachine {
 
 	public static void goToRoom(STATE st, boolean persist) {
 		if(persist && (state == STATE.SB_MODE || state == STATE.T_MODE)){
-			;
+			persistent();
 		}
 		else{
 			clearRoom(state);
@@ -144,45 +144,63 @@ public class StatesMachine {
 		
 		if(state == STATE.PAUSE){
 			if(st == STATE.MAIN_MENU){
-				gameScreen = null;
+				clearRoom(STATE.SB_MODE);
 			}
 		}
 
 		state = st;
+		
+		if((state == STATE.SB_MODE || state == STATE.T_MODE) && gameScreen != null){
+			gameScreen.resume();
+		}
+		
 		stateMachine();
+	}
+	
+	private static void persistent(){
+		gameScreen.pause();
 	}
 
 	private static void clearRoom(STATE st) {
-		// TODO Auto-generated method stub
-		switch (state) {
+		switch (st) {
 		case INTRO:
+			introScreen.destroy();
 			introScreen = null;
 			break;
 		case MAIN_MENU:
+			titleScreen.destroy();
 			titleScreen = null;
 			break;
 		case OPTIONS_MENU:
+			optionScreen.destroy();
 			optionScreen = null;
 			break;
 		case T_MODE:
+			gameScreen.destroy();
 			gameScreen = null;
 			break;
 		case SB_MODE:
+			gameScreen.destroy();
 			gameScreen = null;
 			break;
 		case PAUSE:
+			pauseScreen.destroy();
 			pauseScreen = null;
 			break;
 		case RANKS:
+			rankScreen.destroy();
 			rankScreen = null;
 			break;
 		case TOP10:
+			rankScreen.destroy();
 			rankScreen = null;
 			break;
 		case GAME_OVER:
+			gameOverScreen.destroy();
 			gameOverScreen = null;
 			break;
 		case CREDITS:
+			credits.destroy();
 			credits = null;
 			break;
 		default:
