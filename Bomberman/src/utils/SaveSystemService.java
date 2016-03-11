@@ -4,11 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+
+import logic.misc.Ranking;
 
 public class SaveSystemService {
 
-	public static boolean save(Class<? extends Serializable> object, String file) {
+	public static boolean save(Ranking object, String file) {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream(file));
@@ -21,12 +22,12 @@ public class SaveSystemService {
 		return true;
 	}
 	
-	public static <T extends Serializable> T load (String file){
-		T object = null;
+	public static Ranking load (String file){
+		Ranking object = null;
 		if(file.contains(".dat")){
 	        try {
 	            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-	            object = (T) ois.readObject();
+	            object = (Ranking) ois.readObject();
 	            ois.close();
 	        } catch(Exception ex) {
 	            ex.printStackTrace();

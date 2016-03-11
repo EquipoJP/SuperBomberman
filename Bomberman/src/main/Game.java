@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import logic.Global;
 import logic.Input;
 import logic.StatesMachine;
 
@@ -23,7 +24,7 @@ public class Game extends Canvas implements Runnable {
 	public static JFrame frame;
 	public Input input;
 
-	private boolean running = false;
+	public boolean running = false;
 	private Thread thread;
 
 	public static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -52,6 +53,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private synchronized void init() {
+		Global.createRanking();
 		input = new Input(this);
 		StatesMachine.initStatesMachine(input);
 	}
@@ -135,7 +137,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		game.setFocusable(true);
-
+		
 		game.start();
 	}
 }

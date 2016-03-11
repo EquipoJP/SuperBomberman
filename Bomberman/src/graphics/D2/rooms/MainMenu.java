@@ -8,6 +8,7 @@ import graphics.effects.Visual;
 
 import java.awt.Graphics;
 
+import logic.Global;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
@@ -126,9 +127,11 @@ public class MainMenu extends Room {
 				StatesMachine.goToRoom(STATE.CREDITS, false);
 				break;
 			case 4:
+				Global.stopGame();
 				System.exit(0);
 				break;
 			default:
+				Global.stopGame();
 				System.exit(-1);
 				break;
 			}
