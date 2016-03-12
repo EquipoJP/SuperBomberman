@@ -10,6 +10,7 @@ public class Ranking implements Serializable{
 	private static final long serialVersionUID = -8277000633749652572L;
 	
 	private List<Record> records;
+	public static final int MAX_RECORDS = 5;
 	
 	public Ranking(){
 		records = new LinkedList<Record>();
@@ -25,6 +26,18 @@ public class Ranking implements Serializable{
 	public List<Record> getRecords() {
 		Collections.sort(records, new RecordComparator());
 		return records;
+	}
+	
+	public boolean newRecord(Record record){
+		records.add(record);
+		Collections.sort(records, new RecordComparator());
+		
+		Record discarded = null;
+		if(records.size() >= MAX_RECORDS){
+			discarded = records.remove(records.size() - 1);
+		}
+		
+		return record.equals(discarded);
 	}
 	
 }

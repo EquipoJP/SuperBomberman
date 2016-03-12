@@ -9,9 +9,15 @@ import main.Initialization;
 public class PaintDigitsService {
 
 	private static Sprite digits = Initialization.getSpriteFromMenu(Initialization.BUTTONS.DIGITS.toString());
+	private static Sprite newRecord = Initialization.getSpriteFromMenu(Initialization.BUTTONS.NEW.toString());
 
 	public static void paint(String number, Point2D initial_position, Graphics g) {
 		int modX = digits.getWidth();
+		
+		if(number.startsWith("NEW ")){
+			number = number.substring(4);
+			g.drawImage(newRecord.getSubsprites()[0], initial_position.getX() - modX * 4, initial_position.getY(), null);
+		}
 
 		for (int i = 0; i < number.length(); i++) {
 			char c = number.charAt(i);
