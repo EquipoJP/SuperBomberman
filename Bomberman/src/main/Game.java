@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-import kuusisto.tinysound.TinySound;
 import logic.Global;
 import logic.Input;
 import logic.StatesMachine;
@@ -54,8 +53,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private synchronized void init() {
-		Global.createRanking();
-		TinySound.init();
+		Global.startGame();
 		input = new Input(this);
 		StatesMachine.initStatesMachine(input);
 	}
@@ -90,7 +88,7 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(updates + " ticks, " + frames + " fps");
+				//System.out.println(updates + " ticks, " + frames + " fps");
 				updates = 0;
 				frames = 0;
 			}
