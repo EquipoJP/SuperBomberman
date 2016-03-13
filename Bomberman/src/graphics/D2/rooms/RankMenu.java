@@ -103,7 +103,7 @@ public class RankMenu extends Room {
 			PaintDigitsService.paint(str, initial_position, g);
 		}
 
-		if (records != null && !newRecord) {
+		if (record != null && !newRecord) {
 			String str = "NEW " + this.record.getScore();
 			x = width / 2;
 			Point2D initial_position = new Point2D(x, y + modY * (records.size() + 1));
