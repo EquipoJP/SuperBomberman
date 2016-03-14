@@ -15,6 +15,12 @@ public class OptionsMenu extends Room {
 		super(w, h, n);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void render(Graphics g) {
@@ -27,5 +33,4 @@ public class OptionsMenu extends Room {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

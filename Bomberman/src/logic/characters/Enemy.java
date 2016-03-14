@@ -28,7 +28,7 @@ public class Enemy extends Objeto{
 	}
 
 	@Override
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
 		// TODO
 		
 	}
@@ -46,7 +46,7 @@ public class Enemy extends Objeto{
 	}
 
 	@Override
-	public void processKey(KEY key) {
+	public void processKey(KEY key, KEY direction) {
 		if(route == null || route.size() == 0){
 			return ;
 		}

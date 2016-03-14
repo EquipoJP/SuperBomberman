@@ -3,6 +3,7 @@
  */
 package graphics.D2.rooms;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.util.Collections;
@@ -13,7 +14,6 @@ import kuusisto.tinysound.Music;
 import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Objeto;
-import logic.StatesMachine;
 import logic.misc.ObjetoComparator;
 
 /**
@@ -27,9 +27,9 @@ public abstract class Room {
 	public String name;
 	public List<Objeto> objetos;
 	
-	protected KEY lastKey;
-	
 	private Music music;
+	
+	protected Thread loader = null;
 	
 	public Room(int w, int h, String n) {
 		width = w;
@@ -37,7 +37,8 @@ public abstract class Room {
 		name = n;
 		objetos = new LinkedList<Objeto>();
 		
-		lastKey = StatesMachine.input.getKey();
+		loader = null;
+		loadResources();
 	}
 	
 	public void setMusic(String filename){
@@ -54,6 +55,24 @@ public abstract class Room {
 		objetos.remove(o);
 		Collections.sort(objetos, new ObjetoComparator());
 	}
+	
+	public void loadResources(){
+		if (loader == null){
+			loader = new Thread(new Loader(this));
+			loader.start();
+		}
+	}
+	
+	public abstract void load();
+	
+	public boolean loadComplete(){
+		if(loader != null){
+			return !loader.isAlive();
+		}
+		else{
+			return true;
+		}
+	}
 
 	/**
 	 * Method to paint the screen
@@ -62,11 +81,19 @@ public abstract class Room {
 	 *            graphics section to paint
 	 */
 	public void render(Graphics g){
-		drawBackground(g);
-		Collections.sort(objetos, new ObjetoComparator());
-		for(int i = 0; i < objetos.size(); i++){
-			Objeto o = objetos.get(i);
-			o.render(g);
+		if(loadComplete()){
+			drawBackground(g);
+			Collections.sort(objetos, new ObjetoComparator());
+			for(int i = 0; i < objetos.size(); i++){
+				Objeto o = objetos.get(i);
+				o.render(g);
+			}
+		}
+		else{
+			// TODO
+			g.setColor(Color.red);
+			g.drawRect(0, 0, 100, 100);
+			g.setColor(Color.black);
 		}
 	}
 	
@@ -81,9 +108,12 @@ public abstract class Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public void step(KEY key){
+	public void step(KEY key, KEY direction){
+		if(!loadComplete()){
+			return ;
+		}
 		for (int i = 0; i < objetos.size(); i++) {
-			objetos.get(i).step(key);
+			objetos.get(i).step(key, direction);
 		}
 	}
 	

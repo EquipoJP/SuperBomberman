@@ -34,11 +34,19 @@ public class MainMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 25;
 	private static final int TITLEBUTTON_BORDER = 64;
 
-	public MainMenu(int w, int h, String n, Sprite background) {
+	public MainMenu(int w, int h, String n) {
 		super(w, h, n);
 
+		System.out.println("MAIN MENU");
+	}
+	
+	@Override
+	public void load() {
+		System.out.println("Loading");
+		this.background = null;	//TODO
+		
 		Sprite title = Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString());
-		int x = w / 2;
+		int x = width / 2;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 
 		addObjeto(new Visual(x, y, this, title));
@@ -46,10 +54,7 @@ public class MainMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
-		
-		lastKey = StatesMachine.input.getKey();
-
-		System.out.println("MAIN MENU");
+		System.out.println("Loaded");
 	}
 
 	private void createButtons() {
@@ -97,49 +102,46 @@ public class MainMenu extends Room {
 	}
 	
 	private void next(){
-		if(lastKey != KEY.DOWN){
-			int no = (selected + 1) % menuButtons.length;
-			select(no);
-		}
+		int no = (selected + 1) % menuButtons.length;
+		select(no);
 	}
 	
 	private void previous(){
-		if(lastKey != KEY.UP){
-			// -1 % 5 = -1. With this thing it gets 4
-			int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
-			select(no);
-		}
+		// -1 % 5 = -1. With this thing it gets 4
+		int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
+		select(no);
 	}
 
 	private void confirm() {
-		if(lastKey != KEY.ENTER){
-			switch (selected) {
-			case 0:
-				StatesMachine.goToRoom(STATE.SB_MODE, false);
-				break;
-			case 1:
-				StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
-				break;
-			case 2:
-				StatesMachine.goToRoom(STATE.RANKS, false);
-				break;
-			case 3:
-				StatesMachine.goToRoom(STATE.CREDITS, false);
-				break;
-			case 4:
-				Global.stopGame();
-				System.exit(0);
-				break;
-			default:
-				Global.stopGame();
-				System.exit(-1);
-				break;
-			}
+		switch (selected) {
+		case 0:
+			StatesMachine.goToRoom(STATE.SB_MODE, false);
+			break;
+		case 1:
+			StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
+			break;
+		case 2:
+			StatesMachine.goToRoom(STATE.RANKS, false);
+			break;
+		case 3:
+			StatesMachine.goToRoom(STATE.CREDITS, false);
+			break;
+		case 4:
+			Global.stopGame();
+			System.exit(0);
+			break;
+		default:
+			Global.stopGame();
+			System.exit(-1);
+			break;
 		}
 	}
 	
 	@Override
 	public void drawBackground(Graphics g) {
+		if(!loadComplete()){
+			return ;
+		}
 		g.clearRect(0, 0, width, height);
 		if (background != null) {
 			g.drawImage(background.getSubsprites()[0], 0, 0, null);
@@ -147,8 +149,11 @@ public class MainMenu extends Room {
 	}
 
 	@Override
-	public void step(KEY key) {
-		super.step(key);
+	public void step(KEY key, KEY direction) {
+		super.step(key, direction);
+		if(!loadComplete()){
+			return ;
+		}
 		switch (key) {
 		case DOWN:
 			next();
@@ -162,8 +167,5 @@ public class MainMenu extends Room {
 		default:
 			break;
 		}
-		
-		lastKey = key;
 	}
-	
 }

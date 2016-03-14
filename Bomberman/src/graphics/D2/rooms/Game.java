@@ -33,10 +33,19 @@ public abstract class Game extends Room {
 	private TimerTask task;
 
 	private final long SECONDS_PHASE = 50; // TODO
+	
+	private String file;
+	private STAGE stage;
 
 	public Game(int w, int h, String n, String file, STAGE stage) {
 		super(w, h, n);
-
+		
+		this.file = file;
+		this.stage = stage;
+	}
+	
+	@Override
+	public void load() {
 		seconds = -1;
 
 		tiles = Initialization.getSpriteFromMap(stage.toString() + "_"
@@ -56,6 +65,9 @@ public abstract class Game extends Room {
 
 	@Override
 	public void drawBackground(Graphics g) {
+		if(!loadComplete()){
+			return ;
+		}
 		g.clearRect(0, 0, width, height);
 
 		if (level != null) {
@@ -63,27 +75,30 @@ public abstract class Game extends Room {
 					.getWidth()) {
 				for (int y = level.mapInitY; y < level.mapInitY
 						+ level.mapHeight; y += tiles.getHeight()) {
-					g.drawImage(tiles.getSubsprites()[0],
-							x - tiles.getCenterX(), y - tiles.getCenterY(),
-							null);
+					if(tiles != null){
+						g.drawImage(tiles.getSubsprites()[0],
+								x - tiles.getCenterX(), y - tiles.getCenterY(),
+								null);
+					}
 				}
 			}
 		}
 	}
-
+	
 	@Override
-	public void step(KEY key) {
-		super.step(key);
+	public void step(KEY key, KEY direction) {
+		super.step(key, direction);
+		
+		if(!loadComplete()){
+			return ;
+		}
 
 		setTimer();
 
-		if ((key == KEY.ENTER && lastKey != KEY.ENTER)
-				|| (key == KEY.ESCAPE && lastKey != KEY.ESCAPE)) {
+		if (key == KEY.ENTER || key == KEY.ESCAPE) {
 			// Pause menu being persistent
 			StatesMachine.goToRoom(STATE.PAUSE, true);
 		}
-
-		lastKey = key;
 
 		if (checkTime()) {
 			// TODO things to do before destroying the room
@@ -102,6 +117,9 @@ public abstract class Game extends Room {
 	}
 
 	private void setTimer() {
+		if(!loadComplete()){
+			return ;
+		}
 		if (seconds < 0) {
 			seconds = SECONDS_PHASE;
 		}

@@ -20,7 +20,7 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
 		// TODO Auto-generated method stub
 		this.destroy();
 	}
@@ -37,7 +37,7 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-	public void processKey(KEY key) {
+	public void processKey(KEY key, KEY direction) {
 		// TODO Auto-generated method stub
 
 	}

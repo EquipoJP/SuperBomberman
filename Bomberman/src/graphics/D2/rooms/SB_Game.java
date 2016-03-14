@@ -38,5 +38,4 @@ public class SB_Game extends Game {
 		Global.scoreManager.updateScore(enemiesDestroyed);
 		Global.scoreManager.updateScore(seconds);
 	}
-
 }

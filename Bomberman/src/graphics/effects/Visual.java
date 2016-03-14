@@ -19,7 +19,7 @@ public class Visual extends Objeto {
 	}
 
 	@Override
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Visual extends Objeto {
 	}
 
 	@Override
-	public void processKey(KEY key) {
+	public void processKey(KEY key, KEY direction) {
 	}
 
 }

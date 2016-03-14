@@ -9,7 +9,7 @@ import java.awt.Graphics;
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
-public class GameOverMenu extends Room{
+public class GameOverMenu extends Room {
 
 	public GameOverMenu(int w, int h, String n) {
 		super(w, h, n);
@@ -17,15 +17,21 @@ public class GameOverMenu extends Room{
 	}
 
 	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void drawBackground(Graphics g) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -49,7 +49,7 @@ public abstract class Objeto {
 
 	public abstract void create();
 
-	public abstract void customStep(KEY key);
+	public abstract void customStep(KEY key, KEY direction);
 
 	public abstract void alarm(int alarmNo);
 
@@ -78,14 +78,14 @@ public abstract class Objeto {
 
 	public abstract void customDestroy();
 
-	public abstract void processKey(KEY key);
+	public abstract void processKey(KEY key, KEY direction);
 
-	public void step(KEY key) {
+	public void step(KEY key, KEY direction) {
 		alarmHandling();
 		alarmCode();
-		customStep(key);
+		customStep(key, direction);
 		// Collision?
-		processKey(key);
+		processKey(key, direction);
 	}
 
 	private void alarmHandling() {

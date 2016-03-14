@@ -29,41 +29,53 @@ public class Intro extends Room {
 
 	public Intro(int w, int h, String n) {
 		super(w, h, n);
-		addObjeto(new Fade(0,0,this,false));
-		addObjeto(new Logo(w/2,h/2,this));
+	}
+	
+	@Override
+	public void load() {
+		addObjeto(new Fade(0, 0, this, false));
+		addObjeto(new Logo(width / 2, height / 2, this));
 		created = false;
 		fadeOutCreated = false;
 	}
 
 	@Override
-	public void step(KEY key) {
+	public void step(KEY key, KEY direction) {
+		if(!loadComplete()){
+			return ;
+		}
+		
 		boolean fadeInFound = false;
 		boolean fadeOutFound = false;
-		for(int i = 0; i < objetos.size(); i++){
-			if(objetos.get(i) instanceof Fade){
+		for (int i = 0; i < objetos.size(); i++) {
+			if (objetos.get(i) instanceof Fade) {
 				Fade f = (Fade) objetos.get(i);
-				if(!f.isFadeOut())
+				if (!f.isFadeOut())
 					fadeInFound = true;
 				else {
 					fadeOutCreated = true;
 					fadeOutFound = true;
 				}
 			}
-			objetos.get(i).step(key);
+			objetos.get(i).step(key, direction);
 		}
-		
-		if(fadeInFound && !created){
+
+		if (fadeInFound && !created) {
 			created = true;
-			objetos.add(new IntroTemporizer(0,0,this));
+			objetos.add(new IntroTemporizer(0, 0, this));
 		}
-		
-		if(!fadeOutFound && fadeOutCreated){
+
+		if (!fadeOutFound && fadeOutCreated) {
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 		}
 	}
 
 	@Override
 	public void drawBackground(Graphics g) {
+		if(!loadComplete()){
+			return ;
+		}
+		
 		BufferedImage curtain = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
@@ -72,5 +84,4 @@ public class Intro extends Room {
 		graphics.dispose();
 		g.drawImage(curtain, 0, 0, null);
 	}
-
 }

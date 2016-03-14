@@ -33,13 +33,17 @@ public class RankMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 48;
 	private static final int TITLEBUTTON_BORDER = 64;
 
-	public RankMenu(int w, int h, String n, Sprite background, Record record) {
+	public RankMenu(int w, int h, String n, Record record) {
 		super(w, h, n);
-
-		int x = w / 2;
-
-		this.background = background;
+		
 		this.record = record;
+	}
+
+	@Override
+	public void load() {
+		this.background = null;	//TODO
+		
+		int x = width / 2;
 
 		if (this.record != null) {
 			newRecord = Global.ranking.newRecord(record);
@@ -69,12 +73,15 @@ public class RankMenu extends Room {
 		int y = PADDING_BORDER + title.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, title));
 
-		lastKey = StatesMachine.input.getKey();
 	}
-
+	
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
+		
+		if(!loadComplete()){
+			return ;
+		}
 
 		// TODO coger el ranking global
 		List<Record> records = Global.ranking.getRecords();
@@ -114,6 +121,9 @@ public class RankMenu extends Room {
 
 	@Override
 	public void drawBackground(Graphics g) {
+		if(!loadComplete()){
+			return ;
+		}
 		g.clearRect(0, 0, width, height);
 		if (background != null) {
 			g.drawImage(background.getSubsprites()[0], 0, 0, null);
@@ -121,14 +131,15 @@ public class RankMenu extends Room {
 	}
 
 	private void confirm() {
-		if (lastKey != KEY.ENTER && lastKey != KEY.ESCAPE) {
-			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
-		}
+		StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 	}
 
 	@Override
-	public void step(KEY key) {
-		super.step(key);
+	public void step(KEY key, KEY direction) {
+		super.step(key, direction);
+		if(!loadComplete()){
+			return ;
+		}
 		switch (key) {
 		case ENTER:
 			confirm();
@@ -139,8 +150,5 @@ public class RankMenu extends Room {
 		default:
 			break;
 		}
-
-		lastKey = key;
 	}
-
 }

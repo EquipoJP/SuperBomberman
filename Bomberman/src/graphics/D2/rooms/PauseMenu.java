@@ -24,7 +24,6 @@ public class PauseMenu extends Room {
 	
 	private Button[] menuButtons;
 	private int selected;
-	private KEY lastKey;
 	
 	private STATE mode;
 	
@@ -39,9 +38,14 @@ public class PauseMenu extends Room {
 	public PauseMenu(int w, int h, String n, STATE mode) {
 		super(w, h, n);
 
+		this.mode = mode;
+	}
+	
+	@Override
+	public void load() {
 		bg = null; // TODO get the sprite for the background
 		Sprite title = Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString());
-		int x = w / 2;
+		int x = width / 2;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 
 		addObjeto(new Visual(x, y, this, title));
@@ -49,9 +53,6 @@ public class PauseMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
-		
-		lastKey = StatesMachine.input.getKey();
-		this.mode = mode;
 	}
 	
 	private void createButtons() {
@@ -79,6 +80,9 @@ public class PauseMenu extends Room {
 
 	@Override
 	public void drawBackground(Graphics g) {
+		if(!loadComplete()){
+			return ;
+		}
 		g.clearRect(0, 0, width, height);
 		if(bg != null){
 			g.drawImage(bg.getSubsprites()[0], 0, 0, null);
@@ -92,36 +96,33 @@ public class PauseMenu extends Room {
 	}
 	
 	private void next(){
-		if(lastKey != KEY.DOWN){
-			int no = (selected + 1) % menuButtons.length;
-			select(no);
-		}
+		int no = (selected + 1) % menuButtons.length;
+		select(no);
 	}
 	
 	private void previous(){
-		if(lastKey != KEY.UP){
-			// -1 % 5 = -1. With this thing it gets 4
-			int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
-			select(no);
-		}
+		// -1 % 5 = -1. With this thing it gets 4
+		int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
+		select(no);
 	}
 
 	private void confirm() {
-		if(lastKey != KEY.ENTER){
-			switch (selected) {
-			case 0:
-				StatesMachine.goToRoom(mode, false);
-				break;
-			case 1:
-				StatesMachine.goToRoom(STATE.MAIN_MENU, false);
-				break;
-			}
+		switch (selected) {
+		case 0:
+			StatesMachine.goToRoom(mode, false);
+			break;
+		case 1:
+			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
+			break;
 		}
 	}
 	
 	@Override
-	public void step(KEY key) {
-		super.step(key);
+	public void step(KEY key, KEY direction) {
+		super.step(key, direction);
+		if(!loadComplete()){
+			return ;
+		}
 		switch (key) {
 		case DOWN:
 			next();
@@ -135,8 +136,5 @@ public class PauseMenu extends Room {
 		default:
 			break;
 		}
-		
-		lastKey = key;
 	}
-
 }

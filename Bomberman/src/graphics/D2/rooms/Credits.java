@@ -8,11 +8,16 @@ public class Credits extends Room {
 		super(w, h, n);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void drawBackground(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}
-
 }

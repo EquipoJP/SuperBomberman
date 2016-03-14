@@ -59,37 +59,38 @@ public class StatesMachine {
 	 */
 	public static void stateMachine() {
 		Input.KEY key = input.getKey();
+		Input.KEY direction = input.getDirection();
 
 		switch (state) {
 		case INTRO:
-			intro(key);
+			intro(key, direction);
 			break;
 		case MAIN_MENU:
-			main_menu(key);
+			main_menu(key, direction);
 			break;
 		case OPTIONS_MENU:
-			options_menu(key);
+			options_menu(key, direction);
 			break;
 		case T_MODE:
-			t_mode(key);
+			t_mode(key, direction);
 			break;
 		case SB_MODE:
-			sb_mode(key);
+			sb_mode(key, direction);
 			break;
 		case PAUSE:
-			pause(key);
+			pause(key, direction);
 			break;
 		case RANKS:
-			ranks(key);
+			ranks(key, direction);
 			break;
 		case TOP10:
-			top10(key);
+			top10(key, direction);
 			break;
 		case GAME_OVER:
-			game_over(key);
+			game_over(key, direction);
 			break;
 		case CREDITS:
-			credits(key);
+			credits(key, direction);
 			break;
 		default:
 			break;
@@ -212,29 +213,31 @@ public class StatesMachine {
 	 * Shows the introduction of the game
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void intro(KEY key) {
+	private static void intro(KEY key, KEY direction) {
 
 		if (introScreen == null) {
 			introScreen = new Intro(main.Game.WIDTH, main.Game.HEIGHT, "Intro");
 		}
-		introScreen.step(key);
+		introScreen.step(key, direction);
 	}
 
 	/**
 	 * Shows the menu of the game
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void main_menu(KEY key) {
+	private static void main_menu(KEY key, KEY direction) {
 
 		if (titleScreen == null) {
 			// ////////////////////////////////////////////////////////////////////////////////
 			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT,
-					"Main menu", null);
+					"Main menu");
 			// ////////////////////////////////////////////////////////////////////////////////
 		}
-		titleScreen.step(key);
+		titleScreen.step(key, direction);
 		// TODO complete the method
 	}
 
@@ -242,14 +245,15 @@ public class StatesMachine {
 	 * Shows the options menu of the game
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void options_menu(KEY key) {
+	private static void options_menu(KEY key, KEY direction) {
 
 		if (optionScreen == null) {
 			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT,
 					"Options menu");
 		}
-		optionScreen.step(key);
+		optionScreen.step(key, direction);
 		// TODO complete the method
 	}
 
@@ -257,8 +261,9 @@ public class StatesMachine {
 	 * Traditional mode of the game
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void t_mode(KEY key) {
+	private static void t_mode(KEY key, KEY direction) {
 
 		if (gameScreen == null) {
 			// ////////////////////////////////////////
@@ -268,7 +273,7 @@ public class StatesMachine {
 			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT,
 					"T mode", file, stage);
 		}
-		gameScreen.step(key);
+		gameScreen.step(key, direction);
 		// TODO complete the method
 	}
 
@@ -276,8 +281,9 @@ public class StatesMachine {
 	 * Super-Bomber mode of the game
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void sb_mode(KEY key) {
+	private static void sb_mode(KEY key, KEY direction) {
 
 		if (gameScreen == null) {
 			// /////////////////////////////////////
@@ -287,7 +293,7 @@ public class StatesMachine {
 			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT,
 					"Super Bomber mode", file, stage);
 		}
-		gameScreen.step(key);
+		gameScreen.step(key, direction);
 		// TODO complete the method
 	}
 
@@ -295,8 +301,9 @@ public class StatesMachine {
 	 * Pause mode
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void pause(KEY key) {
+	private static void pause(KEY key, KEY direction) {
 
 		if (pauseScreen == null) {
 			STATE mode = STATE.MAIN_MENU;
@@ -312,7 +319,7 @@ public class StatesMachine {
 			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT,
 					"Pause", mode);
 		}
-		pauseScreen.step(key);
+		pauseScreen.step(key, direction);
 		// TODO complete the method
 	}
 
@@ -320,14 +327,15 @@ public class StatesMachine {
 	 * Show the ranking of the Super-Bomber mode
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void ranks(KEY key) {
+	private static void ranks(KEY key, KEY direction) {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
-					"Ranks", null, null);
+					"Ranks", null);
 		}
-		rankScreen.step(key);
+		rankScreen.step(key, direction);
 		// TODO complete the method
 	}
 
@@ -335,39 +343,41 @@ public class StatesMachine {
 	 * Let the player put a name to the highscore (entering the top 10)
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void top10(KEY key) {
+	private static void top10(KEY key, KEY direction) {
 
 		if (rankScreen == null) {
 			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
-					"Top10", null, null);
+					"Top10", null);
 		}
-		rankScreen.step(key);
+		rankScreen.step(key, direction);
 	}
 
 	/**
 	 * Show the game over menu screen
 	 * 
 	 * @param key
+	 * @param direction 
 	 */
-	private static void game_over(KEY key) {
+	private static void game_over(KEY key, KEY direction) {
 
 		if (gameOverScreen == null) {
 			gameOverScreen = new GameOverMenu(main.Game.WIDTH,
 					main.Game.HEIGHT, "Game over");
 		}
-		gameOverScreen.step(key);
+		gameOverScreen.step(key, direction);
 		// TODO complete the method
 	}
 
-	private static void credits(KEY key) {
+	private static void credits(KEY key, KEY direction) {
 
 		if (credits == null) {
 			// ////////////////////////////////////////////////////////////////////////////////
 			credits = new Credits(main.Game.WIDTH, main.Game.HEIGHT, "Credits");
 			// ////////////////////////////////////////////////////////////////////////////////
 		}
-		credits.step(key);
+		credits.step(key, direction);
 		// TODO complete the method
 	}
 }

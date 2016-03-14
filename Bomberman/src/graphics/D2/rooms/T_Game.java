@@ -15,5 +15,4 @@ public class T_Game extends Game{
 		super(w, h, n, file, color);
 		// TODO Auto-generated constructor stub
 	}
-
 }
