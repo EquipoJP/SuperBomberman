@@ -33,8 +33,9 @@ public class ExplosionPart extends Objeto {
 
 	@Override
 	public void customStep(KEY key) {
-		// TODO Auto-generated method stub
-
+		if(image_index>=sprite_index.getSubimages()){
+			destroy();
+		}
 	}
 
 	@Override
