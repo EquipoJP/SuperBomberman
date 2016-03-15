@@ -9,8 +9,23 @@ import java.io.ObjectOutputStream;
 import logic.misc.Ranking;
 
 public class SaveSystemService {
+	
+	public static final String PATH = System.getProperty("user.home") + "/Documents/SuperBomberman/";
 
 	public static boolean save(Ranking object, String file) {
+		File directory = new File(PATH);
+		if(directory.exists()){
+			;	// directory exists
+		}
+		else if(directory.mkdirs()){
+			;	// directory created
+		}
+		else{
+			return false;
+		}
+		
+		file = PATH + file;
+		
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream(file));
@@ -25,6 +40,7 @@ public class SaveSystemService {
 	
 	public static Ranking load (String file){
 		Ranking object = null;
+		file = PATH + file;
 		if(file.contains(".sav") && new File(file).exists()){
 	        try {
 	            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
