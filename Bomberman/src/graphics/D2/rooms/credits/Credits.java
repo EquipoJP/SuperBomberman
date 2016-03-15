@@ -1,6 +1,8 @@
-package graphics.D2.rooms;
+package graphics.D2.rooms.credits;
 
 import java.awt.Graphics;
+
+import graphics.D2.rooms.Room;
 
 public class Credits extends Room {
 

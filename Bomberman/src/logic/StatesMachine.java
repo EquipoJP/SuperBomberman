@@ -3,16 +3,16 @@
  */
 package logic;
 
-import graphics.D2.rooms.Credits;
 import graphics.D2.rooms.Game;
-import graphics.D2.rooms.GameOverMenu;
-import graphics.D2.rooms.Intro;
-import graphics.D2.rooms.MainMenu;
-import graphics.D2.rooms.OptionsMenu;
-import graphics.D2.rooms.PauseMenu;
-import graphics.D2.rooms.RankMenu;
-import graphics.D2.rooms.SB_Game;
-import graphics.D2.rooms.T_Game;
+import graphics.D2.rooms.credits.Credits;
+import graphics.D2.rooms.gameOverMenu.GameOverMenu;
+import graphics.D2.rooms.intro.Intro;
+import graphics.D2.rooms.mainMenu.MainMenu;
+import graphics.D2.rooms.optionsMenu.OptionsMenu;
+import graphics.D2.rooms.pauseMenu.PauseMenu;
+import graphics.D2.rooms.rankMenu.RankMenu;
+import graphics.D2.rooms.sbGame.SB_Game;
+import graphics.D2.rooms.tGame.T_Game;
 
 import java.awt.Graphics;
 

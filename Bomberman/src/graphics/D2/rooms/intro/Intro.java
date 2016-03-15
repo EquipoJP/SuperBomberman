@@ -1,8 +1,9 @@
 /**
  * Class representing the Intro screen
  */
-package graphics.D2.rooms;
+package graphics.D2.rooms.intro;
 
+import graphics.D2.rooms.Room;
 import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Logo;

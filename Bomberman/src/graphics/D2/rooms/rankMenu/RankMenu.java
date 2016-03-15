@@ -1,8 +1,9 @@
 /**
  * Class representing the ranking menu screen
  */
-package graphics.D2.rooms;
+package graphics.D2.rooms.rankMenu;
 
+import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
 
 import java.awt.Graphics;

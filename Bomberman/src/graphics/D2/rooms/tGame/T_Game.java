@@ -1,8 +1,9 @@
 /**
  * Class representing the Traditional game mode screen
  */
-package graphics.D2.rooms;
+package graphics.D2.rooms.tGame;
 
+import graphics.D2.rooms.Game;
 import main.Initialization.STAGE;
 
 /**
