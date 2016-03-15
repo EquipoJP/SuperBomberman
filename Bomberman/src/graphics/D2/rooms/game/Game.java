@@ -1,13 +1,14 @@
 /**
  * Class representing the generic game screen
  */
-package graphics.D2.rooms;
+package graphics.D2.rooms.game;
 
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
@@ -15,7 +16,6 @@ import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 import logic.misc.Level;
 import logic.misc.Map;
-import main.Initialization;
 import main.Initialization.STAGE;
 import sound.SoundTrack;
 
@@ -46,10 +46,10 @@ public abstract class Game extends Room {
 	
 	@Override
 	public void load() {
+		GameRepository.load(stage);
 		seconds = -1;
 
-		tiles = Initialization.getSpriteFromMap(stage.toString() + "_"
-				+ Initialization.TYPE.TILE.toString());
+		tiles = GameRepository.tiles;
 		List<Objeto> objetos = Map.getMap(file, this, stage);
 
 		for (Objeto obj : objetos) {

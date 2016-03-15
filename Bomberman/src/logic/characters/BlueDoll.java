@@ -1,8 +1,8 @@
 package logic.characters;
 
-import logic.collisions.PerspectiveBoundingBox;
-import main.Initialization;
 import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
+import logic.collisions.PerspectiveBoundingBox;
 
 public class BlueDoll extends Enemy {
 
@@ -14,7 +14,7 @@ public class BlueDoll extends Enemy {
 	public void create() {
 		super.create();
 
-		sprite_index = Initialization.getSpriteFromSprites(Initialization.SPRITES.BLUE_DOLL.toString());
+		sprite_index = GameRepository.blueDoll;
 		image_speed = 0.05;
 
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);

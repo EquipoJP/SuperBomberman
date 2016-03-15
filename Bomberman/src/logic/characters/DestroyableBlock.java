@@ -1,13 +1,12 @@
 package logic.characters;
 
 import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
 import logic.collisions.NoPerspectiveBoundingBox;
-import main.Initialization;
 import main.Initialization.STAGE;
-import main.Initialization.TYPE;
 
 public class DestroyableBlock extends Objeto{
 	
@@ -18,13 +17,13 @@ public class DestroyableBlock extends Objeto{
 	public DestroyableBlock(int x, int y, Room r, STAGE stage) {
 		super(x, y, r);
 		
-		sprite_index = Initialization.getSpriteFromMap(stage.toString() + "_" + TYPE.DESTROYABLE_BLOCK.toString());
+		sprite_index = GameRepository.destroyableBlock1;
 		image_speed = 0.5;
 
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		
-		destroyed = Initialization.getSpriteFromMap(stage.toString() + "_" + TYPE.DESTROY_BLOCK.toString());
+		destroyed = GameRepository.destroyableBlock2;
 		destruction = false;
 		animation_end = false;
 	}

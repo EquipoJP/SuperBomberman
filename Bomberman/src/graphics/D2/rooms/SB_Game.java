@@ -1,9 +1,9 @@
 /**
  * Class representing the Super-Bomber game mode screen
  */
-package graphics.D2.rooms.sbGame;
+package graphics.D2.rooms;
 
-import graphics.D2.rooms.Game;
+import graphics.D2.rooms.game.Game;
 import logic.Global;
 import logic.Objeto;
 import logic.characters.Enemy;

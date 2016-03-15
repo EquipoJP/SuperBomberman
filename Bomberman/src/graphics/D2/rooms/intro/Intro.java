@@ -3,16 +3,15 @@
  */
 package graphics.D2.rooms.intro;
 
-import graphics.D2.rooms.Room;
-import graphics.effects.Fade;
-import graphics.effects.IntroTemporizer;
-import graphics.effects.Logo;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import graphics.D2.rooms.Room;
+import graphics.effects.Fade;
+import graphics.effects.IntroTemporizer;
+import graphics.effects.Visual;
 import logic.Input.KEY;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
@@ -34,8 +33,10 @@ public class Intro extends Room {
 	
 	@Override
 	public void load() {
+		IntroRepository.load();
+		
 		addObjeto(new Fade(0, 0, this, false));
-		addObjeto(new Logo(width / 2, height / 2, this));
+		addObjeto(new Visual(width / 2, height / 2, this, IntroRepository.logo));
 		created = false;
 		fadeOutCreated = false;
 	}

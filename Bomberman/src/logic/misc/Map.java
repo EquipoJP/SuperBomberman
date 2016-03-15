@@ -46,7 +46,7 @@ public class Map {
 						objetos.add(createDestroyable(row, col, room, stage));
 						break;
 					case BLOCK:
-						objetos.add(createBlock(row, col, room, stage));
+						objetos.add(createBlock(row, col, room));
 						break;
 					case ENEMY_BLUE:
 						objetos.add(createBlueEnemy(row, col, room));
@@ -88,11 +88,11 @@ public class Map {
 		return new DestroyableBlock(x, y, room, stage);
 	}
 
-	private static Objeto createBlock(int row, int col, Room room, STAGE stage) {
+	private static Objeto createBlock(int row, int col, Room room) {
 		int x = getX(row);
 		int y = getY(col);
 
-		return new Block(x, y, room, stage);
+		return new Block(x, y, room);
 	}
 
 	private static Objeto createBlueEnemy(int row, int col, Room room) {

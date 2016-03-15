@@ -24,16 +24,6 @@ public class MainMenuRepository {
 		loadQuitButton();
 	}
 
-	public static void unload() {
-		background = null;
-		titleButton = null;
-		gameButton = null;
-		optionsButton = null;
-		rankingButton = null;
-		creditsButton = null;
-		quitButton = null;
-	}
-
 	private static void loadBackground() {
 		// TODO Auto-generated method stub
 

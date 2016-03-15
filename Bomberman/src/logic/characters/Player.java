@@ -1,6 +1,7 @@
 package logic.characters;
 
 import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
 
 import java.util.Map;
 
@@ -29,8 +30,7 @@ public class Player extends Objeto {
 
 	@Override
 	public void create() {
-		sprites = Initialization.getSprites(Initialization.SPRITES.WHITE_BOMBER
-				.toString());
+		sprites = GameRepository.player;
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]); // idle
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
