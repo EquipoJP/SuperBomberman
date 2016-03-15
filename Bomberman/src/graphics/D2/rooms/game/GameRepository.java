@@ -20,7 +20,7 @@ public class GameRepository {
 	public static Sprite destroyableBlock2 = null;
 
 	public static Map<String, Sprite> player = null;
-
+	
 	public static void load(STAGE stage) {
 		loadTiles(stage);
 		loadBackground();

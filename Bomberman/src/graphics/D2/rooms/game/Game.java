@@ -59,7 +59,7 @@ public abstract class Game extends Room {
 				addObjeto(obj);
 			}
 		}
-
+		
 		setMusic(SoundTrack.BATTLE_MUSIC);
 	}
 

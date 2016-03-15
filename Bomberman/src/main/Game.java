@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-import graphics.D2.rooms.LoaderRepository;
 import logic.Global;
 import logic.Input;
 import logic.StatesMachine;
@@ -69,7 +68,6 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 
 		int updates = 0;
-		int frames = 0;
 		long timer = System.currentTimeMillis();
 
 		while (running) {
@@ -85,13 +83,10 @@ public class Game extends Canvas implements Runnable {
 				delta--;
 			}
 
-			frames++;
-
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				//System.out.println(updates + " ticks, " + frames + " fps");
+				System.out.println(updates + " ticks");
 				updates = 0;
-				frames = 0;
 			}
 		}
 		stop();
