@@ -3,13 +3,13 @@
  */
 package graphics.D2.rooms;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import graphics.effects.Visual;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
@@ -26,6 +26,8 @@ public abstract class Room {
 	public int height;
 	public String name;
 	public List<Objeto> objetos;
+	
+	public Visual loadSymbol;
 	
 	private Music music;
 	
@@ -58,6 +60,9 @@ public abstract class Room {
 	
 	public void loadResources(){
 		if (loader == null){
+			LoaderRepository.load();
+			loadSymbol = new Visual(width / 2, height / 2, this, LoaderRepository.loading);
+			
 			loader = new Thread(new Loader(this));
 			loader.start();
 		}
@@ -91,9 +96,8 @@ public abstract class Room {
 		}
 		else{
 			// TODO
-			g.setColor(Color.red);
-			g.drawRect(0, 0, 100, 100);
-			g.setColor(Color.black);
+			g.clearRect(0, 0, width, height);
+			loadSymbol.render(g);
 		}
 	}
 	

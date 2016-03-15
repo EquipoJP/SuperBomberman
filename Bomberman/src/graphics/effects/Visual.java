@@ -11,7 +11,13 @@ public class Visual extends Objeto {
 		super(x, y, r);
 		
 		sprite_index = spr;
-		image_speed = 0;
+		
+		if(sprite_index.getSubimages() == 0){
+			image_speed = 0;
+		}
+		else{
+			image_speed = 0.15; //TODO 1 second each frame
+		}
 	}
 
 	@Override

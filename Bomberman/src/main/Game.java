@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import graphics.D2.rooms.LoaderRepository;
 import logic.Global;
 import logic.Input;
 import logic.StatesMachine;
