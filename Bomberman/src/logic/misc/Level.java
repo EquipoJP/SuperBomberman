@@ -1,6 +1,5 @@
 package logic.misc;
 
-import logic.Input.KEY;
 import logic.Objeto;
 
 public class Level extends Objeto{
@@ -16,31 +15,4 @@ public class Level extends Objeto{
 		mapWidth = w;
 		mapHeight = h;
 	}
-
-	@Override
-	public void create() {
-	}
-
-	@Override
-	public void customStep(KEY key, KEY direction) {
-	}
-
-	@Override
-	public void alarm(int alarmNo) {
-	}
-
-	@Override
-	public void customDestroy() {
-	}
-
-	@Override
-	public void processKey(KEY key, KEY direction) {
-	}
-
-	@Override
-	public void customCollision(Objeto colision) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -2,10 +2,7 @@ package logic.characters;
 
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
-
 import java.util.Map;
-import java.util.Random;
-
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
@@ -44,12 +41,7 @@ public class Player extends Objeto {
 		bombs = 0;
 		bombsLimit = 1;
 	}
-
-	@Override
-	public void customDestroy() {
-
-	}
-
+	
 	@Override
 	public void customStep(KEY key, KEY direction) {
 		boolean keyed = false;
@@ -130,7 +122,8 @@ public class Player extends Objeto {
 	}
 
 	private void putBomb() {
-		if (bombs < bombsLimit && false) {
+		boolean lol = false;
+		if (bombs < bombsLimit && lol) {
 			KEY key = getDirectionFromSprite();
 			Point2D position = null;
 
@@ -178,7 +171,6 @@ public class Player extends Objeto {
 						// the object is on the tile
 						System.out.println(x + ", " + y + " - " + min + " - "
 								+ max + " - " + obj);
-
 						return;
 					}
 				}
@@ -214,11 +206,4 @@ public class Player extends Objeto {
 
 		return KEY.NO_KEY;
 	}
-
-	@Override
-	public void customCollision(Objeto colision) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

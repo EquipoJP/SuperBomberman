@@ -78,38 +78,9 @@ public class ExplosionPart extends Objeto {
 	}
 
 	@Override
-	public void create() {
-	}
-
-	@Override
 	public void customStep(KEY key, KEY direction) {
 		if (animation_end) {
 			this.destroy();
 		}
 	}
-
-	@Override
-	public void alarm(int alarmNo) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void customDestroy() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void processKey(KEY key, KEY direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void customCollision(Objeto colision) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

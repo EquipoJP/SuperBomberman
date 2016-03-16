@@ -51,11 +51,29 @@ public abstract class Objeto {
 		create();
 	}
 
-	public abstract void create();
+	public void create(){
+		// You must override this to use it
+	}
 
-	public abstract void customStep(KEY key, KEY direction);
+	public void customStep(KEY key, KEY direction){
+		// You must override this to use it
+	}
 
-	public abstract void alarm(int alarmNo);
+	public void alarm(int alarmNo){
+		// You must override this to use it
+	}
+	
+	public void customCollision(Objeto colision){
+		// You must override this to use it
+	}
+	
+	public void customDestroy(){
+		// You must override this to use it
+	}
+	
+	public void processKey(KEY key, KEY direction){
+		// You must override this to use it
+	}
 
 	public void render(Graphics g) {
 		if (sprite_index != null) {
@@ -81,12 +99,6 @@ public abstract class Objeto {
 			}
 		}
 	}
-
-	public abstract void customCollision(Objeto colision);
-	
-	public abstract void customDestroy();
-
-	public abstract void processKey(KEY key, KEY direction);
 
 	public void step(KEY key, KEY direction) {
 		alarmHandling();

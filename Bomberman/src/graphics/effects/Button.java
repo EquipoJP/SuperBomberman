@@ -20,10 +20,6 @@ public class Button extends Objeto {
 	}
 
 	@Override
-	public void create() {
-	}
-
-	@Override
 	public void customStep(KEY key, KEY direction) {
 		if(selected){
 			image_index = 1;
@@ -31,18 +27,6 @@ public class Button extends Objeto {
 		else{
 			image_index = 0;
 		}
-	}
-
-	@Override
-	public void alarm(int alarmNo) {
-	}
-
-	@Override
-	public void customDestroy() {
-	}
-
-	@Override
-	public void processKey(KEY key, KEY direction) {
 	}
 	
 	public void select(){
@@ -56,11 +40,4 @@ public class Button extends Objeto {
 	public boolean isSelected(){
 		return this.selected;
 	}
-
-	@Override
-	public void customCollision(Objeto colision) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

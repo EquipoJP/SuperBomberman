@@ -29,13 +29,7 @@ public class DestroyableBlock extends Objeto{
 	}
 
 	@Override
-	public void create() {
-	}
-
-	@Override
 	public void customStep(KEY key, KEY direction) {
-		// TODO chequear colision con explosiones y poner destruction = true si toca
-		
 		if(destruction){
 			if(sprite_index != destroyed){
 				sprite_index = destroyed;
@@ -56,23 +50,4 @@ public class DestroyableBlock extends Objeto{
 	public void callForDestruction(){
 		destruction = true;
 	}
-
-	@Override
-	public void alarm(int alarmNo) {
-	}
-
-	@Override
-	public void customDestroy() {
-	}
-
-	@Override
-	public void processKey(KEY key, KEY direction) {
-	}
-
-	@Override
-	public void customCollision(Objeto colision) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

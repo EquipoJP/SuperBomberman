@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
 import graphics.D2.rooms.Room;
-import logic.Input.KEY;
 import logic.characters.ExplosionPart.KIND;
 import logic.characters.ExplosionPart.SIDE;
 import main.Initialization;
@@ -33,7 +32,6 @@ public class ExplosionManager extends Objeto {
 		for (int i = 0; i < DIRECTIONS; i++) {
 			stop[i] = false;
 		}
-		System.out.println("Core " + x + " " + y);
 		// Crear core
 		BoundingBox b = new BoundingBox(new Point2D(x, y), new Point2D(x + 32, y + 32));
 		bbs.add(b);
@@ -68,7 +66,6 @@ public class ExplosionManager extends Objeto {
 					default:
 						break;
 					}
-					System.out.println("Dir " + j + " Rad " + i);
 					Objeto check = checkWallOrBlockCollision(xToCheck, yToCheck);
 
 					// There has been collision
@@ -127,34 +124,12 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-	public void create() {
-	}
-
-	@Override
-	public void customStep(KEY key, KEY direction) {
-
-	}
-
-	@Override
 	public void render(Graphics g) {
 		for (BoundingBox b : bbs) {
 			g.setColor(Color.red);
 			g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
 			g.setColor(Color.black);
 		}
-	}
-
-	@Override
-	public void alarm(int alarmNo) {
-
-	}
-
-	@Override
-	public void customDestroy() {
-	}
-
-	@Override
-	public void processKey(KEY key, KEY direction) {
 	}
 
 	public int calculateXPosition(int posx) {
@@ -191,30 +166,21 @@ public class ExplosionManager extends Objeto {
 		return posy;
 	}
 
-	@Override
-	public void customCollision(Objeto colision) {
-	}
-
 	private Objeto checkWallOrBlockCollision(int x, int y) {
 		Objeto returned = null;
 		List<Objeto> objects = myRoom.objetos;
 		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2), new Point2D(x + 2, y + 2));
 		bbs.add(bb);
-		System.out.println("=====");
-		System.out.println(bb);
-		// bb.update(x, y);
 
 		for (Objeto obj : objects) {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
 				if (collision && (obj instanceof Block || obj instanceof DestroyableBlock)) {
 					returned = obj;
-					System.out.println(obj.boundingBox);
 					break;
 				}
 			}
 		}
-		System.out.println("======");
 		return returned;
 	}
 }

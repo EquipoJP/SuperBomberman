@@ -57,11 +57,6 @@ public class Fade extends Objeto {
 	}
 
 	@Override
-	public void customDestroy() {
-		// Nothing
-	}
-
-	@Override
 	public void customStep(KEY key, KEY direction) {
 		if(sum){
 			if(alpha < MAX){
@@ -88,24 +83,8 @@ public class Fade extends Objeto {
 			}
 		}
 	}
-
-	@Override
-	public void alarm(int alarmNo) {
-		// Nothing
-	}
-
-	@Override
-	public void processKey(KEY key, KEY direction) {
-		// Nothing		
-	}
 	
 	public boolean isFadeOut(){
 		return sum;
-	}
-
-	@Override
-	public void customCollision(Objeto colision) {
-		// TODO Auto-generated method stub
-		
 	}
 }
