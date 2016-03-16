@@ -125,10 +125,36 @@ public class Map {
 	}
 
 	public static int getRow(int x) {
-		return (x - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
+		return (x + Initialization.TILE_WIDTH/2 - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
 	}
 
 	public static int getCol(int y) {
-		return (y - Initialization.MAP_Y_OFFSET) / Initialization.TILE_HEIGHT;
+		return (y + Initialization.TILE_HEIGHT/2 - Initialization.MAP_Y_OFFSET) / Initialization.TILE_HEIGHT;
+	}
+	
+	public static void main(String[] args) {
+		
+		for(int i = 0; i < 15; i++){
+			for (int j = 0; j < 15; j++) {
+				int row = i;
+				int col = j;
+				
+				int x = getX(row);
+				int y = getY(col);
+				
+				row = getRow(x - 15);
+				col = getCol(y - 8);
+				
+				System.out.println("Real row: " + i + " - Result: " + row);
+				System.out.println("Real col: " + j + " - Result: " + col);
+				
+				if(i != row){
+					System.err.println("Row error");
+				}
+				if(j != col){
+					System.err.println("Col error");
+				}
+			}
+		}
 	}
 }

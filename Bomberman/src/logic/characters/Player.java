@@ -2,10 +2,13 @@ package logic.characters;
 
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
+
 import java.util.Map;
+
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
+import logic.collisions.BoundingBox;
 import logic.collisions.PerspectiveBoundingBox;
 import logic.collisions.Point2D;
 import main.Initialization;
@@ -17,7 +20,6 @@ public class Player extends Objeto {
 
 	private int modX;
 	private int modY;
-	private boolean yaVale = true;
 
 	public int bombs;
 	public int bombRadius = 1;
@@ -85,13 +87,6 @@ public class Player extends Objeto {
 	}
 
 	@Override
-	public void alarm(int alarmNo) {
-		if (alarmNo == 3) {
-			yaVale = true;
-		}
-	}
-
-	@Override
 	public void processKey(KEY key, KEY direction) {
 		switch (direction) {
 		case DOWN:
@@ -122,71 +117,60 @@ public class Player extends Objeto {
 	}
 
 	private void putBomb() {
-		boolean lol = false;
-		if (bombs < bombsLimit && lol) {
+		if (bombs < bombsLimit) {
 			KEY key = getDirectionFromSprite();
-			Point2D position = null;
-
+			
+			//center of the tile in which the player is standing
 			int row = logic.misc.Map.getRow(x);
-			int col = logic.misc.Map.getCol(y);
-
-			switch (key) {
-			case DOWN:
-				position = new Point2D(logic.misc.Map.getX(row),
-						logic.misc.Map.getY(col + 1));
-				break;
+			int col = logic.misc.Map.getRow(y);
+			
+			System.out.println("Initial: " + row + " " + col);
+			
+			switch(key){
 			case UP:
-				position = new Point2D(logic.misc.Map.getX(row),
-						logic.misc.Map.getY(col - 1));
+				row--;
 				break;
-			case LEFT:
-				position = new Point2D(logic.misc.Map.getX(row - 1),
-						logic.misc.Map.getY(col));
+			case DOWN:
+				row++;
 				break;
 			case RIGHT:
-				position = new Point2D(logic.misc.Map.getX(row + 1),
-						logic.misc.Map.getY(col + 1));
+				col++;
+				break;
+			case LEFT:
+				col--;
 				break;
 			default:
-				break;
+				return ;
 			}
-
-			if (position == null) {
-				return;
-			}
-
-			Point2D min = new Point2D(position.getX()
-					- Initialization.TILE_WIDTH / 2, position.getY()
-					- Initialization.TILE_HEIGHT / 2);
-			Point2D max = new Point2D(position.getX()
-					+ Initialization.TILE_WIDTH / 2, position.getY()
-					+ Initialization.TILE_HEIGHT / 2);
-			for (Objeto obj : myRoom.objetos) {
-				if (obj.depth == this.depth) {
-					int x = obj.x;
-					int y = obj.y;
-
-					if (x >= min.getX() && x <= max.getX() && y >= min.getY()
-							&& y <= max.getY()) {
-						// the object is on the tile
-						System.out.println(x + ", " + y + " - " + min + " - "
-								+ max + " - " + obj);
-						return;
-					}
-				}
-			}
-
-			Bomb bomb = new Bomb(position.getX(), position.getY(), myRoom,
-					bombRadius, this);
-			myRoom.addObjeto(bomb);
-			bombs++;
-		} else {
-			if (yaVale) {
-				myRoom.addObjeto(new ExplosionManager(x, y, myRoom, 5));
-				yaVale = false;
-				setAlarm(3,30);
+			
+			System.out.println("After: " + row + " " + col);
+			
+			int _x = logic.misc.Map.getX(row);
+			int _y = logic.misc.Map.getX(col);
+			
+			System.out.println("X-X'': " + x + "-" + _x + " <--> Y-Y'': " + y + "-" + _y);
+			
+			if(!checkCollision(_x, _y)){
+				Bomb bomb = new Bomb(_x, _y, myRoom,
+						bombRadius, this);
+				myRoom.addObjeto(bomb);
+				bombs++;
 			}
 		}
+	}
+	
+	private boolean checkCollision(int x, int y){
+		BoundingBox bb = new BoundingBox(new Point2D(x - Initialization.TILE_HEIGHT/2, y - Initialization.TILE_WIDTH/2), 
+				new Point2D(x + Initialization.TILE_HEIGHT/2, y + Initialization.TILE_WIDTH/2));
+		for (Objeto obj : myRoom.objetos) {
+			if (!obj.equals(this)) {
+				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
+				if (collision) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private KEY getDirectionFromSprite() {

@@ -22,7 +22,6 @@ public class GameRepository {
 	public static Map<String, Sprite> player = null;
 	
 	public static Sprite bomb = null;
-	public static Sprite destroyedBomb = null;
 	
 	public static Sprite coreExplosion = null;
 	public static Sprite edgeDownExplosion = null;
@@ -45,7 +44,7 @@ public class GameRepository {
 
 		loadPlayer();
 		
-		//loadBombs();
+		loadBomb();
 		
 		loadExplosions();
 	}
@@ -95,13 +94,10 @@ public class GameRepository {
 		}
 	}
 	
-	private static void loadBombs() {
+	private static void loadBomb() {
 		if (bomb == null) {
 			bomb = Initialization
 					.getSpriteFromSprites(Initialization.SPRITES.BOMB.toString());
-		}
-		if (destroyedBomb == null) {
-			destroyedBomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.DESTOYED_BOMB.toString());
 		}
 	}
 	

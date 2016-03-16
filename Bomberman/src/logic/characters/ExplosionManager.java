@@ -1,14 +1,15 @@
 package logic.characters;
 
 import java.util.List;
+
 import graphics.D2.rooms.Room;
-import logic.characters.ExplosionPart.KIND;
-import logic.characters.ExplosionPart.SIDE;
-import main.Initialization;
 import logic.Input.KEY;
 import logic.Objeto;
+import logic.characters.ExplosionPart.KIND;
+import logic.characters.ExplosionPart.SIDE;
 import logic.collisions.BoundingBox;
 import logic.collisions.Point2D;
+import main.Initialization;
 
 public class ExplosionManager extends Objeto {
 
@@ -28,9 +29,9 @@ public class ExplosionManager extends Objeto {
 		for (int i = 0; i < DIRECTIONS; i++) {
 			stop[i] = false;
 		}
-		// Crear core
+		// Create core
 		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE, ExplosionPart.SIDE.DOWN));
-		// Crear branches
+		// Create branches
 		for (int i = 1; i <= radius; i++) {
 
 			// In every direction
@@ -122,6 +123,23 @@ public class ExplosionManager extends Objeto {
 		destroy();
 	}
 	
+	private Objeto checkWallOrBlockCollision(int x, int y) {
+		Objeto returned = null;
+		List<Objeto> objects = myRoom.objetos;
+		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2), new Point2D(x + 2, y + 2));
+
+		for (Objeto obj : objects) {
+			if (!obj.equals(this)) {
+				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
+				if (collision && (obj instanceof Block || obj instanceof DestroyableBlock)) {
+					returned = obj;
+					break;
+				}
+			}
+		}
+		return returned;
+	}
+	
 	public int calculateXPosition(int posx) {
 		// Le sumamos la cuarta parte de la width para mejorar la ubicacion
 		posx = posx + Initialization.TILE_WIDTH / 2;
@@ -154,22 +172,5 @@ public class ExplosionManager extends Objeto {
 		posy = posy - Initialization.TILE_HEIGHT/2;
 		// Devolvemos
 		return posy;
-	}
-
-	private Objeto checkWallOrBlockCollision(int x, int y) {
-		Objeto returned = null;
-		List<Objeto> objects = myRoom.objetos;
-		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2), new Point2D(x + 2, y + 2));
-
-		for (Objeto obj : objects) {
-			if (!obj.equals(this)) {
-				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
-				if (collision && (obj instanceof Block || obj instanceof DestroyableBlock)) {
-					returned = obj;
-					break;
-				}
-			}
-		}
-		return returned;
 	}
 }

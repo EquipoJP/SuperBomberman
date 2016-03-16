@@ -1,11 +1,12 @@
 package logic;
 
+import graphics.D2.rooms.Room;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
 
-import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.collisions.BoundingBox;
 
@@ -188,4 +189,5 @@ public abstract class Objeto {
 	public void resetAnimationEnd() {
 		animation_end = false;
 	}
+	
 }

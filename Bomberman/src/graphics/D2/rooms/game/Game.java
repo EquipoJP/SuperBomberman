@@ -130,7 +130,7 @@ public abstract class Game extends Room {
 				@Override
 				public void run() {
 					seconds--;
-					System.out.println("Seconds left: " + seconds);
+//					System.out.println("Seconds left: " + seconds);
 				}
 			};
 
