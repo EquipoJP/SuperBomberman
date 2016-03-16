@@ -12,20 +12,18 @@ public class DestroyableBlock extends Objeto{
 	
 	private Sprite destroyed;
 	private boolean destruction;
-	private boolean animation_end;
 
 	public DestroyableBlock(int x, int y, Room r, STAGE stage) {
 		super(x, y, r);
 		
 		sprite_index = GameRepository.destroyableBlock1;
-		image_speed = 0.5;
+		image_speed = 0.2;
 
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		
 		destroyed = GameRepository.destroyableBlock2;
 		destruction = false;
-		animation_end = false;
 	}
 
 	@Override
@@ -34,12 +32,10 @@ public class DestroyableBlock extends Objeto{
 			if(sprite_index != destroyed){
 				sprite_index = destroyed;
 				image_index = 0;
+				resetAnimationEnd();
 			}
 			else{
-				if(image_index >= sprite_index.getSubimages()-1){
-					animation_end = true;
-				}
-				if(animation_end && image_index == 0){
+				if(animation_end){
 					destroy();
 				}
 			}

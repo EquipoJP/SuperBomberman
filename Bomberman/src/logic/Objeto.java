@@ -51,27 +51,27 @@ public abstract class Objeto {
 		create();
 	}
 
-	public void create(){
+	public void create() {
 		// You must override this to use it
 	}
 
-	public void customStep(KEY key, KEY direction){
+	public void customStep(KEY key, KEY direction) {
 		// You must override this to use it
 	}
 
-	public void alarm(int alarmNo){
+	public void alarm(int alarmNo) {
 		// You must override this to use it
 	}
-	
-	public void customCollision(Objeto colision){
+
+	public void customCollision(Objeto colision) {
 		// You must override this to use it
 	}
-	
-	public void customDestroy(){
+
+	public void customDestroy() {
 		// You must override this to use it
 	}
-	
-	public void processKey(KEY key, KEY direction){
+
+	public void processKey(KEY key, KEY direction) {
 		// You must override this to use it
 	}
 
@@ -91,8 +91,8 @@ public abstract class Objeto {
 					y - sprite_index.getCenterY(), null);
 
 			image_index = (image_index + image_speed) % sprite_index.getSubimages();
-			
-			if(Global.DEBUG && boundingBox != null){
+
+			if (Global.DEBUG && boundingBox != null) {
 				g.setColor(Color.red);
 				g.drawRect(boundingBox.getX(), boundingBox.getY(), boundingBox.getWidth(), boundingBox.getHeight());
 				g.setColor(Color.black);
@@ -103,13 +103,13 @@ public abstract class Objeto {
 	public void step(KEY key, KEY direction) {
 		alarmHandling();
 		alarmCode();
+		checkAnimationEnd();
 		customStep(key, direction);
 		List<Objeto> colisiones = collision();
-		if(colisiones!=null)
-			for(Objeto obj : colisiones)
+		if (colisiones != null)
+			for (Objeto obj : colisiones)
 				customCollision(obj);
 		processKey(key, direction);
-		checkAnimationEnd();
 	}
 
 	private void alarmHandling() {
@@ -148,45 +148,44 @@ public abstract class Objeto {
 			alarmsSet++;
 		}
 	}
-	
-	public void tryToMove(int modX, int modY){
+
+	public void tryToMove(int modX, int modY) {
 		boundingBox.update(modX, modY);
-		if(collision()!=null){
+		if (collision() != null) {
 			boundingBox.update(-modX, -modY);
-		}
-		else{
+		} else {
 			x = x + modX;
 			y = y + modY;
 		}
 	}
-	
-	public List<Objeto> collision(){
+
+	public List<Objeto> collision() {
 		List<Objeto> returned = null;
 		List<Objeto> objects = myRoom.objetos;
-		
-		for(Objeto obj : objects ){
-			if(!obj.equals(this)){
+
+		for (Objeto obj : objects) {
+			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(boundingBox, obj.boundingBox);
-				if(collision){
-					if(returned == null){
+				if (collision) {
+					if (returned == null) {
 						returned = new LinkedList<Objeto>();
 					}
 					returned.add(obj);
 				}
 			}
 		}
-		
+
 		return returned;
 	}
-	
-	public void checkAnimationEnd(){
-		if(image_index < previous_image_index){
+
+	public void checkAnimationEnd() {
+		if (image_index < previous_image_index && sprite_index == prev_sprite_index) {
 			animation_end = true;
 		}
 		previous_image_index = image_index;
 	}
-	
-	public void resetAnimationEnd(){
+
+	public void resetAnimationEnd() {
 		animation_end = false;
 	}
 }

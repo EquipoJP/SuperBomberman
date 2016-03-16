@@ -18,8 +18,8 @@ import main.Initialization.STAGE;
 
 public class Map {
 
-	public static final char DESTROYABLE_BLOCK = '1';
-	public static final char BLOCK = '0';
+	public static final char DESTROYABLE_BLOCK = '0';
+	public static final char BLOCK = '1';
 	public static final char ENEMY_BLUE = '2';
 	public static final char ENEMY_PINK = '3';
 	public static final char BOMBERMAN = '4';

@@ -74,7 +74,7 @@ public class ExplosionPart extends Objeto {
 		// Centro en la esquina superior izquierda
 		sprite_index.setCenterX(0);
 		sprite_index.setCenterY(0);
-		image_speed = 0.3;
+		image_speed = 0.2;
 	}
 
 	@Override

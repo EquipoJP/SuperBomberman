@@ -1,13 +1,11 @@
 package logic.characters;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.LinkedList;
 import java.util.List;
 import graphics.D2.rooms.Room;
 import logic.characters.ExplosionPart.KIND;
 import logic.characters.ExplosionPart.SIDE;
 import main.Initialization;
+import logic.Input.KEY;
 import logic.Objeto;
 import logic.collisions.BoundingBox;
 import logic.collisions.Point2D;
@@ -20,11 +18,9 @@ public class ExplosionManager extends Objeto {
 	private final int RIGHT = 1;
 	private final int DOWN = 2;
 	private final int LEFT = 3;
-	private LinkedList<BoundingBox> bbs;
 
 	public ExplosionManager(int x, int y, Room r, int rad) {
 		super(x, y, r);
-		bbs = new LinkedList<BoundingBox>();
 		this.radius = rad;
 		x = calculateXPosition(x);
 		y = calculateYPosition(y);
@@ -33,8 +29,6 @@ public class ExplosionManager extends Objeto {
 			stop[i] = false;
 		}
 		// Crear core
-		BoundingBox b = new BoundingBox(new Point2D(x, y), new Point2D(x + 32, y + 32));
-		bbs.add(b);
 		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE, ExplosionPart.SIDE.DOWN));
 		// Crear branches
 		for (int i = 1; i <= radius; i++) {
@@ -124,14 +118,10 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-	public void render(Graphics g) {
-		for (BoundingBox b : bbs) {
-			g.setColor(Color.red);
-			g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
-			g.setColor(Color.black);
-		}
+	public void customStep(KEY input, KEY direction){
+		destroy();
 	}
-
+	
 	public int calculateXPosition(int posx) {
 		// Le sumamos la cuarta parte de la width para mejorar la ubicacion
 		posx = posx + Initialization.TILE_WIDTH / 2;
@@ -170,7 +160,6 @@ public class ExplosionManager extends Objeto {
 		Objeto returned = null;
 		List<Objeto> objects = myRoom.objetos;
 		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2), new Point2D(x + 2, y + 2));
-		bbs.add(bb);
 
 		for (Objeto obj : objects) {
 			if (!obj.equals(this)) {
