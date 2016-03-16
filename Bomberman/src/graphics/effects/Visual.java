@@ -34,4 +34,10 @@ public class Visual extends Objeto {
 	public void processKey(KEY key) {
 	}
 
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

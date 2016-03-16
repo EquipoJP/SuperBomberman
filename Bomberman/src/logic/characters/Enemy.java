@@ -84,4 +84,10 @@ public class Enemy extends Objeto{
 		return null;
 	}
 
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

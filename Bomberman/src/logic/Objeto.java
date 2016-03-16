@@ -20,6 +20,7 @@ public abstract class Objeto {
 	public BoundingBox boundingBox;
 	protected double image_index;
 	protected double image_speed;
+	protected boolean animation_end;
 
 	public Room myRoom;
 
@@ -27,6 +28,7 @@ public abstract class Objeto {
 	public int alarmsSet;
 
 	private List<Integer> alarmsOff;
+	private double previous_image_index;
 
 	public Objeto(int x, int y, Room r) {
 		this.x = x;
@@ -43,7 +45,9 @@ public abstract class Objeto {
 		boundingBox = null;
 		prev_sprite_index = sprite_index;
 		image_index = -1;
-		image_speed = 1;
+		previous_image_index = image_index;
+		animation_end = false;
+		image_speed = 0;
 		create();
 	}
 
@@ -58,9 +62,11 @@ public abstract class Objeto {
 			if (prev_sprite_index == null || (prev_sprite_index != null && !sprite_index.equals(prev_sprite_index))) {
 				prev_sprite_index = sprite_index;
 				image_index = 0;
+				previous_image_index = 0;
 			}
 			if (image_index < 0) {
 				image_index = 0;
+				previous_image_index = 0;
 			}
 			int temp_image_index = (int) Math.floor(image_index);
 			g.drawImage(sprite_index.getSubsprites()[temp_image_index], x - sprite_index.getCenterX(),
@@ -76,6 +82,8 @@ public abstract class Objeto {
 		}
 	}
 
+	public abstract void customCollision(Objeto colision);
+	
 	public abstract void customDestroy();
 
 	public abstract void processKey(KEY key);
@@ -84,8 +92,12 @@ public abstract class Objeto {
 		alarmHandling();
 		alarmCode();
 		customStep(key);
-		// Collision?
+		List<Objeto> colisiones = collision();
+		if(colisiones!=null)
+			for(Objeto obj : colisiones)
+				customCollision(obj);
 		processKey(key);
+		checkAnimationEnd();
 	}
 
 	private void alarmHandling() {
@@ -127,7 +139,7 @@ public abstract class Objeto {
 	
 	public void tryToMove(int modX, int modY){
 		boundingBox.update(modX, modY);
-		if(collision()){
+		if(collision()!=null){
 			boundingBox.update(-modX, -modY);
 		}
 		else{
@@ -136,19 +148,33 @@ public abstract class Objeto {
 		}
 	}
 	
-	public boolean collision(){
-		boolean collision = false;
+	public List<Objeto> collision(){
+		List<Objeto> returned = null;
 		List<Objeto> objects = myRoom.objetos;
 		
-		for(Objeto obj : objects){
+		for(Objeto obj : objects ){
 			if(!obj.equals(this)){
-				collision = BoundingBox.collision(boundingBox, obj.boundingBox);
+				boolean collision = BoundingBox.collision(boundingBox, obj.boundingBox);
 				if(collision){
-					break;
+					if(returned == null){
+						returned = new LinkedList<Objeto>();
+					}
+					returned.add(obj);
 				}
 			}
 		}
 		
-		return collision;
+		return returned;
+	}
+	
+	public void checkAnimationEnd(){
+		if(image_index < previous_image_index){
+			animation_end = true;
+		}
+		previous_image_index = image_index;
+	}
+	
+	public void resetAnimationEnd(){
+		animation_end = false;
 	}
 }

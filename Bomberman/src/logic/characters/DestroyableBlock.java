@@ -43,7 +43,7 @@ public class DestroyableBlock extends Objeto{
 				image_index = 0;
 			}
 			else{
-				if(image_index == sprite_index.getSubimages()-1){
+				if(image_index >= sprite_index.getSubimages()-1){
 					animation_end = true;
 				}
 				if(animation_end && image_index == 0){
@@ -52,6 +52,10 @@ public class DestroyableBlock extends Objeto{
 			}
 		}
 		
+	}
+	
+	public void callForDestruction(){
+		destruction = true;
 	}
 
 	@Override
@@ -64,6 +68,12 @@ public class DestroyableBlock extends Objeto{
 
 	@Override
 	public void processKey(KEY key) {
+	}
+
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

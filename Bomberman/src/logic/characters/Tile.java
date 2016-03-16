@@ -45,4 +45,10 @@ public class Tile extends Objeto{
 		
 	}
 
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

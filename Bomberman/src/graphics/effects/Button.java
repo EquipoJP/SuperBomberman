@@ -57,4 +57,10 @@ public class Button extends Objeto {
 		return this.selected;
 	}
 
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

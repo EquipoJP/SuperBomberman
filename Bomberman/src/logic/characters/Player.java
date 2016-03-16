@@ -3,6 +3,7 @@ package logic.characters;
 import graphics.D2.rooms.Room;
 
 import java.util.Map;
+import java.util.Random;
 
 import logic.Input.KEY;
 import logic.Objeto;
@@ -18,6 +19,7 @@ public class Player extends Objeto {
 
 	private int modX;
 	private int modY;
+	private boolean yaVale = true;
 
 	public int bombs;
 	public int bombRadius = 1;
@@ -82,8 +84,9 @@ public class Player extends Objeto {
 
 	@Override
 	public void alarm(int alarmNo) {
-		// TODO Auto-generated method stub
-
+		if(alarmNo == 3){
+			yaVale = true;
+		}
 	}
 
 	@Override
@@ -112,7 +115,7 @@ public class Player extends Objeto {
 	}
 
 	private void putBomb() {
-		if (bombs < bombsLimit) {
+		if (bombs < bombsLimit && false) {
 			KEY key = getDirectionFromSprite();
 			Point2D position = null;
 
@@ -136,10 +139,10 @@ public class Player extends Objeto {
 				break;
 			}
 
-			if(position == null){
-				return ;
+			if (position == null) {
+				return;
 			}
-			
+
 			Point2D min = new Point2D(position.getX() - Initialization.TILE_WIDTH / 2,
 					position.getY() - Initialization.TILE_HEIGHT / 2);
 			Point2D max = new Point2D(position.getX() + Initialization.TILE_WIDTH / 2,
@@ -150,18 +153,23 @@ public class Player extends Objeto {
 					int x = obj.x;
 					int y = obj.y;
 
-					if(x >= min.getX() && x <= max.getX() &&
-							y >= min.getY() && y <= max.getY()){
+					if (x >= min.getX() && x <= max.getX() && y >= min.getY() && y <= max.getY()) {
 						// the object is on the tile
 						System.out.println(x + ", " + y + " - " + min + " - " + max + " - " + obj);
-						return ;
+						return;
 					}
 				}
 			}
-			
+
 			Bomb bomb = new Bomb(position.getX(), position.getY(), myRoom, bombRadius, this);
 			myRoom.addObjeto(bomb);
 			bombs++;
+		} else {
+			if (yaVale) {
+				myRoom.addObjeto(new ExplosionManager(x, y, myRoom, 5));
+				yaVale = false;
+				setAlarm(3,30);
+			}
 		}
 	}
 
@@ -181,6 +189,12 @@ public class Player extends Objeto {
 		}
 
 		return KEY.NO_KEY;
+	}
+
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

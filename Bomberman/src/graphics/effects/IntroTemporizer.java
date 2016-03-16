@@ -44,4 +44,10 @@ public class IntroTemporizer extends Objeto{
 		// Nothing
 	}
 
+	@Override
+	public void customCollision(Objeto colision) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
