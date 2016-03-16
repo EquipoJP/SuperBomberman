@@ -3,6 +3,7 @@
  */
 package graphics.D2.rooms;
 
+import graphics.D2.rooms.game.Game;
 import logic.Global;
 import logic.Objeto;
 import logic.characters.Enemy;
@@ -38,5 +39,4 @@ public class SB_Game extends Game {
 		Global.scoreManager.updateScore(enemiesDestroyed);
 		Global.scoreManager.updateScore(seconds);
 	}
-
 }

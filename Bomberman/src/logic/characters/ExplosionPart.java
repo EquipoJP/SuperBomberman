@@ -82,9 +82,15 @@ public class ExplosionPart extends Objeto {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void customStep(KEY key) {
 		if (animation_end) {
 			this.destroy();
+=======
+	public void customStep(KEY key, KEY direction) {
+		if(image_index>=sprite_index.getSubimages()){
+			destroy();
+>>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 		}
 	}
 
@@ -101,7 +107,7 @@ public class ExplosionPart extends Objeto {
 	}
 
 	@Override
-	public void processKey(KEY key) {
+	public void processKey(KEY key, KEY direction) {
 		// TODO Auto-generated method stub
 
 	}

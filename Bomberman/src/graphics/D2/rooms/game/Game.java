@@ -1,13 +1,14 @@
 /**
  * Class representing the generic game screen
  */
-package graphics.D2.rooms;
+package graphics.D2.rooms.game;
 
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import graphics.D2.rooms.Room;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
@@ -15,7 +16,6 @@ import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 import logic.misc.Level;
 import logic.misc.Map;
-import main.Initialization;
 import main.Initialization.STAGE;
 import sound.SoundTrack;
 
@@ -33,14 +33,23 @@ public abstract class Game extends Room {
 	private TimerTask task;
 
 	private final long SECONDS_PHASE = 50; // TODO
+	
+	private String file;
+	private STAGE stage;
 
 	public Game(int w, int h, String n, String file, STAGE stage) {
 		super(w, h, n);
-
+		
+		this.file = file;
+		this.stage = stage;
+	}
+	
+	@Override
+	public void load() {
+		GameRepository.load(stage);
 		seconds = -1;
 
-		tiles = Initialization.getSpriteFromMap(stage.toString() + "_"
-				+ Initialization.TYPE.TILE.toString());
+		tiles = GameRepository.tiles;
 		List<Objeto> objetos = Map.getMap(file, this, stage);
 
 		for (Objeto obj : objetos) {
@@ -50,12 +59,15 @@ public abstract class Game extends Room {
 				addObjeto(obj);
 			}
 		}
-
+		
 		setMusic(SoundTrack.BATTLE_MUSIC);
 	}
 
 	@Override
 	public void drawBackground(Graphics g) {
+		if(!loadComplete()){
+			return ;
+		}
 		g.clearRect(0, 0, width, height);
 
 		if (level != null) {
@@ -63,27 +75,30 @@ public abstract class Game extends Room {
 					.getWidth()) {
 				for (int y = level.mapInitY; y < level.mapInitY
 						+ level.mapHeight; y += tiles.getHeight()) {
-					g.drawImage(tiles.getSubsprites()[0],
-							x - tiles.getCenterX(), y - tiles.getCenterY(),
-							null);
+					if(tiles != null){
+						g.drawImage(tiles.getSubsprites()[0],
+								x - tiles.getCenterX(), y - tiles.getCenterY(),
+								null);
+					}
 				}
 			}
 		}
 	}
-
+	
 	@Override
-	public void step(KEY key) {
-		super.step(key);
+	public void step(KEY key, KEY direction) {
+		super.step(key, direction);
+		
+		if(!loadComplete()){
+			return ;
+		}
 
 		setTimer();
 
-		if ((key == KEY.ENTER && lastKey != KEY.ENTER)
-				|| (key == KEY.ESCAPE && lastKey != KEY.ESCAPE)) {
+		if (key == KEY.ENTER || key == KEY.ESCAPE) {
 			// Pause menu being persistent
 			StatesMachine.goToRoom(STATE.PAUSE, true);
 		}
-
-		lastKey = key;
 
 		if (checkTime()) {
 			// TODO things to do before destroying the room
@@ -102,6 +117,9 @@ public abstract class Game extends Room {
 	}
 
 	private void setTimer() {
+		if(!loadComplete()){
+			return ;
+		}
 		if (seconds < 0) {
 			seconds = SECONDS_PHASE;
 		}

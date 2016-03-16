@@ -62,7 +62,7 @@ public class Fade extends Objeto {
 	}
 
 	@Override
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
 		if(sum){
 			if(alpha < MAX){
 				alpha = alpha + MOD;
@@ -95,7 +95,7 @@ public class Fade extends Objeto {
 	}
 
 	@Override
-	public void processKey(KEY key) {
+	public void processKey(KEY key, KEY direction) {
 		// Nothing		
 	}
 	

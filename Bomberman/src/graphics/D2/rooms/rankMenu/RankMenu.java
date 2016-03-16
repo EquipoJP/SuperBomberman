@@ -1,14 +1,14 @@
 /**
  * Class representing the ranking menu screen
  */
-package graphics.D2.rooms;
-
-import graphics.effects.Visual;
+package graphics.D2.rooms.rankMenu;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import graphics.D2.rooms.Room;
+import graphics.effects.Visual;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Sprite;
@@ -16,7 +16,6 @@ import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 import logic.collisions.Point2D;
 import logic.misc.Record;
-import main.Initialization;
 import utils.PaintDigitsService;
 
 /**
@@ -33,29 +32,31 @@ public class RankMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 48;
 	private static final int TITLEBUTTON_BORDER = 64;
 
-	public RankMenu(int w, int h, String n, Sprite background, Record record) {
+	public RankMenu(int w, int h, String n, Record record) {
 		super(w, h, n);
 
-		int x = w / 2;
-
-		this.background = background;
 		this.record = record;
+	}
+
+	@Override
+	public void load() {
+		RankMenuRepository.load();
+
+		this.background = null; // TODO
+
+		int x = width / 2;
 
 		if (this.record != null) {
 			newRecord = Global.ranking.newRecord(record);
 
-			Sprite next = Initialization
-					.getSpriteFromMenu(Initialization.BUTTONS.CONTINUE_BUTTON
-							.toString());
+			Sprite next = RankMenuRepository.continueButton;
 			next.setSubimages(1);
 			next.setSubsprites(new BufferedImage[] { next.getSubsprites()[1] });
 			int y = this.height - PADDING_BORDER - next.getHeight() / 2;
 
 			addObjeto(new Visual(x, y, this, next));
 		} else {
-			Sprite back = Initialization
-					.getSpriteFromMenu(Initialization.BUTTONS.BACK_BUTTON
-							.toString());
+			Sprite back = RankMenuRepository.backButton;
 			back.setSubimages(1);
 			back.setSubsprites(new BufferedImage[] { back.getSubsprites()[1] });
 			int y = this.height - PADDING_BORDER - back.getHeight() / 2;
@@ -63,28 +64,26 @@ public class RankMenu extends Room {
 			addObjeto(new Visual(x, y, this, back));
 		}
 
-		Sprite title = Initialization
-				.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON
-						.toString());
+		Sprite title = RankMenuRepository.titleButton;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, title));
 
-		lastKey = StatesMachine.input.getKey();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
 
+		if (!loadComplete()) {
+			return;
+		}
+
 		// TODO coger el ranking global
 		List<Record> records = Global.ranking.getRecords();
 
 		// TODO dimensiones x y
 		int x = 150;
-		int y = PADDING_BORDER
-				+ Initialization.getSpriteFromMenu(
-						Initialization.BUTTONS.TITLE_BUTTON.toString())
-						.getHeight() + TITLEBUTTON_BORDER;
+		int y = PADDING_BORDER + RankMenuRepository.titleButton.getHeight() + TITLEBUTTON_BORDER;
 
 		int modY = INTERBUTTON_BORDER;
 
@@ -114,6 +113,9 @@ public class RankMenu extends Room {
 
 	@Override
 	public void drawBackground(Graphics g) {
+		if (!loadComplete()) {
+			return;
+		}
 		g.clearRect(0, 0, width, height);
 		if (background != null) {
 			g.drawImage(background.getSubsprites()[0], 0, 0, null);
@@ -121,14 +123,15 @@ public class RankMenu extends Room {
 	}
 
 	private void confirm() {
-		if (lastKey != KEY.ENTER && lastKey != KEY.ESCAPE) {
-			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
-		}
+		StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 	}
 
 	@Override
-	public void step(KEY key) {
-		super.step(key);
+	public void step(KEY key, KEY direction) {
+		super.step(key, direction);
+		if (!loadComplete()) {
+			return;
+		}
 		switch (key) {
 		case ENTER:
 			confirm();
@@ -139,8 +142,5 @@ public class RankMenu extends Room {
 		default:
 			break;
 		}
-
-		lastKey = key;
 	}
-
 }

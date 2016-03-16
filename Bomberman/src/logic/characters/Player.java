@@ -1,6 +1,7 @@
 package logic.characters;
 
 import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
 
 import java.util.Map;
 import java.util.Random;
@@ -31,7 +32,7 @@ public class Player extends Objeto {
 
 	@Override
 	public void create() {
-		sprites = Initialization.getSprites(Initialization.SPRITES.WHITE_BOMBER.toString());
+		sprites = GameRepository.player;
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]); // idle
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
@@ -50,28 +51,37 @@ public class Player extends Objeto {
 	}
 
 	@Override
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
+		boolean keyed = false;
 		switch (key) {
-		case DOWN:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
-			break;
-		case UP:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
-			break;
-		case LEFT:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
-			break;
-		case RIGHT:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
-			break;
 		case SPACE:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
-			break;
-		case NO_KEY:
+			keyed = true;
 			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
 			break;
 		default:
 			break;
+		}
+
+		if(!keyed){
+			switch (direction) {
+			case DOWN:
+				sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
+				break;
+			case UP:
+				sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
+				break;
+			case LEFT:
+				sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
+				break;
+			case RIGHT:
+				sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
+				break;
+			case NO_KEY:
+				sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+				break;
+			default:
+				break;
+			}
 		}
 
 		// change speed
@@ -90,8 +100,8 @@ public class Player extends Objeto {
 	}
 
 	@Override
-	public void processKey(KEY key) {
-		switch (key) {
+	public void processKey(KEY key, KEY direction) {
+		switch (direction) {
 		case DOWN:
 			tryToMove(0, modY);
 			break;
@@ -104,10 +114,15 @@ public class Player extends Objeto {
 		case RIGHT:
 			tryToMove(modX, 0);
 			break;
+		case NO_KEY:
+			break;
+		default:
+			break;
+		}
+
+		switch (key) {
 		case SPACE:
 			putBomb();
-			break;
-		case NO_KEY:
 			break;
 		default:
 			break;
@@ -124,16 +139,20 @@ public class Player extends Objeto {
 
 			switch (key) {
 			case DOWN:
-				position = new Point2D(logic.misc.Map.getX(row), logic.misc.Map.getY(col + 1));
+				position = new Point2D(logic.misc.Map.getX(row),
+						logic.misc.Map.getY(col + 1));
 				break;
 			case UP:
-				position = new Point2D(logic.misc.Map.getX(row), logic.misc.Map.getY(col - 1));
+				position = new Point2D(logic.misc.Map.getX(row),
+						logic.misc.Map.getY(col - 1));
 				break;
 			case LEFT:
-				position = new Point2D(logic.misc.Map.getX(row - 1), logic.misc.Map.getY(col));
+				position = new Point2D(logic.misc.Map.getX(row - 1),
+						logic.misc.Map.getY(col));
 				break;
 			case RIGHT:
-				position = new Point2D(logic.misc.Map.getX(row + 1), logic.misc.Map.getY(col + 1));
+				position = new Point2D(logic.misc.Map.getX(row + 1),
+						logic.misc.Map.getY(col + 1));
 				break;
 			default:
 				break;
@@ -143,25 +162,49 @@ public class Player extends Objeto {
 				return;
 			}
 
+<<<<<<< HEAD
 			Point2D min = new Point2D(position.getX() - Initialization.TILE_WIDTH / 2,
 					position.getY() - Initialization.TILE_HEIGHT / 2);
 			Point2D max = new Point2D(position.getX() + Initialization.TILE_WIDTH / 2,
 					position.getY() + Initialization.TILE_HEIGHT / 2);
+=======
+			Point2D min = new Point2D(position.getX()
+					- Initialization.TILE_WIDTH / 2, position.getY()
+					- Initialization.TILE_HEIGHT / 2);
+			Point2D max = new Point2D(position.getX()
+					+ Initialization.TILE_WIDTH / 2, position.getY()
+					+ Initialization.TILE_HEIGHT / 2);
+>>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 
 			for (Objeto obj : myRoom.objetos) {
 				if (obj.depth == this.depth) {
 					int x = obj.x;
 					int y = obj.y;
 
+<<<<<<< HEAD
 					if (x >= min.getX() && x <= max.getX() && y >= min.getY() && y <= max.getY()) {
+=======
+					if (x >= min.getX() && x <= max.getX() && y >= min.getY()
+							&& y <= max.getY()) {
+>>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 						// the object is on the tile
+<<<<<<< HEAD
 						System.out.println(x + ", " + y + " - " + min + " - " + max + " - " + obj);
+=======
+						System.out.println(x + ", " + y + " - " + min + " - "
+								+ max + " - " + obj);
+>>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 						return;
 					}
 				}
 			}
 
+<<<<<<< HEAD
 			Bomb bomb = new Bomb(position.getX(), position.getY(), myRoom, bombRadius, this);
+=======
+			Bomb bomb = new Bomb(position.getX(), position.getY(), myRoom,
+					bombRadius, this);
+>>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 			myRoom.addObjeto(bomb);
 			bombs++;
 		} else {

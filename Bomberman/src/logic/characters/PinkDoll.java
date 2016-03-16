@@ -2,10 +2,10 @@ package logic.characters;
 
 import java.util.List;
 
+import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.collisions.PerspectiveBoundingBox;
-import main.Initialization;
-import graphics.D2.rooms.Room;
 
 public class PinkDoll extends Enemy {
 
@@ -17,7 +17,7 @@ public class PinkDoll extends Enemy {
 	public void create() {
 		super.create();
 
-		sprite_index = Initialization.getSpriteFromSprites(Initialization.SPRITES.PINK_DOLL.toString());
+		sprite_index = GameRepository.pinkDoll;
 		image_speed = 0.05;
 		
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);

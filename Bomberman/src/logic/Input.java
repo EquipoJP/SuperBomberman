@@ -12,18 +12,20 @@ import main.Game;
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
-public class Input extends KeyAdapter{
+public class Input extends KeyAdapter {
 
 	Game game;
-	public enum KEY{
+
+	public enum KEY {
 		UP, DOWN, LEFT, RIGHT, SPACE, ENTER, ESCAPE, NO_KEY
 	}
-	
+
 	private boolean up, down, left, right, space, enter, escape;
-	
+	private KEY lastKey;
+
 	public Input(Game game) {
 		this.game = game;
-		
+
 		up = false;
 		down = false;
 		left = false;
@@ -31,13 +33,14 @@ public class Input extends KeyAdapter{
 		space = false;
 		enter = false;
 		escape = false;
-		
+
+		lastKey = KEY.NO_KEY;
 		game.addKeyListener(this);
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode()){
+		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 			up = true;
 			break;
@@ -61,10 +64,10 @@ public class Input extends KeyAdapter{
 			break;
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch(e.getKeyCode()){
+		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 			up = false;
 			break;
@@ -88,37 +91,72 @@ public class Input extends KeyAdapter{
 			break;
 		}
 	}
-	
-	public synchronized KEY getKey(){
+
+	public synchronized KEY getKey() {
+		return getNoReboundsKey();
+	}
+
+	private KEY getNoReboundsKey() {
 		/*
-		 * Key's priority order:
-		 * 1. Escape
-		 * 2. Enter
-		 * 3. Space
-		 * 4. Right
-		 * 5. Left
-		 * 6. Down
+		 * Key's priority order: 
+		 * 1. Escape 
+		 * 2. Enter 
+		 * 3. Space 
+		 * 4. Right 
+		 * 5. Left 
+		 * 6. Down 
 		 * 7. Up
 		 */
-		if(escape){
-			return KEY.ESCAPE;
+		KEY key = KEY.NO_KEY;
+		if (escape) {
+			key = KEY.ESCAPE;
 		}
-		if(enter){
-			return KEY.ENTER;
+		else if (enter) {
+			key = KEY.ENTER;
 		}
-		if(space){
-			return KEY.SPACE;
+		else if (space) {
+			key = KEY.SPACE;
 		}
-		if(right){
+		else if (right) {
+			key = KEY.RIGHT;
+		}
+		else if (left) {
+			key = KEY.LEFT;
+		}
+		else if (down) {
+			key = KEY.DOWN;
+		}
+		else if (up) {
+			key = KEY.UP;
+		}
+		
+		if(key != lastKey){
+			lastKey = key;
+			return key;
+		}
+		else{
+			return KEY.NO_KEY;
+		}
+	}
+
+	public synchronized KEY getDirection() {
+		/*
+		 * Key's priority order: 
+		 * 1. Right 
+		 * 2. Left 
+		 * 3. Down 
+		 * 4. Up
+		 */
+		if (right) {
 			return KEY.RIGHT;
 		}
-		if(left){
+		if (left) {
 			return KEY.LEFT;
 		}
-		if(down){
+		if (down) {
 			return KEY.DOWN;
 		}
-		if(up){
+		if (up) {
 			return KEY.UP;
 		}
 		return KEY.NO_KEY;

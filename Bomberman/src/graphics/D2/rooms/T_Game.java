@@ -3,6 +3,7 @@
  */
 package graphics.D2.rooms;
 
+import graphics.D2.rooms.game.Game;
 import main.Initialization.STAGE;
 
 /**
@@ -15,5 +16,4 @@ public class T_Game extends Game{
 		super(w, h, n, file, color);
 		// TODO Auto-generated constructor stub
 	}
-
 }

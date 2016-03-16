@@ -11,7 +11,13 @@ public class Visual extends Objeto {
 		super(x, y, r);
 		
 		sprite_index = spr;
-		image_speed = 0;
+		
+		if(sprite_index.getSubimages() == 0){
+			image_speed = 0;
+		}
+		else{
+			image_speed = 0.15; //TODO 1 second each frame
+		}
 	}
 
 	@Override
@@ -19,7 +25,7 @@ public class Visual extends Objeto {
 	}
 
 	@Override
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
 	}
 
 	@Override
@@ -31,7 +37,7 @@ public class Visual extends Objeto {
 	}
 
 	@Override
-	public void processKey(KEY key) {
+	public void processKey(KEY key, KEY direction) {
 	}
 
 	@Override
