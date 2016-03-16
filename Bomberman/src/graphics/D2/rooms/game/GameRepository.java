@@ -21,6 +21,17 @@ public class GameRepository {
 
 	public static Map<String, Sprite> player = null;
 	
+	public static Sprite bomb = null;
+	public static Sprite destroyedBomb = null;
+	
+	public static Sprite coreExplosion = null;
+	public static Sprite edgeDownExplosion = null;
+	public static Sprite edgeLeftExplosion = null;
+	public static Sprite edgeRightExplosion = null;
+	public static Sprite edgeUpExplosion = null;
+	public static Sprite midHorExplosion = null;
+	public static Sprite midVerExplosion = null;
+	
 	public static void load(STAGE stage) {
 		loadTiles(stage);
 		loadBackground();
@@ -33,6 +44,10 @@ public class GameRepository {
 		loadDestroyables(stage);
 
 		loadPlayer();
+		
+		//loadBombs();
+		
+		loadExplosions();
 	}
 
 	private static void loadTiles(STAGE stage) {
@@ -77,6 +92,41 @@ public class GameRepository {
 	private static void loadPlayer() {
 		if (player == null) {
 			player = Initialization.getSprites(Initialization.SPRITES.WHITE_BOMBER.toString());
+		}
+	}
+	
+	private static void loadBombs() {
+		if (bomb == null) {
+			bomb = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.BOMB.toString());
+		}
+		if (destroyedBomb == null) {
+			destroyedBomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.DESTOYED_BOMB.toString());
+		}
+	}
+	
+	private static void loadExplosions() {
+		if (coreExplosion == null) {
+			coreExplosion = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_CORE.toString());
+		}
+		if (edgeDownExplosion == null) {
+			edgeDownExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_DOWN.toString());
+		}
+		if (edgeLeftExplosion == null) {
+			edgeLeftExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_LEFT.toString());
+		}
+		if (edgeRightExplosion == null) {
+			edgeRightExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_RIGHT.toString());
+		}
+		if (edgeUpExplosion == null) {
+			edgeUpExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_UP.toString());
+		}
+		if (midHorExplosion == null) {
+			midHorExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_MID_HOR.toString());
+		}
+		if (midVerExplosion == null) {
+			midVerExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_MID_VER.toString());
 		}
 	}
 

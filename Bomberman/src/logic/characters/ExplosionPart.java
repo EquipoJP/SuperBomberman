@@ -1,9 +1,9 @@
 package logic.characters;
 
 import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
-import main.Initialization;
 
 public class ExplosionPart extends Objeto {
 
@@ -25,22 +25,21 @@ public class ExplosionPart extends Objeto {
 		animation_end = false;
 		kind = k;
 		side = s;
-		String name = "EXPLOSION_CORE";
 		switch (kind) {
 
 		case CORE:
-			name = "EXPLOSION_CORE";
+			sprite_index = GameRepository.coreExplosion;
 			break;
 
 		case MID:
 			switch (side) {
 			case UP:
 			case DOWN:
-				name = "EXPLOSION_MID_VER";
+				sprite_index = GameRepository.midVerExplosion;
 				break;
 			case LEFT:
 			case RIGHT:
-				name = "EXPLOSION_MID_HOR";
+				sprite_index = GameRepository.midHorExplosion;
 				break;
 			default:
 				break;
@@ -50,16 +49,16 @@ public class ExplosionPart extends Objeto {
 		case EDGE:
 			switch (side) {
 			case UP:
-				name = "EXPLOSION_EDGE_UP";
+				sprite_index = GameRepository.edgeUpExplosion;
 				break;
 			case DOWN:
-				name = "EXPLOSION_EDGE_DOWN";
+				sprite_index = GameRepository.edgeDownExplosion;
 				break;
 			case RIGHT:
-				name = "EXPLOSION_EDGE_RIGHT";
+				sprite_index = GameRepository.edgeRightExplosion;
 				break;
 			case LEFT:
-				name = "EXPLOSION_EDGE_LEFT";
+				sprite_index = GameRepository.edgeLeftExplosion;
 				break;
 			default:
 				break;
@@ -70,7 +69,6 @@ public class ExplosionPart extends Objeto {
 			break;
 		}
 
-		sprite_index = Initialization.getSpriteFromSprites(name);
 		// Centro en la esquina superior izquierda
 		sprite_index.setCenterX(0);
 		sprite_index.setCenterY(0);
