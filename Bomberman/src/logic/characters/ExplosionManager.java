@@ -131,8 +131,7 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public void customStep(KEY key) {
+	public void customStep(KEY key, KEY direction) {
 
 	}
 
@@ -143,11 +142,6 @@ public class ExplosionManager extends Objeto {
 			g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
 			g.setColor(Color.black);
 		}
-=======
-	public void customStep(KEY key, KEY direction) {
-		// TODO Auto-generated method stub
-		this.destroy();
->>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 	}
 
 	@Override
@@ -160,13 +154,7 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public void processKey(KEY key) {
-=======
 	public void processKey(KEY key, KEY direction) {
-		// TODO Auto-generated method stub
-
->>>>>>> branch 'master' of https://github.com/EquipoJP/SuperBomberman.git
 	}
 
 	public int calculateXPosition(int posx) {
