@@ -137,6 +137,17 @@ public abstract class Objeto {
 			alarmsOff.remove(i);
 		}
 	}
+	
+	public boolean isAlarmSet(int alarmNo){
+		return (alarm[alarmNo] > 0);
+	}
+	
+	public void unsetAlarm(int alarmNo){
+		if(alarm[alarmNo] > 0){
+			alarm[alarmNo] = -1;
+			alarmsSet--;
+		}
+	}
 
 	public void destroy() {
 		customDestroy();

@@ -11,6 +11,7 @@ import logic.Sprite;
 import logic.collisions.BoundingBox;
 import logic.collisions.PerspectiveBoundingBox;
 import logic.collisions.Point2D;
+import main.Game;
 import main.Initialization;
 
 public class Player extends Objeto {
@@ -43,35 +44,45 @@ public class Player extends Objeto {
 		bombs = 0;
 		bombsLimit = 1;
 	}
-	
+
 	@Override
 	public void customStep(KEY key, KEY direction) {
 		boolean keyed = false;
 		switch (key) {
 		case SPACE:
 			keyed = true;
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+			unsetAlarm(0);
 			break;
 		default:
 			break;
 		}
 
+		boolean stop = false;
+
 		if (!keyed) {
 			switch (direction) {
 			case DOWN:
 				sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
+				unsetAlarm(0);
 				break;
 			case UP:
 				sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
+				unsetAlarm(0);
 				break;
 			case LEFT:
 				sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
+				unsetAlarm(0);
 				break;
 			case RIGHT:
 				sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
+				unsetAlarm(0);
 				break;
 			case NO_KEY:
-				sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+				stop = true;
+				if(!isAlarmSet(0) && sprite_index != sprites.get(Initialization.SPRITE_NAMES[0])){
+					int seconds = 5;
+					setAlarm(0, seconds * (int) Game.FPS);
+				}
 				break;
 			default:
 				break;
@@ -81,6 +92,9 @@ public class Player extends Objeto {
 		// change speed
 		if (sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))) {
 			image_speed = 0.1;
+		} else if (stop) {
+			image_speed = 0;
+			image_index = 0;
 		} else {
 			image_speed = 0.2;
 		}
@@ -109,8 +123,20 @@ public class Player extends Objeto {
 
 		switch (key) {
 		case SPACE:
-			System.out.println("SPACE");
 			putBomb();
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void alarm(int alarmNo) {
+		switch (alarmNo) {
+		case 0:
+			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+			image_index = 0;
+			image_speed = 0.1;
 			break;
 		default:
 			break;
@@ -120,49 +146,48 @@ public class Player extends Objeto {
 	private void putBomb() {
 		if (bombs < bombsLimit) {
 			KEY key = getDirectionFromSprite();
-			
-			//center of the tile in which the player is standing
-			int row = logic.misc.Map.getRow(x);
-			int col = logic.misc.Map.getRow(y);
-			
-			System.out.println("Initial: " + row + " " + col);
-			
-			switch(key){
+
+			// center of the tile in which the player is standing
+			int row = logic.misc.Map.getRow(y);
+			int col = logic.misc.Map.getCol(x);
+
+			switch (key) {
 			case UP:
+				System.out.println("UP");
 				row--;
 				break;
 			case DOWN:
+				System.out.println("DOWN");
 				row++;
 				break;
 			case RIGHT:
+				System.out.println("RIGHT");
 				col++;
 				break;
 			case LEFT:
+				System.out.println("LEFT");
 				col--;
 				break;
 			default:
-				return ;
+				return;
 			}
-			
-			System.out.println("After: " + row + " " + col);
-			
-			int _x = logic.misc.Map.getX(row);
-			int _y = logic.misc.Map.getX(col);
-			
-			System.out.println("X-X'': " + x + "-" + _x + " <--> Y-Y'': " + y + "-" + _y);
-			
-			if(!checkCollision(_x, _y)){
-				Bomb bomb = new Bomb(_x, _y, myRoom,
-						bombRadius, this);
+
+			int _x = logic.misc.Map.getX(col);
+			int _y = logic.misc.Map.getY(row);
+
+			if (!checkCollision(_x, _y)) {
+				Bomb bomb = new Bomb(_x, _y, myRoom, bombRadius, this);
 				myRoom.addObjeto(bomb);
 				bombs++;
 			}
 		}
 	}
-	
-	private boolean checkCollision(int x, int y){
-		BoundingBox bb = new BoundingBox(new Point2D(x - Initialization.TILE_HEIGHT/2, y - Initialization.TILE_WIDTH/2), 
-				new Point2D(x + Initialization.TILE_HEIGHT/2, y + Initialization.TILE_WIDTH/2));
+
+	private boolean checkCollision(int x, int y) {
+		BoundingBox bb = new BoundingBox(new Point2D(x
+				- Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH
+				/ 4), new Point2D(x + Initialization.TILE_HEIGHT / 4, y
+				+ Initialization.TILE_WIDTH / 4));
 		for (Objeto obj : myRoom.objetos) {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
@@ -175,8 +200,7 @@ public class Player extends Objeto {
 	}
 
 	private KEY getDirectionFromSprite() {
-		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[1])
-				|| sprite_index == sprites.get(Initialization.SPRITE_NAMES[0])) {
+		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[1])) {
 			return KEY.DOWN;
 		}
 		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[4])) {
@@ -187,6 +211,9 @@ public class Player extends Objeto {
 		}
 		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[2])) {
 			return KEY.RIGHT;
+		}
+		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[0])) {
+			return KEY.DOWN;
 		}
 
 		return KEY.NO_KEY;

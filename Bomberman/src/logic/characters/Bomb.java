@@ -3,7 +3,10 @@ package logic.characters;
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
 import logic.Objeto;
+import logic.collisions.BoundingBox;
+import logic.collisions.Point2D;
 import main.Game;
+import main.Initialization;
 
 public class Bomb extends Objeto {
 
@@ -18,6 +21,11 @@ public class Bomb extends Objeto {
 		this.player = player;
 		sprite_index = GameRepository.bomb;
 		image_speed = 0.2;
+		
+		boundingBox = new BoundingBox(new Point2D(x
+				- Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH
+				/ 4), new Point2D(x + Initialization.TILE_HEIGHT / 4, y
+				+ Initialization.TILE_WIDTH / 4));
 	}
 
 	@Override

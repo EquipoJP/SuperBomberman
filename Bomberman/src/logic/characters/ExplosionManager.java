@@ -30,7 +30,8 @@ public class ExplosionManager extends Objeto {
 			stop[i] = false;
 		}
 		// Create core
-		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE, ExplosionPart.SIDE.DOWN));
+		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE,
+				ExplosionPart.SIDE.DOWN));
 		// Create branches
 		for (int i = 1; i <= radius; i++) {
 
@@ -44,19 +45,23 @@ public class ExplosionManager extends Objeto {
 					switch (j) {
 					case UP:
 						xToCheck = xToCheck + (Initialization.TILE_WIDTH / 2);
-						yToCheck = yToCheck - (i * Initialization.TILE_HEIGHT) + (Initialization.TILE_HEIGHT / 2);
+						yToCheck = yToCheck - (i * Initialization.TILE_HEIGHT)
+								+ (Initialization.TILE_HEIGHT / 2);
 						break;
 					case RIGHT:
 						yToCheck = yToCheck + (Initialization.TILE_HEIGHT / 2);
-						xToCheck = xToCheck + (i * Initialization.TILE_WIDTH) + (Initialization.TILE_WIDTH / 2);
+						xToCheck = xToCheck + (i * Initialization.TILE_WIDTH)
+								+ (Initialization.TILE_WIDTH / 2);
 						break;
 					case DOWN:
 						xToCheck = xToCheck + (Initialization.TILE_WIDTH / 2);
-						yToCheck = yToCheck + (i * Initialization.TILE_HEIGHT) + (Initialization.TILE_HEIGHT / 2);
+						yToCheck = yToCheck + (i * Initialization.TILE_HEIGHT)
+								+ (Initialization.TILE_HEIGHT / 2);
 						break;
 					case LEFT:
 						yToCheck = yToCheck + (Initialization.TILE_HEIGHT / 2);
-						xToCheck = xToCheck - (i * Initialization.TILE_WIDTH) + (Initialization.TILE_WIDTH / 2);
+						xToCheck = xToCheck - (i * Initialization.TILE_WIDTH)
+								+ (Initialization.TILE_WIDTH / 2);
 						break;
 					default:
 						break;
@@ -92,26 +97,31 @@ public class ExplosionManager extends Objeto {
 						switch (j) {
 						case UP:
 							s = ExplosionPart.SIDE.UP;
-							yToCreate = yToCreate - (i * Initialization.TILE_HEIGHT);
+							yToCreate = yToCreate
+									- (i * Initialization.TILE_HEIGHT);
 							break;
 						case RIGHT:
 							s = ExplosionPart.SIDE.RIGHT;
-							xToCreate = xToCreate + (i * Initialization.TILE_WIDTH);
+							xToCreate = xToCreate
+									+ (i * Initialization.TILE_WIDTH);
 							break;
 						case DOWN:
 							s = ExplosionPart.SIDE.DOWN;
-							yToCreate = yToCreate + (i * Initialization.TILE_HEIGHT);
+							yToCreate = yToCreate
+									+ (i * Initialization.TILE_HEIGHT);
 							break;
 						case LEFT:
 							s = ExplosionPart.SIDE.LEFT;
-							xToCreate = xToCreate - (i * Initialization.TILE_WIDTH);
+							xToCreate = xToCreate
+									- (i * Initialization.TILE_WIDTH);
 							break;
 						default:
 							break;
 						}
 
 						// Create part
-						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, r, k, s));
+						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, r,
+								k, s));
 					}
 				} // End of if we have to continue
 			} // End of for every direction
@@ -119,19 +129,21 @@ public class ExplosionManager extends Objeto {
 	}
 
 	@Override
-	public void customStep(KEY input, KEY direction){
+	public void customStep(KEY input, KEY direction) {
 		destroy();
 	}
-	
+
 	private Objeto checkWallOrBlockCollision(int x, int y) {
 		Objeto returned = null;
 		List<Objeto> objects = myRoom.objetos;
-		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2), new Point2D(x + 2, y + 2));
+		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2),
+				new Point2D(x + 2, y + 2));
 
 		for (Objeto obj : objects) {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
-				if (collision && (obj instanceof Block || obj instanceof DestroyableBlock)) {
+				if (collision
+						&& (obj instanceof Block || obj instanceof DestroyableBlock)) {
 					returned = obj;
 					break;
 				}
@@ -139,38 +151,12 @@ public class ExplosionManager extends Objeto {
 		}
 		return returned;
 	}
-	
+
 	public int calculateXPosition(int posx) {
-		// Le sumamos la cuarta parte de la width para mejorar la ubicacion
-		posx = posx + Initialization.TILE_WIDTH / 2;
-		// Retiramos el offset
-		posx = posx - Initialization.MAP_X_OFFSET;
-		// Obtenemos la casilla en x en la que está
-		posx = posx / Initialization.TILE_WIDTH;
-		// Multiplicamos por la tile para obtener su posicion en x
-		posx = posx * Initialization.TILE_WIDTH;
-		// Sumamos el offset
-		posx = posx + Initialization.MAP_X_OFFSET;
-		// Quitamos la mitad de la tile para obtener la esquina de la tile
-		posx = posx - Initialization.TILE_WIDTH/2;
-		// Devolvemos
-		return posx;
+		return posx - Initialization.TILE_WIDTH / 2;
 	}
 
 	public int calculateYPosition(int posy) {
-		// Le sumamos la height para mejorar la ubicacion
-		posy = posy + Initialization.TILE_HEIGHT;
-		// Retiramos el offset
-		posy = posy - Initialization.MAP_Y_OFFSET;
-		// Obtenemos la casilla en x en la que está
-		posy = posy / Initialization.TILE_HEIGHT;
-		// Multiplicamos por la tile para obtener su posicion en x
-		posy = posy * Initialization.TILE_HEIGHT;
-		// Sumamos el offset
-		posy = posy + Initialization.MAP_Y_OFFSET;
-		// Quitamos la mitad de la tile para obtener la esquina de la tile
-		posy = posy - Initialization.TILE_HEIGHT/2;
-		// Devolvemos
-		return posy;
+		return posy - Initialization.TILE_HEIGHT / 2;
 	}
 }

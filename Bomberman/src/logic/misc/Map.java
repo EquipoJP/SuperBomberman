@@ -117,20 +117,20 @@ public class Map {
 		return new Player(x, y, room, 0);
 	}
 
-	public static int getX(int row) {
-		return Initialization.MAP_X_OFFSET + row * Initialization.TILE_WIDTH;
+	public static int getX(int col) {
+		return Initialization.MAP_X_OFFSET + col * Initialization.TILE_WIDTH;
 	}
 
-	public static int getY(int col) {
-		return Initialization.MAP_Y_OFFSET + col * Initialization.TILE_HEIGHT;
+	public static int getY(int row) {
+		return Initialization.MAP_Y_OFFSET + row * Initialization.TILE_HEIGHT;
 	}
 
-	public static int getRow(int x) {
-		return (x - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
+	public static int getRow(int y) {
+		return (y - Initialization.MAP_Y_OFFSET + Initialization.TILE_HEIGHT/2) / Initialization.TILE_HEIGHT;
 	}
 
-	public static int getCol(int y) {
-		return (y - Initialization.MAP_Y_OFFSET) / Initialization.TILE_HEIGHT;
+	public static int getCol(int x) {
+		return (x - Initialization.MAP_X_OFFSET + Initialization.TILE_WIDTH/2) / Initialization.TILE_WIDTH;
 	}
 	
 	public static void main(String[] args) {
@@ -140,11 +140,11 @@ public class Map {
 				int row = i;
 				int col = j;
 				
-				int x = getX(row);
-				int y = getY(col);
+				int x = getX(col);
+				int y = getY(row);
 				
-				row = getRow(x - 15);
-				col = getCol(y - 8);
+				row = getRow(y + 15);
+				col = getCol(x);
 				
 				System.out.println("Real row: " + i + " - Result: " + row);
 				System.out.println("Real col: " + j + " - Result: " + col);
