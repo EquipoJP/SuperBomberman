@@ -8,6 +8,8 @@ import main.Initialization.STAGE;
 import main.Initialization.TYPE;
 
 public class GameRepository {
+	
+	static Sprite hud = null;
 
 	static Sprite tiles = null;
 	static Sprite background = null;
@@ -32,6 +34,7 @@ public class GameRepository {
 	public static Sprite midVerExplosion = null;
 	
 	public static void load(STAGE stage) {
+		loadHUD();
 		loadTiles(stage);
 		loadBackground();
 
@@ -47,6 +50,12 @@ public class GameRepository {
 		loadBomb();
 		
 		loadExplosions();
+	}
+
+	private static void loadHUD() {
+		if(hud == null){
+			hud = Initialization.getSpriteFromMenu(Initialization.BUTTONS.HUD.toString());
+		}
 	}
 
 	private static void loadTiles(STAGE stage) {

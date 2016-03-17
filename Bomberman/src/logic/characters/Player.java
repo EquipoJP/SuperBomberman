@@ -3,6 +3,7 @@ package logic.characters;
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
 
+import java.util.List;
 import java.util.Map;
 
 import logic.Input.KEY;
@@ -114,6 +115,7 @@ public class Player extends Objeto {
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
+		destroyCollisions();
 		if(!destruction){
 			switch (direction) {
 			case DOWN:
@@ -142,6 +144,69 @@ public class Player extends Objeto {
 				break;
 			}
 		}
+	}
+	
+	private void destroyCollisions(){
+		List<Objeto> collision = collision();
+		if(collision != null){
+			for(Objeto obj : collision){
+				if(obj instanceof Block || obj instanceof DestroyableBlock || obj instanceof Bomb){
+					int row = logic.misc.Map.getRow(y);
+					int col = logic.misc.Map.getCol(x);
+					
+					boolean up = collisionUp(row, col);
+					if(up){
+						return ;
+					}
+					
+					boolean down = collisionDown(row, col);
+					if(down){
+						return ;
+					}
+					
+					boolean right = collisionRight(row, col);
+					if(right){
+						return ;
+					}
+					
+					boolean left = collisionLeft(row, col);
+					if(left){
+						return ;
+					}
+					
+					boolean noMove = collisionNoMove(row, col);
+					if(noMove){
+						return ;
+					}
+				}
+			}
+		}
+	}
+
+	private boolean collisionNoMove(int row, int col) {
+		int _x = logic.misc.Map.getX(col);
+		int _y = logic.misc.Map.getY(row);
+		return tryToMove(_x - x, _y - y);
+	}
+
+	private boolean collisionUp(int row, int col) {
+		row--;
+		return collisionNoMove(row, col);
+	}
+
+	private boolean collisionDown(int row, int col) {
+		row++;
+		return collisionNoMove(row, col);
+	}
+
+	private boolean collisionRight(int row, int col) {
+		col++;
+		return collisionNoMove(row, col);
+	}
+
+	private boolean collisionLeft(int row, int col) {
+		col--;
+		return collisionNoMove(row, col);
 	}
 
 	@Override

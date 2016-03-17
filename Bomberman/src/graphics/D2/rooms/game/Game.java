@@ -38,6 +38,8 @@ public abstract class Game extends Room {
 	
 	private String file;
 	private STAGE stage;
+	
+	private Sprite hud;
 
 	public Game(int w, int h, String n, String file, STAGE stage) {
 		super(w, h, n);
@@ -62,6 +64,8 @@ public abstract class Game extends Room {
 			}
 		}
 		
+		hud = GameRepository.hud;
+		
 		setMusic(SoundTrack.BATTLE_MUSIC);
 	}
 
@@ -71,6 +75,8 @@ public abstract class Game extends Room {
 			return ;
 		}
 		g.clearRect(0, 0, width, height);
+		
+		drawHUD(g);
 
 		if (level != null) {
 			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles
@@ -87,6 +93,10 @@ public abstract class Game extends Room {
 		}
 	}
 	
+	private void drawHUD(Graphics g) {
+		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
+	}
+
 	@Override
 	public void step(KEY key, KEY direction) {
 		super.step(key, direction);

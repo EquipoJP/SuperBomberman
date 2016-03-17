@@ -76,7 +76,7 @@ public class Map {
 		System.out.println(width + " " + height);
 		objetos.add(new Level(Initialization.MAP_X_OFFSET,
 				Initialization.MAP_Y_OFFSET, width * Initialization.TILE_WIDTH,
-				height * Initialization.TILE_HEIGHT, width, height));
+				height * Initialization.TILE_HEIGHT));
 
 		return objetos;
 	}

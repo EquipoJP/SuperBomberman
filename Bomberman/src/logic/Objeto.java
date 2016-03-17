@@ -161,20 +161,15 @@ public abstract class Objeto {
 		}
 	}
 
-	public void tryToMove(int modX, int modY) {
-		if(collision() != null){
-			boundingBox.update(modX, modY);
-			x += modX;
-			y += modY;
-		}
-		else{
-			boundingBox.update(modX, modY);
-			if (collision() != null) {
-				boundingBox.update(-modX, -modY);
-			} else {
-				x = x + modX;
-				y = y + modY;
-			}
+	public boolean tryToMove(int modX, int modY) {
+		boundingBox.update(modX, modY);
+		if (collision() != null) {
+			boundingBox.update(-modX, -modY);
+			return false;
+		} else {
+			x = x + modX;
+			y = y + modY;
+			return true;
 		}
 	}
 
