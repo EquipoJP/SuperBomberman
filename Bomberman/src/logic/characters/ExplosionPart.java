@@ -1,9 +1,15 @@
 package logic.characters;
 
 import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.Game;
 import graphics.D2.rooms.game.GameRepository;
+
+import java.util.List;
+
 import logic.Input.KEY;
 import logic.Objeto;
+import logic.collisions.BoundingBox;
+import logic.collisions.Point2D;
 
 public class ExplosionPart extends Objeto {
 
@@ -77,6 +83,28 @@ public class ExplosionPart extends Objeto {
 
 	@Override
 	public void customStep(KEY key, KEY direction) {
+		boundingBox = new BoundingBox(new Point2D(sprite_index.getCenterX(),
+				sprite_index.getCenterY()), new Point2D(
+				sprite_index.getCenterX() + sprite_index.getWidth(),
+				sprite_index.getCenterY() + sprite_index.getHeight()));
+		
+		boundingBox.update(x, y);
+
+		List<Objeto> collisions = collision();
+		if (collisions != null) {
+			for (Objeto obj : collisions) {
+				if (obj instanceof Player) {
+					Game g = (Game) myRoom;
+					g.callForDestruction();
+					System.out.println("Player hit");
+				}
+				if (obj instanceof Enemy) {
+					System.out.println("Enemy hit");
+				}
+			}
+		}
+
+		boundingBox = null;
 		if (animation_end) {
 			this.destroy();
 		}

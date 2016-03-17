@@ -126,7 +126,6 @@ public abstract class Room {
 			music.stop();
 			music.unload();
 		}
-		objetos = null;
 	}
 	
 	public void pause(){

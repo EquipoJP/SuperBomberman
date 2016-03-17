@@ -21,6 +21,8 @@ public class Player extends Objeto {
 
 	private int modX;
 	private int modY;
+	
+	private boolean destruction;
 
 	public int bombs;
 	public int bombRadius = 1;
@@ -34,6 +36,7 @@ public class Player extends Objeto {
 	public void create() {
 		sprites = GameRepository.player;
 		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]); // idle
+		
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		System.out.println("PLAYER " + boundingBox);
@@ -43,90 +46,101 @@ public class Player extends Objeto {
 
 		bombs = 0;
 		bombsLimit = 1;
+		
+		destruction = false;
 	}
 
 	@Override
 	public void customStep(KEY key, KEY direction) {
-		boolean keyed = false;
-		switch (key) {
-		case SPACE:
-			keyed = true;
-			unsetAlarm(0);
-			break;
-		default:
-			break;
-		}
-
-		boolean stop = false;
-
-		if (!keyed) {
-			switch (direction) {
-			case DOWN:
-				sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
+		if(!destruction){
+			boolean keyed = false;
+			switch (key) {
+			case SPACE:
+				keyed = true;
 				unsetAlarm(0);
-				break;
-			case UP:
-				sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
-				unsetAlarm(0);
-				break;
-			case LEFT:
-				sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
-				unsetAlarm(0);
-				break;
-			case RIGHT:
-				sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
-				unsetAlarm(0);
-				break;
-			case NO_KEY:
-				stop = true;
-				if(!isAlarmSet(0) && sprite_index != sprites.get(Initialization.SPRITE_NAMES[0])){
-					int seconds = 5;
-					setAlarm(0, seconds * (int) Game.FPS);
-				}
 				break;
 			default:
 				break;
 			}
+	
+			boolean stop = false;
+	
+			if (!keyed) {
+				switch (direction) {
+				case DOWN:
+					sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
+					unsetAlarm(0);
+					break;
+				case UP:
+					sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
+					unsetAlarm(0);
+					break;
+				case LEFT:
+					sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
+					unsetAlarm(0);
+					break;
+				case RIGHT:
+					sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
+					unsetAlarm(0);
+					break;
+				case NO_KEY:
+					stop = true;
+					if(!isAlarmSet(0) && sprite_index != sprites.get(Initialization.SPRITE_NAMES[0])){
+						int seconds = 5;
+						setAlarm(0, seconds * (int) Game.FPS);
+					}
+					break;
+				default:
+					break;
+				}
+			}
+	
+			// change speed
+			if (sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))) {
+				image_speed = 0.1;
+			} else if (stop) {
+				image_speed = 0;
+				image_index = 0;
+			} else {
+				image_speed = 0.2;
+			}
 		}
-
-		// change speed
-		if (sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))) {
-			image_speed = 0.1;
-		} else if (stop) {
-			image_speed = 0;
-			image_index = 0;
-		} else {
-			image_speed = 0.2;
+		else{
+			if(animation_end){
+				destroy();
+			}
 		}
 	}
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
-		switch (direction) {
-		case DOWN:
-			tryToMove(0, modY);
-			break;
-		case UP:
-			tryToMove(0, -modY);
-			break;
-		case LEFT:
-			tryToMove(-modX, 0);
-			break;
-		case RIGHT:
-			tryToMove(modX, 0);
-			break;
-		case NO_KEY:
-			break;
-		default:
-			break;
-		}
-
-		switch (key) {
-		case SPACE:
-			putBomb();
-			break;
-		default:
-			break;
+		if(!destruction){
+			switch (direction) {
+			case DOWN:
+				tryToMove(0, modY);
+				break;
+			case UP:
+				tryToMove(0, -modY);
+				break;
+			case LEFT:
+				tryToMove(-modX, 0);
+				break;
+			case RIGHT:
+				tryToMove(modX, 0);
+				break;
+			case NO_KEY:
+				break;
+			default:
+				break;
+			}
+	
+			switch (key) {
+			case SPACE:
+				putBomb();
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -217,5 +231,12 @@ public class Player extends Objeto {
 		}
 
 		return KEY.NO_KEY;
+	}
+	
+	public void callForDestruction(){
+		destruction = true;
+		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+		image_index = 0;
+		image_speed = 0.1;
 	}
 }

@@ -17,10 +17,12 @@ public class Bomb extends Objeto {
 	
 	public Bomb(int x, int y, Room r, int radius, Player player) {
 		super(x, y, r);
+		
 		this.radius = radius;
 		this.player = player;
+		
 		sprite_index = GameRepository.bomb;
-		image_speed = 0.2;
+		image_speed = 0.15;
 		
 		boundingBox = new BoundingBox(new Point2D(x
 				- Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH

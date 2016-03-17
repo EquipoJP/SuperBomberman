@@ -15,6 +15,7 @@ import logic.Objeto;
 import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
+import logic.characters.Player;
 import logic.misc.Level;
 import logic.misc.Map;
 import main.Initialization.STAGE;
@@ -102,9 +103,21 @@ public abstract class Game extends Room {
 		}
 
 		if (checkTime()) {
-			// TODO things to do before destroying the room
+			callForDestruction();
+		}
+		
+		if(noPlayer()){
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 		}
+	}
+	
+	private boolean noPlayer(){
+		for(Objeto obj : objetos){
+			if(obj instanceof Player){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -160,6 +173,16 @@ public abstract class Game extends Room {
 	public void resume() {
 		super.resume();
 		setTimer();
+	}
+	
+	public void callForDestruction(){
+		cancelTimer();
+		for(Objeto obj : objetos){
+			if(obj instanceof Player){
+				Player player = (Player) obj;
+				player.callForDestruction();
+			}
+		}
 	}
 
 }
