@@ -3,14 +3,14 @@
  */
 package graphics.D2.rooms.game;
 
+import graphics.D2.rooms.Room;
+
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import graphics.D2.rooms.Room;
 import logic.Input.KEY;
-import logic.Global;
 import logic.Objeto;
 import logic.Sprite;
 import logic.StatesMachine;
@@ -54,10 +54,12 @@ public abstract class Game extends Room {
 		List<Objeto> objetos = Map.getMap(file, this, stage);
 
 		for (Objeto obj : objetos) {
-			addObjeto(obj);
+			if (obj instanceof Level) {
+				level = (Level) obj;
+			} else {
+				addObjeto(obj);
+			}
 		}
-		
-		level = Global.level;
 		
 		setMusic(SoundTrack.BATTLE_MUSIC);
 	}

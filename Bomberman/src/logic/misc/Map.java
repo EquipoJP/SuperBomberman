@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import logic.Global;
 import logic.Objeto;
 import logic.characters.Block;
 import logic.characters.BlueDoll;
@@ -75,9 +74,9 @@ public class Map {
 		}
 
 		System.out.println(width + " " + height);
-		Global.level = new Level(Initialization.MAP_X_OFFSET,
+		objetos.add(new Level(Initialization.MAP_X_OFFSET,
 				Initialization.MAP_Y_OFFSET, width * Initialization.TILE_WIDTH,
-				height * Initialization.TILE_HEIGHT, width, height);
+				height * Initialization.TILE_HEIGHT, width, height));
 
 		return objetos;
 	}
@@ -135,8 +134,6 @@ public class Map {
 	}
 	
 	public static void main(String[] args) {
-		
-		Global.level = new Level(0, 0, 15, 15, 15, 15);
 		
 		for(int i = 0; i < 15; i++){
 			for (int j = 0; j < 15; j++) {

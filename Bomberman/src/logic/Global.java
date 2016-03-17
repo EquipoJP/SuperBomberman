@@ -1,7 +1,6 @@
 package logic;
 
 import kuusisto.tinysound.TinySound;
-import logic.misc.Level;
 import logic.misc.Ranking;
 import logic.misc.ScoreManager;
 import utils.SaveSystemService;
@@ -12,7 +11,6 @@ public class Global {
 	public static final boolean DEBUG = true;
 	public static final String SAVE = "savefile.sav";
 	public static ScoreManager scoreManager;
-	public static Level level;
 	
 	public static Ranking ranking;
 	
