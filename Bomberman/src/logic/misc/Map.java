@@ -1,12 +1,14 @@
 package logic.misc;
 
+import graphics.D2.rooms.Room;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import graphics.D2.rooms.Room;
+import logic.Global;
 import logic.Objeto;
 import logic.characters.Block;
 import logic.characters.BlueDoll;
@@ -73,9 +75,9 @@ public class Map {
 		}
 
 		System.out.println(width + " " + height);
-		objetos.add(new Level(Initialization.MAP_X_OFFSET,
+		Global.level = new Level(Initialization.MAP_X_OFFSET,
 				Initialization.MAP_Y_OFFSET, width * Initialization.TILE_WIDTH,
-				height * Initialization.TILE_HEIGHT));
+				height * Initialization.TILE_HEIGHT, width, height);
 
 		return objetos;
 	}
@@ -125,14 +127,16 @@ public class Map {
 	}
 
 	public static int getRow(int x) {
-		return (x + Initialization.TILE_WIDTH/2 - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
+		return (x - Initialization.MAP_X_OFFSET) / Initialization.TILE_WIDTH;
 	}
 
 	public static int getCol(int y) {
-		return (y + Initialization.TILE_HEIGHT/2 - Initialization.MAP_Y_OFFSET) / Initialization.TILE_HEIGHT;
+		return (y - Initialization.MAP_Y_OFFSET) / Initialization.TILE_HEIGHT;
 	}
 	
 	public static void main(String[] args) {
+		
+		Global.level = new Level(0, 0, 15, 15, 15, 15);
 		
 		for(int i = 0; i < 15; i++){
 			for (int j = 0; j < 15; j++) {

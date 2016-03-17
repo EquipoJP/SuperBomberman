@@ -109,6 +109,7 @@ public class Player extends Objeto {
 
 		switch (key) {
 		case SPACE:
+			System.out.println("SPACE");
 			putBomb();
 			break;
 		default:
