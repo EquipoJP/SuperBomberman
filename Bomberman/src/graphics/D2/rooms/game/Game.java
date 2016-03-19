@@ -16,10 +16,13 @@ import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 import logic.characters.Player;
+import logic.collisions.Point2D;
 import logic.misc.Level;
 import logic.misc.Map;
 import main.Initialization.STAGE;
 import sound.SoundTrack;
+import utils.ConvertTimeService;
+import utils.PaintDigitsService;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -95,6 +98,13 @@ public abstract class Game extends Room {
 	
 	private void drawHUD(Graphics g) {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
+		
+		//TODO change values here
+		int x = 180;
+		int y = 40;
+		Point2D init_pos = new Point2D(x, y);
+		
+		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
 	}
 
 	@Override

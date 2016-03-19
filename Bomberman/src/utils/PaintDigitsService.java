@@ -32,6 +32,9 @@ public class PaintDigitsService {
 			else if(c == '.'){
 				g.drawImage(digits.getSubsprites()[j], initial_position.getX() + modX * i, initial_position.getY(), null);
 			}
+			else if(c == ':'){
+				g.drawImage(digits.getSubsprites()[j+1], initial_position.getX() + modX * i, initial_position.getY(), null);
+			}
 		}
 	}
 
