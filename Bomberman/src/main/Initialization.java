@@ -26,8 +26,10 @@ public class Initialization {
 	public static final String MAP_FILE = "resources/iniFiles/maps.ini";
 	public static final String MENU_FILE = "resources/iniFiles/menus.ini";
 
-	public static final String[] SPRITE_NAMES = { "IDLE", "WALKDOWN",
+	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN",
 			"WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP", "VICTORY" };
+	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT",
+		"LEFT" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET",
 			"WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 	
@@ -36,7 +38,7 @@ public class Initialization {
 	};
 
 	public static enum SPRITES {
-		WHITE_BOMBER, BLUE_DOLL, PINK_DOLL, EXPLOSION_CORE, EXPLOSION_MID_VER, EXPLOSION_MID_HOR, EXPLOSION_EDGE_UP, EXPLOSION_EDGE_DOWN, EXPLOSION_EDGE_LEFT, EXPLOSION_EDGE_RIGHT, BOMB
+		WHITE_BOMBER, ENEMY, EXPLOSION_CORE, EXPLOSION_MID_VER, EXPLOSION_MID_HOR, EXPLOSION_EDGE_UP, EXPLOSION_EDGE_DOWN, EXPLOSION_EDGE_LEFT, EXPLOSION_EDGE_RIGHT, BOMB
 	};
 
 	public static enum STAGE {
@@ -60,13 +62,13 @@ public class Initialization {
 	 *            name of the sprite
 	 * @return a map with the different sprites
 	 */
-	public static Map<String, Sprite> getSprites(String name) {
+	public static Map<String, Sprite> getSpritesFromTableSprites(String name, String[] sprs) {
 		Map<String, Sprite> sprites = new HashMap<String, Sprite>();
 
-		for (int i = 0; i < SPRITE_NAMES.length; i++) {
-			String section = name + "_" + SPRITE_NAMES[i];
+		for (int i = 0; i < sprs.length; i++) {
+			String section = name + "_" + sprs[i];
 			Sprite spr = getSpriteFromFile(section, SPRITE_FILE);
-			sprites.put(SPRITE_NAMES[i], spr);
+			sprites.put(sprs[i], spr);
 		}
 
 		return sprites;

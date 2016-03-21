@@ -36,7 +36,7 @@ public class Player extends Objeto {
 	@Override
 	public void create() {
 		sprites = GameRepository.player;
-		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]); // idle
+		sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]); // idle
 		
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
@@ -69,24 +69,24 @@ public class Player extends Objeto {
 			if (!keyed) {
 				switch (direction) {
 				case DOWN:
-					sprite_index = sprites.get(Initialization.SPRITE_NAMES[1]);
+					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[1]);
 					unsetAlarm(0);
 					break;
 				case UP:
-					sprite_index = sprites.get(Initialization.SPRITE_NAMES[4]);
+					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[4]);
 					unsetAlarm(0);
 					break;
 				case LEFT:
-					sprite_index = sprites.get(Initialization.SPRITE_NAMES[3]);
+					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[3]);
 					unsetAlarm(0);
 					break;
 				case RIGHT:
-					sprite_index = sprites.get(Initialization.SPRITE_NAMES[2]);
+					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[2]);
 					unsetAlarm(0);
 					break;
 				case NO_KEY:
 					stop = true;
-					if(!isAlarmSet(0) && sprite_index != sprites.get(Initialization.SPRITE_NAMES[0])){
+					if(!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])){
 						int seconds = 5;
 						setAlarm(0, seconds * (int) Game.FPS);
 					}
@@ -97,7 +97,7 @@ public class Player extends Objeto {
 			}
 	
 			// change speed
-			if (sprite_index.equals(sprites.get(Initialization.SPRITE_NAMES[0]))) {
+			if (sprite_index.equals(sprites.get(Initialization.BOMBERMAN_SPRS[0]))) {
 				image_speed = 0.1;
 			} else if (stop) {
 				image_speed = 0;
@@ -213,7 +213,7 @@ public class Player extends Objeto {
 	public void alarm(int alarmNo) {
 		switch (alarmNo) {
 		case 0:
-			sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+			sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]);
 			image_index = 0;
 			image_speed = 0.1;
 			break;
@@ -279,19 +279,19 @@ public class Player extends Objeto {
 	}
 
 	private KEY getDirectionFromSprite() {
-		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[1])) {
+		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[1])) {
 			return KEY.DOWN;
 		}
-		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[4])) {
+		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[4])) {
 			return KEY.UP;
 		}
-		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[3])) {
+		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[3])) {
 			return KEY.LEFT;
 		}
-		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[2])) {
+		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[2])) {
 			return KEY.RIGHT;
 		}
-		if (sprite_index == sprites.get(Initialization.SPRITE_NAMES[0])) {
+		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[0])) {
 			return KEY.DOWN;
 		}
 
@@ -300,7 +300,7 @@ public class Player extends Objeto {
 	
 	public void callForDestruction(){
 		destruction = true;
-		sprite_index = sprites.get(Initialization.SPRITE_NAMES[0]);
+		sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]);
 		image_index = 0;
 		image_speed = 0.1;
 	}

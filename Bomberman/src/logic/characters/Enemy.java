@@ -2,12 +2,18 @@ package logic.characters;
 
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.Game;
+import graphics.D2.rooms.game.GameRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import logic.Input.KEY;
+import logic.collisions.PerspectiveBoundingBox;
 import logic.Objeto;
+import logic.Sprite;
+import main.Initialization;
+import main.Initialization.STAGE;
 
 public class Enemy extends Objeto{
 	
@@ -18,15 +24,23 @@ public class Enemy extends Objeto{
 	private Random randomizer;
 	
 	private boolean destruction;
+	
+	Map<String, Sprite> sprites;
 
-	public Enemy(int x, int y, Room r) {
+	public Enemy(int x, int y, Room r, STAGE stage) {
 		super(x, y, r);
+		sprites = GameRepository.enemy;
+		image_speed = 0.1;
+		
+		sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
+		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
+		boundingBox.update(x, y);
 	}
 
 	@Override
 	public void create() {
-		modX = 2;
-		modY = 2;
+		modX = 1;
+		modY = 1;
 		
 		destruction = false;
 		
@@ -53,15 +67,19 @@ public class Enemy extends Objeto{
 		switch(movActual){
 		case DOWN:
 			ymod = modY;
+			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
 			break;
 		case UP:
 			ymod = -modY;
+			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[1]);
 			break;
 		case LEFT:
 			xmod = -modX;
+			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
 			break;
 		case RIGHT:
 			xmod = modX;
+			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[1]);
 			break;
 		case NO_KEY:
 			break;
@@ -115,8 +133,8 @@ public class Enemy extends Objeto{
 
 	public void callForDestruction(){
 		destruction = true;
-		//sprite_index = ;
+		sprite_index = sprites.get(Initialization.ENEMIES_SPRS[0]);
 		image_index = 0;
-		image_speed = 0.1;
+		image_speed = 0.01;
 	}
 }

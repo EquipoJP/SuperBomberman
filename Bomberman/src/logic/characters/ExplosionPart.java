@@ -99,6 +99,8 @@ public class ExplosionPart extends Objeto {
 					System.out.println("Player hit");
 				}
 				if (obj instanceof Enemy) {
+					Enemy en = (Enemy) obj;
+					en.callForDestruction();
 					System.out.println("Enemy hit");
 				}
 			}

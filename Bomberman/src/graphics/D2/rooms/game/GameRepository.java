@@ -15,13 +15,12 @@ public class GameRepository {
 	static Sprite background = null;
 
 	public static Sprite block = null;
-	public static Sprite blueDoll = null;
-	public static Sprite pinkDoll = null;
 
 	public static Sprite destroyableBlock1 = null;
 	public static Sprite destroyableBlock2 = null;
 
 	public static Map<String, Sprite> player = null;
+	public static Map<String, Sprite> enemy = null;
 	
 	public static Sprite bomb = null;
 	
@@ -40,12 +39,10 @@ public class GameRepository {
 
 		loadBlock(stage);
 
-		loadBlueDoll();
-		loadPinkDoll();
-
 		loadDestroyables(stage);
 
 		loadPlayer();
+		loadEnemy(stage);
 		
 		loadBomb();
 		
@@ -75,18 +72,6 @@ public class GameRepository {
 		}
 	}
 
-	private static void loadBlueDoll() {
-		if (blueDoll == null) {
-			blueDoll = Initialization.getSpriteFromSprites(Initialization.SPRITES.BLUE_DOLL.toString());
-		}
-	}
-
-	private static void loadPinkDoll() {
-		if (pinkDoll == null) {
-			pinkDoll = Initialization.getSpriteFromSprites(Initialization.SPRITES.PINK_DOLL.toString());
-		}
-	}
-
 	private static void loadDestroyables(STAGE stage) {
 		if (destroyableBlock1 == null) {
 			destroyableBlock1 = Initialization
@@ -99,7 +84,13 @@ public class GameRepository {
 
 	private static void loadPlayer() {
 		if (player == null) {
-			player = Initialization.getSprites(Initialization.SPRITES.WHITE_BOMBER.toString());
+			player = Initialization.getSpritesFromTableSprites(Initialization.SPRITES.WHITE_BOMBER.toString(), Initialization.BOMBERMAN_SPRS);
+		}
+	}
+	
+	private static void loadEnemy(STAGE stage) {
+		if (enemy == null) {
+			enemy = Initialization.getSpritesFromTableSprites(Initialization.SPRITES.ENEMY.toString() + "_" + stage.toString(), Initialization.ENEMIES_SPRS);
 		}
 	}
 	

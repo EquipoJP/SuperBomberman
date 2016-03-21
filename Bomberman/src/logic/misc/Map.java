@@ -10,9 +10,8 @@ import java.util.Scanner;
 
 import logic.Objeto;
 import logic.characters.Block;
-import logic.characters.BlueDoll;
 import logic.characters.DestroyableBlock;
-import logic.characters.PinkDoll;
+import logic.characters.Enemy;
 import logic.characters.Player;
 import main.Initialization;
 import main.Initialization.STAGE;
@@ -21,8 +20,7 @@ public class Map {
 
 	public static final char DESTROYABLE_BLOCK = '0';
 	public static final char BLOCK = '1';
-	public static final char ENEMY_BLUE = '2';
-	public static final char ENEMY_PINK = '3';
+	public static final char ENEMY = '2';
 	public static final char BOMBERMAN = '4';
 
 	public static List<Objeto> getMap(String file, Room room,
@@ -49,11 +47,8 @@ public class Map {
 					case BLOCK:
 						objetos.add(createBlock(row, col, room));
 						break;
-					case ENEMY_BLUE:
-						objetos.add(createBlueEnemy(row, col, room));
-						break;
-					case ENEMY_PINK:
-						objetos.add(createPinkEnemy(row, col, room));
+					case ENEMY:
+						objetos.add(createEnemy(row, col, room, stage));
 						break;
 					case BOMBERMAN:
 						objetos.add(createBomberman(row, col, room));
@@ -96,18 +91,11 @@ public class Map {
 		return new Block(x, y, room);
 	}
 
-	private static Objeto createBlueEnemy(int row, int col, Room room) {
+	private static Objeto createEnemy(int row, int col, Room room, STAGE stage) {
 		int x = getX(col);
 		int y = getY(row);
 
-		return new BlueDoll(x, y, room);
-	}
-
-	private static Objeto createPinkEnemy(int row, int col, Room room) {
-		int x = getX(col);
-		int y = getY(row);
-
-		return new PinkDoll(x, y, room);
+		return new Enemy(x, y, room, stage);
 	}
 
 	private static Objeto createBomberman(int row, int col, Room room) {
