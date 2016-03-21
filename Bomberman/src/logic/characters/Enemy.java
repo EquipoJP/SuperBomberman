@@ -1,9 +1,9 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
-
 import java.util.List;
 
+import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.Game;
 import logic.Input.KEY;
 import logic.Objeto;
 
@@ -14,6 +14,7 @@ public class Enemy extends Objeto{
 	
 	protected List<KEY> route;
 	private int posInRoute;
+	private boolean destruction;
 
 	public Enemy(int x, int y, Room r) {
 		super(x, y, r);
@@ -25,10 +26,19 @@ public class Enemy extends Objeto{
 		modY = 3;
 		route = null;
 		posInRoute = 0;
+		destruction = false;
 	}
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
+		if(destruction){
+			if(animation_end){
+				destroy();
+			}
+			return ;
+		}
+		checkCollision();
+		
 		if(route == null || route.size() == 0){
 			return ;
 		}
@@ -61,8 +71,31 @@ public class Enemy extends Objeto{
 		}
 	}
 	
+	private void checkCollision() {
+		List<Objeto> collisions = collision();
+		if (collisions != null) {
+			for (Objeto obj : collisions) {
+				if (obj instanceof Player) {
+					Game g = (Game) myRoom;
+					g.callForDestruction();
+					System.out.println("Player hit");
+				}
+				if (obj instanceof Enemy) {
+					System.out.println("Enemy hit");
+				}
+			}
+		}		
+	}
+
 	protected List<KEY> createRoute() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void callForDestruction(){
+		destruction = true;
+		//sprite_index = ;
+		image_index = 0;
+		image_speed = 0.1;
 	}
 }
