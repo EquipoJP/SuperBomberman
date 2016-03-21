@@ -1,9 +1,11 @@
 package logic.characters;
 
-import java.util.List;
-
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.Game;
+
+import java.util.List;
+import java.util.Random;
+
 import logic.Input.KEY;
 import logic.Objeto;
 
@@ -12,8 +14,9 @@ public class Enemy extends Objeto{
 	private int modX;
 	private int modY;
 	
-	protected List<KEY> route;
-	private int posInRoute;
+	private KEY movActual;
+	private Random randomizer;
+	
 	private boolean destruction;
 
 	public Enemy(int x, int y, Room r) {
@@ -22,11 +25,13 @@ public class Enemy extends Objeto{
 
 	@Override
 	public void create() {
-		modX = 3;
-		modY = 3;
-		route = null;
-		posInRoute = 0;
+		modX = 2;
+		modY = 2;
+		
 		destruction = false;
+		
+		movActual = KEY.NO_KEY;
+		randomizer = new Random();
 	}
 
 	@Override
@@ -37,42 +42,66 @@ public class Enemy extends Objeto{
 			}
 			return ;
 		}
-		checkCollision();
-		
-		if(route == null || route.size() == 0){
-			return ;
+
+		if(movActual == KEY.NO_KEY){
+			movActual = randomizeKey();
 		}
 		
-		if(posInRoute >= route.size()){
-			posInRoute = 0;
-		}
-		if(posInRoute < 0){
-			posInRoute = 0;
-		}
-		key = route.get(posInRoute);
+		int xmod = 0;
+		int ymod = 0;
 		
-		switch(key){
+		switch(movActual){
 		case DOWN:
-			tryToMove(0, modY);
+			ymod = modY;
 			break;
 		case UP:
-			tryToMove(0, -modY);
+			ymod = -modY;
 			break;
 		case LEFT:
-			tryToMove(-modX, 0);
+			xmod = -modX;
 			break;
 		case RIGHT:
-			tryToMove(modX, 0);
+			xmod = modX;
 			break;
 		case NO_KEY:
 			break;
 		default:
 			break;
 		}
+		
+		checkCollision(xmod, ymod);
+		
+		if(!tryToMove(xmod, ymod)){
+			movActual = KEY.NO_KEY;
+		}
 	}
 	
-	private void checkCollision() {
+	private KEY randomizeKey() {
+		/*
+		 * 0. DOWN
+		 * 1. UP
+		 * 2. LEFT
+		 * 3. RIGHT
+		 */
+		
+		switch(randomizer.nextInt(4)){
+		case 0:
+			return KEY.DOWN;
+		case 1:
+			return KEY.UP;
+		case 2:
+			return KEY.LEFT;
+		case 3:
+			return KEY.RIGHT;
+		}
+		
+		return null;
+	}
+
+	private void checkCollision(int modx, int mody) {
+		boundingBox.update(modx, mody);
 		List<Objeto> collisions = collision();
+		boundingBox.update(-modx, -mody);
 		if (collisions != null) {
 			for (Objeto obj : collisions) {
 				if (obj instanceof Player) {
@@ -80,18 +109,10 @@ public class Enemy extends Objeto{
 					g.callForDestruction();
 					System.out.println("Player hit");
 				}
-				if (obj instanceof Enemy) {
-					System.out.println("Enemy hit");
-				}
 			}
 		}		
 	}
 
-	protected List<KEY> createRoute() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public void callForDestruction(){
 		destruction = true;
 		//sprite_index = ;

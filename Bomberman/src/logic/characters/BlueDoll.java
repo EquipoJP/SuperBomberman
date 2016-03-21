@@ -15,13 +15,11 @@ public class BlueDoll extends Enemy {
 		super.create();
 
 		sprite_index = GameRepository.blueDoll;
-		image_speed = 0.05;
+		image_speed = 0.1;
 
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		System.out.println("BLUE DOLL: " + boundingBox);
-		
-		route = createRoute();
 	}
 
 }

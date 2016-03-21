@@ -83,36 +83,36 @@ public class Map {
 
 	private static Objeto createDestroyable(int row, int col, Room room,
 			STAGE stage) {
-		int x = getX(row);
-		int y = getY(col);
+		int x = getX(col);
+		int y = getY(row);
 
 		return new DestroyableBlock(x, y, room, stage);
 	}
 
 	private static Objeto createBlock(int row, int col, Room room) {
-		int x = getX(row);
-		int y = getY(col);
+		int x = getX(col);
+		int y = getY(row);
 
 		return new Block(x, y, room);
 	}
 
 	private static Objeto createBlueEnemy(int row, int col, Room room) {
-		int x = getX(row);
-		int y = getY(col);
+		int x = getX(col);
+		int y = getY(row);
 
 		return new BlueDoll(x, y, room);
 	}
 
 	private static Objeto createPinkEnemy(int row, int col, Room room) {
-		int x = getX(row);
-		int y = getY(col);
+		int x = getX(col);
+		int y = getY(row);
 
 		return new PinkDoll(x, y, room);
 	}
 
 	private static Objeto createBomberman(int row, int col, Room room) {
-		int x = getX(row);
-		int y = getY(col);
+		int x = getX(col);
+		int y = getY(row);
 
 		return new Player(x, y, room, 0);
 	}
@@ -131,31 +131,5 @@ public class Map {
 
 	public static int getCol(int x) {
 		return (x - Initialization.MAP_X_OFFSET + Initialization.TILE_WIDTH/2) / Initialization.TILE_WIDTH;
-	}
-	
-	public static void main(String[] args) {
-		
-		for(int i = 0; i < 15; i++){
-			for (int j = 0; j < 15; j++) {
-				int row = i;
-				int col = j;
-				
-				int x = getX(col);
-				int y = getY(row);
-				
-				row = getRow(y + 15);
-				col = getCol(x);
-				
-				System.out.println("Real row: " + i + " - Result: " + row);
-				System.out.println("Real col: " + j + " - Result: " + col);
-				
-				if(i != row){
-					System.err.println("Row error");
-				}
-				if(j != col){
-					System.err.println("Col error");
-				}
-			}
-		}
 	}
 }

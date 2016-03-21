@@ -1,10 +1,7 @@
 package logic.characters;
 
-import java.util.List;
-
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
-import logic.Input.KEY;
 import logic.collisions.PerspectiveBoundingBox;
 
 public class PinkDoll extends Enemy {
@@ -23,14 +20,6 @@ public class PinkDoll extends Enemy {
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		System.out.println("PINK DOLL " + boundingBox);
-
-		route = createRoute();
-	}
-
-	@Override
-	protected List<KEY> createRoute() {
-		// TODO Auto-generated method stub
-		return super.createRoute();
 	}
 
 }
