@@ -10,6 +10,7 @@ import main.Initialization.TYPE;
 public class GameRepository {
 	
 	static Sprite hud = null;
+	static Sprite victory = null;
 
 	static Sprite tiles = null;
 	static Sprite background = null;
@@ -34,6 +35,8 @@ public class GameRepository {
 	
 	public static void load(STAGE stage) {
 		loadHUD();
+		loadVictory();
+		
 		loadTiles(stage);
 		loadBackground();
 
@@ -52,6 +55,12 @@ public class GameRepository {
 	private static void loadHUD() {
 		if(hud == null){
 			hud = Initialization.getSpriteFromMenu(Initialization.BUTTONS.HUD.toString());
+		}
+	}
+	
+	private static void loadVictory() {
+		if(victory == null){
+			victory = Initialization.getSpriteFromMenu(Initialization.BUTTONS.VICTORY.toString());
 		}
 	}
 
