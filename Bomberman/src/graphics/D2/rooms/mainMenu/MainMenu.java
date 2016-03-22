@@ -114,7 +114,7 @@ public class MainMenu extends Room {
 	private void confirm() {
 		switch (selected) {
 		case 0:
-			StatesMachine.goToRoom(STATE.SB_MODE, false);
+			StatesMachine.goToRoom(STATE.GAME, false);
 			break;
 		case 1:
 			StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);

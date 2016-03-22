@@ -3,8 +3,8 @@
  */
 package logic;
 
-import graphics.D2.rooms.SB_Game;
-import graphics.D2.rooms.T_Game;
+import java.awt.Graphics;
+
 import graphics.D2.rooms.credits.Credits;
 import graphics.D2.rooms.game.Game;
 import graphics.D2.rooms.gameOverMenu.GameOverMenu;
@@ -13,9 +13,6 @@ import graphics.D2.rooms.mainMenu.MainMenu;
 import graphics.D2.rooms.optionsMenu.OptionsMenu;
 import graphics.D2.rooms.pauseMenu.PauseMenu;
 import graphics.D2.rooms.rankMenu.RankMenu;
-
-import java.awt.Graphics;
-
 import logic.Input.KEY;
 import main.Initialization;
 import main.Initialization.STAGE;
@@ -28,7 +25,7 @@ public class StatesMachine {
 
 	/* machine's states */
 	public enum STATE {
-		INTRO, MAIN_MENU, OPTIONS_MENU, T_MODE, SB_MODE, PAUSE, GAME_OVER, RANKS, TOP10, CREDITS
+		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, PAUSE, GAME_OVER, RANKS, TOP10, CREDITS
 	};
 
 	/* private attributes */
@@ -71,11 +68,8 @@ public class StatesMachine {
 		case OPTIONS_MENU:
 			options_menu(key, direction);
 			break;
-		case T_MODE:
-			t_mode(key, direction);
-			break;
-		case SB_MODE:
-			sb_mode(key, direction);
+		case GAME:
+			game(key, direction);
 			break;
 		case PAUSE:
 			pause(key, direction);
@@ -109,10 +103,7 @@ public class StatesMachine {
 		case OPTIONS_MENU:
 			optionScreen.render(g);
 			break;
-		case T_MODE:
-			gameScreen.render(g);
-			break;
-		case SB_MODE:
+		case GAME:
 			gameScreen.render(g);
 			break;
 		case PAUSE:
@@ -136,7 +127,7 @@ public class StatesMachine {
 	}
 
 	public static void goToRoom(STATE st, boolean persist) {
-		if(persist && (state == STATE.SB_MODE || state == STATE.T_MODE)){
+		if(persist && state == STATE.GAME){
 			persistent();
 		}
 		else{
@@ -145,13 +136,13 @@ public class StatesMachine {
 		
 		if(state == STATE.PAUSE){
 			if(st == STATE.MAIN_MENU){
-				clearRoom(STATE.SB_MODE);
+				clearRoom(STATE.GAME);
 			}
 		}
 
 		state = st;
 		
-		if((state == STATE.SB_MODE || state == STATE.T_MODE) && gameScreen != null){
+		if((state == STATE.GAME) && gameScreen != null){
 			gameScreen.resume();
 		}
 		
@@ -176,11 +167,7 @@ public class StatesMachine {
 			optionScreen.destroy();
 			optionScreen = null;
 			break;
-		case T_MODE:
-			gameScreen.destroy();
-			gameScreen = null;
-			break;
-		case SB_MODE:
+		case GAME:
 			gameScreen.destroy();
 			gameScreen = null;
 			break;
@@ -263,35 +250,15 @@ public class StatesMachine {
 	 * @param key
 	 * @param direction 
 	 */
-	private static void t_mode(KEY key, KEY direction) {
+	private static void game(KEY key, KEY direction) {
 
 		if (gameScreen == null) {
 			// ////////////////////////////////////////
 			String file = "maps/level1.txt";
 			STAGE stage = Initialization.STAGE.GREENVILLAGE;
 			// ////////////////////////////////////////
-			gameScreen = new T_Game(main.Game.WIDTH, main.Game.HEIGHT,
+			gameScreen = new Game(main.Game.WIDTH, main.Game.HEIGHT,
 					"T mode", file, stage);
-		}
-		gameScreen.step(key, direction);
-		// TODO complete the method
-	}
-
-	/**
-	 * Super-Bomber mode of the game
-	 * 
-	 * @param key
-	 * @param direction 
-	 */
-	private static void sb_mode(KEY key, KEY direction) {
-
-		if (gameScreen == null) {
-			// /////////////////////////////////////
-			String file = "maps/level1.txt";
-			STAGE stage = Initialization.STAGE.PEACETOWN;
-			// ////////////////////////////////////
-			gameScreen = new SB_Game(main.Game.WIDTH, main.Game.HEIGHT,
-					"Super Bomber mode", file, stage);
 		}
 		gameScreen.step(key, direction);
 		// TODO complete the method
@@ -308,12 +275,7 @@ public class StatesMachine {
 		if (pauseScreen == null) {
 			STATE mode = STATE.MAIN_MENU;
 			if(gameScreen != null){
-				if(gameScreen instanceof SB_Game){
-					mode = STATE.SB_MODE;
-				}
-				if(gameScreen instanceof T_Game){
-					mode = STATE.T_MODE;
-				}
+				mode = STATE.GAME;
 			}
 			
 			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT,

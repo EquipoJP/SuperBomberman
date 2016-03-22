@@ -31,8 +31,10 @@ import utils.PaintDigitsService;
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
-public abstract class Game extends Room {
-
+public class Game extends Room {
+	
+	private int enemiesDestroyed;
+	
 	protected Sprite tiles;
 	protected Level level;
 	
@@ -57,6 +59,7 @@ public abstract class Game extends Room {
 		
 		this.file = file;
 		this.stage = stage;
+		this.enemiesDestroyed = 0;
 	}
 	
 	@Override
@@ -171,6 +174,18 @@ public abstract class Game extends Room {
 	public void destroy() {
 		super.destroy();
 		cancelTimer();
+		
+		Global.scoreManager.updateScore(enemiesDestroyed);
+		Global.scoreManager.updateScore(seconds);
+	}
+	
+	@Override
+	public void destroy(Objeto o) {
+		super.destroy(o);
+		
+		if(o instanceof Enemy){
+			enemiesDestroyed++;
+		}
 	}
 
 	private boolean checkTime() {
