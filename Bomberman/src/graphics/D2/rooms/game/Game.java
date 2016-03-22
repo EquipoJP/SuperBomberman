@@ -16,6 +16,7 @@ import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
 import logic.StatesMachine;
+import logic.characters.DestroyableBlock;
 import logic.characters.Enemy;
 import logic.characters.Player;
 import logic.collisions.Point2D;
@@ -33,6 +34,7 @@ import utils.PaintDigitsService;
 public class Game extends Room {
 
 	private int enemiesDestroyed;
+	private int blocksDestroyed;
 
 	protected Sprite tiles;
 	protected Level level;
@@ -42,7 +44,7 @@ public class Game extends Room {
 	private long secondsLevel;
 
 	private enum STATE {
-		INIT, GAME, VICTORY
+		INIT, GAME, DESTRUCTION, VICTORY
 	};
 
 	private STATE state;
@@ -65,6 +67,7 @@ public class Game extends Room {
 		super(w, h, n);
 
 		this.enemiesDestroyed = 0;
+		this.blocksDestroyed = 0;
 	}
 
 	@Override
@@ -135,7 +138,8 @@ public class Game extends Room {
 			g.setColor(Color.black);
 			
 			Point2D initial_position = new Point2D(width/2, height/2);
-			PaintDigitsService.paint("" + Global.levels.level() + 1, initial_position, g);
+			int lvl = Global.levels.level() + 1;
+			PaintDigitsService.paint("" + lvl, initial_position, g);
 			break;
 		default:
 			super.render(g);
@@ -170,25 +174,27 @@ public class Game extends Room {
 			break;
 		case GAME:
 			super.step(key, direction);
-			setTimer();
 
 			if ((key == KEY.ENTER || key == KEY.ESCAPE) && secondsVictory < 0) {
 				// Pause menu being persistent
 				StatesMachine.goToRoom(StatesMachine.STATE.PAUSE, true);
 			}
-
-			if (checkTime()) {
+			else if (checkTime()) {
 				callForDestruction();
 			}
-
+			else if (noEnemies()) {
+				callForVictory();
+			}
+			else{
+				setTimer();
+			}
+			break;
+		case DESTRUCTION:
+			super.step(key, direction);
 			if (noPlayer()) {
 				Global.levels.resetLevel();
 				terminate();
 				StatesMachine.goToRoom(StatesMachine.STATE.TOP10, false);
-			}
-
-			if (noEnemies()) {
-				callForVictory();
 			}
 			break;
 		case VICTORY:
@@ -222,8 +228,9 @@ public class Game extends Room {
 	}
 
 	private void terminate() {
-		Global.scoreManager.updateScore(enemiesDestroyed);
-		Global.scoreManager.updateScore(seconds);
+		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
+		Global.scoreManager.updateScoreSeconds(seconds);
+		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
 	}
 
 	private boolean noPlayer() {
@@ -256,6 +263,9 @@ public class Game extends Room {
 
 		if (o instanceof Enemy) {
 			enemiesDestroyed++;
+		}
+		if(o instanceof DestroyableBlock){
+			blocksDestroyed++;
 		}
 	}
 
@@ -309,6 +319,7 @@ public class Game extends Room {
 	}
 
 	public void callForDestruction() {
+		state = STATE.DESTRUCTION;
 		cancelTimer();
 		for (Objeto obj : objetos) {
 			if (obj instanceof Player) {

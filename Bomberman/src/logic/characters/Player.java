@@ -107,6 +107,7 @@ public class Player extends Objeto {
 			}
 		}
 		else{
+			System.out.println("Animation end: " + animation_end);
 			if(animation_end){
 				destroy();
 			}
