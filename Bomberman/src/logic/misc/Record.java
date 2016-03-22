@@ -1,7 +1,11 @@
 package logic.misc;
 
-public class Record {
+import java.io.Serializable;
 
+public class Record implements Serializable{
+
+	private static final long serialVersionUID = -6830830726234208232L;
+	
 	private int score;
 
 	public Record(int score) {

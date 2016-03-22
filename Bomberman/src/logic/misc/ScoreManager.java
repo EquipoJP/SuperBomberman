@@ -3,8 +3,8 @@ package logic.misc;
 public class ScoreManager {
 
 	private int score;
-	private final double VALUE_SECOND = 0.001;
-	private final double VALUE_ENEMY = 0.1;
+	private final double VALUE_SECOND = 1;
+	private final double VALUE_ENEMY = 1;
 
 	public ScoreManager() {
 		score = 0;
@@ -20,6 +20,10 @@ public class ScoreManager {
 
 	public Record record() {
 		return new Record(score);
+	}
+	
+	public void reset(){
+		score = 0;
 	}
 
 }

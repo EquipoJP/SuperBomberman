@@ -26,8 +26,6 @@ public class PauseMenu extends Room {
 	private Button[] menuButtons;
 	private int selected;
 	
-	private STATE mode;
-	
 	private static enum selection {
 		CONTINUE, QUIT
 	};
@@ -36,10 +34,8 @@ public class PauseMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 25;
 	private static final int TITLEBUTTON_BORDER = 64;
 
-	public PauseMenu(int w, int h, String n, STATE mode) {
+	public PauseMenu(int w, int h, String n) {
 		super(w, h, n);
-
-		this.mode = mode;
 	}
 	
 	@Override
@@ -110,7 +106,7 @@ public class PauseMenu extends Room {
 	private void confirm() {
 		switch (selected) {
 		case 0:
-			StatesMachine.goToRoom(mode, false);
+			StatesMachine.goToRoom(STATE.GAME, false);
 			break;
 		case 1:
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);

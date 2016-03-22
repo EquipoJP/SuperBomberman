@@ -41,24 +41,26 @@ public class RankMenu extends Room {
 	@Override
 	public void load() {
 		RankMenuRepository.load();
+		
+		System.out.println(RankMenuRepository.backButton);
 
 		this.background = null; // TODO
 
 		int x = width / 2;
 
-		if (this.record != null) {
+		if (this.record != null && this.record.getScore() > 0) {
 			newRecord = Global.ranking.newRecord(record);
 
 			Sprite next = RankMenuRepository.continueButton;
+			next.setSubsprites(new BufferedImage[] { next.getSubsprites()[next.getSubimages()-1] });
 			next.setSubimages(1);
-			next.setSubsprites(new BufferedImage[] { next.getSubsprites()[1] });
 			int y = this.height - PADDING_BORDER - next.getHeight() / 2;
 
 			addObjeto(new Visual(x, y, this, next));
 		} else {
 			Sprite back = RankMenuRepository.backButton;
+			back.setSubsprites(new BufferedImage[] { back.getSubsprites()[back.getSubimages()-1] });
 			back.setSubimages(1);
-			back.setSubsprites(new BufferedImage[] { back.getSubsprites()[1] });
 			int y = this.height - PADDING_BORDER - back.getHeight() / 2;
 
 			addObjeto(new Visual(x, y, this, back));
@@ -78,7 +80,6 @@ public class RankMenu extends Room {
 			return;
 		}
 
-		// TODO coger el ranking global
 		List<Record> records = Global.ranking.getRecords();
 
 		// TODO dimensiones x y

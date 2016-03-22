@@ -54,11 +54,11 @@ public class Game extends Room {
 	private Sprite victory;
 	private Visual victoryVisual;
 
-	public Game(int w, int h, String n, String file, STAGE stage) {
+	public Game(int w, int h, String n) {
 		super(w, h, n);
 		
-		this.file = file;
-		this.stage = stage;
+		this.file = Global.levels.actualLevel().getFile();
+		this.stage = Global.levels.actualLevel().getStage();
 		this.enemiesDestroyed = 0;
 	}
 	
@@ -141,15 +141,24 @@ public class Game extends Room {
 		}
 		
 		if(noPlayer()){
+			Global.levels.resetLevel();
+			terminate();
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 		}
 		
 		if(noEnemies()){
 			callForVictory();
 			if(secondsVictory < 0){
-				StatesMachine.goToRoom(STATE.MAIN_MENU, false);
+				Global.levels.nextLevel();
+				terminate();
+				StatesMachine.goToRoom(STATE.GAME, false);
 			}
 		}
+	}
+	
+	private void terminate(){
+		Global.scoreManager.updateScore(enemiesDestroyed);
+		Global.scoreManager.updateScore(seconds);
 	}
 	
 	private boolean noPlayer(){
@@ -174,9 +183,6 @@ public class Game extends Room {
 	public void destroy() {
 		super.destroy();
 		cancelTimer();
-		
-		Global.scoreManager.updateScore(enemiesDestroyed);
-		Global.scoreManager.updateScore(seconds);
 	}
 	
 	@Override

@@ -21,6 +21,10 @@ public class LevelManager {
 		level = (level++) % NO_LEVELS;
 	}
 	
+	public void resetLevel(){
+		level = 0;
+	}
+	
 	public int level(){
 		return level;
 	}
