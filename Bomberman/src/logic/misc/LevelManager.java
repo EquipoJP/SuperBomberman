@@ -18,7 +18,7 @@ public class LevelManager {
 	}
 	
 	public void nextLevel(){
-		level = (level++) % NO_LEVELS;
+		level = (level + 1) % NO_LEVELS;
 	}
 	
 	public void resetLevel(){

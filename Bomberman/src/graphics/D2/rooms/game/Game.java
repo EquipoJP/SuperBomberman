@@ -3,20 +3,19 @@
  */
 package graphics.D2.rooms.game;
 
-import graphics.D2.rooms.Room;
-import graphics.effects.Visual;
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import graphics.D2.rooms.Room;
+import graphics.effects.Visual;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
 import logic.StatesMachine;
-import logic.StatesMachine.STATE;
 import logic.characters.Enemy;
 import logic.characters.Player;
 import logic.collisions.Point2D;
@@ -32,41 +31,53 @@ import utils.PaintDigitsService;
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public class Game extends Room {
-	
+
 	private int enemiesDestroyed;
-	
+
 	protected Sprite tiles;
 	protected Level level;
-	
-	protected long seconds;
-	protected long secondsVictory;
+
+	private long seconds;
+	private long secondsVictory;
+	private long secondsLevel;
+
+	private enum STATE {
+		INIT, GAME, VICTORY
+	};
+
+	private STATE state;
 
 	private Timer timer;
 	private TimerTask task;
 
 	private final long SECONDS_PHASE = 50; // TODO
-	private final long VICTORY_SECONDS = 5;	// TODO
-	
+	private final long VICTORY_SECONDS = 5; // TODO
+	private final long LEVEL_SECONDS = 5; // TODO
+
 	private String file;
 	private STAGE stage;
-	
+
 	private Sprite hud;
 	private Sprite victory;
 	private Visual victoryVisual;
 
 	public Game(int w, int h, String n) {
 		super(w, h, n);
-		
-		this.file = Global.levels.actualLevel().getFile();
-		this.stage = Global.levels.actualLevel().getStage();
+
 		this.enemiesDestroyed = 0;
 	}
-	
+
 	@Override
 	public void load() {
+		this.file = Global.levels.actualLevel().getFile();
+		this.stage = Global.levels.actualLevel().getStage();
+		
+		state = STATE.INIT;
+		
 		GameRepository.load(stage);
-		seconds = -1;
+		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
+		secondsLevel = -1;
 
 		tiles = GameRepository.tiles;
 		List<Objeto> objetos = Map.getMap(file, this, stage);
@@ -78,101 +89,155 @@ public class Game extends Room {
 				addObjeto(obj);
 			}
 		}
-		
+
 		hud = GameRepository.hud;
 		victory = GameRepository.victory;
 		victoryVisual = null;
-		
+
 		setMusic(SoundTrack.BATTLE_MUSIC);
 	}
 
 	@Override
 	public void drawBackground(Graphics g) {
-		if(!loadComplete()){
-			return ;
+		if (!loadComplete()) {
+			return;
 		}
 		g.clearRect(0, 0, width, height);
-		
+
 		drawHUD(g);
 
 		if (level != null) {
-			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles
-					.getWidth()) {
-				for (int y = level.mapInitY; y < level.mapInitY
-						+ level.mapHeight; y += tiles.getHeight()) {
-					if(tiles != null){
-						g.drawImage(tiles.getSubsprites()[0],
-								x - tiles.getCenterX(), y - tiles.getCenterY(),
-								null);
+			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles.getWidth()) {
+				for (int y = level.mapInitY; y < level.mapInitY + level.mapHeight; y += tiles.getHeight()) {
+					if (tiles != null) {
+						g.drawImage(tiles.getSubsprites()[0], x - tiles.getCenterX(), y - tiles.getCenterY(), null);
 					}
 				}
 			}
 		}
 	}
 	
+	@Override
+	public void render(Graphics g) {
+		if(!loadComplete()){
+			super.render(g);
+			return ;
+		}
+		
+		switch(state){
+		case INIT:
+			super.render(g);
+			
+			// transparency
+			Color transparent = new Color(0, 0, 0, 128);
+			g.setColor(transparent);
+			g.fillRect(0, 0, width, height);
+			g.setColor(Color.black);
+			
+			Point2D initial_position = new Point2D(width/2, height/2);
+			PaintDigitsService.paint("" + Global.levels.level() + 1, initial_position, g);
+			break;
+		default:
+			super.render(g);
+			break;
+		}
+	}
+
 	private void drawHUD(Graphics g) {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
-		
-		//TODO change values here
+
+		// TODO change values here
 		int x = 180;
 		int y = 40;
 		Point2D init_pos = new Point2D(x, y);
-		
+
 		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
 	}
 
 	@Override
 	public void step(KEY key, KEY direction) {
-		super.step(key, direction);
-		
-		if(!loadComplete()){
-			return ;
+		if (!loadComplete()) {
+			return;
 		}
 
-		setTimer();
+		switch (state) {
+		case INIT:
+			setInitTimer();
+			if (secondsLevel < 0) {
+				cancelTimer();
+				state = STATE.GAME;
+			}
+			break;
+		case GAME:
+			super.step(key, direction);
+			setTimer();
 
-		if ((key == KEY.ENTER || key == KEY.ESCAPE) && secondsVictory < 0) {
-			// Pause menu being persistent
-			StatesMachine.goToRoom(STATE.PAUSE, true);
-		}
+			if ((key == KEY.ENTER || key == KEY.ESCAPE) && secondsVictory < 0) {
+				// Pause menu being persistent
+				StatesMachine.goToRoom(StatesMachine.STATE.PAUSE, true);
+			}
 
-		if (checkTime()) {
-			callForDestruction();
-		}
-		
-		if(noPlayer()){
-			Global.levels.resetLevel();
-			terminate();
-			StatesMachine.goToRoom(STATE.TOP10, false);
-		}
-		
-		if(noEnemies()){
-			callForVictory();
-			if(secondsVictory < 0){
+			if (checkTime()) {
+				callForDestruction();
+			}
+
+			if (noPlayer()) {
+				Global.levels.resetLevel();
+				terminate();
+				StatesMachine.goToRoom(StatesMachine.STATE.TOP10, false);
+			}
+
+			if (noEnemies()) {
+				callForVictory();
+			}
+			break;
+		case VICTORY:
+			super.step(key, direction);
+			if (secondsVictory < 0) {
 				Global.levels.nextLevel();
 				terminate();
-				StatesMachine.goToRoom(STATE.GAME, false);
+				StatesMachine.goToRoom(StatesMachine.STATE.GAME, false);
 			}
+			break;
 		}
 	}
-	
-	private void terminate(){
+
+	private void setInitTimer() {
+		if (secondsLevel < 0) {
+			secondsLevel = LEVEL_SECONDS;
+		}
+		task = null;
+		timer = null;
+
+		timer = new Timer();
+
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				secondsLevel--;
+			}
+		};
+
+		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
+	}
+
+	private void terminate() {
 		Global.scoreManager.updateScore(enemiesDestroyed);
 		Global.scoreManager.updateScore(seconds);
 	}
-	
-	private boolean noPlayer(){
-		for(Objeto obj : objetos){
-			if(obj instanceof Player){
+
+	private boolean noPlayer() {
+		for (Objeto obj : objetos) {
+			if (obj instanceof Player) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
-	private boolean noEnemies(){
-		for(Objeto obj : objetos){
-			if(obj instanceof Enemy){
+
+	private boolean noEnemies() {
+		for (Objeto obj : objetos) {
+			if (obj instanceof Enemy) {
 				return false;
 			}
 		}
@@ -184,12 +249,12 @@ public class Game extends Room {
 		super.destroy();
 		cancelTimer();
 	}
-	
+
 	@Override
 	public void destroy(Objeto o) {
 		super.destroy(o);
-		
-		if(o instanceof Enemy){
+
+		if (o instanceof Enemy) {
 			enemiesDestroyed++;
 		}
 	}
@@ -199,8 +264,8 @@ public class Game extends Room {
 	}
 
 	private void setTimer() {
-		if(!loadComplete()){
-			return ;
+		if (!loadComplete()) {
+			return;
 		}
 		if (seconds < 0) {
 			seconds = SECONDS_PHASE;
@@ -212,7 +277,7 @@ public class Game extends Room {
 				@Override
 				public void run() {
 					seconds--;
-//					System.out.println("Seconds left: " + seconds);
+					// System.out.println("Seconds left: " + seconds);
 				}
 			};
 
@@ -221,10 +286,10 @@ public class Game extends Room {
 	}
 
 	private void cancelTimer() {
-		if(timer != null){
+		if (timer != null) {
 			timer.cancel();
 		}
-		if(task != null){
+		if (task != null) {
 			task.cancel();
 		}
 		timer = null;
@@ -242,22 +307,23 @@ public class Game extends Room {
 		super.resume();
 		setTimer();
 	}
-	
-	public void callForDestruction(){
+
+	public void callForDestruction() {
 		cancelTimer();
-		for(Objeto obj : objetos){
-			if(obj instanceof Player){
+		for (Objeto obj : objetos) {
+			if (obj instanceof Player) {
 				Player player = (Player) obj;
 				player.callForDestruction();
 			}
 		}
 	}
-	
-	public void callForVictory(){
-		if(victoryVisual == null){
+
+	public void callForVictory() {
+		state = STATE.VICTORY;
+		if (victoryVisual == null) {
 			cancelTimer();
 			setVictoryTimer();
-			victoryVisual = new Visual(width/2, height/2, this, victory);
+			victoryVisual = new Visual(width / 2, height / 2, this, victory);
 			victoryVisual.depth = Global.EFFECTS_DEPTH;
 			addObjeto(victoryVisual);
 		}
@@ -269,7 +335,7 @@ public class Game extends Room {
 		}
 		task = null;
 		timer = null;
-		
+
 		timer = new Timer();
 
 		task = new TimerTask() {
@@ -281,7 +347,7 @@ public class Game extends Room {
 		};
 
 		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
-		
+
 	}
 
 }

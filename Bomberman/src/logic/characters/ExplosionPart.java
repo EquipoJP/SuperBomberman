@@ -28,7 +28,7 @@ public class ExplosionPart extends Objeto {
 
 	public ExplosionPart(int x, int y, Room r, KIND k, SIDE s) {
 		super(x, y, r);
-		animation_end = false;
+		depth = 10;
 		kind = k;
 		side = s;
 		switch (kind) {

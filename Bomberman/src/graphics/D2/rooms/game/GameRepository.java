@@ -66,6 +66,7 @@ public class GameRepository {
 
 	private static void loadTiles(STAGE stage) {
 		if (tiles == null) {
+			System.out.println(stage);
 			tiles = Initialization.getSpriteFromMap(stage.toString() + "_" + Initialization.TYPE.TILE.toString());
 		}
 	}
