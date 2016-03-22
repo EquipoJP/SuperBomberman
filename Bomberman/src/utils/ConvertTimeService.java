@@ -8,7 +8,16 @@ public class ConvertTimeService {
 		long minutes = seconds / SECONDS_IN_MIN;
 		long secs = seconds % SECONDS_IN_MIN;
 		
-		return minutes + ":" + secs;
+		String result = "";
+		if(minutes < 10){
+			result += "0";
+		}
+		result += minutes + ":";
+		if(secs < 10){
+			result += "0";
+		}
+		result += secs;
+		return result;
 	}
 
 }

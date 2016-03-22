@@ -143,7 +143,7 @@ public class Game extends Room {
 		if(noPlayer()){
 			Global.levels.resetLevel();
 			terminate();
-			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
+			StatesMachine.goToRoom(STATE.TOP10, false);
 		}
 		
 		if(noEnemies()){

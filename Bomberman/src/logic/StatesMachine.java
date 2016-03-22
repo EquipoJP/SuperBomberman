@@ -7,7 +7,6 @@ import java.awt.Graphics;
 
 import graphics.D2.rooms.credits.Credits;
 import graphics.D2.rooms.game.Game;
-import graphics.D2.rooms.gameOverMenu.GameOverMenu;
 import graphics.D2.rooms.intro.Intro;
 import graphics.D2.rooms.mainMenu.MainMenu;
 import graphics.D2.rooms.optionsMenu.OptionsMenu;
@@ -24,7 +23,7 @@ public class StatesMachine {
 
 	/* machine's states */
 	public enum STATE {
-		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, PAUSE, GAME_OVER, RANKS, TOP10, CREDITS
+		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, PAUSE, RANKS, TOP10, CREDITS
 	};
 
 	/* private attributes */
@@ -38,7 +37,6 @@ public class StatesMachine {
 	private static RankMenu rankScreen = null;
 	private static Game gameScreen = null;
 	private static PauseMenu pauseScreen = null;
-	private static GameOverMenu gameOverScreen = null;
 	private static Credits credits = null;
 
 	/**
@@ -79,9 +77,6 @@ public class StatesMachine {
 		case TOP10:
 			top10(key, direction);
 			break;
-		case GAME_OVER:
-			game_over(key, direction);
-			break;
 		case CREDITS:
 			credits(key, direction);
 			break;
@@ -114,9 +109,6 @@ public class StatesMachine {
 		case TOP10:
 			rankScreen.render(g);
 			break;
-		case GAME_OVER:
-			gameOverScreen.render(g);
-			break;
 		case CREDITS:
 			credits.render(g);
 			break;
@@ -126,12 +118,6 @@ public class StatesMachine {
 	}
 
 	public static void goToRoom(STATE st, boolean persist) {
-		if(st == STATE.MAIN_MENU || st == STATE.GAME_OVER){
-			Record record = Global.scoreManager.record();
-			Global.ranking.newRecord(record);
-			Global.scoreManager.reset();
-		}
-		
 		if (persist && state == STATE.GAME) {
 			persistent();
 		} else {
@@ -139,7 +125,7 @@ public class StatesMachine {
 		}
 
 		if (state == STATE.PAUSE) {
-			if (st == STATE.MAIN_MENU) {
+			if (st != STATE.GAME) {
 				clearRoom(STATE.GAME);
 			}
 		}
@@ -186,10 +172,6 @@ public class StatesMachine {
 		case TOP10:
 			rankScreen.destroy();
 			rankScreen = null;
-			break;
-		case GAME_OVER:
-			gameOverScreen.destroy();
-			gameOverScreen = null;
 			break;
 		case CREDITS:
 			credits.destroy();
@@ -299,24 +281,11 @@ public class StatesMachine {
 	private static void top10(KEY key, KEY direction) {
 
 		if (rankScreen == null) {
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10", null);
+			Record record = Global.scoreManager.record();
+			Global.scoreManager.reset();
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10", record);
 		}
 		rankScreen.step(key, direction);
-	}
-
-	/**
-	 * Show the game over menu screen
-	 * 
-	 * @param key
-	 * @param direction
-	 */
-	private static void game_over(KEY key, KEY direction) {
-
-		if (gameOverScreen == null) {
-			gameOverScreen = new GameOverMenu(main.Game.WIDTH, main.Game.HEIGHT, "Game over");
-		}
-		gameOverScreen.step(key, direction);
-		// TODO complete the method
 	}
 
 	private static void credits(KEY key, KEY direction) {
