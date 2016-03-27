@@ -197,11 +197,13 @@ public class Player extends Objeto {
 	}
 
 	public void callForDestruction(){
-		resetAnimationEnd();
-		destruction = true;
-		sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]);
-		image_index = 0;
-		image_speed = 0.1;
+		if(!destruction){
+			resetAnimationEnd();
+			destruction = true;
+			sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]);
+			image_index = 0;
+			image_speed = 0.1;
+		}
 	}
 	
 	@Override

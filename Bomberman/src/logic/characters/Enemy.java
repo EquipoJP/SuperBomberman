@@ -132,10 +132,12 @@ public class Enemy extends Objeto{
 	}
 
 	public void callForDestruction(){
-		resetAnimationEnd();
-		destruction = true;
-		sprite_index = sprites.get(Initialization.ENEMIES_SPRS[0]);
-		image_index = 0;
-		image_speed = 0.1;
+		if(!destruction){
+			resetAnimationEnd();
+			destruction = true;
+			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[0]);
+			image_index = 0;
+			image_speed = 0.1;
+		}
 	}
 }
