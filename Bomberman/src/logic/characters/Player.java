@@ -1,11 +1,10 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
-import graphics.D2.rooms.game.GameRepository;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import graphics.D2.rooms.Room;
+import graphics.D2.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
@@ -26,8 +25,9 @@ public class Player extends Objeto {
 	private boolean destruction;
 
 	public int bombs;
-	public int bombRadius = 1;
+	public int bombRadius;
 	public int bombsLimit;
+	private ArrayList<Objeto> ownBombs;
 
 	public Player(int x, int y, Room r, int depth) {
 		super(x, y, r);
@@ -46,7 +46,9 @@ public class Player extends Objeto {
 		modY = 2;
 
 		bombs = 0;
-		bombsLimit = 1;
+		bombsLimit = 10;
+		bombRadius = 7;
+		ownBombs = new ArrayList<Objeto>();
 		
 		destruction = false;
 	}
@@ -116,7 +118,7 @@ public class Player extends Objeto {
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
-		destroyCollisions();
+		//destroyCollisions();
 		if(!destruction){
 			switch (direction) {
 			case DOWN:
@@ -225,32 +227,9 @@ public class Player extends Objeto {
 
 	private void putBomb() {
 		if (bombs < bombsLimit) {
-			KEY key = getDirectionFromSprite();
-
 			// center of the tile in which the player is standing
-			int row = logic.misc.Map.getRow(y);
+			int row = logic.misc.Map.getRow(y + Initialization.TILE_WIDTH / 2);
 			int col = logic.misc.Map.getCol(x);
-
-			switch (key) {
-			case UP:
-				System.out.println("UP");
-				row--;
-				break;
-			case DOWN:
-				System.out.println("DOWN");
-				row++;
-				break;
-			case RIGHT:
-				System.out.println("RIGHT");
-				col++;
-				break;
-			case LEFT:
-				System.out.println("LEFT");
-				col--;
-				break;
-			default:
-				return;
-			}
 
 			int _x = logic.misc.Map.getX(col);
 			int _y = logic.misc.Map.getY(row);
@@ -258,6 +237,7 @@ public class Player extends Objeto {
 			if (!checkCollision(_x, _y)) {
 				Bomb bomb = new Bomb(_x, _y, myRoom, bombRadius, this);
 				myRoom.addObjeto(bomb);
+				ownBombs.add(bomb);
 				bombs++;
 			}
 		}
@@ -305,5 +285,45 @@ public class Player extends Objeto {
 		sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]);
 		image_index = 0;
 		image_speed = 0.1;
+	}
+	
+	@Override
+	public boolean tryToMove(int modX, int modY) {
+		boundingBox.update(modX, modY);
+		List<Objeto> collided = collision();
+		if (checkOwnBombCollision(collided)) {
+			boundingBox.update(-modX, -modY);
+			return false;
+		} else {
+			x = x + modX;
+			y = y + modY;
+			return true;
+		}
+	}
+	
+	public boolean checkOwnBombCollision(List<Objeto> toCheck){
+		if(toCheck != null){
+			for(int i = 0; i< ownBombs.size(); i++){
+				// Booleano para comprobar si seguimos colisionando con una bomba
+				boolean bombFound = false;
+				for(int j = 0; j < toCheck.size() && !bombFound; j++){
+					if(toCheck.get(j).equals(ownBombs.get(i))){
+						toCheck.remove(j);
+						bombFound = true;
+						j--;
+					}
+				}
+				if(!bombFound){
+					ownBombs.remove(i);
+					i--;
+				}
+			}
+			
+			return toCheck.size() > 0;
+		} else{
+			ownBombs = new ArrayList<Objeto>();
+			return false;
+		}
+		
 	}
 }

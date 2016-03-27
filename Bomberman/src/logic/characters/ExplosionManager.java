@@ -72,10 +72,13 @@ public class ExplosionManager extends Objeto {
 					if (check != null) {
 						// No more in this direction
 						stop[j] = true;
-						// Warn destroyable block about destruction
+						// Warn destroyable stuff about destruction
 						if (check instanceof DestroyableBlock) {
 							DestroyableBlock db = (DestroyableBlock) check;
 							db.callForDestruction();
+						} else if (check instanceof Bomb) {
+							Bomb bmb = (Bomb) check;
+							bmb.callForDestruction();
 						}
 					}
 					// No collision, make explosion part
@@ -143,7 +146,7 @@ public class ExplosionManager extends Objeto {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
 				if (collision
-						&& (obj instanceof Block || obj instanceof DestroyableBlock)) {
+						&& (obj instanceof Block || obj instanceof DestroyableBlock || obj instanceof Bomb)) {
 					returned = obj;
 					break;
 				}

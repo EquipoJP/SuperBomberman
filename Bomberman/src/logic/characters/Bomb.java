@@ -25,9 +25,9 @@ public class Bomb extends Objeto {
 		image_speed = 0.15;
 		
 		boundingBox = new BoundingBox(new Point2D(x
-				- Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH
-				/ 4), new Point2D(x + Initialization.TILE_HEIGHT / 4, y
-				+ Initialization.TILE_WIDTH / 4));
+				- Initialization.TILE_HEIGHT / 2, y - Initialization.TILE_WIDTH
+				/ 2), new Point2D(x + Initialization.TILE_HEIGHT / 2, y
+				+ Initialization.TILE_WIDTH / 2));
 	}
 
 	@Override
@@ -53,5 +53,12 @@ public class Bomb extends Objeto {
 		myRoom.addObjeto(em);
 		player.bombs--;
 		destroy();
+	}
+	
+	public void callForDestruction(){
+		if(alarm[0] > 0){
+			unsetAlarm(0);
+			destroyBomb();
+		}
 	}
 }
