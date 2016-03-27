@@ -149,69 +149,6 @@ public class Player extends Objeto {
 		}
 	}
 	
-	private void destroyCollisions(){
-		List<Objeto> collision = collision();
-		if(collision != null){
-			for(Objeto obj : collision){
-				if(obj instanceof Block || obj instanceof DestroyableBlock || obj instanceof Bomb){
-					int row = logic.misc.Map.getRow(y);
-					int col = logic.misc.Map.getCol(x);
-					
-					boolean up = collisionUp(row, col);
-					if(up){
-						return ;
-					}
-					
-					boolean down = collisionDown(row, col);
-					if(down){
-						return ;
-					}
-					
-					boolean right = collisionRight(row, col);
-					if(right){
-						return ;
-					}
-					
-					boolean left = collisionLeft(row, col);
-					if(left){
-						return ;
-					}
-					
-					boolean noMove = collisionNoMove(row, col);
-					if(noMove){
-						return ;
-					}
-				}
-			}
-		}
-	}
-
-	private boolean collisionNoMove(int row, int col) {
-		int _x = logic.misc.Map.getX(col);
-		int _y = logic.misc.Map.getY(row);
-		return tryToMove(_x - x, _y - y);
-	}
-
-	private boolean collisionUp(int row, int col) {
-		row--;
-		return collisionNoMove(row, col);
-	}
-
-	private boolean collisionDown(int row, int col) {
-		row++;
-		return collisionNoMove(row, col);
-	}
-
-	private boolean collisionRight(int row, int col) {
-		col++;
-		return collisionNoMove(row, col);
-	}
-
-	private boolean collisionLeft(int row, int col) {
-		col--;
-		return collisionNoMove(row, col);
-	}
-
 	@Override
 	public void alarm(int alarmNo) {
 		switch (alarmNo) {
@@ -259,26 +196,6 @@ public class Player extends Objeto {
 		return false;
 	}
 
-	private KEY getDirectionFromSprite() {
-		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[1])) {
-			return KEY.DOWN;
-		}
-		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[4])) {
-			return KEY.UP;
-		}
-		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[3])) {
-			return KEY.LEFT;
-		}
-		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[2])) {
-			return KEY.RIGHT;
-		}
-		if (sprite_index == sprites.get(Initialization.BOMBERMAN_SPRS[0])) {
-			return KEY.DOWN;
-		}
-
-		return KEY.NO_KEY;
-	}
-	
 	public void callForDestruction(){
 		resetAnimationEnd();
 		destruction = true;
