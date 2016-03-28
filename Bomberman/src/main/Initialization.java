@@ -27,7 +27,7 @@ public class Initialization {
 	public static final String MENU_FILE = "resources/iniFiles/menus.ini";
 
 	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN",
-			"WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP", "VICTORY" };
+			"WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP", "VICTORY", "DEATH" };
 	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT",
 		"LEFT" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET",

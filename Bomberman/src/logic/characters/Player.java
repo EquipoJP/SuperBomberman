@@ -200,9 +200,9 @@ public class Player extends Objeto {
 		if(!destruction){
 			resetAnimationEnd();
 			destruction = true;
-			sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]);
+			sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[6]);
 			image_index = 0;
-			image_speed = 0.1;
+			image_speed = 0.15;
 		}
 	}
 	
