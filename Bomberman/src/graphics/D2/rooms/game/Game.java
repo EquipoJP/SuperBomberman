@@ -190,7 +190,7 @@ public class Game extends Room {
 			}
 			break;
 		case DESTRUCTION:
-			//super.step(key, direction);
+			super.step(key, direction);
 			if (noPlayer()) {
 				Global.levels.resetLevel();
 				terminate();
@@ -199,6 +199,14 @@ public class Game extends Room {
 			break;
 		case VICTORY:
 			//super.step(key, direction);
+			
+			for(Objeto obj : objetos){
+				if(obj instanceof Player){
+					Player player = (Player) obj;
+					player.step(KEY.NO_KEY, KEY.NO_KEY);
+				}
+			}
+			
 			if (secondsVictory < 0) {
 				Global.levels.nextLevel();
 				terminate();
