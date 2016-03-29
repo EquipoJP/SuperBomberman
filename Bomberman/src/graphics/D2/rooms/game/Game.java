@@ -152,7 +152,7 @@ public class Game extends Room {
 
 		// TODO change values here
 		int x = (width/2) - (32*5/2);
-		int y = (124/2) - (32/2);
+		int y = ((124-32/2)/2) - (32/2);
 		Point2D init_pos = new Point2D(x, y);
 
 		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
