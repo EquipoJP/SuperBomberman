@@ -151,8 +151,8 @@ public class Game extends Room {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
 
 		// TODO change values here
-		int x = 180;
-		int y = 40;
+		int x = (width/2) - (32*5/2);
+		int y = (124/2) - (32/2);
 		Point2D init_pos = new Point2D(x, y);
 
 		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
@@ -190,7 +190,7 @@ public class Game extends Room {
 			}
 			break;
 		case DESTRUCTION:
-			super.step(key, direction);
+			//super.step(key, direction);
 			if (noPlayer()) {
 				Global.levels.resetLevel();
 				terminate();
@@ -198,7 +198,7 @@ public class Game extends Room {
 			}
 			break;
 		case VICTORY:
-			super.step(key, direction);
+			//super.step(key, direction);
 			if (secondsVictory < 0) {
 				Global.levels.nextLevel();
 				terminate();
@@ -228,8 +228,10 @@ public class Game extends Room {
 	}
 
 	private void terminate() {
+		if(state != STATE.DESTRUCTION){
+			Global.scoreManager.updateScoreSeconds(seconds);
+		}
 		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
-		Global.scoreManager.updateScoreSeconds(seconds);
 		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
 	}
 
