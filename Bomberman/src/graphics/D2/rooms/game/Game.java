@@ -32,7 +32,7 @@ import utils.PaintDigitsService;
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public class Game extends Room {
-
+	
 	private int enemiesDestroyed;
 	private int blocksDestroyed;
 
@@ -75,9 +75,11 @@ public class Game extends Room {
 		this.file = Global.levels.actualLevel().getFile();
 		this.stage = Global.levels.actualLevel().getStage();
 		
-		state = STATE.INIT;
-		
 		GameRepository.load(stage);
+		
+		this.background = GameRepository.background;
+		
+		state = STATE.INIT;
 		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
 		secondsLevel = -1;
@@ -106,6 +108,10 @@ public class Game extends Room {
 			return;
 		}
 		g.clearRect(0, 0, width, height);
+		
+		if (background != null) {
+			g.drawImage(background.getSubsprites()[0], 0, 0, null);
+		}
 
 		drawHUD(g);
 

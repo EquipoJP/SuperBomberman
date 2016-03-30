@@ -14,6 +14,7 @@ import kuusisto.tinysound.Music;
 import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Objeto;
+import logic.Sprite;
 import logic.misc.ObjetoComparator;
 
 /**
@@ -30,12 +31,16 @@ public abstract class Room {
 	public Visual loadSymbol;
 	
 	private Music music;
+	public Sprite background;
 	
 	protected Thread loader = null;
 	
 	public Room(int w, int h, String n) {
 		width = w;
 		height = h;
+		
+		background = null;
+		
 		name = n;
 		objetos = new LinkedList<Objeto>();
 		

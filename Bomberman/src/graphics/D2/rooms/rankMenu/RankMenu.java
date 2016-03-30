@@ -42,9 +42,7 @@ public class RankMenu extends Room {
 	public void load() {
 		RankMenuRepository.load();
 		
-		System.out.println(RankMenuRepository.backButton);
-
-		this.background = null; // TODO
+		this.background = RankMenuRepository.background;
 
 		int x = width / 2;
 
