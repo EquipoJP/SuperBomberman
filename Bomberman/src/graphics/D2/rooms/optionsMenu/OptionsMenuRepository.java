@@ -8,11 +8,13 @@ public class OptionsMenuRepository {
 	static Sprite background = null;
 
 	static Sprite titleButton = null;
+	static Sprite slider = null;
 	static Sprite backButton = null;
 
 	public static void load() {
 		loadBackground();
 		loadTitleButton();
+		loadSlider();
 		loadBackButton();
 	}
 
@@ -25,6 +27,12 @@ public class OptionsMenuRepository {
 	private static void loadTitleButton() {
 		if (titleButton == null) {
 			titleButton = Initialization.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON.toString());
+		}
+	}
+	
+	private static void loadSlider(){
+		if(slider == null){
+			slider = Initialization.getSpriteFromMenu(Initialization.MENUS.SLIDER.toString());
 		}
 	}
 	

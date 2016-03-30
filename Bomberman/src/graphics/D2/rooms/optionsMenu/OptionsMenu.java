@@ -5,10 +5,13 @@ package graphics.D2.rooms.optionsMenu;
 
 import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
+import graphics.effects.slider.Slider;
+import graphics.effects.slider.VolumeSlider;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
@@ -40,10 +43,39 @@ public class OptionsMenu extends Room {
 		back.setSubimages(1);
 		int y = this.height - PADDING_BORDER - back.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, back));
+		
+		y = height/2;
+		Sprite slider = OptionsMenuRepository.slider;
+		
+		int img_index = getImageIndex();
+		
+		addObjeto(new Slider(x, y, this, slider, new VolumeSlider(), img_index));
 
 		Sprite title = OptionsMenuRepository.titleButton;
 		y = PADDING_BORDER + title.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, title));
+	}
+	
+	private int getImageIndex(){
+		double volume = TinySound.getGlobalVolume();
+		System.out.println(volume);
+		int img_index = 0;
+		
+		if(volume >= 1.0 && volume < 1.25){
+			img_index = 0;
+		} else if(volume >= 1.25 && volume < 1.5){
+			img_index = 1;
+		} else if(volume >= 1.5 && volume < 1.75){
+			img_index = 2;
+		} else if(volume >= 1.75 && volume < 2.0){
+			img_index = 3;
+		} else if(volume >= 2.0){
+			img_index = 4;
+		}
+		
+		System.out.println(img_index);
+
+		return img_index;
 	}
 
 	@Override

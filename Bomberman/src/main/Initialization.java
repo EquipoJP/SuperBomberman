@@ -28,13 +28,12 @@ public class Initialization {
 
 	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN",
 			"WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP", "VICTORY", "DEATH" };
-	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT",
-		"LEFT" };
+	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT", "LEFT" };
 	public static final String[] SPRITE_TERMS = { "SPRITESHEET",
 			"WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
-	
-	public static enum MENUS{
-		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY, BACKGROUND, CREDITS
+
+	public static enum MENUS {
+		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY, BACKGROUND, CREDITS, SLIDER
 	};
 
 	public static enum SPRITES {
@@ -44,8 +43,8 @@ public class Initialization {
 	public static enum STAGE {
 		PEACETOWN, GREENVILLAGE
 	};
-	
-	public static enum TYPE{
+
+	public static enum TYPE {
 		BLOCK, TILE, DESTROYABLE_BLOCK, DESTROY_BLOCK
 	}
 
@@ -54,7 +53,7 @@ public class Initialization {
 
 	public static final int MAP_X_OFFSET = 26;
 	public static final int MAP_Y_OFFSET = 124;
-	
+
 	/**
 	 * Method to get the sprites from an ini file
 	 * 
@@ -62,7 +61,8 @@ public class Initialization {
 	 *            name of the sprite
 	 * @return a map with the different sprites
 	 */
-	public static Map<String, Sprite> getSpritesFromTableSprites(String name, String[] sprs) {
+	public static Map<String, Sprite> getSpritesFromTableSprites(String name,
+			String[] sprs) {
 		Map<String, Sprite> sprites = new HashMap<String, Sprite>();
 
 		for (int i = 0; i < sprs.length; i++) {
@@ -88,7 +88,7 @@ public class Initialization {
 	public static Sprite getSpriteFromSprites(String name) {
 		return getSpriteFromFile(name, SPRITE_FILE);
 	}
-	
+
 	public static Sprite getSpriteFromMenu(String name) {
 		return getSpriteFromFile(name, MENU_FILE);
 	}
