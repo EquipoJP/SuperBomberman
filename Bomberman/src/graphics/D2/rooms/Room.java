@@ -47,9 +47,9 @@ public abstract class Room {
 		loadResources();
 	}
 	
-	public void setMusic(Music music){
+	public void setMusic(Music music, boolean replay){
 		this.music = music;
-		this.music.play(true);
+		this.music.play(replay);
 	}
 	
 	public void addObjeto(Objeto o){
@@ -128,7 +128,6 @@ public abstract class Room {
 	public void destroy(){
 		if(music != null){
 			music.stop();
-			music.unload();
 		}
 	}
 	

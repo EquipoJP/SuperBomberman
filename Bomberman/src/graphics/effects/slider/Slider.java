@@ -14,7 +14,6 @@ public class Slider extends Visual {
 		
 		image_speed = 0;
 		this.image_index = image_index;
-		System.out.println(this.image_index);
 		
 		sliderHelper = sh;
 	}

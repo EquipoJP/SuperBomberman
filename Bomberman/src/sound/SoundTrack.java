@@ -6,7 +6,7 @@ public class SoundTrack {
 	private static final String MUSIC = AUDIO + "music/";
 	private static final String SOUND = AUDIO + "sound/";
 	
-	public static final String BATTLE_MUSIC = MUSIC + "battle.wav";
+	public static final String BATTLE_MUSIC = MUSIC + "battle.ogg";
 	public static final String CREDITS_MUSIC = MUSIC + "credits.ogg";
 	public static final String GAMEOVER_MUSIC = MUSIC + "gameOver.ogg";
 	public static final String MENU_MUSIC = MUSIC + "menus.ogg";

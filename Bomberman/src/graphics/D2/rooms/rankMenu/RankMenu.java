@@ -16,6 +16,7 @@ import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 import logic.collisions.Point2D;
 import logic.misc.Record;
+import sound.MusicRepository;
 import utils.PaintDigitsService;
 
 /**
@@ -45,8 +46,10 @@ public class RankMenu extends Room {
 		this.background = RankMenuRepository.background;
 
 		int x = width / 2;
+		boolean gameOver = false;
 
 		if (this.record != null && this.record.getScore() > 0) {
+			gameOver = true;
 			newRecord = Global.ranking.newRecord(record);
 
 			Sprite next = RankMenuRepository.continueButton;
@@ -67,6 +70,13 @@ public class RankMenu extends Room {
 		Sprite title = RankMenuRepository.titleButton;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, title));
+		
+		if(gameOver){
+			setMusic(MusicRepository.gameOver, true);
+		}
+		else{
+			setMusic(MusicRepository.menu, true);
+		}
 
 	}
 

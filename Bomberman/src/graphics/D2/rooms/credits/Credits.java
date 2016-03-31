@@ -6,6 +6,7 @@ import graphics.effects.Visual;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import sound.MusicRepository;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
@@ -42,6 +43,8 @@ public class Credits extends Room {
 		y = height / 2;
 		Sprite credits = CreditsRepository.credits;
 		addObjeto(new Visual(x, y, this, credits));
+		
+		setMusic(MusicRepository.credits, false);
 	}
 
 	@Override

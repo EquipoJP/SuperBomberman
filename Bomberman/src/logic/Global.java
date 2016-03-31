@@ -22,7 +22,6 @@ public class Global {
 	public static void startGame(){
 		createRanking();
 		TinySound.init();
-		MusicRepository.load();
 		
 		scoreManager = new ScoreManager();
 		levels = new LevelManager();

@@ -5,6 +5,7 @@ package graphics.D2.rooms.mainMenu;
 
 import java.awt.Graphics;
 
+import sound.MusicRepository;
 import graphics.D2.rooms.Room;
 import graphics.effects.Button;
 import graphics.effects.Visual;
@@ -39,7 +40,6 @@ public class MainMenu extends Room {
 
 	@Override
 	public void load() {
-		System.out.println("Loading");
 		MainMenuRepository.load();
 
 		this.background = MainMenuRepository.background;
@@ -53,7 +53,8 @@ public class MainMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
-		System.out.println("Loaded");
+		
+		setMusic(MusicRepository.menu, true);
 	}
 
 	private void createButtons() {
