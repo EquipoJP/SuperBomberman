@@ -60,13 +60,13 @@ public class GameRepository {
 
 	private static void loadHUD() {
 		if(hud == null){
-			hud = Initialization.getSpriteFromMenu(Initialization.BUTTONS.HUD.toString());
+			hud = Initialization.getSpriteFromMenu(Initialization.MENUS.HUD.toString());
 		}
 	}
 	
 	private static void loadVictory() {
 		if(victory == null){
-			victory = Initialization.getSpriteFromMenu(Initialization.BUTTONS.VICTORY.toString());
+			victory = Initialization.getSpriteFromMenu(Initialization.MENUS.VICTORY.toString());
 		}
 	}
 
@@ -78,8 +78,9 @@ public class GameRepository {
 	}
 
 	private static void loadBackground() {
-		// TODO Auto-generated method stub
-
+		if(background == null){
+			background = Initialization.getSpriteFromMenu(Initialization.MENUS.BACKGROUND.toString());
+		}
 	}
 
 	private static void loadBlock(STAGE stage) {

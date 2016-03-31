@@ -25,43 +25,44 @@ public class MainMenuRepository {
 	}
 
 	private static void loadBackground() {
-		// TODO Auto-generated method stub
-
+		if(background == null){
+			background = Initialization.getSpriteFromMenu(Initialization.MENUS.BACKGROUND.toString());
+		}
 	}
 
 	private static void loadTitleButton() {
 		if (titleButton == null) {
-			titleButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString());
+			titleButton = Initialization.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON.toString());
 		}
 	}
 
 	private static void loadGameButton() {
 		if(gameButton == null){
-			gameButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.GAME_BUTTON.toString());
+			gameButton = Initialization.getSpriteFromMenu(Initialization.MENUS.GAME_BUTTON.toString());
 		}
 	}
 
 	private static void loadOptionsButton() {
 		if(optionsButton == null){
-			optionsButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.OPTIONS_BUTTON.toString());
+			optionsButton = Initialization.getSpriteFromMenu(Initialization.MENUS.OPTIONS_BUTTON.toString());
 		}
 	}
 
 	private static void loadRankingButton() {
 		if(rankingButton == null){
-			rankingButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.RANKING_BUTTON.toString());
+			rankingButton = Initialization.getSpriteFromMenu(Initialization.MENUS.RANKING_BUTTON.toString());
 		}
 	}
 
 	private static void loadCreditsButton() {
 		if(creditsButton == null){
-			creditsButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.CREDITS_BUTTON.toString());
+			creditsButton = Initialization.getSpriteFromMenu(Initialization.MENUS.CREDITS_BUTTON.toString());
 		}
 	}
 
 	private static void loadQuitButton() {
 		if(quitButton == null){
-			quitButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.QUIT_BUTTON.toString());
+			quitButton = Initialization.getSpriteFromMenu(Initialization.MENUS.QUIT_BUTTON.toString());
 		}
 	}
 }

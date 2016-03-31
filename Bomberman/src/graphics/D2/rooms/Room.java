@@ -3,17 +3,17 @@
  */
 package graphics.D2.rooms;
 
+import graphics.effects.Visual;
+
 import java.awt.Graphics;
-import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import graphics.effects.Visual;
 import kuusisto.tinysound.Music;
-import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Objeto;
+import logic.Sprite;
 import logic.misc.ObjetoComparator;
 
 /**
@@ -30,12 +30,16 @@ public abstract class Room {
 	public Visual loadSymbol;
 	
 	private Music music;
+	public Sprite background;
 	
 	protected Thread loader = null;
 	
 	public Room(int w, int h, String n) {
 		width = w;
 		height = h;
+		
+		background = null;
+		
 		name = n;
 		objetos = new LinkedList<Objeto>();
 		
@@ -43,9 +47,9 @@ public abstract class Room {
 		loadResources();
 	}
 	
-	public void setMusic(String filename){
-		music = TinySound.loadMusic(new File(filename));
-		music.play(true);
+	public void setMusic(Music music){
+		this.music = music;
+		this.music.play(true);
 	}
 	
 	public void addObjeto(Objeto o){

@@ -3,14 +3,15 @@
  */
 package graphics.D2.rooms.game;
 
+import graphics.D2.rooms.Room;
+import graphics.effects.Visual;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import graphics.D2.rooms.Room;
-import graphics.effects.Visual;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -23,7 +24,7 @@ import logic.collisions.Point2D;
 import logic.misc.Level;
 import logic.misc.Map;
 import main.Initialization.STAGE;
-import sound.SoundTrack;
+import sound.MusicRepository;
 import utils.ConvertTimeService;
 import utils.PaintDigitsService;
 
@@ -32,7 +33,7 @@ import utils.PaintDigitsService;
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public class Game extends Room {
-
+	
 	private int enemiesDestroyed;
 	private int blocksDestroyed;
 
@@ -75,9 +76,11 @@ public class Game extends Room {
 		this.file = Global.levels.actualLevel().getFile();
 		this.stage = Global.levels.actualLevel().getStage();
 		
-		state = STATE.INIT;
-		
 		GameRepository.load(stage);
+		
+		this.background = GameRepository.background;
+		
+		state = STATE.INIT;
 		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
 		secondsLevel = -1;
@@ -97,7 +100,7 @@ public class Game extends Room {
 		victory = GameRepository.victory;
 		victoryVisual = null;
 
-		setMusic(SoundTrack.BATTLE_MUSIC);
+		setMusic(MusicRepository.battle);
 	}
 
 	@Override
@@ -106,6 +109,10 @@ public class Game extends Room {
 			return;
 		}
 		g.clearRect(0, 0, width, height);
+		
+		if (background != null) {
+			g.drawImage(background.getSubsprites()[0], 0, 0, null);
+		}
 
 		drawHUD(g);
 
@@ -151,8 +158,8 @@ public class Game extends Room {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
 
 		// TODO change values here
-		int x = 180;
-		int y = 40;
+		int x = (width/2) - (32*5/2);
+		int y = ((124-32/2)/2) - (32/2);
 		Point2D init_pos = new Point2D(x, y);
 
 		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
@@ -198,7 +205,15 @@ public class Game extends Room {
 			}
 			break;
 		case VICTORY:
-			super.step(key, direction);
+			//super.step(key, direction);
+			
+			for(Objeto obj : objetos){
+				if(obj instanceof Player){
+					Player player = (Player) obj;
+					player.step(KEY.NO_KEY, KEY.NO_KEY);
+				}
+			}
+			
 			if (secondsVictory < 0) {
 				Global.levels.nextLevel();
 				terminate();
@@ -228,8 +243,10 @@ public class Game extends Room {
 	}
 
 	private void terminate() {
+		if(state != STATE.DESTRUCTION){
+			Global.scoreManager.updateScoreSeconds(seconds);
+		}
 		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
-		Global.scoreManager.updateScoreSeconds(seconds);
 		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
 	}
 

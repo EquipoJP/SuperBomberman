@@ -8,8 +8,8 @@ import main.Initialization;
 
 public class PaintDigitsService {
 
-	private static Sprite digits = Initialization.getSpriteFromMenu(Initialization.BUTTONS.DIGITS.toString());
-	private static Sprite newRecord = Initialization.getSpriteFromMenu(Initialization.BUTTONS.NEW.toString());
+	private static Sprite digits = Initialization.getSpriteFromMenu(Initialization.MENUS.DIGITS.toString());
+	private static Sprite newRecord = Initialization.getSpriteFromMenu(Initialization.MENUS.NEW.toString());
 
 	public static void paint(String number, Point2D initial_position, Graphics g) {
 		int modX = digits.getWidth();

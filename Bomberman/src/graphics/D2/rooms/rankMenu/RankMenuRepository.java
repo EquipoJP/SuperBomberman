@@ -20,25 +20,26 @@ public class RankMenuRepository {
 	}
 
 	private static void loadBackground() {
-		// TODO Auto-generated method stub
-
+		if(background == null){
+			background = Initialization.getSpriteFromMenu(Initialization.MENUS.BACKGROUND.toString());
+		}
 	}
 
 	private static void loadTitleButton() {
 		if (titleButton == null) {
-			titleButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.TITLE_BUTTON.toString());
+			titleButton = Initialization.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON.toString());
 		}
 	}
 
 	private static void loadContinueButton() {
 		if (continueButton == null) {
-			continueButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.CONTINUE_BUTTON.toString());
+			continueButton = Initialization.getSpriteFromMenu(Initialization.MENUS.CONTINUE_BUTTON.toString());
 		}
 	}
 
 	private static void loadBackButton() {
 		if (backButton == null) {
-			backButton = Initialization.getSpriteFromMenu(Initialization.BUTTONS.BACK_BUTTON.toString());
+			backButton = Initialization.getSpriteFromMenu(Initialization.MENUS.BACK_BUTTON.toString());
 		}
 	}
 

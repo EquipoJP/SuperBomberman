@@ -20,7 +20,7 @@ public class LoaderRepository {
 
 	private static void loadLoading() {
 		if(loading == null){
-			loading = Initialization.getSpriteFromMenu(Initialization.BUTTONS.LOADING.toString());
+			loading = Initialization.getSpriteFromMenu(Initialization.MENUS.LOADING.toString());
 		}
 	}
 }

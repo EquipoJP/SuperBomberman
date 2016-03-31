@@ -26,13 +26,14 @@ public class Initialization {
 	public static final String MAP_FILE = "resources/iniFiles/maps.ini";
 	public static final String MENU_FILE = "resources/iniFiles/menus.ini";
 
-	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN", "WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP",
-			"VICTORY", "DEATH" };
+	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN",
+			"WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP", "VICTORY", "DEATH" };
 	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT", "LEFT" };
-	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
+	public static final String[] SPRITE_TERMS = { "SPRITESHEET",
+			"WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 
-	public static enum BUTTONS {
-		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY
+	public static enum MENUS {
+		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY, BACKGROUND, CREDITS, SLIDER
 	};
 
 	public static enum SPRITES {

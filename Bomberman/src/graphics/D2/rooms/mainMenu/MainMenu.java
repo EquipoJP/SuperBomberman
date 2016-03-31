@@ -24,8 +24,6 @@ public class MainMenu extends Room {
 		GAME, OPTIONS, RANKING, CREDITS, QUIT
 	};
 
-	private Sprite background;
-
 	private Button[] menuButtons;
 	private int selected;
 
