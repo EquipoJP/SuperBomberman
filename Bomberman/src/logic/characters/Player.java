@@ -19,8 +19,8 @@ public class Player extends Objeto {
 	/* Info to get Sprites */
 	private Map<String, Sprite> sprites;
 
-	private int modX;
-	private int modY;
+	private double modX;
+	private double modY;
 	
 	private boolean destruction;
 
@@ -46,7 +46,7 @@ public class Player extends Objeto {
 		modY = 2;
 
 		bombs = 0;
-		bombsLimit = 10;
+		bombsLimit = 1;
 		bombRadius = 1;
 		ownBombs = new ArrayList<Objeto>();
 		
@@ -118,20 +118,19 @@ public class Player extends Objeto {
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
-		//destroyCollisions();
 		if(!destruction){
 			switch (direction) {
 			case DOWN:
-				tryToMove(0, modY);
+				tryToMove(0, (int) Math.floor(modY));
 				break;
 			case UP:
-				tryToMove(0, -modY);
+				tryToMove(0, (int) (-1 * Math.floor(modY)));
 				break;
 			case LEFT:
-				tryToMove(-modX, 0);
+				tryToMove((int) (-1 * Math.floor(modX)), 0);
 				break;
 			case RIGHT:
-				tryToMove(modX, 0);
+				tryToMove((int) Math.floor(modX), 0);
 				break;
 			case NO_KEY:
 				break;
@@ -263,8 +262,8 @@ public class Player extends Objeto {
 			bombRadius++;
 			break;
 		case SPEED:
-			modX++;
-			modY++;
+			modX+=0.5;
+			modY+=0.5;
 			break;
 		default:
 			break;
