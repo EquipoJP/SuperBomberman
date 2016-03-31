@@ -30,6 +30,7 @@ public class Global {
 	
 	public static void stopGame(){
 		saveRanking();
+		MusicRepository.unload();
 		TinySound.shutdown();
 	}
 	

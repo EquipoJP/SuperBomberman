@@ -43,6 +43,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
+		Global.stopGame();
 		running = false;
 		try {
 			thread.join();

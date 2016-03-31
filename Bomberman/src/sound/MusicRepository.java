@@ -29,6 +29,18 @@ public class MusicRepository {
 		loadIntroSound();
 		loadVictorySound();
 	}
+	
+	public static void unload(){
+		unloadBattleMusic();
+		unloadCreditsMusic();
+		unloadGameOverMusic();
+		unloadMenuMusic();
+		unloadPauseMusic();
+		
+		unloadDefeatSound();
+		unloadIntroSound();
+		unloadVictorySound();
+	}
 
 	private static void loadBattleMusic() {
 		if(battle == null){
@@ -75,6 +87,54 @@ public class MusicRepository {
 	private static void loadVictorySound() {
 		if(victory == null){
 			victory = TinySound.loadSound(new File(SoundTrack.VICTORY_SND));
+		}
+	}
+	
+	private static void unloadBattleMusic() {
+		if(battle == null){
+			battle.unload();
+		}
+	}
+	
+	private static void unloadCreditsMusic() {
+		if(credits == null){
+			credits.unload();
+		}
+	}
+	
+	private static void unloadGameOverMusic() {
+		if(gameOver == null){
+			gameOver.unload();
+		}
+	}
+	
+	private static void unloadMenuMusic() {
+		if(menu == null){
+			menu.unload();
+		}
+	}
+	
+	private static void unloadPauseMusic() {
+		if(pause == null){
+			pause.unload();
+		}
+	}
+	
+	private static void unloadDefeatSound() {
+		if(defeat == null){
+			defeat.unload();
+		}
+	}
+	
+	private static void unloadIntroSound() {
+		if(intro == null){
+			intro.unload();
+		}
+	}
+	
+	private static void unloadVictorySound() {
+		if(victory == null){
+			victory.unload();
 		}
 	}
 
