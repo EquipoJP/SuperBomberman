@@ -3,14 +3,15 @@
  */
 package graphics.D2.rooms.game;
 
+import graphics.D2.rooms.Room;
+import graphics.effects.Visual;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import graphics.D2.rooms.Room;
-import graphics.effects.Visual;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -23,7 +24,7 @@ import logic.collisions.Point2D;
 import logic.misc.Level;
 import logic.misc.Map;
 import main.Initialization.STAGE;
-import sound.SoundTrack;
+import sound.MusicRepository;
 import utils.ConvertTimeService;
 import utils.PaintDigitsService;
 
@@ -99,7 +100,7 @@ public class Game extends Room {
 		victory = GameRepository.victory;
 		victoryVisual = null;
 
-		setMusic(SoundTrack.BATTLE_MUSIC);
+		setMusic(MusicRepository.battle);
 	}
 
 	@Override
