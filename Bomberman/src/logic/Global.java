@@ -4,6 +4,7 @@ import kuusisto.tinysound.TinySound;
 import logic.misc.LevelManager;
 import logic.misc.Ranking;
 import logic.misc.ScoreManager;
+import sound.MusicRepository;
 import utils.SaveSystemService;
 
 public class Global {
@@ -21,6 +22,7 @@ public class Global {
 	public static void startGame(){
 		createRanking();
 		TinySound.init();
+		MusicRepository.load();
 		
 		scoreManager = new ScoreManager();
 		levels = new LevelManager();
