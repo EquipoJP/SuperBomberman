@@ -5,6 +5,7 @@ import graphics.D2.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
+import logic.characters.Item.TYPE;
 import logic.collisions.NoPerspectiveBoundingBox;
 import main.Initialization.STAGE;
 
@@ -12,8 +13,9 @@ public class DestroyableBlock extends Objeto{
 	
 	private Sprite destroyed;
 	private boolean destruction;
+	private TYPE type;
 
-	public DestroyableBlock(int x, int y, Room r, STAGE stage) {
+	public DestroyableBlock(int x, int y, Room r, STAGE stage, TYPE t) {
 		super(x, y, r);
 		
 		sprite_index = GameRepository.destroyableBlock1;
@@ -24,6 +26,8 @@ public class DestroyableBlock extends Objeto{
 		
 		destroyed = GameRepository.destroyableBlock2;
 		destruction = false;
+		
+		type = t;
 	}
 
 	@Override
@@ -41,6 +45,14 @@ public class DestroyableBlock extends Objeto{
 			}
 		}
 		
+	}
+	
+	@Override
+	public void customDestroy(){
+		if(type != null){
+			Item i = new Item(x, y, myRoom, type);
+			myRoom.addObjeto(i);
+		}
 	}
 	
 	public void callForDestruction(){

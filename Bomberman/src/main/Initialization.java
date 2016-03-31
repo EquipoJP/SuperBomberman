@@ -26,26 +26,24 @@ public class Initialization {
 	public static final String MAP_FILE = "resources/iniFiles/maps.ini";
 	public static final String MENU_FILE = "resources/iniFiles/menus.ini";
 
-	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN",
-			"WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP", "VICTORY", "DEATH" };
-	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT",
-		"LEFT" };
-	public static final String[] SPRITE_TERMS = { "SPRITESHEET",
-			"WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
-	
-	public static enum BUTTONS{
+	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN", "WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP",
+			"VICTORY", "DEATH" };
+	public static final String[] ENEMIES_SPRS = { "DEATH", "RIGHT", "LEFT" };
+	public static final String[] SPRITE_TERMS = { "SPRITESHEET", "WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
+
+	public static enum BUTTONS {
 		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY
 	};
 
 	public static enum SPRITES {
-		WHITE_BOMBER, ENEMY, EXPLOSION_CORE, EXPLOSION_MID_VER, EXPLOSION_MID_HOR, EXPLOSION_EDGE_UP, EXPLOSION_EDGE_DOWN, EXPLOSION_EDGE_LEFT, EXPLOSION_EDGE_RIGHT, BOMB
+		WHITE_BOMBER, ENEMY, EXPLOSION_CORE, EXPLOSION_MID_VER, EXPLOSION_MID_HOR, EXPLOSION_EDGE_UP, EXPLOSION_EDGE_DOWN, EXPLOSION_EDGE_LEFT, EXPLOSION_EDGE_RIGHT, BOMB, ITEM_BOMB, ITEM_POWER, ITEM_SPEED
 	};
 
 	public static enum STAGE {
 		PEACETOWN, GREENVILLAGE
 	};
-	
-	public static enum TYPE{
+
+	public static enum TYPE {
 		BLOCK, TILE, DESTROYABLE_BLOCK, DESTROY_BLOCK
 	}
 
@@ -54,7 +52,7 @@ public class Initialization {
 
 	public static final int MAP_X_OFFSET = 26;
 	public static final int MAP_Y_OFFSET = 124;
-	
+
 	/**
 	 * Method to get the sprites from an ini file
 	 * 
@@ -88,7 +86,7 @@ public class Initialization {
 	public static Sprite getSpriteFromSprites(String name) {
 		return getSpriteFromFile(name, SPRITE_FILE);
 	}
-	
+
 	public static Sprite getSpriteFromMenu(String name) {
 		return getSpriteFromFile(name, MENU_FILE);
 	}
@@ -105,14 +103,12 @@ public class Initialization {
 
 		BufferedImage sheet = null;
 		try {
-			sheet = ImageIO.read(new File(System.getProperty("user.dir")
-					+ "/resources/" + spriteSheet));
+			sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		BufferedImage[] sprSheet = Animation.getSpritesFromImage(sheet, frames,
-				width, height);
+		BufferedImage[] sprSheet = Animation.getSpritesFromImage(sheet, frames, width, height);
 		return new Sprite(sprSheet, frames, width, height);
 	}
 }

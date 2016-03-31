@@ -88,7 +88,7 @@ public class ExplosionPart extends Objeto {
 				sprite_index.getCenterX() + sprite_index.getWidth(),
 				sprite_index.getCenterY() + sprite_index.getHeight()));
 		
-		boundingBox.update(x, y);
+		//boundingBox.update(x, y);
 
 		List<Objeto> collisions = collision();
 		if (collisions != null) {

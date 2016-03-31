@@ -6,8 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
-
+import logic.characters.Item.TYPE;
 import logic.Objeto;
 import logic.characters.Block;
 import logic.characters.DestroyableBlock;
@@ -34,6 +35,7 @@ public class Map {
 			Scanner s = new Scanner(new File(System.getProperty("user.dir")
 					+ "/resources/" + file));
 
+			Random g = new Random();
 			int row = 0;
 			while (s.hasNextLine()) {
 				String str = s.nextLine();
@@ -42,7 +44,7 @@ public class Map {
 					char c = str.charAt(col);
 					switch (c) {
 					case DESTROYABLE_BLOCK:
-						objetos.add(createDestroyable(row, col, room, stage));
+						objetos.add(createDestroyable(row, col, room, stage, g.nextInt(4)));
 						break;
 					case BLOCK:
 						objetos.add(createBlock(row, col, room));
@@ -76,12 +78,40 @@ public class Map {
 		return objetos;
 	}
 
+	public static List<Objeto> generateMap(Room room,
+			Initialization.STAGE stage) {
+		// Whoops its not implemented yet lol
+		return null;
+	}
+	
 	private static Objeto createDestroyable(int row, int col, Room room,
-			STAGE stage) {
+			STAGE stage, int kind) {
 		int x = getX(col);
 		int y = getY(row);
+		
+		TYPE tipo = null;
+		
+		switch(kind){
+		case 0:
+			tipo = null;
+			break;
+		case 1:
+			// Drops bomb
+			tipo = TYPE.BOMB;
+			break;
+		case 2:
+			// Drops bomb
+			tipo = TYPE.POWER;
+			break;
+		case 3:
+			// Drops bomb
+			tipo = TYPE.SPEED;
+			break;
+		default:
+			break;
+		}
 
-		return new DestroyableBlock(x, y, room, stage);
+		return new DestroyableBlock(x, y, room, stage, tipo);
 	}
 
 	private static Objeto createBlock(int row, int col, Room room) {

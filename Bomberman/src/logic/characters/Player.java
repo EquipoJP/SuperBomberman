@@ -47,7 +47,7 @@ public class Player extends Objeto {
 
 		bombs = 0;
 		bombsLimit = 10;
-		bombRadius = 7;
+		bombRadius = 1;
 		ownBombs = new ArrayList<Objeto>();
 		
 		destruction = false;
@@ -210,7 +210,7 @@ public class Player extends Objeto {
 	public boolean tryToMove(int modX, int modY) {
 		boundingBox.update(modX, modY);
 		List<Objeto> collided = collision();
-		if (checkOwnBombCollision(collided)) {
+		if (checkPlayerCollisions(collided)) {
 			boundingBox.update(-modX, -modY);
 			return false;
 		} else {
@@ -220,7 +220,7 @@ public class Player extends Objeto {
 		}
 	}
 	
-	public boolean checkOwnBombCollision(List<Objeto> toCheck){
+	public boolean checkPlayerCollisions(List<Objeto> toCheck){
 		if(toCheck != null){
 			for(int i = 0; i< ownBombs.size(); i++){
 				// Booleano para comprobar si seguimos colisionando con una bomba
@@ -238,11 +238,37 @@ public class Player extends Objeto {
 				}
 			}
 			
+			// Check power ups
+			for(int j = 0; j < toCheck.size(); j++){
+				if(toCheck.get(j) instanceof Item){
+					getPowerUp((Item) toCheck.get(j));
+					toCheck.remove(j);
+					j--;
+				}
+			}
+			
 			return toCheck.size() > 0;
 		} else{
 			ownBombs = new ArrayList<Objeto>();
 			return false;
+		}	
+	}
+	
+	private void getPowerUp(Item item){
+		switch(item.getType()){
+		case BOMB:
+			bombsLimit++;
+			break;
+		case POWER:
+			bombRadius++;
+			break;
+		case SPEED:
+			modX++;
+			modY++;
+			break;
+		default:
+			break;
 		}
-		
+		item.destroy();
 	}
 }

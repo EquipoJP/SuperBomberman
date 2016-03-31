@@ -33,6 +33,10 @@ public class GameRepository {
 	public static Sprite midHorExplosion = null;
 	public static Sprite midVerExplosion = null;
 	
+	public static Sprite itemBomb = null;
+	public static Sprite itemPower = null;
+	public static Sprite itemSpeed = null;
+	
 	public static void load(STAGE stage) {
 		loadHUD();
 		loadVictory();
@@ -50,6 +54,8 @@ public class GameRepository {
 		loadBomb();
 		
 		loadExplosions();
+		
+		loadItems();
 	}
 
 	private static void loadHUD() {
@@ -136,4 +142,18 @@ public class GameRepository {
 		}
 	}
 
+	private static void loadItems() {
+		if (itemBomb == null) {
+			itemBomb = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_BOMB.toString());
+		}
+		if (itemPower == null) {
+			itemPower = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_POWER.toString());
+		}
+		if (itemSpeed == null) {
+			itemSpeed = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_SPEED.toString());
+		}
+	}
 }
