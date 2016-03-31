@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import sound.MusicRepository;
 import graphics.D2.rooms.Room;
 import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
@@ -33,6 +34,7 @@ public class Intro extends Room {
 	
 	@Override
 	public void load() {
+		MusicRepository.load();
 		IntroRepository.load();
 		
 		addObjeto(new Fade(0, 0, this, false));

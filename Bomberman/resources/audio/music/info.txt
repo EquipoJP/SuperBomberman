@@ -1,0 +1,4 @@
+credits: sin loop, silencio cuando termina la cancion (queda bien)
+pause: tocada para que se pueda hacer loop
+gameOver: para loop
+menus: para loop

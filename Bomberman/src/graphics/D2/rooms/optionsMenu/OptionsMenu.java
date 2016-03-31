@@ -11,6 +11,7 @@ import graphics.effects.slider.VolumeSlider;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import sound.MusicRepository;
 import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Sprite;
@@ -54,6 +55,8 @@ public class OptionsMenu extends Room {
 		Sprite title = OptionsMenuRepository.titleButton;
 		y = PADDING_BORDER + title.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, title));
+		
+		setMusic(MusicRepository.menu, true);
 	}
 	
 	private int getImageIndex(){

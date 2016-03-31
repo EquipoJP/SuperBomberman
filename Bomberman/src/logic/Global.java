@@ -4,6 +4,7 @@ import kuusisto.tinysound.TinySound;
 import logic.misc.LevelManager;
 import logic.misc.Ranking;
 import logic.misc.ScoreManager;
+import sound.MusicRepository;
 import utils.SaveSystemService;
 
 public class Global {
@@ -28,6 +29,7 @@ public class Global {
 	
 	public static void stopGame(){
 		saveRanking();
+		MusicRepository.unload();
 		TinySound.shutdown();
 	}
 	

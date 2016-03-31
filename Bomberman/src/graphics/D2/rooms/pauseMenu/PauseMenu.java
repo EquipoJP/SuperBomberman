@@ -9,6 +9,7 @@ import graphics.effects.Visual;
 
 import java.awt.Graphics;
 
+import sound.MusicRepository;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
@@ -49,6 +50,8 @@ public class PauseMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
+		
+		setMusic(MusicRepository.pause, true);
 	}
 
 	private void createButtons() {

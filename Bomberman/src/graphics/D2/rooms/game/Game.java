@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import kuusisto.tinysound.Sound;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -43,6 +44,7 @@ public class Game extends Room {
 	private long seconds;
 	private long secondsVictory;
 	private long secondsLevel;
+	private long secondsDefeat;
 
 	private enum STATE {
 		INIT, GAME, DESTRUCTION, VICTORY
@@ -54,8 +56,9 @@ public class Game extends Room {
 	private TimerTask task;
 
 	private final long SECONDS_PHASE = 50; // TODO
-	private final long VICTORY_SECONDS = 5; // TODO
+	private final long VICTORY_SECONDS = 9; // TODO
 	private final long LEVEL_SECONDS = 5; // TODO
+	private final long DEFEAT_SECONDS = 15;	// TODO
 
 	private String file;
 	private STAGE stage;
@@ -63,6 +66,9 @@ public class Game extends Room {
 	private Sprite hud;
 	private Sprite victory;
 	private Visual victoryVisual;
+	
+	private Sound intro = null;
+	private Sound defeat = null;
 
 	public Game(int w, int h, String n) {
 		super(w, h, n);
@@ -84,6 +90,7 @@ public class Game extends Room {
 		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
 		secondsLevel = -1;
+		secondsDefeat = -1;
 
 		tiles = GameRepository.tiles;
 		List<Objeto> objetos = Map.getMap(file, this, stage);
@@ -100,7 +107,7 @@ public class Game extends Room {
 		victory = GameRepository.victory;
 		victoryVisual = null;
 
-		setMusic(MusicRepository.battle);
+		setMusic(MusicRepository.battle, true);
 	}
 
 	@Override
@@ -174,6 +181,10 @@ public class Game extends Room {
 		switch (state) {
 		case INIT:
 			setInitTimer();
+			if(intro == null){
+				intro = MusicRepository.intro;
+				intro.play();
+			}
 			if (secondsLevel < 0) {
 				cancelTimer();
 				state = STATE.GAME;
@@ -198,10 +209,17 @@ public class Game extends Room {
 			break;
 		case DESTRUCTION:
 			super.step(key, direction);
+			if(defeat == null){
+				defeat = MusicRepository.defeat;
+				defeat.play();
+			}
 			if (noPlayer()) {
-				Global.levels.resetLevel();
-				terminate();
-				StatesMachine.goToRoom(StatesMachine.STATE.TOP10, false);
+				setDefeatTimer();
+				if(secondsDefeat < 0){
+					Global.levels.resetLevel();
+					terminate();
+					StatesMachine.goToRoom(StatesMachine.STATE.TOP10, false);
+				}
 			}
 			break;
 		case VICTORY:
@@ -223,51 +241,6 @@ public class Game extends Room {
 		}
 	}
 
-	private void setInitTimer() {
-		if (secondsLevel < 0) {
-			secondsLevel = LEVEL_SECONDS;
-		}
-		task = null;
-		timer = null;
-
-		timer = new Timer();
-
-		task = new TimerTask() {
-			@Override
-			public void run() {
-				secondsLevel--;
-			}
-		};
-
-		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
-	}
-
-	private void terminate() {
-		if(state != STATE.DESTRUCTION){
-			Global.scoreManager.updateScoreSeconds(seconds);
-		}
-		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
-		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
-	}
-
-	private boolean noPlayer() {
-		for (Objeto obj : objetos) {
-			if (obj instanceof Player) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean noEnemies() {
-		for (Objeto obj : objetos) {
-			if (obj instanceof Enemy) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	@Override
 	public void destroy() {
 		super.destroy();
@@ -284,43 +257,6 @@ public class Game extends Room {
 		if(o instanceof DestroyableBlock){
 			blocksDestroyed++;
 		}
-	}
-
-	private boolean checkTime() {
-		return (seconds <= 0);
-	}
-
-	private void setTimer() {
-		if (!loadComplete()) {
-			return;
-		}
-		if (seconds < 0) {
-			seconds = SECONDS_PHASE;
-		}
-		if (timer == null || task == null) {
-			timer = new Timer();
-
-			task = new TimerTask() {
-				@Override
-				public void run() {
-					seconds--;
-					// System.out.println("Seconds left: " + seconds);
-				}
-			};
-
-			timer.scheduleAtFixedRate(task, 0, (1 * 1000));
-		}
-	}
-
-	private void cancelTimer() {
-		if (timer != null) {
-			timer.cancel();
-		}
-		if (task != null) {
-			task.cancel();
-		}
-		timer = null;
-		task = null;
 	}
 
 	@Override
@@ -349,11 +285,84 @@ public class Game extends Room {
 	public void callForVictory() {
 		state = STATE.VICTORY;
 		if (victoryVisual == null) {
+			Sound victorySnd = MusicRepository.victory;
+			victorySnd.play();
+			
 			cancelTimer();
 			setVictoryTimer();
+			
 			victoryVisual = new Visual(width / 2, height / 2, this, victory);
 			victoryVisual.depth = Global.EFFECTS_DEPTH;
 			addObjeto(victoryVisual);
+		}
+	}
+	
+	private void terminate() {
+		if(state != STATE.DESTRUCTION){
+			Global.scoreManager.updateScoreSeconds(seconds);
+		}
+		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
+		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
+	}
+
+	private boolean noPlayer() {
+		for (Objeto obj : objetos) {
+			if (obj instanceof Player) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean noEnemies() {
+		for (Objeto obj : objetos) {
+			if (obj instanceof Enemy) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void setInitTimer() {
+		if(!loadComplete()){
+			return ;
+		}
+		if (secondsLevel < 0) {
+			secondsLevel = LEVEL_SECONDS;
+		}
+		task = null;
+		timer = null;
+
+		timer = new Timer();
+
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				secondsLevel--;
+			}
+		};
+
+		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
+	}
+	
+	private void setTimer() {
+		if (!loadComplete()) {
+			return;
+		}
+		if (seconds < 0) {
+			seconds = SECONDS_PHASE;
+		}
+		if (timer == null || task == null) {
+			timer = new Timer();
+
+			task = new TimerTask() {
+				@Override
+				public void run() {
+					seconds--;
+				}
+			};
+
+			timer.scheduleAtFixedRate(task, 0, (1 * 1000));
 		}
 	}
 
@@ -370,12 +379,46 @@ public class Game extends Room {
 			@Override
 			public void run() {
 				secondsVictory--;
-				System.out.println("Seconds left: " + secondsVictory);
 			}
 		};
 
 		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
 
+	}
+	
+	private void setDefeatTimer() {
+		if (secondsDefeat < 0) {
+			secondsDefeat = DEFEAT_SECONDS;
+		}
+		task = null;
+		timer = null;
+
+		timer = new Timer();
+
+		task = new TimerTask() {
+			@Override
+			public void run() {
+				secondsDefeat--;
+			}
+		};
+
+		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
+
+	}
+	
+	private boolean checkTime() {
+		return (seconds <= 0);
+	}
+
+	private void cancelTimer() {
+		if (timer != null) {
+			timer.cancel();
+		}
+		if (task != null) {
+			task.cancel();
+		}
+		timer = null;
+		task = null;
 	}
 
 }
