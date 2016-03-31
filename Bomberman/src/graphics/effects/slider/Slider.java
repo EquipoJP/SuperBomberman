@@ -2,11 +2,11 @@ package graphics.effects.slider;
 
 import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
-import logic.Sprite;
 import logic.Input.KEY;
+import logic.Sprite;
 
 public class Slider extends Visual {
-	
+
 	private SliderHelper sliderHelper;
 
 	public Slider(int x, int y, Room r, Sprite spr, SliderHelper sh, int image_index) {
@@ -14,7 +14,7 @@ public class Slider extends Visual {
 		
 		image_speed = 0;
 		this.image_index = image_index;
-		System.out.println(this.image_index);
+		System.out.println("Creando " + this.image_index);
 		
 		sliderHelper = sh;
 	}

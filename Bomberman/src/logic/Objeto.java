@@ -78,7 +78,7 @@ public abstract class Objeto {
 
 	public void render(Graphics g) {
 		if (sprite_index != null) {
-			if (prev_sprite_index == null || (prev_sprite_index != null && !sprite_index.equals(prev_sprite_index))) {
+			if (image_speed != 0 && (prev_sprite_index == null || (prev_sprite_index != null && !sprite_index.equals(prev_sprite_index)))) {
 				prev_sprite_index = sprite_index;
 				image_index = 0;
 				previous_image_index = 0;

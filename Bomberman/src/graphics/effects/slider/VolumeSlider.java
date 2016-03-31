@@ -10,7 +10,7 @@ public class VolumeSlider implements SliderHelper {
 	 * 
 	 * Ours will be from 1.0 - 1.25 - 1.5 - 1.75 - 2.0
 	 */
-
+	
 	@Override
 	public void action(int subimage) {
 		double volume = 1.0;
