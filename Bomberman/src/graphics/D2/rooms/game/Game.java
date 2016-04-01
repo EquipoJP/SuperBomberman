@@ -277,6 +277,7 @@ public class Game extends Room {
 		for (Objeto obj : objetos) {
 			if (obj instanceof Player) {
 				Player player = (Player) obj;
+				System.out.println("Time out!");
 				player.callForDestruction();
 			}
 		}

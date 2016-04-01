@@ -13,7 +13,7 @@ public class SoundTrack {
 	public static final String PAUSE_MUSIC = MUSIC + "pause.ogg";
 	
 	public static final String DEFEAT_SND = SOUND + "defeat.wav";
-	public static final String INTRO_SND = SOUND + "introStage.wav";
+	public static final String INTRO_SND = SOUND + "introStage.ogg";
 	public static final String VICTORY_SND = SOUND + "victoryStage.wav";
 
 }
