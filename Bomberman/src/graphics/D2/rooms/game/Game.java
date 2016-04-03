@@ -23,6 +23,7 @@ import logic.characters.Player;
 import logic.collisions.Point2D;
 import logic.misc.Level;
 import logic.misc.Map;
+import main.Initialization;
 import main.Initialization.STAGE;
 import sound.MusicRepository;
 import utils.ConvertTimeService;
@@ -33,7 +34,7 @@ import utils.PaintDigitsService;
  * @author Jaime Ruiz-Borau Vizarraga (546751)
  */
 public class Game extends Room {
-	
+
 	private int enemiesDestroyed;
 	private int blocksDestroyed;
 
@@ -60,7 +61,7 @@ public class Game extends Room {
 	private Sprite hud;
 	private Sprite victory;
 	private Visual victoryVisual;
-	
+
 	private Music intro = null;
 	private Music defeat = null;
 	private Music victoryMsc = null;
@@ -78,11 +79,11 @@ public class Game extends Room {
 	public void load() {
 		this.file = Global.levels.actualLevel().getFile();
 		this.stage = Global.levels.actualLevel().getStage();
-		
+
 		GameRepository.load(stage);
-		
+
 		this.background = GameRepository.background;
-		
+
 		state = STATE.INIT;
 		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
@@ -109,7 +110,7 @@ public class Game extends Room {
 			return;
 		}
 		g.clearRect(0, 0, width, height);
-		
+
 		if (background != null) {
 			g.drawImage(background.getSubsprites()[0], 0, 0, null);
 		}
@@ -126,26 +127,32 @@ public class Game extends Room {
 			}
 		}
 	}
-	
+
 	@Override
 	public void render(Graphics g) {
-		if(!loadComplete()){
+		if (!loadComplete()) {
 			super.render(g);
-			return ;
+			return;
 		}
-		
-		switch(state){
+
+		switch (state) {
 		case INIT:
 			super.render(g);
-			
+
 			// transparency
 			Color transparent = new Color(0, 0, 0, 128);
 			g.setColor(transparent);
 			g.fillRect(0, 0, width, height);
 			g.setColor(Color.black);
-			
-			Point2D initial_position = new Point2D(width/2, height/2);
+
+			Point2D initial_position = new Point2D(width / 2 - Initialization.ALPHANUM_WIDTH / 2,
+					height / 2 + Initialization.ALPHANUM_HEIGHT);
+			String stage = "Stage";
+			Point2D initial_position_text = new Point2D(
+					width / 2 - (Initialization.ALPHANUM_WIDTH * stage.length()) / 2,
+					height / 2 - Initialization.ALPHANUM_HEIGHT);
 			int lvl = Global.levels.level() + 1;
+			PaintDigitsService.paintTextColor(stage, initial_position_text, g, Color.ORANGE.getRGB());
 			PaintDigitsService.paint("" + lvl, initial_position, g);
 			break;
 		default:
@@ -158,8 +165,8 @@ public class Game extends Room {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
 
 		// TODO change values here
-		int x = (width/2) - (32*5/2);
-		int y = ((124-32/2)/2) - (32/2);
+		int x = (width / 2) - (32 * 5 / 2);
+		int y = ((124 - 32 / 2) / 2) - (32 / 2);
 		Point2D init_pos = new Point2D(x, y);
 
 		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
@@ -173,57 +180,54 @@ public class Game extends Room {
 
 		switch (state) {
 		case INIT:
-			if(intro == null){
+			if (intro == null) {
 				intro = MusicRepository.intro;
 			}
-			if(!startedLevel){
+			if (!startedLevel) {
 				intro.rewind();
 				intro.play(false);
 				startedLevel = true;
 			}
-			if(intro.done()){
+			if (intro.done()) {
 				state = STATE.GAME;
 			}
 			break;
 		case GAME:
 			super.step(key, direction);
-			
-			if(startedLevel){
+
+			if (startedLevel) {
 				startedLevel = false;
 			}
-			
-			if(!MusicRepository.battle.done())
+
+			if (!MusicRepository.battle.done())
 				setMusic(MusicRepository.battle, true);
-			
+
 			if ((key == KEY.ENTER || key == KEY.ESCAPE) && secondsVictory < 0) {
 				// Pause menu being persistent
 				StatesMachine.goToRoom(StatesMachine.STATE.PAUSE, true);
-			}
-			else if (checkTime()) {
+			} else if (checkTime()) {
 				callForDestruction();
-			}
-			else if (noEnemies()) {
+			} else if (noEnemies()) {
 				callForVictory();
-			}
-			else{
+			} else {
 				setTimer();
 			}
 			break;
 		case DESTRUCTION:
 			super.step(key, direction);
-			
-			if(defeat == null){
+
+			if (defeat == null) {
 				defeat = MusicRepository.defeat;
 			}
-			
-			if(!defeatedMusic){
+
+			if (!defeatedMusic) {
 				stopMusic();
 				defeat.rewind();
 				defeat.play(false);
 				defeatedMusic = true;
 			}
 			if (noPlayer()) {
-				if(defeat.done()){
+				if (defeat.done()) {
 					defeatedMusic = false;
 					Global.levels.resetLevel();
 					terminate();
@@ -232,14 +236,14 @@ public class Game extends Room {
 			}
 			break;
 		case VICTORY:
-			for(Objeto obj : objetos){
-				if(obj instanceof Player){
+			for (Objeto obj : objetos) {
+				if (obj instanceof Player) {
 					Player player = (Player) obj;
 					player.step(KEY.NO_KEY, KEY.NO_KEY);
 				}
 			}
-			
-			if(victoryMsc.done()){
+
+			if (victoryMsc.done()) {
 				Global.levels.nextLevel();
 				terminate();
 				StatesMachine.goToRoom(StatesMachine.STATE.GAME, false);
@@ -261,7 +265,7 @@ public class Game extends Room {
 		if (o instanceof Enemy) {
 			enemiesDestroyed++;
 		}
-		if(o instanceof DestroyableBlock){
+		if (o instanceof DestroyableBlock) {
 			blocksDestroyed++;
 		}
 	}
@@ -294,21 +298,21 @@ public class Game extends Room {
 		state = STATE.VICTORY;
 		if (victoryVisual == null) {
 			stopMusic();
-			
+
 			victoryMsc = MusicRepository.victory;
 			victoryMsc.rewind();
 			victoryMsc.play(false);
-			
+
 			cancelTimer();
-			
+
 			victoryVisual = new Visual(width / 2, height / 2, this, victory);
 			victoryVisual.depth = Global.EFFECTS_DEPTH;
 			addObjeto(victoryVisual);
 		}
 	}
-	
+
 	private void terminate() {
-		if(state != STATE.DESTRUCTION){
+		if (state != STATE.DESTRUCTION) {
 			Global.scoreManager.updateScoreSeconds(seconds);
 		}
 		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
@@ -332,7 +336,7 @@ public class Game extends Room {
 		}
 		return true;
 	}
-	
+
 	private void setTimer() {
 		if (!loadComplete()) {
 			return;
@@ -353,7 +357,7 @@ public class Game extends Room {
 			timer.scheduleAtFixedRate(task, 0, (1 * 1000));
 		}
 	}
-	
+
 	private boolean checkTime() {
 		return (seconds <= 0);
 	}

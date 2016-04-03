@@ -33,7 +33,7 @@ public class Initialization {
 			"WIDTH_SPRITE", "HEIGHT_SPRITE", "NO_SPRITES" };
 
 	public static enum MENUS {
-		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY, BACKGROUND, CREDITS, SLIDER
+		TITLE_BUTTON, GAME_BUTTON, OPTIONS_BUTTON, RANKING_BUTTON, CREDITS_BUTTON, QUIT_BUTTON, ALPHABET, DIGITS, CONTINUE_BUTTON, NEW, BACK_BUTTON, LOADING, HUD, VICTORY, BACKGROUND, CREDITS, SLIDER
 	};
 
 	public static enum SPRITES {
@@ -50,6 +50,9 @@ public class Initialization {
 
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
+	
+	public static final int ALPHANUM_WIDTH = 32;
+	public static final int ALPHANUM_HEIGHT = 32;
 
 	public static final int MAP_X_OFFSET = 26;
 	public static final int MAP_Y_OFFSET = 124;
