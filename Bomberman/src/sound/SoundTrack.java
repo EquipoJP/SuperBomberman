@@ -11,9 +11,12 @@ public class SoundTrack {
 	public static final String GAMEOVER_MUSIC = MUSIC + "gameOver.ogg";
 	public static final String MENU_MUSIC = MUSIC + "menus.ogg";
 	public static final String PAUSE_MUSIC = MUSIC + "pause.ogg";
+	public static final String DEFEAT_MUSIC = MUSIC + "defeat.ogg";
+	public static final String INTRO_MUSIC = MUSIC + "introStage.ogg";
+	public static final String VICTORY_MUSIC = MUSIC + "victoryStage.ogg";
 	
-	public static final String DEFEAT_SND = SOUND + "defeat.wav";
-	public static final String INTRO_SND = SOUND + "introStage.ogg";
-	public static final String VICTORY_SND = SOUND + "victoryStage.wav";
-
+	public static final String EXPLOSION_SND = SOUND + "explosion.ogg";
+	public static final String PUTBOMB_SND = SOUND + "putBomb2.ogg";
+	public static final String SELECT_SND = SOUND + "select.ogg";
+	
 }

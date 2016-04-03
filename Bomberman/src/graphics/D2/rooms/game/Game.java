@@ -3,16 +3,15 @@
  */
 package graphics.D2.rooms.game;
 
-import graphics.D2.rooms.Room;
-import graphics.effects.Visual;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import kuusisto.tinysound.Sound;
+import graphics.D2.rooms.Room;
+import graphics.effects.Visual;
+import kuusisto.tinysound.Music;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -43,8 +42,6 @@ public class Game extends Room {
 
 	private long seconds;
 	private long secondsVictory;
-	private long secondsLevel;
-	private long secondsDefeat;
 
 	private enum STATE {
 		INIT, GAME, DESTRUCTION, VICTORY
@@ -57,8 +54,6 @@ public class Game extends Room {
 
 	private final long SECONDS_PHASE = 50; // TODO
 	private final long VICTORY_SECONDS = 9; // TODO
-	private final long LEVEL_SECONDS = 5; // TODO
-	private final long DEFEAT_SECONDS = 15;	// TODO
 
 	private String file;
 	private STAGE stage;
@@ -67,8 +62,10 @@ public class Game extends Room {
 	private Sprite victory;
 	private Visual victoryVisual;
 	
-	private Sound intro = null;
-	private Sound defeat = null;
+	private Music intro = null;
+	private Music defeat = null;
+	private boolean startedLevel = false;
+	private boolean defeatedMusic = false;
 
 	public Game(int w, int h, String n) {
 		super(w, h, n);
@@ -89,8 +86,6 @@ public class Game extends Room {
 		state = STATE.INIT;
 		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
-		secondsLevel = -1;
-		secondsDefeat = -1;
 
 		tiles = GameRepository.tiles;
 		List<Objeto> objetos = Map.getMap(file, this, stage);
@@ -106,8 +101,6 @@ public class Game extends Room {
 		hud = GameRepository.hud;
 		victory = GameRepository.victory;
 		victoryVisual = null;
-
-		setMusic(MusicRepository.battle, true);
 	}
 
 	@Override
@@ -180,19 +173,28 @@ public class Game extends Room {
 
 		switch (state) {
 		case INIT:
-			setInitTimer();
 			if(intro == null){
 				intro = MusicRepository.intro;
-				intro.play();
 			}
-			if (secondsLevel < 0) {
-				cancelTimer();
+			if(!startedLevel){
+				intro.rewind();
+				intro.play(false);
+				startedLevel = true;
+			}
+			if(intro.done()){
 				state = STATE.GAME;
 			}
 			break;
 		case GAME:
 			super.step(key, direction);
-
+			
+			if(startedLevel){
+				startedLevel = false;
+			}
+			
+			if(!MusicRepository.battle.done())
+				setMusic(MusicRepository.battle, true);
+			
 			if ((key == KEY.ENTER || key == KEY.ESCAPE) && secondsVictory < 0) {
 				// Pause menu being persistent
 				StatesMachine.goToRoom(StatesMachine.STATE.PAUSE, true);
@@ -209,13 +211,20 @@ public class Game extends Room {
 			break;
 		case DESTRUCTION:
 			super.step(key, direction);
+			
 			if(defeat == null){
 				defeat = MusicRepository.defeat;
-				defeat.play();
+			}
+			
+			if(!defeatedMusic){
+				stopMusic();
+				defeat.rewind();
+				defeat.play(false);
+				defeatedMusic = true;
 			}
 			if (noPlayer()) {
-				setDefeatTimer();
-				if(secondsDefeat < 0){
+				if(defeat.done()){
+					defeatedMusic = false;
 					Global.levels.resetLevel();
 					terminate();
 					StatesMachine.goToRoom(StatesMachine.STATE.TOP10, false);
@@ -224,7 +233,6 @@ public class Game extends Room {
 			break;
 		case VICTORY:
 			//super.step(key, direction);
-			
 			for(Objeto obj : objetos){
 				if(obj instanceof Player){
 					Player player = (Player) obj;
@@ -286,8 +294,8 @@ public class Game extends Room {
 	public void callForVictory() {
 		state = STATE.VICTORY;
 		if (victoryVisual == null) {
-			Sound victorySnd = MusicRepository.victory;
-			victorySnd.play();
+			Music victorySnd = MusicRepository.victory;
+			victorySnd.play(false);
 			
 			cancelTimer();
 			setVictoryTimer();
@@ -324,28 +332,6 @@ public class Game extends Room {
 		return true;
 	}
 	
-	private void setInitTimer() {
-		if(!loadComplete()){
-			return ;
-		}
-		if (secondsLevel < 0) {
-			secondsLevel = LEVEL_SECONDS;
-		}
-		task = null;
-		timer = null;
-
-		timer = new Timer();
-
-		task = new TimerTask() {
-			@Override
-			public void run() {
-				secondsLevel--;
-			}
-		};
-
-		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
-	}
-	
 	private void setTimer() {
 		if (!loadComplete()) {
 			return;
@@ -380,26 +366,6 @@ public class Game extends Room {
 			@Override
 			public void run() {
 				secondsVictory--;
-			}
-		};
-
-		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
-
-	}
-	
-	private void setDefeatTimer() {
-		if (secondsDefeat < 0) {
-			secondsDefeat = DEFEAT_SECONDS;
-		}
-		task = null;
-		timer = null;
-
-		timer = new Timer();
-
-		task = new TimerTask() {
-			@Override
-			public void run() {
-				secondsDefeat--;
 			}
 		};
 

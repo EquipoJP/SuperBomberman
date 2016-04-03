@@ -52,6 +52,10 @@ public abstract class Room {
 		this.music.play(replay);
 	}
 	
+	public void stopMusic(){
+		this.music.stop();
+	}
+	
 	public void addObjeto(Objeto o){
 		objetos.add(o);
 		Collections.sort(objetos,new ObjetoComparator());

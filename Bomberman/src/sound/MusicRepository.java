@@ -13,10 +13,13 @@ public class MusicRepository {
 	public static Music gameOver = null;
 	public static Music menu = null;
 	public static Music pause = null;
+	public static Music defeat = null;
+	public static Music intro = null;
+	public static Music victory = null;
 	
-	public static Sound defeat = null;
-	public static Sound intro = null;
-	public static Sound victory = null;
+	public static Sound explosion = null;
+	public static Sound putBomb = null;
+	public static Sound select = null;
 	
 	public static void load(){
 		loadBattleMusic();
@@ -24,10 +27,11 @@ public class MusicRepository {
 		loadGameOverMusic();
 		loadMenuMusic();
 		loadPauseMusic();
+		loadDefeatMusic();
+		loadIntroMusic();
+		loadVictoryMusic();
 		
-		loadDefeatSound();
-		loadIntroSound();
-		loadVictorySound();
+		loadSFX();
 	}
 	
 	public static void unload(){
@@ -72,21 +76,35 @@ public class MusicRepository {
 		}
 	}
 	
-	private static void loadDefeatSound() {
+	private static void loadDefeatMusic() {
 		if(defeat == null){
-			defeat = TinySound.loadSound(new File(SoundTrack.DEFEAT_SND));
+			defeat = TinySound.loadMusic(new File(SoundTrack.DEFEAT_MUSIC));
 		}
 	}
 	
-	private static void loadIntroSound() {
+	private static void loadIntroMusic() {
 		if(intro == null){
-			intro = TinySound.loadSound(new File(SoundTrack.INTRO_SND));
+			intro = TinySound.loadMusic(new File(SoundTrack.INTRO_MUSIC));
 		}
 	}
 	
-	private static void loadVictorySound() {
+	private static void loadVictoryMusic() {
 		if(victory == null){
-			victory = TinySound.loadSound(new File(SoundTrack.VICTORY_SND));
+			victory = TinySound.loadMusic(new File(SoundTrack.VICTORY_MUSIC));
+		}
+	}
+	
+	private static void loadSFX(){
+		if(explosion == null){
+			explosion = TinySound.loadSound(new File(SoundTrack.EXPLOSION_SND));
+		}
+		
+		if(putBomb == null){
+			putBomb = TinySound.loadSound(new File(SoundTrack.PUTBOMB_SND));
+		}
+		
+		if(select == null){
+			select = TinySound.loadSound(new File(SoundTrack.SELECT_SND));
 		}
 	}
 	

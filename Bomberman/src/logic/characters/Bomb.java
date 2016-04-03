@@ -2,11 +2,13 @@ package logic.characters;
 
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
+import kuusisto.tinysound.Sound;
 import logic.Objeto;
 import logic.collisions.BoundingBox;
 import logic.collisions.Point2D;
 import main.Game;
 import main.Initialization;
+import sound.MusicRepository;
 
 public class Bomb extends Objeto {
 
@@ -17,6 +19,9 @@ public class Bomb extends Objeto {
 	
 	public Bomb(int x, int y, Room r, int radius, Player player) {
 		super(x, y, r);
+		
+		Sound put = MusicRepository.putBomb;
+		put.play();
 		
 		this.radius = radius;
 		this.player = player;
@@ -41,6 +46,8 @@ public class Bomb extends Objeto {
 		switch (alarmNo) {
 		case 0:
 			System.out.println("Alarm");
+			Sound expl = MusicRepository.explosion;
+			expl.play();
 			destroyBomb();
 			break;
 		default:

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import kuusisto.tinysound.Sound;
-import sound.MusicRepository;
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
+import kuusisto.tinysound.Music;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
@@ -16,6 +15,7 @@ import logic.collisions.PerspectiveBoundingBox;
 import logic.collisions.Point2D;
 import main.Game;
 import main.Initialization;
+import sound.MusicRepository;
 
 public class Player extends Objeto {
 
@@ -205,8 +205,8 @@ public class Player extends Objeto {
 			sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[6]);
 			image_index = 0;
 			image_speed = 0.15;
-			Sound defeat = MusicRepository.defeat;
-			defeat.play();
+			Music defeat = MusicRepository.defeat;
+			defeat.play(false);
 		}
 	}
 	

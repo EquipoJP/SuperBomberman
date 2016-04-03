@@ -9,6 +9,7 @@ import sound.MusicRepository;
 import graphics.D2.rooms.Room;
 import graphics.effects.Button;
 import graphics.effects.Visual;
+import kuusisto.tinysound.Sound;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Sprite;
@@ -152,12 +153,15 @@ public class MainMenu extends Room {
 		if (!loadComplete()) {
 			return;
 		}
+		Sound sel = MusicRepository.select;
 		switch (key) {
 		case DOWN:
 			next();
+			sel.play();
 			break;
 		case UP:
 			previous();
+			sel.play();
 			break;
 		case ENTER:
 			confirm();
