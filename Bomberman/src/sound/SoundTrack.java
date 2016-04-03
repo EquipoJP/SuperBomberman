@@ -18,5 +18,6 @@ public class SoundTrack {
 	public static final String EXPLOSION_SND = SOUND + "explosion.ogg";
 	public static final String PUTBOMB_SND = SOUND + "putBomb2.ogg";
 	public static final String SELECT_SND = SOUND + "select.ogg";
+	public static final String POWERUP_SND = SOUND + "powerup.ogg";
 	
 }

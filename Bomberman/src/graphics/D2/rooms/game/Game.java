@@ -53,7 +53,6 @@ public class Game extends Room {
 	private TimerTask task;
 
 	private final long SECONDS_PHASE = 50; // TODO
-	private final long VICTORY_SECONDS = 9; // TODO
 
 	private String file;
 	private STAGE stage;
@@ -64,6 +63,7 @@ public class Game extends Room {
 	
 	private Music intro = null;
 	private Music defeat = null;
+	private Music victoryMsc = null;
 	private boolean startedLevel = false;
 	private boolean defeatedMusic = false;
 
@@ -232,7 +232,6 @@ public class Game extends Room {
 			}
 			break;
 		case VICTORY:
-			//super.step(key, direction);
 			for(Objeto obj : objetos){
 				if(obj instanceof Player){
 					Player player = (Player) obj;
@@ -240,7 +239,7 @@ public class Game extends Room {
 				}
 			}
 			
-			if (secondsVictory < 0) {
+			if(victoryMsc.done()){
 				Global.levels.nextLevel();
 				terminate();
 				StatesMachine.goToRoom(StatesMachine.STATE.GAME, false);
@@ -294,11 +293,13 @@ public class Game extends Room {
 	public void callForVictory() {
 		state = STATE.VICTORY;
 		if (victoryVisual == null) {
-			Music victorySnd = MusicRepository.victory;
-			victorySnd.play(false);
+			stopMusic();
+			
+			victoryMsc = MusicRepository.victory;
+			victoryMsc.rewind();
+			victoryMsc.play(false);
 			
 			cancelTimer();
-			setVictoryTimer();
 			
 			victoryVisual = new Visual(width / 2, height / 2, this, victory);
 			victoryVisual.depth = Global.EFFECTS_DEPTH;
@@ -351,26 +352,6 @@ public class Game extends Room {
 
 			timer.scheduleAtFixedRate(task, 0, (1 * 1000));
 		}
-	}
-
-	private void setVictoryTimer() {
-		if (secondsVictory < 0) {
-			secondsVictory = VICTORY_SECONDS;
-		}
-		task = null;
-		timer = null;
-
-		timer = new Timer();
-
-		task = new TimerTask() {
-			@Override
-			public void run() {
-				secondsVictory--;
-			}
-		};
-
-		timer.scheduleAtFixedRate(task, 0, (1 * 1000));
-
 	}
 	
 	private boolean checkTime() {

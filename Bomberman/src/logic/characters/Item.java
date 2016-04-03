@@ -2,8 +2,10 @@ package logic.characters;
 
 import graphics.D2.rooms.Room;
 import graphics.D2.rooms.game.GameRepository;
+import kuusisto.tinysound.Sound;
 import logic.Objeto;
 import logic.collisions.NoPerspectiveBoundingBox;
+import sound.MusicRepository;
 
 public class Item extends Objeto{
 
@@ -29,6 +31,12 @@ public class Item extends Objeto{
 		type = t;
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
+	}
+	
+	@Override
+	public void customDestroy(){
+		Sound powerup = MusicRepository.powerup;
+		powerup.play();
 	}
 	
 	public TYPE getType(){

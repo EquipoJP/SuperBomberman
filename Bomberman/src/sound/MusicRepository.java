@@ -20,6 +20,7 @@ public class MusicRepository {
 	public static Sound explosion = null;
 	public static Sound putBomb = null;
 	public static Sound select = null;
+	public static Sound powerup = null;
 	
 	public static void load(){
 		loadBattleMusic();
@@ -105,6 +106,10 @@ public class MusicRepository {
 		
 		if(select == null){
 			select = TinySound.loadSound(new File(SoundTrack.SELECT_SND));
+		}
+		
+		if(powerup == null){
+			powerup = TinySound.loadSound(new File(SoundTrack.POWERUP_SND));
 		}
 	}
 	
