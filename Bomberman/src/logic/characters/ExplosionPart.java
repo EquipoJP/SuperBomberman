@@ -103,6 +103,11 @@ public class ExplosionPart extends Objeto {
 					en.callForDestruction();
 					System.out.println("Enemy hit");
 				}
+				if(obj instanceof Item){
+					Item it = (Item) obj;
+					it.callForDestruction();
+					System.out.println("Item hit");
+				}
 			}
 		}
 

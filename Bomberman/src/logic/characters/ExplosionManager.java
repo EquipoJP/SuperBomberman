@@ -30,8 +30,7 @@ public class ExplosionManager extends Objeto {
 			stop[i] = false;
 		}
 		// Create core
-		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE,
-				ExplosionPart.SIDE.DOWN));
+		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE, ExplosionPart.SIDE.DOWN));
 		// Create branches
 		for (int i = 1; i <= radius; i++) {
 
@@ -45,28 +44,24 @@ public class ExplosionManager extends Objeto {
 					switch (j) {
 					case UP:
 						xToCheck = xToCheck + (Initialization.TILE_WIDTH / 2);
-						yToCheck = yToCheck - (i * Initialization.TILE_HEIGHT)
-								+ (Initialization.TILE_HEIGHT / 2);
+						yToCheck = yToCheck - (i * Initialization.TILE_HEIGHT) + (Initialization.TILE_HEIGHT / 2);
 						break;
 					case RIGHT:
 						yToCheck = yToCheck + (Initialization.TILE_HEIGHT / 2);
-						xToCheck = xToCheck + (i * Initialization.TILE_WIDTH)
-								+ (Initialization.TILE_WIDTH / 2);
+						xToCheck = xToCheck + (i * Initialization.TILE_WIDTH) + (Initialization.TILE_WIDTH / 2);
 						break;
 					case DOWN:
 						xToCheck = xToCheck + (Initialization.TILE_WIDTH / 2);
-						yToCheck = yToCheck + (i * Initialization.TILE_HEIGHT)
-								+ (Initialization.TILE_HEIGHT / 2);
+						yToCheck = yToCheck + (i * Initialization.TILE_HEIGHT) + (Initialization.TILE_HEIGHT / 2);
 						break;
 					case LEFT:
 						yToCheck = yToCheck + (Initialization.TILE_HEIGHT / 2);
-						xToCheck = xToCheck - (i * Initialization.TILE_WIDTH)
-								+ (Initialization.TILE_WIDTH / 2);
+						xToCheck = xToCheck - (i * Initialization.TILE_WIDTH) + (Initialization.TILE_WIDTH / 2);
 						break;
 					default:
 						break;
 					}
-					Objeto check = checkWallOrBlockCollision(xToCheck, yToCheck);
+					Objeto check = checkExplosionCollision(xToCheck, yToCheck);
 
 					// There has been collision
 					if (check != null) {
@@ -100,31 +95,26 @@ public class ExplosionManager extends Objeto {
 						switch (j) {
 						case UP:
 							s = ExplosionPart.SIDE.UP;
-							yToCreate = yToCreate
-									- (i * Initialization.TILE_HEIGHT);
+							yToCreate = yToCreate - (i * Initialization.TILE_HEIGHT);
 							break;
 						case RIGHT:
 							s = ExplosionPart.SIDE.RIGHT;
-							xToCreate = xToCreate
-									+ (i * Initialization.TILE_WIDTH);
+							xToCreate = xToCreate + (i * Initialization.TILE_WIDTH);
 							break;
 						case DOWN:
 							s = ExplosionPart.SIDE.DOWN;
-							yToCreate = yToCreate
-									+ (i * Initialization.TILE_HEIGHT);
+							yToCreate = yToCreate + (i * Initialization.TILE_HEIGHT);
 							break;
 						case LEFT:
 							s = ExplosionPart.SIDE.LEFT;
-							xToCreate = xToCreate
-									- (i * Initialization.TILE_WIDTH);
+							xToCreate = xToCreate - (i * Initialization.TILE_WIDTH);
 							break;
 						default:
 							break;
 						}
 
 						// Create part
-						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, r,
-								k, s));
+						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, r, k, s));
 					}
 				} // End of if we have to continue
 			} // End of for every direction
@@ -136,17 +126,15 @@ public class ExplosionManager extends Objeto {
 		destroy();
 	}
 
-	private Objeto checkWallOrBlockCollision(int x, int y) {
+	private Objeto checkExplosionCollision(int x, int y) {
 		Objeto returned = null;
 		List<Objeto> objects = myRoom.objetos;
-		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2),
-				new Point2D(x + 2, y + 2));
+		BoundingBox bb = new BoundingBox(new Point2D(x - 2, y - 2), new Point2D(x + 2, y + 2));
 
 		for (Objeto obj : objects) {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
-				if (collision
-						&& (obj instanceof Block || obj instanceof DestroyableBlock || obj instanceof Bomb)) {
+				if (collision && (obj instanceof Block || obj instanceof DestroyableBlock || obj instanceof Bomb)) {
 					returned = obj;
 					break;
 				}

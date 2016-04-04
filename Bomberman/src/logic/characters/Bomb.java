@@ -33,6 +33,8 @@ public class Bomb extends Objeto {
 				- Initialization.TILE_HEIGHT / 2, y - Initialization.TILE_WIDTH
 				/ 2), new Point2D(x + Initialization.TILE_HEIGHT / 2, y
 				+ Initialization.TILE_WIDTH / 2));
+		
+		depth = Initialization.getDepth("Bomb");
 	}
 
 	@Override

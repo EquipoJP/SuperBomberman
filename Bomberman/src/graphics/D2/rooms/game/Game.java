@@ -146,11 +146,11 @@ public class Game extends Room {
 			g.setColor(Color.black);
 
 			Point2D initial_position = new Point2D(width / 2 - Initialization.ALPHANUM_WIDTH / 2,
-					height / 2 + Initialization.ALPHANUM_HEIGHT / 2);
-			String stage = "Stage123:.";
+					height / 2 + Initialization.ALPHANUM_HEIGHT);
+			String stage = "Stage";
 			Point2D initial_position_text = new Point2D(
 					width / 2 - (Initialization.ALPHANUM_WIDTH * stage.length()) / 2,
-					height / 2 - Initialization.ALPHANUM_HEIGHT / 2);
+					height / 2 - Initialization.ALPHANUM_HEIGHT);
 			int lvl = Global.levels.level() + 1;
 			PaintService.paintTextColor(stage, initial_position_text, g, PaintService.DIGITS_ORANGE.getRGB());
 			PaintService.paintDigits("" + lvl, initial_position, g);

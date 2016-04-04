@@ -23,10 +23,10 @@ public class Player extends Objeto {
 	private Map<String, Sprite> sprites;
 
 	private double speed;
-	
+
 	private boolean destruction;
 	private boolean modSwitch;
-	
+
 	public int bombs;
 	public int bombRadius;
 	public int bombsLimit;
@@ -40,7 +40,7 @@ public class Player extends Objeto {
 	public void create() {
 		sprites = GameRepository.player;
 		sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[0]); // idle
-		
+
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		System.out.println("PLAYER " + boundingBox);
@@ -52,13 +52,13 @@ public class Player extends Objeto {
 		bombsLimit = 1;
 		bombRadius = 1;
 		ownBombs = new ArrayList<Objeto>();
-		
+
 		destruction = false;
 	}
 
 	@Override
 	public void customStep(KEY key, KEY direction) {
-		if(!destruction){
+		if (!destruction) {
 			boolean keyed = false;
 			switch (key) {
 			case SPACE:
@@ -68,9 +68,9 @@ public class Player extends Objeto {
 			default:
 				break;
 			}
-	
+
 			boolean stop = false;
-	
+
 			if (!keyed) {
 				switch (direction) {
 				case DOWN:
@@ -91,7 +91,7 @@ public class Player extends Objeto {
 					break;
 				case NO_KEY:
 					stop = true;
-					if(!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])){
+					if (!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])) {
 						int seconds = 5;
 						setAlarm(0, seconds * (int) Game.FPS);
 					}
@@ -100,7 +100,7 @@ public class Player extends Objeto {
 					break;
 				}
 			}
-	
+
 			// change speed
 			if (sprite_index.equals(sprites.get(Initialization.BOMBERMAN_SPRS[0]))) {
 				image_speed = 0.1;
@@ -110,10 +110,9 @@ public class Player extends Objeto {
 			} else {
 				image_speed = 0.2;
 			}
-		}
-		else{
+		} else {
 			System.out.println("Animation end: " + animation_end);
-			if(animation_end){
+			if (animation_end) {
 				destroy();
 			}
 		}
@@ -121,17 +120,17 @@ public class Player extends Objeto {
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
-		if(!destruction){
+		if (!destruction) {
 			int actualSpeed = 0;
-			if(Math.floor(speed) != Math.round(speed)){
-				if(modSwitch){
+			if (Math.floor(speed) != Math.round(speed)) {
+				if (modSwitch) {
 					modSwitch = !modSwitch;
 					actualSpeed = (int) (Math.floor(speed));
-				} else{
+				} else {
 					modSwitch = !modSwitch;
 					actualSpeed = (int) (Math.round(speed));
 				}
-			} else{
+			} else {
 				actualSpeed = (int) speed;
 			}
 			switch (direction) {
@@ -152,7 +151,7 @@ public class Player extends Objeto {
 			default:
 				break;
 			}
-	
+
 			switch (key) {
 			case SPACE:
 				putBomb();
@@ -162,7 +161,7 @@ public class Player extends Objeto {
 			}
 		}
 	}
-	
+
 	@Override
 	public void alarm(int alarmNo) {
 		switch (alarmNo) {
@@ -195,10 +194,9 @@ public class Player extends Objeto {
 	}
 
 	private boolean checkCollision(int x, int y) {
-		BoundingBox bb = new BoundingBox(new Point2D(x
-				- Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH
-				/ 4), new Point2D(x + Initialization.TILE_HEIGHT / 4, y
-				+ Initialization.TILE_WIDTH / 4));
+		BoundingBox bb = new BoundingBox(
+				new Point2D(x - Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH / 4),
+				new Point2D(x + Initialization.TILE_HEIGHT / 4, y + Initialization.TILE_WIDTH / 4));
 		for (Objeto obj : myRoom.objetos) {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
@@ -210,8 +208,8 @@ public class Player extends Objeto {
 		return false;
 	}
 
-	public void callForDestruction(){
-		if(!destruction){
+	public void callForDestruction() {
+		if (!destruction) {
 			resetAnimationEnd();
 			destruction = true;
 			sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[6]);
@@ -221,7 +219,7 @@ public class Player extends Objeto {
 			defeat.play(false);
 		}
 	}
-	
+
 	@Override
 	public boolean tryToMove(int modX, int modY) {
 		boundingBox.update(modX, modY);
@@ -235,55 +233,58 @@ public class Player extends Objeto {
 			return true;
 		}
 	}
-	
-	public boolean checkPlayerCollisions(List<Objeto> toCheck){
-		if(toCheck != null){
-			for(int i = 0; i< ownBombs.size(); i++){
-				// Booleano para comprobar si seguimos colisionando con una bomba
+
+	public boolean checkPlayerCollisions(List<Objeto> toCheck) {
+		if (toCheck != null) {
+			for (int i = 0; i < ownBombs.size(); i++) {
+				// Booleano para comprobar si seguimos colisionando con una
+				// bomba
 				boolean bombFound = false;
-				for(int j = 0; j < toCheck.size() && !bombFound; j++){
-					if(toCheck.get(j).equals(ownBombs.get(i))){
+				for (int j = 0; j < toCheck.size() && !bombFound; j++) {
+					if (toCheck.get(j).equals(ownBombs.get(i))) {
 						toCheck.remove(j);
 						bombFound = true;
 						j--;
 					}
 				}
-				if(!bombFound){
+				if (!bombFound) {
 					ownBombs.remove(i);
 					i--;
 				}
 			}
-			
+
 			// Check power ups
-			for(int j = 0; j < toCheck.size(); j++){
-				if(toCheck.get(j) instanceof Item){
+			for (int j = 0; j < toCheck.size(); j++) {
+				if (toCheck.get(j) instanceof Item) {
 					getPowerUp((Item) toCheck.get(j));
 					toCheck.remove(j);
 					j--;
 				}
 			}
-			
+
 			return toCheck.size() > 0;
-		} else{
+		} else {
 			ownBombs = new ArrayList<Objeto>();
 			return false;
-		}	
-	}
-	
-	private void getPowerUp(Item item){
-		switch(item.getType()){
-		case BOMB:
-			bombsLimit++;
-			break;
-		case POWER:
-			bombRadius++;
-			break;
-		case SPEED:
-			speed+=0.5;
-			break;
-		default:
-			break;
 		}
-		item.destroy();
+	}
+
+	private void getPowerUp(Item item) {
+		if (!item.hasBeenPickedUp()) {
+			switch (item.getType()) {
+			case BOMB:
+				bombsLimit++;
+				break;
+			case POWER:
+				bombRadius++;
+				break;
+			case SPEED:
+				speed += 0.5;
+				break;
+			default:
+				break;
+			}
+			item.pickUp();
+		}
 	}
 }

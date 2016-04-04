@@ -15,7 +15,7 @@ public class Visual extends Objeto {
 			image_speed = 0;
 		}
 		else{
-			image_speed = 0.15; //TODO 1 second each frame
+			image_speed = 0.1; //TODO 1 second each frame
 		}
 	}
 }
