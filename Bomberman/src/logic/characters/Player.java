@@ -22,11 +22,11 @@ public class Player extends Objeto {
 	/* Info to get Sprites */
 	private Map<String, Sprite> sprites;
 
-	private double modX;
-	private double modY;
+	private double speed;
 	
 	private boolean destruction;
-
+	private boolean modSwitch;
+	
 	public int bombs;
 	public int bombRadius;
 	public int bombsLimit;
@@ -45,8 +45,8 @@ public class Player extends Objeto {
 		boundingBox.update(x, y);
 		System.out.println("PLAYER " + boundingBox);
 
-		modX = 2;
-		modY = 2;
+		speed = 1.5;
+		modSwitch = false;
 
 		bombs = 0;
 		bombsLimit = 1;
@@ -122,18 +122,30 @@ public class Player extends Objeto {
 	@Override
 	public void processKey(KEY key, KEY direction) {
 		if(!destruction){
+			int actualSpeed = 0;
+			if(Math.floor(speed) != Math.round(speed)){
+				if(modSwitch){
+					modSwitch = !modSwitch;
+					actualSpeed = (int) (Math.floor(speed));
+				} else{
+					modSwitch = !modSwitch;
+					actualSpeed = (int) (Math.round(speed));
+				}
+			} else{
+				actualSpeed = (int) speed;
+			}
 			switch (direction) {
 			case DOWN:
-				tryToMove(0, (int) Math.floor(modY));
+				tryToMove(0, actualSpeed);
 				break;
 			case UP:
-				tryToMove(0, (int) (-1 * Math.floor(modY)));
+				tryToMove(0, (-1 * actualSpeed));
 				break;
 			case LEFT:
-				tryToMove((int) (-1 * Math.floor(modX)), 0);
+				tryToMove((-1 * actualSpeed), 0);
 				break;
 			case RIGHT:
-				tryToMove((int) Math.floor(modX), 0);
+				tryToMove(actualSpeed, 0);
 				break;
 			case NO_KEY:
 				break;
@@ -267,8 +279,7 @@ public class Player extends Objeto {
 			bombRadius++;
 			break;
 		case SPEED:
-			modX+=0.5;
-			modY+=0.5;
+			speed+=0.5;
 			break;
 		default:
 			break;
