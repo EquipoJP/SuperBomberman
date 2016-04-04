@@ -11,11 +11,12 @@ import main.Initialization;
 public class PaintDigitsService {
 
 	private static String charAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ?!";
-
 	private static Sprite alphabet = Initialization.getSpriteFromMenu(Initialization.MENUS.ALPHABET.toString());
 	private static Sprite digits = Initialization.getSpriteFromMenu(Initialization.MENUS.DIGITS.toString());
 	private static Sprite newRecord = Initialization.getSpriteFromMenu(Initialization.MENUS.NEW.toString());
 
+	public static Color ORANGETEXTS = new Color(250, 81, 0);
+	
 	public static void paintText(String text, Point2D initial_position, Graphics g) {
 		int modX = alphabet.getWidth();
 
