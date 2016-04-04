@@ -27,7 +27,7 @@ import main.Initialization;
 import main.Initialization.STAGE;
 import sound.MusicRepository;
 import utils.ConvertTimeService;
-import utils.PaintDigitsService;
+import utils.PaintService;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -147,13 +147,13 @@ public class Game extends Room {
 
 			Point2D initial_position = new Point2D(width / 2 - Initialization.ALPHANUM_WIDTH / 2,
 					height / 2 + Initialization.ALPHANUM_HEIGHT / 2);
-			String stage = "Stage";
+			String stage = "Stage123:.";
 			Point2D initial_position_text = new Point2D(
 					width / 2 - (Initialization.ALPHANUM_WIDTH * stage.length()) / 2,
 					height / 2 - Initialization.ALPHANUM_HEIGHT / 2);
 			int lvl = Global.levels.level() + 1;
-			PaintDigitsService.paintTextColor(stage, initial_position_text, g, PaintDigitsService.ORANGETEXTS.getRGB());
-			PaintDigitsService.paint("" + lvl, initial_position, g);
+			PaintService.paintTextColor(stage, initial_position_text, g, PaintService.DIGITS_ORANGE.getRGB());
+			PaintService.paintDigits("" + lvl, initial_position, g);
 			break;
 		default:
 			super.render(g);
@@ -169,7 +169,7 @@ public class Game extends Room {
 		int y = ((124 - 32 / 2) / 2) - (32 / 2);
 		Point2D init_pos = new Point2D(x, y);
 
-		PaintDigitsService.paint(ConvertTimeService.timeToString(seconds), init_pos, g);
+		PaintService.paintDigits(ConvertTimeService.timeToString(seconds), init_pos, g);
 	}
 
 	@Override

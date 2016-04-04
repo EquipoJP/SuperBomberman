@@ -6,7 +6,6 @@ package graphics.D2.rooms.rankMenu;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
-
 import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
 import logic.Global;
@@ -17,7 +16,7 @@ import logic.StatesMachine.STATE;
 import logic.collisions.Point2D;
 import logic.misc.Record;
 import sound.MusicRepository;
-import utils.PaintDigitsService;
+import utils.PaintService;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -108,14 +107,14 @@ public class RankMenu extends Room {
 			String str = newRecord + (i + 1) + ". " + record.getScore();
 			Point2D initial_position = new Point2D(x, y + modY * i);
 
-			PaintDigitsService.paint(str, initial_position, g);
+			PaintService.paintDigits(str, initial_position, g);
 		}
 
 		if (record != null && !newRecord) {
 			String str = "NEW " + this.record.getScore();
 			x = width / 2;
 			Point2D initial_position = new Point2D(x, y + modY * (records.size() + 1));
-			PaintDigitsService.paint(str, initial_position, g);
+			PaintService.paintDigits(str, initial_position, g);
 		}
 
 	}
