@@ -13,6 +13,7 @@ public abstract class Objeto {
 
 	public int x;
 	public int y;
+	public int z;
 	public int depth;
 
 	public Sprite sprite_index;
@@ -30,9 +31,11 @@ public abstract class Objeto {
 	private List<Integer> alarmsOff;
 	private double previous_image_index;
 
-	public Objeto(int x, int y, Room r) {
+	public Objeto(int x, int y, int z, Room r) {
 		this.x = x;
 		this.y = y;
+		this.z = z;
+		
 		depth = 0;
 		alarm = new int[20];
 		for (int i = 0; i < alarm.length; i++) {

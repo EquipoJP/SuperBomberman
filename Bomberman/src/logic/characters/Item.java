@@ -23,8 +23,8 @@ public class Item extends Objeto {
 	private boolean destroying = false;
 	private Sprite destroySprite = GameRepository.destroyItem;
 
-	public Item(int x, int y, Room r, TYPE t) {
-		super(x, y, r);
+	public Item(int x, int y, int z, Room r, TYPE t) {
+		super(x, y, z, r);
 
 		switch (t) {
 		case BOMB:

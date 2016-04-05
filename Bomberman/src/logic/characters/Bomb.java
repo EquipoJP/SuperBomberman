@@ -17,8 +17,8 @@ public class Bomb extends Objeto {
 	
 	private Player player;
 	
-	public Bomb(int x, int y, Room r, int radius, Player player) {
-		super(x, y, r);
+	public Bomb(int x, int y, int z, Room r, int radius, Player player) {
+		super(x, y, z, r);
 		
 		Sound put = MusicRepository.putBomb;
 		put.play();
@@ -58,7 +58,7 @@ public class Bomb extends Objeto {
 	}
 	
 	private void destroyBomb(){
-		ExplosionManager em = new ExplosionManager(x, y, myRoom, radius);
+		ExplosionManager em = new ExplosionManager(x, y, z, myRoom, radius);
 		myRoom.addObjeto(em);
 		player.bombs--;
 		destroy();

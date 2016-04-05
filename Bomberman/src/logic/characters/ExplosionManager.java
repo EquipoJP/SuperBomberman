@@ -20,8 +20,8 @@ public class ExplosionManager extends Objeto {
 	private final int DOWN = 2;
 	private final int LEFT = 3;
 
-	public ExplosionManager(int x, int y, Room r, int rad) {
-		super(x, y, r);
+	public ExplosionManager(int x, int y, int z, Room r, int rad) {
+		super(x, y, z, r);
 		this.radius = rad;
 		x = calculateXPosition(x);
 		y = calculateYPosition(y);
@@ -30,7 +30,7 @@ public class ExplosionManager extends Objeto {
 			stop[i] = false;
 		}
 		// Create core
-		r.addObjeto(new ExplosionPart(x, y, r, ExplosionPart.KIND.CORE, ExplosionPart.SIDE.DOWN));
+		r.addObjeto(new ExplosionPart(x, y, z, r, ExplosionPart.KIND.CORE, ExplosionPart.SIDE.DOWN));
 		// Create branches
 		for (int i = 1; i <= radius; i++) {
 
@@ -114,7 +114,7 @@ public class ExplosionManager extends Objeto {
 						}
 
 						// Create part
-						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, r, k, s));
+						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, z, r, k, s));
 					}
 				} // End of if we have to continue
 			} // End of for every direction

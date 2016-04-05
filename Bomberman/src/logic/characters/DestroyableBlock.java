@@ -15,8 +15,8 @@ public class DestroyableBlock extends Objeto{
 	private boolean destruction;
 	private TYPE type;
 
-	public DestroyableBlock(int x, int y, Room r, STAGE stage, TYPE t) {
-		super(x, y, r);
+	public DestroyableBlock(int x, int y, int z, Room r, STAGE stage, TYPE t) {
+		super(x, y, z, r);
 		
 		sprite_index = GameRepository.destroyableBlock1;
 		image_speed = 0.2;
@@ -50,7 +50,7 @@ public class DestroyableBlock extends Objeto{
 	@Override
 	public void customDestroy(){
 		if(type != null){
-			Item i = new Item(x, y, myRoom, type);
+			Item i = new Item(x, y, z, myRoom, type);
 			myRoom.addObjeto(i);
 		}
 	}

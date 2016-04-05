@@ -7,8 +7,8 @@ import main.Initialization.STAGE;
 
 public class Tile extends Objeto{
 
-	public Tile(int x, int y, Room r, STAGE c) {
-		super(x, y, r);
+	public Tile(int x, int y, int z, Room r, STAGE c) {
+		super(x, y, z, r);
 		
 		sprite_index = Initialization.getSpriteFromMap(c.toString() + "_TILE");
 		image_speed = 0;

@@ -26,8 +26,8 @@ public class Enemy extends Objeto{
 	
 	Map<String, Sprite> sprites;
 
-	public Enemy(int x, int y, Room r, STAGE stage) {
-		super(x, y, r);
+	public Enemy(int x, int y, int z, Room r, STAGE stage) {
+		super(x, y, z, r);
 		sprites = GameRepository.enemy;
 		image_speed = 0.1;
 		

@@ -18,6 +18,7 @@ public class Global {
 	public static Ranking ranking;
 	
 	public static LevelManager levels;
+	public static boolean is2D;
 	
 	public static void startGame(){
 		createRanking();
@@ -25,6 +26,7 @@ public class Global {
 		
 		scoreManager = new ScoreManager();
 		levels = new LevelManager();
+		is2D = true;
 	}
 	
 	public static void stopGame(){

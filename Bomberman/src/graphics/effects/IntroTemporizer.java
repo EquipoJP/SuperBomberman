@@ -6,7 +6,7 @@ import logic.Objeto;
 public class IntroTemporizer extends Objeto{
 
 	public IntroTemporizer(int x, int y, Room r) {
-		super(x, y, r);
+		super(x, y, 0, r);
 	}
 
 	@Override

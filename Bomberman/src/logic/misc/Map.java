@@ -95,7 +95,7 @@ public class Map {
 	}
 
 	public static List<Objeto> generateMap(Room room, Initialization.STAGE stage, List<Objeto> objetos) {
-		// Whoops its not implemented yet lol
+		// Whoops its not implemented yet lol TODO
 		return null;
 	}
 
@@ -125,28 +125,28 @@ public class Map {
 			break;
 		}
 
-		return new DestroyableBlock(x, y, room, stage, tipo);
+		return new DestroyableBlock(x, y, 0, room, stage, tipo);
 	}
 
 	private static Objeto createBlock(int row, int col, Room room) {
 		int x = getX(col);
 		int y = getY(row);
 
-		return new Block(x, y, room);
+		return new Block(x, y, 0, room);
 	}
 
 	private static Objeto createEnemy(int row, int col, Room room, STAGE stage) {
 		int x = getX(col);
 		int y = getY(row);
 
-		return new Enemy(x, y, room, stage);
+		return new Enemy(x, y, 0, room, stage);
 	}
 
 	private static Objeto createBomberman(int row, int col, Room room) {
 		int x = getX(col);
 		int y = getY(row);
 
-		return new Player(x, y, room, 0);
+		return new Player(x, y, 0, room, 0);
 	}
 
 	public static int getX(int col) {

@@ -32,8 +32,8 @@ public class Player extends Objeto {
 	public int bombsLimit;
 	private ArrayList<Objeto> ownBombs;
 
-	public Player(int x, int y, Room r, int depth) {
-		super(x, y, r);
+	public Player(int x, int y, int z, Room r, int depth) {
+		super(x, y, z, r);
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class Player extends Objeto {
 			int _y = logic.misc.Map.getY(row);
 
 			if (!checkCollision(_x, _y)) {
-				Bomb bomb = new Bomb(_x, _y, myRoom, bombRadius, this);
+				Bomb bomb = new Bomb(_x, _y, z, myRoom, bombRadius, this);
 				myRoom.addObjeto(bomb);
 				ownBombs.add(bomb);
 				bombs++;

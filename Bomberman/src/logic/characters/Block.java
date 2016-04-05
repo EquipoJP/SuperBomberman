@@ -7,8 +7,8 @@ import logic.collisions.NoPerspectiveBoundingBox;
 
 public class Block extends Objeto{
 	
-	public Block(int x, int y, Room r) {
-		super(x, y, r);
+	public Block(int x, int y, int z, Room r) {
+		super(x, y, z, r);
 		
 		sprite_index = GameRepository.block;
 		image_speed = 0.5;

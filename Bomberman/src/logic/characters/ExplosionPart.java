@@ -25,8 +25,8 @@ public class ExplosionPart extends Objeto {
 	private KIND kind;
 	private SIDE side;
 
-	public ExplosionPart(int x, int y, Room r, KIND k, SIDE s) {
-		super(x, y, r);
+	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s) {
+		super(x, y, z, r);
 		depth = 10;
 		kind = k;
 		side = s;

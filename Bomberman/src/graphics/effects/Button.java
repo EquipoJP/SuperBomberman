@@ -10,7 +10,7 @@ public class Button extends Objeto {
 	private boolean selected;
 	
 	public Button(int x, int y, Room r, Sprite sprite) {
-		super(x, y, r);
+		super(x, y, 0, r);
 		
 		sprite_index = sprite;
 		image_speed = 0;

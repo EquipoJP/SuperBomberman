@@ -18,7 +18,7 @@ public class Fade extends Objeto {
 	private final float MAX = 1.0f;
 
 	public Fade(int x, int y, Room r, boolean isFadeOut) {
-		super(x, y, r);
+		super(x, y, 0, r);
 		depth = Global.EFFECTS_DEPTH;
 		sum = isFadeOut;
 		if (sum) {
