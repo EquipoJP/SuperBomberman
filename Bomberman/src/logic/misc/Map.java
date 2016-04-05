@@ -29,7 +29,7 @@ public class Map {
 
 		int width = 0;
 		int height = 0;
-
+		
 		try {
 			Scanner s = new Scanner(new File(System.getProperty("user.dir") + "/resources/" + file));
 

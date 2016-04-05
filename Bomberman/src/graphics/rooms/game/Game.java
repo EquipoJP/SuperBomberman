@@ -23,6 +23,7 @@ import logic.characters.Player;
 import logic.collisions.Point2D;
 import logic.misc.Level;
 import logic.misc.Map;
+import logic.misc.objectives.Objective;
 import main.Initialization;
 import main.Initialization.STAGE;
 import sound.MusicRepository;
@@ -57,6 +58,7 @@ public class Game extends Room {
 
 	private String file;
 	private STAGE stage;
+	private Objective objective;
 
 	private Sprite hud;
 	private Sprite victory;
@@ -79,6 +81,7 @@ public class Game extends Room {
 	public void load() {
 		this.file = Global.levels.actualLevel().getFile();
 		this.stage = Global.levels.actualLevel().getStage();
+		this.objective = Global.levels.actualLevel().getObjective();
 
 		GameRepository.load(stage);
 
@@ -164,7 +167,6 @@ public class Game extends Room {
 	private void drawHUD(Graphics g) {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
 
-		// TODO change values here
 		int x = (width / 2) - (32 * 5 / 2);
 		int y = ((124 - 32 / 2) / 2) - (32 / 2);
 		Point2D init_pos = new Point2D(x, y);
@@ -207,7 +209,7 @@ public class Game extends Room {
 				StatesMachine.goToRoom(StatesMachine.STATE.PAUSE, true);
 			} else if (checkTime()) {
 				callForDestruction();
-			} else if (noEnemies()) {
+			} else if (objective.test(this)) {
 				callForVictory();
 			} else {
 				setTimer();
@@ -226,7 +228,7 @@ public class Game extends Room {
 				defeat.play(false);
 				defeatedMusic = true;
 			}
-			if (noPlayer()) {
+			if (objective.gameOver(this)) {
 				if (defeat.done()) {
 					defeatedMusic = false;
 					Global.levels.resetLevel();
@@ -317,24 +319,6 @@ public class Game extends Room {
 		}
 		Global.scoreManager.updateScoreEnemies(enemiesDestroyed);
 		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
-	}
-
-	private boolean noPlayer() {
-		for (Objeto obj : objetos) {
-			if (obj instanceof Player) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean noEnemies() {
-		for (Objeto obj : objetos) {
-			if (obj instanceof Enemy) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	private void setTimer() {

@@ -1,5 +1,6 @@
 package logic.misc;
 
+import logic.misc.objectives.KillEnemiesObjective;
 import main.Initialization;
 
 public class LevelManager {
@@ -13,7 +14,7 @@ public class LevelManager {
 		files = new LevelFile[NO_LEVELS];
 		
 		for(int i = 0; i < files.length; i++){
-			files[i] = new LevelFile("maps/level1.txt", Initialization.STAGE.GREENVILLAGE);
+			files[i] = new LevelFile("maps/level1.txt", Initialization.STAGE.GREENVILLAGE, new KillEnemiesObjective());
 		}
 	}
 	
