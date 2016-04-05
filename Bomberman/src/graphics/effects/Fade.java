@@ -3,7 +3,7 @@ package graphics.effects;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import graphics.D2.rooms.Room;
+import graphics.rooms.Room;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;

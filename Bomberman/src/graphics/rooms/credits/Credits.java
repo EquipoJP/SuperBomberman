@@ -1,7 +1,7 @@
-package graphics.D2.rooms.credits;
+package graphics.rooms.credits;
 
-import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

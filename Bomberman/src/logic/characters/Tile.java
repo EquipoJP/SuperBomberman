@@ -1,6 +1,6 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
+import graphics.rooms.Room;
 import logic.Objeto;
 import main.Initialization;
 import main.Initialization.STAGE;

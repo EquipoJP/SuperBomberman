@@ -1,4 +1,4 @@
-package graphics.D2.rooms.rankMenu;
+package graphics.rooms.rankMenu;
 
 import logic.Sprite;
 import main.Initialization;

@@ -1,4 +1,4 @@
-package graphics.D2.rooms;
+package graphics.rooms;
 
 public class Loader implements Runnable{
 	

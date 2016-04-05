@@ -1,4 +1,4 @@
-package graphics.D2.rooms.intro;
+package graphics.rooms.intro;
 
 import logic.Sprite;
 import main.Initialization;

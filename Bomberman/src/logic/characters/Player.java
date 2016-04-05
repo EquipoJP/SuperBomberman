@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import graphics.D2.rooms.Room;
-import graphics.D2.rooms.game.GameRepository;
+import graphics.rooms.Room;
+import graphics.rooms.game.GameRepository;
 import kuusisto.tinysound.Music;
 import logic.Input.KEY;
 import logic.Objeto;

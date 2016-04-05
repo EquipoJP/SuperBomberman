@@ -1,13 +1,12 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
-import graphics.D2.rooms.game.Game;
-import graphics.D2.rooms.game.GameRepository;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import graphics.rooms.Room;
+import graphics.rooms.game.Game;
+import graphics.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.collisions.PerspectiveBoundingBox;
 import logic.Objeto;

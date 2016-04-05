@@ -1,11 +1,11 @@
 /**
  * Class representing the pause menu (independent of the game mode currently being played)
  */
-package graphics.D2.rooms.pauseMenu;
+package graphics.rooms.pauseMenu;
 
-import graphics.D2.rooms.Room;
 import graphics.effects.Button;
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 
 import java.awt.Graphics;
 

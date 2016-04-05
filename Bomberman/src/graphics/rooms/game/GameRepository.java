@@ -1,4 +1,4 @@
-package graphics.D2.rooms.game;
+package graphics.rooms.game;
 
 import java.util.Map;
 

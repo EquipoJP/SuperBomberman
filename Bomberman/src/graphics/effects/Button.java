@@ -1,7 +1,7 @@
 package graphics.effects;
 
-import graphics.D2.rooms.Room;
 import logic.Input.KEY;
+import graphics.rooms.Room;
 import logic.Objeto;
 import logic.Sprite;
 

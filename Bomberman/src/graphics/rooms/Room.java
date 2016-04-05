@@ -1,7 +1,7 @@
 /**
  * Interface for the definition of the 'room' concept (from GameMaker)
  */
-package graphics.D2.rooms;
+package graphics.rooms;
 
 import graphics.effects.Visual;
 

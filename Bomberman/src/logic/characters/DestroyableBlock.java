@@ -1,8 +1,8 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
-import graphics.D2.rooms.game.GameRepository;
 import logic.Input.KEY;
+import graphics.rooms.Room;
+import graphics.rooms.game.GameRepository;
 import logic.Objeto;
 import logic.Sprite;
 import logic.characters.Item.TYPE;

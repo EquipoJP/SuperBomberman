@@ -1,13 +1,13 @@
 package logic.misc;
 
-import graphics.D2.rooms.Room;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import graphics.rooms.Room;
 import logic.characters.Item.TYPE;
 import logic.Objeto;
 import logic.characters.Block;

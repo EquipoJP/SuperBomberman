@@ -1,13 +1,14 @@
 /**
  * Class representing the ranking menu screen
  */
-package graphics.D2.rooms.rankMenu;
+package graphics.rooms.rankMenu;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import graphics.D2.rooms.Room;
+
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Sprite;

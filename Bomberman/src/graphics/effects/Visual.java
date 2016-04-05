@@ -1,6 +1,6 @@
 package graphics.effects;
 
-import graphics.D2.rooms.Room;
+import graphics.rooms.Room;
 import logic.Objeto;
 import logic.Sprite;
 

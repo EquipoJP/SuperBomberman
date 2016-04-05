@@ -1,4 +1,4 @@
-package graphics.D2.rooms.pauseMenu;
+package graphics.rooms.pauseMenu;
 
 import logic.Sprite;
 import main.Initialization;

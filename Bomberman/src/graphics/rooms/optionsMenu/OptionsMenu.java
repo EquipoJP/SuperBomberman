@@ -1,12 +1,12 @@
 /**
  * Class representing the options menu
  */
-package graphics.D2.rooms.optionsMenu;
+package graphics.rooms.optionsMenu;
 
-import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
 import graphics.effects.slider.Slider;
 import graphics.effects.slider.VolumeSlider;
+import graphics.rooms.Room;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

@@ -5,13 +5,13 @@ package logic;
 
 import java.awt.Graphics;
 
-import graphics.D2.rooms.credits.Credits;
-import graphics.D2.rooms.game.Game;
-import graphics.D2.rooms.intro.Intro;
-import graphics.D2.rooms.mainMenu.MainMenu;
-import graphics.D2.rooms.optionsMenu.OptionsMenu;
-import graphics.D2.rooms.pauseMenu.PauseMenu;
-import graphics.D2.rooms.rankMenu.RankMenu;
+import graphics.rooms.credits.Credits;
+import graphics.rooms.game.Game;
+import graphics.rooms.intro.Intro;
+import graphics.rooms.mainMenu.MainMenu;
+import graphics.rooms.optionsMenu.OptionsMenu;
+import graphics.rooms.pauseMenu.PauseMenu;
+import graphics.rooms.rankMenu.RankMenu;
 import logic.Input.KEY;
 import logic.misc.Record;
 

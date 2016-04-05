@@ -1,7 +1,7 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
-import graphics.D2.rooms.game.GameRepository;
+import graphics.rooms.Room;
+import graphics.rooms.game.GameRepository;
 import logic.Objeto;
 import logic.collisions.NoPerspectiveBoundingBox;
 

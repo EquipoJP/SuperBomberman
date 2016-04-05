@@ -1,7 +1,7 @@
 /**
  * Class representing the generic game screen
  */
-package graphics.D2.rooms.game;
+package graphics.rooms.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 import kuusisto.tinysound.Music;
 import logic.Global;
 import logic.Input.KEY;

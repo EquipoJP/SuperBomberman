@@ -1,4 +1,4 @@
-package graphics.D2.rooms.optionsMenu;
+package graphics.rooms.optionsMenu;
 
 import logic.Sprite;
 import main.Initialization;

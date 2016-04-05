@@ -1,11 +1,10 @@
 package logic.characters;
 
-import graphics.D2.rooms.Room;
-import graphics.D2.rooms.game.Game;
-import graphics.D2.rooms.game.GameRepository;
-
 import java.util.List;
 
+import graphics.rooms.Room;
+import graphics.rooms.game.Game;
+import graphics.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.collisions.BoundingBox;

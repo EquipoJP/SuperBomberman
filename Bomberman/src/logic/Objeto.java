@@ -1,12 +1,11 @@
 package logic;
 
-import graphics.D2.rooms.Room;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
 
+import graphics.rooms.Room;
 import logic.Input.KEY;
 import logic.collisions.BoundingBox;
 

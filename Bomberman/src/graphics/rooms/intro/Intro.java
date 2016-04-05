@@ -1,7 +1,7 @@
 /**
  * Class representing the Intro screen
  */
-package graphics.D2.rooms.intro;
+package graphics.rooms.intro;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,10 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import sound.MusicRepository;
-import graphics.D2.rooms.Room;
 import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 import logic.Input.KEY;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;

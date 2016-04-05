@@ -1,14 +1,14 @@
 /**
  * Class representing the main menu screen
  */
-package graphics.D2.rooms.mainMenu;
+package graphics.rooms.mainMenu;
 
 import java.awt.Graphics;
 
 import sound.MusicRepository;
-import graphics.D2.rooms.Room;
 import graphics.effects.Button;
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 import kuusisto.tinysound.Sound;
 import logic.Global;
 import logic.Input.KEY;

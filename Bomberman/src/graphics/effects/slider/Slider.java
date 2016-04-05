@@ -1,7 +1,7 @@
 package graphics.effects.slider;
 
-import graphics.D2.rooms.Room;
 import graphics.effects.Visual;
+import graphics.rooms.Room;
 import logic.Input.KEY;
 import logic.Sprite;
 
