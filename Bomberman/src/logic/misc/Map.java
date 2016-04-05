@@ -19,8 +19,8 @@ import main.Initialization.STAGE;
 
 public class Map {
 
-	public static final char DESTROYABLE_BLOCK = '0';
-	public static final char BLOCK = '1';
+	public static final char BLOCK = '0';
+	public static final char DESTROYABLE_BLOCK = '1';
 	public static final char ENEMY = '2';
 	public static final char BOMBERMAN = '4';
 
@@ -94,7 +94,7 @@ public class Map {
 		return objetos;
 	}
 
-	public static List<Objeto> generateMap(Room room, Initialization.STAGE stage) {
+	public static List<Objeto> generateMap(Room room, Initialization.STAGE stage, List<Objeto> objetos) {
 		// Whoops its not implemented yet lol
 		return null;
 	}
