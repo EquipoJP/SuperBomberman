@@ -56,6 +56,9 @@ public class Initialization {
 
 	public static final int MAP_X_OFFSET = 26;
 	public static final int MAP_Y_OFFSET = 124;
+	
+	public static final int MAP_WIDTH = 15;
+	public static final int MAP_HEIGHT = 15;
 
 	// Custom Depths
 	private static boolean initialized = false;

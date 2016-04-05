@@ -92,7 +92,8 @@ public class Game extends Room {
 		secondsVictory = -1;
 
 		tiles = GameRepository.tiles;
-		List<Objeto> objetos = Map.getMap(file, this, stage);
+//		List<Objeto> objetos = Map.getMap(file, this, stage);
+		List<Objeto> objetos = Map.generateMap(this, stage);
 
 		for (Objeto obj : objetos) {
 			if (obj instanceof Level) {
