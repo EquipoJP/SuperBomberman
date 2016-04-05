@@ -211,6 +211,8 @@ public class Game extends Room {
 				callForDestruction();
 			} else if (objective.test(this)) {
 				callForVictory();
+			} else if(objective.gameOver(this)){
+				callForDestruction();
 			} else {
 				setTimer();
 			}

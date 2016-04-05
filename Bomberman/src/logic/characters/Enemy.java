@@ -5,32 +5,31 @@ import java.util.Map;
 import java.util.Random;
 
 import graphics.rooms.Room;
-import graphics.rooms.game.Game;
 import graphics.rooms.game.GameRepository;
 import logic.Input.KEY;
-import logic.collisions.PerspectiveBoundingBox;
 import logic.Objeto;
 import logic.Sprite;
+import logic.collisions.PerspectiveBoundingBox;
 import main.Initialization;
 import main.Initialization.STAGE;
 
-public class Enemy extends Objeto{
-	
+public class Enemy extends Objeto {
+
 	private int modX;
 	private int modY;
-	
+
 	private KEY movActual;
 	private Random randomizer;
-	
+
 	private boolean destruction;
-	
+
 	Map<String, Sprite> sprites;
 
 	public Enemy(int x, int y, int z, Room r, STAGE stage) {
 		super(x, y, z, r);
 		sprites = GameRepository.enemy;
 		image_speed = 0.1;
-		
+
 		sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
@@ -40,30 +39,30 @@ public class Enemy extends Objeto{
 	public void create() {
 		modX = 1;
 		modY = 1;
-		
+
 		destruction = false;
-		
+
 		movActual = KEY.NO_KEY;
 		randomizer = new Random();
 	}
 
 	@Override
 	public void processKey(KEY key, KEY direction) {
-		if(destruction){
-			if(animation_end){
+		if (destruction) {
+			if (animation_end) {
 				destroy();
 			}
-			return ;
+			return;
 		}
 
-		if(movActual == KEY.NO_KEY){
+		if (movActual == KEY.NO_KEY) {
 			movActual = randomizeKey();
 		}
-		
+
 		int xmod = 0;
 		int ymod = 0;
-		
-		switch(movActual){
+
+		switch (movActual) {
 		case DOWN:
 			ymod = modY;
 			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
@@ -85,23 +84,20 @@ public class Enemy extends Objeto{
 		default:
 			break;
 		}
-		
+
 		checkCollision(xmod, ymod);
-		
-		if(!tryToMove(xmod, ymod)){
+
+		if (!tryToMove(xmod, ymod)) {
 			movActual = KEY.NO_KEY;
 		}
 	}
-	
+
 	private KEY randomizeKey() {
 		/*
-		 * 0. DOWN
-		 * 1. UP
-		 * 2. LEFT
-		 * 3. RIGHT
+		 * 0. DOWN 1. UP 2. LEFT 3. RIGHT
 		 */
-		
-		switch(randomizer.nextInt(4)){
+
+		switch (randomizer.nextInt(4)) {
 		case 0:
 			return KEY.DOWN;
 		case 1:
@@ -111,7 +107,7 @@ public class Enemy extends Objeto{
 		case 3:
 			return KEY.RIGHT;
 		}
-		
+
 		return null;
 	}
 
@@ -122,16 +118,16 @@ public class Enemy extends Objeto{
 		if (collisions != null) {
 			for (Objeto obj : collisions) {
 				if (obj instanceof Player) {
-					Game g = (Game) myRoom;
-					g.callForDestruction();
+					Player player = (Player) obj;
+					player.callForDestruction();
 					System.out.println("Player hit");
 				}
 			}
-		}		
+		}
 	}
 
-	public void callForDestruction(){
-		if(!destruction){
+	public void callForDestruction() {
+		if (!destruction) {
 			resetAnimationEnd();
 			destruction = true;
 			sprite_index = sprites.get(Initialization.ENEMIES_SPRS[0]);
