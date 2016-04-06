@@ -1,5 +1,6 @@
 package logic.characters;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,8 @@ public class Player extends Objeto {
 	/* Info to get Sprites */
 	private Map<String, Sprite> sprites;
 
+	private static final int HELP_THRESHOLD = 8;
+	
 	private double speed;
 
 	private boolean destruction;
@@ -224,9 +227,43 @@ public class Player extends Objeto {
 	public boolean tryToMove(int modX, int modY) {
 		boundingBox.update(modX, modY);
 		List<Objeto> collided = collision();
-		if (checkPlayerCollisions(collided)) {
+		List<Objeto> newList = new ArrayList<Objeto>();
+		int returned = checkPlayerCollisions(collided, newList);
+		if (returned > 1) {
 			boundingBox.update(-modX, -modY);
 			return false;
+		} else if(returned == 1){
+			Objeto o = newList.get(0);
+			Rectangle r = BoundingBox.collisionRectangle(this.boundingBox, o.boundingBox);
+			if(modX != 0){
+				// Nos estamos moviendo a izquierda o derecha
+				if(r.height >= 1 && r.height <= HELP_THRESHOLD){
+					// Si que hay que ayudar al jugador
+					y = y + (r.height * (int) Math.signum(this.y - o.y));
+					boundingBox.update(0, r.height * (int) Math.signum(this.y - o.y));
+					x = x + modX;
+					y = y + modY;
+					return true;
+				} else{
+					// No ayudamos al jugador, colision absoluta
+					boundingBox.update(-modX, -modY);
+					return false;
+				}
+			} else{
+				// Nos estamos moviendo arriba o abajo
+				if(r.width >= 1 && r.width <= HELP_THRESHOLD){
+					// Si que hay que ayudar al jugador
+					x = x + (r.width * (int) Math.signum(this.x - o.x));
+					boundingBox.update(r.width * (int) Math.signum(this.x - o.x), 0);
+					x = x + modX;
+					y = y + modY;
+					return true;
+				} else{
+					// No ayudamos al jugador, colision absoluta
+					boundingBox.update(-modX, -modY);
+					return false;
+				}
+			}
 		} else {
 			x = x + modX;
 			y = y + modY;
@@ -234,8 +271,17 @@ public class Player extends Objeto {
 		}
 	}
 
-	public boolean checkPlayerCollisions(List<Objeto> toCheck) {
+	/**
+	 * Returns 0 if it has no collisions with nothing
+	 * Returns 1 if it has only one collision with a solid
+	 * Returns 2 or more if it has multiple collisions with solids
+	 * 
+	 * finalCollision contains those collisions remaining
+	 */
+	public int checkPlayerCollisions(List<Objeto> toCheck, List<Objeto> finalCollision) {
 		if (toCheck != null) {
+			List<Objeto> lolazo = new ArrayList<Objeto>();
+			lolazo.addAll(toCheck);
 			for (int i = 0; i < ownBombs.size(); i++) {
 				// Booleano para comprobar si seguimos colisionando con una
 				// bomba
@@ -261,11 +307,13 @@ public class Player extends Objeto {
 					j--;
 				}
 			}
-
-			return toCheck.size() > 0;
+			
+			finalCollision.addAll(toCheck);
+			
+			return toCheck.size();
 		} else {
 			ownBombs = new ArrayList<Objeto>();
-			return false;
+			return 0;
 		}
 	}
 

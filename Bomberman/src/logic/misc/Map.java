@@ -29,7 +29,7 @@ public class Map {
 	public static final char ENEMY = 'E';
 	public static final char BOMBERMAN = 'B';
 	public static final char NOTHING = '-';
-	
+
 	private static final int fixpos = 5;
 
 	public static List<Objeto> getMap(String file, Room room, Initialization.STAGE stage) {
@@ -106,7 +106,7 @@ public class Map {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
 		// Choose random file
-		long seed = System.nanoTime(); 
+		long seed = System.nanoTime();
 		Random g = new Random(seed);
 		String file = "/resources/maps/templates/n" + g.nextInt(2) + ".txt";
 		int widthMap = Initialization.MAP_WIDTH;
@@ -152,6 +152,8 @@ public class Map {
 
 			row = 0;
 			int count = 0;
+			int originalPut = list.size() / 8;
+			int put = originalPut;
 			int total = (widthMap * heightMap) - blockCount - 1;
 			double prob = 0.5;
 			// Read file
@@ -174,17 +176,31 @@ public class Map {
 					case NOTHING:
 						double result = g.nextDouble();
 						if (list.size() == (total - count)
-								|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row))) {
+								|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row) && put != 0)) {
 							prob = decreaseProb(prob);
 							Objeto obj = generateRandomObject(row, col, room, stage, list);
-							if (obj != null)
+							if (obj != null) {
 								objetos.add(obj);
+								put--;
+							}
+							if (obj instanceof Enemy) {
+								list.add(0, '?');
+								list.add(0, '?');
+							}
 						}
-						
-						if(result < prob){
+
+						if (result < prob) {
 							prob = increaseProb(prob);
 						}
-						
+
+						if (row % (widthMap / 5) == 0) {
+							// Reset prob
+							prob = 0.5;
+
+							// Reset put
+							put = originalPut;
+						}
+
 						break;
 					case BOMBERMAN:
 						objetos.add(createBomberman(row, col, room));
@@ -289,16 +305,18 @@ public class Map {
 		for (int i = 0; i < 25; i++) {
 			c.add(DESTROYABLE_BLOCK);
 		}
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			c.add(DESTROYABLE_BLOCK_SPEED);
 		}
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 15; i++) {
 			c.add(DESTROYABLE_BLOCK_POWER);
 		}
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			c.add(DESTROYABLE_BLOCK_BOMBS);
 		}
-		c.add(ENEMY);
+		for (int i = 0; i < 3; i++) {
+			c.add(ENEMY);
+		}
 		long seed = System.nanoTime();
 		Collections.shuffle(c, new Random(seed));
 		return c;
@@ -341,18 +359,18 @@ public class Map {
 		}
 		return valid;
 	}
-	
-	private static double increaseProb(double input){
+
+	private static double increaseProb(double input) {
 		double returned = input - 2;
-		if(input <= 0){
+		if (input <= 0) {
 			returned = 0;
 		}
 		return returned;
 	}
-	
-	private static double decreaseProb(double input){
+
+	private static double decreaseProb(double input) {
 		double returned = input + 2;
-		if(input >= 1){
+		if (input >= 1) {
 			returned = 1;
 		}
 		return returned;

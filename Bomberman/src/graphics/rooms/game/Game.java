@@ -54,7 +54,7 @@ public class Game extends Room {
 	private Timer timer;
 	private TimerTask task;
 
-	private final long SECONDS_PHASE = 50; // TODO
+	private final long SECONDS_PHASE = 120; // TODO
 
 	private String file;
 	private STAGE stage;

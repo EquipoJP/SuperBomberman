@@ -26,6 +26,16 @@ public class BoundingBox {
 		
 		return r1.intersects(r2);
 	}
+	
+	public static Rectangle collisionRectangle(BoundingBox bb1, BoundingBox bb2){
+		if (bb1 == null || bb2 == null) {
+			return new Rectangle();
+		}
+		Rectangle r1 = bb1.getRectangle();
+		Rectangle r2 = bb2.getRectangle();
+		
+		return r1.intersection(r2);
+	}
 
 	private Rectangle getRectangle() {
 		int x = min.getX();

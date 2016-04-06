@@ -135,4 +135,30 @@ public class Enemy extends Objeto {
 			image_speed = 0.1;
 		}
 	}
+
+	@Override
+	public boolean tryToMove(int modX, int modY) {
+		boundingBox.update(modX, modY);
+		List<Objeto> collisions = collision();
+		if (collisions != null) {
+			boolean returned = true;
+			for (int i = 0; i < collisions.size() && returned; i++) {
+				if (collisions.get(i) instanceof Block || collisions.get(i) instanceof DestroyableBlock
+						|| collisions.get(i) instanceof Bomb) {
+					returned = false;
+				}
+			}
+			if (!returned) {
+				boundingBox.update(-modX, -modY);
+			} else {
+				x = x + modX;
+				y = y + modY;
+			}
+			return returned;
+		} else {
+			x = x + modX;
+			y = y + modY;
+			return true;
+		}
+	}
 }

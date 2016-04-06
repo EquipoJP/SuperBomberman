@@ -93,6 +93,7 @@ public class Item extends Objeto {
 			Sound powerup = MusicRepository.powerup;
 			powerup.play();
 			pickedup = true;
+			boundingBox = null;
 		}
 	}
 
