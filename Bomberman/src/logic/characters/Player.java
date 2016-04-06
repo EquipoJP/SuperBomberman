@@ -24,8 +24,10 @@ public class Player extends Objeto {
 	private Map<String, Sprite> sprites;
 
 	private static final int HELP_THRESHOLD = 8;
+	private static final double INITIAL_ACCELERATION = 0.5;
 	
 	private double speed;
+	private double acceleration;
 
 	private boolean destruction;
 	private boolean modSwitch;
@@ -49,6 +51,7 @@ public class Player extends Objeto {
 		System.out.println("PLAYER " + boundingBox);
 
 		speed = 1.5;
+		acceleration = INITIAL_ACCELERATION;
 		modSwitch = false;
 
 		bombs = 0;
@@ -93,6 +96,7 @@ public class Player extends Objeto {
 					unsetAlarm(0);
 					break;
 				case NO_KEY:
+					acceleration = INITIAL_ACCELERATION;
 					stop = true;
 					if (!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])) {
 						int seconds = 5;
@@ -124,30 +128,44 @@ public class Player extends Objeto {
 	@Override
 	public void processKey(KEY key, KEY direction) {
 		if (!destruction) {
-			int actualSpeed = 0;
-			if (Math.floor(speed) != Math.round(speed)) {
+			double actualSpeed = 1 + acceleration;
+			double checkSpeed = actualSpeed;
+			if (Math.floor(actualSpeed) != Math.round(actualSpeed)) {
 				if (modSwitch) {
 					modSwitch = !modSwitch;
-					actualSpeed = (int) (Math.floor(speed));
+					actualSpeed = Math.floor(actualSpeed);
 				} else {
 					modSwitch = !modSwitch;
-					actualSpeed = (int) (Math.round(speed));
+					actualSpeed = Math.round(actualSpeed);
 				}
 			} else {
-				actualSpeed = (int) speed;
+				actualSpeed = (int) actualSpeed;
 			}
+			int tryToMoveSpeed = (int) actualSpeed;
 			switch (direction) {
 			case DOWN:
-				tryToMove(0, actualSpeed);
+				tryToMove(0, tryToMoveSpeed);
+				if(checkSpeed < speed){
+					acceleration += 0.5;
+				}
 				break;
 			case UP:
-				tryToMove(0, (-1 * actualSpeed));
+				tryToMove(0, (-1 * tryToMoveSpeed));
+				if(checkSpeed < speed){
+					acceleration += 0.5;
+				}
 				break;
 			case LEFT:
-				tryToMove((-1 * actualSpeed), 0);
+				tryToMove((-1 * tryToMoveSpeed), 0);
+				if(checkSpeed < speed){
+					acceleration += 0.5;
+				}
 				break;
 			case RIGHT:
-				tryToMove(actualSpeed, 0);
+				tryToMove(tryToMoveSpeed, 0);
+				if(checkSpeed < speed){
+					acceleration += 0.5;
+				}
 				break;
 			case NO_KEY:
 				break;
