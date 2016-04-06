@@ -11,6 +11,7 @@ import java.awt.Graphics;
 
 import sound.MusicRepository;
 import logic.Input.KEY;
+import logic.Global;
 import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
@@ -112,6 +113,7 @@ public class PauseMenu extends Room {
 			break;
 		case 1:
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
+			Global.levels.resetLevel();
 			break;
 		}
 	}

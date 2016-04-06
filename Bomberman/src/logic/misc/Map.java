@@ -108,7 +108,9 @@ public class Map {
 		// Choose random file
 		long seed = System.nanoTime();
 		Random g = new Random(seed);
-		String file = "/resources/maps/templates/n" + g.nextInt(2) + ".txt";
+		String folder = "/resources/maps/templates";
+		int numberOfFiles = new File(System.getProperty("user.dir") + folder).listFiles().length;
+		String file = folder + "/n" + g.nextInt(numberOfFiles) + ".txt";
 		int widthMap = Initialization.MAP_WIDTH;
 		int heightMap = Initialization.MAP_HEIGHT;
 		int playerx = 0;
@@ -121,6 +123,7 @@ public class Map {
 
 			int row = 0;
 			int blockCount = 0;
+			int enemyCount = 0;
 
 			// Read file
 			while (b.hasNextLine()) {
@@ -154,6 +157,7 @@ public class Map {
 			int count = 0;
 			int originalPut = list.size() / 8;
 			int put = originalPut;
+			int iterCount = 0;
 			int total = (widthMap * heightMap) - blockCount - 1;
 			double prob = 0.5;
 			// Read file
@@ -174,8 +178,16 @@ public class Map {
 						objetos.add(createBlock(row, col, room));
 						break;
 					case NOTHING:
+						iterCount++;
 						double result = g.nextDouble();
-						if (list.size() == (total - count)
+						if (enemyCount == 0 && total - iterCount <= 3) {
+							// Assure 1 enemy
+							list.add(0, '?');
+							list.add(0, '?');
+							enemyCount++;
+							Objeto obj = createEnemy(row, col, room, stage);
+							objetos.add(obj);
+						} else if (list.size() == (total - count)
 								|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row) && put != 0)) {
 							prob = decreaseProb(prob);
 							Objeto obj = generateRandomObject(row, col, room, stage, list);
@@ -186,6 +198,7 @@ public class Map {
 							if (obj instanceof Enemy) {
 								list.add(0, '?');
 								list.add(0, '?');
+								enemyCount++;
 							}
 						}
 
