@@ -6,6 +6,7 @@ package graphics.rooms.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -80,7 +81,15 @@ public class Game extends Room {
 	@Override
 	public void load() {
 		this.file = Global.levels.actualLevel().getFile();
-		this.stage = Global.levels.actualLevel().getStage();
+		//this.stage = Global.levels.actualLevel().getStage();
+		long seed = System.currentTimeMillis();
+		Random g = new Random(seed);
+		if(g.nextDouble() >= 0.5){
+			this.stage = Initialization.STAGE.GREENVILLAGE;
+		} else{
+			this.stage = Initialization.STAGE.PEACETOWN;
+		}
+		System.out.println(this.stage);
 		this.objective = Global.levels.actualLevel().getObjective();
 
 		GameRepository.load(stage);
