@@ -41,7 +41,7 @@ public class GameRepository {
 	public static Sprite pickupSpeed = null;
 	public static Sprite pickupPower = null;
 	public static Sprite pickupBomb = null;
-	
+
 	public static Sprite destroyItem = null;
 
 	public static void load(STAGE stage) {
@@ -126,7 +126,7 @@ public class GameRepository {
 			bomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.BOMB.toString());
 		}
 	}
-	
+
 	private static void loadStairs() {
 		if (stairs == null) {
 			stairs = Initialization.getSpriteFromSprites(Initialization.SPRITES.STAIRS.toString());
@@ -179,7 +179,7 @@ public class GameRepository {
 		if (pickupBomb == null) {
 			pickupBomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.BOMB_PICKUP.toString());
 		}
-		if(destroyItem == null){
+		if (destroyItem == null) {
 			destroyItem = Initialization.getSpriteFromSprites(Initialization.SPRITES.ITEM_DESTROY.toString());
 		}
 	}

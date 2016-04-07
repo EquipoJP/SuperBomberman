@@ -25,7 +25,7 @@ public class Player extends Objeto {
 
 	private static final int HELP_THRESHOLD = 8;
 	private static final double INITIAL_ACCELERATION = 0.5;
-	
+
 	private double speed;
 	private double acceleration;
 
@@ -98,7 +98,8 @@ public class Player extends Objeto {
 				case NO_KEY:
 					acceleration = INITIAL_ACCELERATION;
 					stop = true;
-					if (!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])) {
+					if (!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])
+							&& sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[5])) {
 						int seconds = 5;
 						setAlarm(0, seconds * (int) Game.FPS);
 					}
@@ -110,6 +111,8 @@ public class Player extends Objeto {
 
 			// change speed
 			if (sprite_index.equals(sprites.get(Initialization.BOMBERMAN_SPRS[0]))) {
+				image_speed = 0.1;
+			} else if (sprite_index.equals(sprites.get(Initialization.BOMBERMAN_SPRS[5]))) {
 				image_speed = 0.1;
 			} else if (stop) {
 				image_speed = 0;
@@ -145,25 +148,25 @@ public class Player extends Objeto {
 			switch (direction) {
 			case DOWN:
 				tryToMove(0, tryToMoveSpeed);
-				if(checkSpeed < speed){
+				if (checkSpeed < speed) {
 					acceleration += 0.5;
 				}
 				break;
 			case UP:
 				tryToMove(0, (-1 * tryToMoveSpeed));
-				if(checkSpeed < speed){
+				if (checkSpeed < speed) {
 					acceleration += 0.5;
 				}
 				break;
 			case LEFT:
 				tryToMove((-1 * tryToMoveSpeed), 0);
-				if(checkSpeed < speed){
+				if (checkSpeed < speed) {
 					acceleration += 0.5;
 				}
 				break;
 			case RIGHT:
 				tryToMove(tryToMoveSpeed, 0);
-				if(checkSpeed < speed){
+				if (checkSpeed < speed) {
 					acceleration += 0.5;
 				}
 				break;
@@ -250,33 +253,33 @@ public class Player extends Objeto {
 		if (returned > 1) {
 			boundingBox.update(-modX, -modY);
 			return false;
-		} else if(returned == 1){
+		} else if (returned == 1) {
 			Objeto o = newList.get(0);
 			Rectangle r = BoundingBox.collisionRectangle(this.boundingBox, o.boundingBox);
-			if(modX != 0){
+			if (modX != 0) {
 				// Nos estamos moviendo a izquierda o derecha
-				if(r.height >= 1 && r.height <= HELP_THRESHOLD){
+				if (r.height >= 1 && r.height <= HELP_THRESHOLD) {
 					// Si que hay que ayudar al jugador
 					y = y + (r.height * (int) Math.signum(this.y - o.y));
 					boundingBox.update(0, r.height * (int) Math.signum(this.y - o.y));
 					x = x + modX;
 					y = y + modY;
 					return true;
-				} else{
+				} else {
 					// No ayudamos al jugador, colision absoluta
 					boundingBox.update(-modX, -modY);
 					return false;
 				}
-			} else{
+			} else {
 				// Nos estamos moviendo arriba o abajo
-				if(r.width >= 1 && r.width <= HELP_THRESHOLD){
+				if (r.width >= 1 && r.width <= HELP_THRESHOLD) {
 					// Si que hay que ayudar al jugador
 					x = x + (r.width * (int) Math.signum(this.x - o.x));
 					boundingBox.update(r.width * (int) Math.signum(this.x - o.x), 0);
 					x = x + modX;
 					y = y + modY;
 					return true;
-				} else{
+				} else {
 					// No ayudamos al jugador, colision absoluta
 					boundingBox.update(-modX, -modY);
 					return false;
@@ -290,9 +293,9 @@ public class Player extends Objeto {
 	}
 
 	/**
-	 * Returns 0 if it has no collisions with nothing
-	 * Returns 1 if it has only one collision with a solid
-	 * Returns 2 or more if it has multiple collisions with solids
+	 * Returns 0 if it has no collisions with nothing Returns 1 if it has only
+	 * one collision with a solid Returns 2 or more if it has multiple
+	 * collisions with solids
 	 * 
 	 * finalCollision contains those collisions remaining
 	 */
@@ -325,9 +328,9 @@ public class Player extends Objeto {
 					j--;
 				}
 			}
-			
+
 			finalCollision.addAll(toCheck);
-			
+
 			return toCheck.size();
 		} else {
 			ownBombs = new ArrayList<Objeto>();

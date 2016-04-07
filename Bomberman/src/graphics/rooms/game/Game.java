@@ -253,6 +253,10 @@ public class Game extends Room {
 			for (Objeto obj : objetos) {
 				if (obj instanceof Player) {
 					Player player = (Player) obj;
+					if (!player.sprite_index.equals(GameRepository.player.get(Initialization.BOMBERMAN_SPRS[5]))){
+						player.sprite_index = GameRepository.player.get(Initialization.BOMBERMAN_SPRS[5]);
+			
+					}
 					player.step(KEY.NO_KEY, KEY.NO_KEY);
 				}
 			}
