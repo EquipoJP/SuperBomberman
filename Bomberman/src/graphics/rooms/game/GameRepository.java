@@ -68,119 +68,146 @@ public class GameRepository {
 
 	private static void loadHUD() {
 		if (hud == null) {
-			hud = Initialization.getSpriteFromMenu(Initialization.MENUS.HUD.toString());
+			hud = Initialization.getSpriteFromMenu(Initialization.MENUS.HUD
+					.toString());
 		}
 	}
 
 	private static void loadVictory() {
 		if (victory == null) {
-			victory = Initialization.getSpriteFromMenu(Initialization.MENUS.VICTORY.toString());
+			victory = Initialization
+					.getSpriteFromMenu(Initialization.MENUS.VICTORY.toString());
 		}
 	}
 
 	private static void loadTiles(STAGE stage) {
-		if (tiles == null) {
-			System.out.println(stage);
-			tiles = Initialization.getSpriteFromMap(stage.toString() + "_" + Initialization.TYPE.TILE.toString());
-		}
+		tiles = Initialization.getSpriteFromMap(stage.toString() + "_"
+				+ Initialization.TYPE.TILE.toString());
 	}
 
 	private static void loadBackground() {
 		if (background == null) {
-			background = Initialization.getSpriteFromMenu(Initialization.MENUS.BACKGROUND.toString());
+			background = Initialization
+					.getSpriteFromMenu(Initialization.MENUS.BACKGROUND
+							.toString());
 		}
 	}
 
 	private static void loadBlock(STAGE stage) {
-		if (block == null) {
-			block = Initialization.getSpriteFromMap(stage.toString() + "_" + TYPE.BLOCK.toString());
-		}
+		block = Initialization.getSpriteFromMap(stage.toString() + "_"
+				+ TYPE.BLOCK.toString());
 	}
 
 	private static void loadDestroyables(STAGE stage) {
-		if (destroyableBlock1 == null) {
-			destroyableBlock1 = Initialization
-					.getSpriteFromMap(stage.toString() + "_" + TYPE.DESTROYABLE_BLOCK.toString());
-		}
-		if (destroyableBlock2 == null) {
-			destroyableBlock2 = Initialization.getSpriteFromMap(stage.toString() + "_" + TYPE.DESTROY_BLOCK.toString());
-		}
+		destroyableBlock1 = Initialization.getSpriteFromMap(stage
+				.toString() + "_" + TYPE.DESTROYABLE_BLOCK.toString());
+		destroyableBlock2 = Initialization.getSpriteFromMap(stage
+				.toString() + "_" + TYPE.DESTROY_BLOCK.toString());
 	}
 
 	private static void loadPlayer() {
 		if (player == null) {
-			player = Initialization.getSpritesFromTableSprites(Initialization.SPRITES.WHITE_BOMBER.toString(),
+			player = Initialization.getSpritesFromTableSprites(
+					Initialization.SPRITES.WHITE_BOMBER.toString(),
 					Initialization.BOMBERMAN_SPRS);
 		}
 	}
 
 	private static void loadEnemy(STAGE stage) {
-		if (enemy == null) {
-			enemy = Initialization.getSpritesFromTableSprites(
-					Initialization.SPRITES.ENEMY.toString() + "_" + stage.toString(), Initialization.ENEMIES_SPRS);
-		}
+		enemy = Initialization.getSpritesFromTableSprites(
+				Initialization.SPRITES.ENEMY.toString() + "_"
+						+ stage.toString(), Initialization.ENEMIES_SPRS);
 	}
 
 	private static void loadBomb() {
 		if (bomb == null) {
-			bomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.BOMB.toString());
+			bomb = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.BOMB
+							.toString());
 		}
 	}
 
 	private static void loadStairs() {
 		if (stairs == null) {
-			stairs = Initialization.getSpriteFromSprites(Initialization.SPRITES.STAIRS.toString());
+			stairs = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.STAIRS
+							.toString());
 		}
 	}
 
 	private static void loadExplosions() {
 		if (coreExplosion == null) {
-			coreExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_CORE.toString());
+			coreExplosion = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_CORE
+							.toString());
 		}
 		if (edgeDownExplosion == null) {
 			edgeDownExplosion = Initialization
-					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_DOWN.toString());
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_DOWN
+							.toString());
 		}
 		if (edgeLeftExplosion == null) {
 			edgeLeftExplosion = Initialization
-					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_LEFT.toString());
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_LEFT
+							.toString());
 		}
 		if (edgeRightExplosion == null) {
 			edgeRightExplosion = Initialization
-					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_RIGHT.toString());
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_RIGHT
+							.toString());
 		}
 		if (edgeUpExplosion == null) {
-			edgeUpExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_UP.toString());
+			edgeUpExplosion = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_EDGE_UP
+							.toString());
 		}
 		if (midHorExplosion == null) {
-			midHorExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_MID_HOR.toString());
+			midHorExplosion = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_MID_HOR
+							.toString());
 		}
 		if (midVerExplosion == null) {
-			midVerExplosion = Initialization.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_MID_VER.toString());
+			midVerExplosion = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.EXPLOSION_MID_VER
+							.toString());
 		}
 	}
 
 	private static void loadItems() {
 		if (itemBomb == null) {
-			itemBomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.ITEM_BOMB.toString());
+			itemBomb = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_BOMB
+							.toString());
 		}
 		if (itemPower == null) {
-			itemPower = Initialization.getSpriteFromSprites(Initialization.SPRITES.ITEM_POWER.toString());
+			itemPower = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_POWER
+							.toString());
 		}
 		if (itemSpeed == null) {
-			itemSpeed = Initialization.getSpriteFromSprites(Initialization.SPRITES.ITEM_SPEED.toString());
+			itemSpeed = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_SPEED
+							.toString());
 		}
 		if (pickupSpeed == null) {
-			pickupSpeed = Initialization.getSpriteFromSprites(Initialization.SPRITES.SPEED_PICKUP.toString());
+			pickupSpeed = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.SPEED_PICKUP
+							.toString());
 		}
 		if (pickupPower == null) {
-			pickupPower = Initialization.getSpriteFromSprites(Initialization.SPRITES.POWER_PICKUP.toString());
+			pickupPower = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.POWER_PICKUP
+							.toString());
 		}
 		if (pickupBomb == null) {
-			pickupBomb = Initialization.getSpriteFromSprites(Initialization.SPRITES.BOMB_PICKUP.toString());
+			pickupBomb = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.BOMB_PICKUP
+							.toString());
 		}
 		if (destroyItem == null) {
-			destroyItem = Initialization.getSpriteFromSprites(Initialization.SPRITES.ITEM_DESTROY.toString());
+			destroyItem = Initialization
+					.getSpriteFromSprites(Initialization.SPRITES.ITEM_DESTROY
+							.toString());
 		}
 	}
 }

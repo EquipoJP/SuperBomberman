@@ -3,15 +3,15 @@
  */
 package graphics.rooms.game;
 
+import graphics.effects.Visual;
+import graphics.rooms.Room;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import graphics.effects.Visual;
-import graphics.rooms.Room;
 import kuusisto.tinysound.Music;
 import logic.Global;
 import logic.Input.KEY;
@@ -21,9 +21,11 @@ import logic.StatesMachine;
 import logic.characters.DestroyableBlock;
 import logic.characters.Enemy;
 import logic.characters.Player;
+import logic.characters.Stairs;
 import logic.collisions.Point2D;
 import logic.misc.Level;
 import logic.misc.Map;
+import logic.misc.objectives.GetToTheStairsObjective;
 import logic.misc.objectives.Objective;
 import main.Initialization;
 import main.Initialization.STAGE;
@@ -55,9 +57,8 @@ public class Game extends Room {
 	private Timer timer;
 	private TimerTask task;
 
-	private final long SECONDS_PHASE = 120; // TODO
+	private final long SECONDS_PHASE = 180; // TODO
 
-	private String file;
 	private STAGE stage;
 	private Objective objective;
 
@@ -80,16 +81,15 @@ public class Game extends Room {
 
 	@Override
 	public void load() {
-		this.file = Global.levels.actualLevel().getFile();
-		//this.stage = Global.levels.actualLevel().getStage();
-		long seed = System.currentTimeMillis();
-		Random g = new Random(seed);
-		if(g.nextDouble() >= 0.5){
-			this.stage = Initialization.STAGE.GREENVILLAGE;
-		} else{
-			this.stage = Initialization.STAGE.PEACETOWN;
-		}
-		System.out.println(this.stage);
+		this.stage = Global.levels.actualLevel().getStage();
+//		long seed = System.currentTimeMillis();
+//		Random g = new Random(seed);
+//		if(g.nextDouble() >= 0.5){
+//			this.stage = Initialization.STAGE.GREENVILLAGE;
+//		} else{
+//			this.stage = Initialization.STAGE.PEACETOWN;
+//		}
+//		System.out.println(this.stage);
 		this.objective = Global.levels.actualLevel().getObjective();
 
 		GameRepository.load(stage);
@@ -101,7 +101,6 @@ public class Game extends Room {
 		secondsVictory = -1;
 
 		tiles = GameRepository.tiles;
-//		List<Objeto> objetos = Map.getMap(file, this, stage);
 		List<Objeto> objetos = Map.generateMap(this, stage);
 
 		for (Objeto obj : objetos) {
@@ -220,12 +219,31 @@ public class Game extends Room {
 			} else if (checkTime()) {
 				callForDestruction();
 			} else if (objective.test(this)) {
+				if(! noStairs()){
+					Objeto stairs = null;
+					for(Objeto obj : objetos){
+						if(obj instanceof Stairs){
+							stairs = obj;
+						}
+					}
+					if(stairs != null){
+						stairs.destroy();
+					}
+				}
 				callForVictory();
 			} else if(objective.gameOver(this)){
 				callForDestruction();
-			} else {
-				setTimer();
+			} else if(objective instanceof GetToTheStairsObjective && noStairs()){
+				GetToTheStairsObjective gttso = (GetToTheStairsObjective) objective;
+				if(gttso.noMoreEnemies(this)){
+					Point2D position = Map.randomPosition(this);
+					
+					Stairs stairs = new Stairs(position.getX(), position.getY(), 0, this);
+					addObjeto(stairs);
+				}
 			}
+			setTimer();
+			
 			break;
 		case DESTRUCTION:
 			super.step(key, direction);
@@ -327,6 +345,15 @@ public class Game extends Room {
 			victoryVisual.depth = Global.EFFECTS_DEPTH;
 			addObjeto(victoryVisual);
 		}
+	}
+	
+	private boolean noStairs(){
+		for(Objeto obj : objetos){
+			if(obj instanceof Stairs){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private void terminate() {

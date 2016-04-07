@@ -1,7 +1,8 @@
 package logic.misc;
 
+import logic.misc.objectives.GetToTheStairsObjective;
 import logic.misc.objectives.KillEnemiesObjective;
-import main.Initialization;
+import main.Initialization.STAGE;
 
 public class LevelManager {
 	
@@ -13,9 +14,20 @@ public class LevelManager {
 		level = 0;
 		files = new LevelFile[NO_LEVELS];
 		
-		for(int i = 0; i < files.length; i++){
-			files[i] = new LevelFile("maps/level1.txt", Initialization.STAGE.GREENVILLAGE, new KillEnemiesObjective());
-		}
+		files[0] = new LevelFile(STAGE.GREENVILLAGE, new KillEnemiesObjective());
+		files[1] = new LevelFile(STAGE.GREENVILLAGE, new KillEnemiesObjective());
+		files[2] = new LevelFile(STAGE.GREENVILLAGE, new KillEnemiesObjective());
+		files[3] = new LevelFile(STAGE.GREENVILLAGE, new KillEnemiesObjective());
+		
+		files[4] = new LevelFile(STAGE.GREENVILLAGE, new GetToTheStairsObjective());
+		
+		files[5] = new LevelFile(STAGE.PEACETOWN, new KillEnemiesObjective());
+		files[6] = new LevelFile(STAGE.PEACETOWN, new KillEnemiesObjective());
+		files[7] = new LevelFile(STAGE.PEACETOWN, new KillEnemiesObjective());
+		files[8] = new LevelFile(STAGE.PEACETOWN, new KillEnemiesObjective());
+		
+		files[9] = new LevelFile(STAGE.PEACETOWN, new GetToTheStairsObjective());
+		
 	}
 	
 	public void nextLevel(){

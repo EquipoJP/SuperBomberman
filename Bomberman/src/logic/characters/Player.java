@@ -255,6 +255,7 @@ public class Player extends Objeto {
 			return false;
 		} else if (returned == 1) {
 			Objeto o = newList.get(0);
+			
 			Rectangle r = BoundingBox.collisionRectangle(this.boundingBox, o.boundingBox);
 			if (modX != 0) {
 				// Nos estamos moviendo a izquierda o derecha
@@ -301,8 +302,8 @@ public class Player extends Objeto {
 	 */
 	public int checkPlayerCollisions(List<Objeto> toCheck, List<Objeto> finalCollision) {
 		if (toCheck != null) {
-			List<Objeto> lolazo = new ArrayList<Objeto>();
-			lolazo.addAll(toCheck);
+			List<Objeto> objsToCheck = new ArrayList<Objeto>();
+			objsToCheck.addAll(toCheck);
 			for (int i = 0; i < ownBombs.size(); i++) {
 				// Booleano para comprobar si seguimos colisionando con una
 				// bomba
@@ -328,7 +329,10 @@ public class Player extends Objeto {
 					j--;
 				}
 			}
-
+			
+			if(finalCollision == null){
+				finalCollision = new ArrayList<Objeto>();
+			}
 			finalCollision.addAll(toCheck);
 
 			return toCheck.size();

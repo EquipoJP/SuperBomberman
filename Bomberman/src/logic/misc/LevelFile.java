@@ -5,18 +5,12 @@ import main.Initialization.STAGE;
 
 public class LevelFile {
 	
-	private String file;
 	private STAGE stage;
 	private Objective objective;
 	
-	public LevelFile(String fileName, STAGE stg, Objective obj){
-		file = fileName;
+	public LevelFile(STAGE stg, Objective obj){
 		stage = stg;
 		objective = obj;
-	}
-
-	public String getFile() {
-		return file;
 	}
 
 	public STAGE getStage() {

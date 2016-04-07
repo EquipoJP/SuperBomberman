@@ -1,5 +1,7 @@
 package logic.misc;
 
+import graphics.rooms.Room;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -9,13 +11,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import graphics.rooms.Room;
-import logic.characters.Item.TYPE;
 import logic.Objeto;
 import logic.characters.Block;
 import logic.characters.DestroyableBlock;
 import logic.characters.Enemy;
+import logic.characters.Item.TYPE;
 import logic.characters.Player;
+import logic.collisions.BoundingBox;
+import logic.collisions.Point2D;
 import main.Initialization;
 import main.Initialization.STAGE;
 
@@ -387,5 +390,44 @@ public class Map {
 			returned = 1;
 		}
 		return returned;
+	}
+
+	public static Point2D randomPosition(Room room) {
+		Point2D position = null;
+		
+		int widthMap = Initialization.MAP_WIDTH;
+		int heightMap = Initialization.MAP_HEIGHT;
+		
+		BoundingBox bb = new BoundingBox(new Point2D(-Initialization.TILE_WIDTH/2, -Initialization.TILE_HEIGHT/2), 
+				new Point2D(Initialization.TILE_WIDTH/2, Initialization.TILE_HEIGHT/2));
+		
+		Random random = new Random(System.nanoTime());
+		
+		while(position == null){
+			boolean free = true;
+			
+			int col = random.nextInt(widthMap);
+			int row = random.nextInt(heightMap);
+			
+			int x = getX(col);
+			int y = getY(row);
+			
+			bb.update(x, y);
+			for(Objeto obj : room.objetos){
+				if(BoundingBox.collision(bb, obj.boundingBox)){
+					free = false;
+					break;
+				}
+			}
+			
+			if(free){
+				position = new Point2D(x, y);
+			}
+			else{
+				bb.update(-x, -y);
+			}
+		}
+		
+		return position;
 	}
 }

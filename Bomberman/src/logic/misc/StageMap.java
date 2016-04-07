@@ -1,7 +1,6 @@
 package logic.misc;
 
 import logic.Objeto;
-import logic.characters.Player;
 
 public class StageMap {
 
