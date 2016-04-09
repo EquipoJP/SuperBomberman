@@ -157,7 +157,7 @@ public class Game extends Canvas implements Runnable {
 		
 		Image image = null;
 		try {
-			InputStream is = Initialization.class.getClassLoader()
+			InputStream is = Game.class.getClassLoader()
 					.getResourceAsStream("icon.png");
 			image = ImageIO.read(is);
 		} catch (IOException e) {
