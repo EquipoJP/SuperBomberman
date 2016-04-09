@@ -1,3 +1,6 @@
+/**
+ * Class to generate maps for the levels of the game
+ */
 package logic.misc;
 
 import graphics.rooms.Room;
@@ -21,6 +24,10 @@ import main.Initialization;
 import main.Initialization.STAGE;
 import utils.FileUtils;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Map {
 
 	public static final char BLOCK = '0';
@@ -34,13 +41,26 @@ public class Map {
 
 	private static final int fixpos = 5;
 
-	public static List<Objeto> getMap(String file, Room room, Initialization.STAGE stage) {
+	/**
+	 * Creates a map from a file
+	 * 
+	 * @param file
+	 *            file to read the map from
+	 * @param room
+	 *            room in which create the map
+	 * @param stage
+	 *            theme of the map
+	 * @return list of objects result of creating the map
+	 */
+	public static List<Objeto> getMap(String file, Room room,
+			Initialization.STAGE stage) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
 		int width = 0;
 		int height = 0;
 
-		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
+		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(
+				file));
 
 		Random g = new Random();
 		int row = 0;
@@ -60,7 +80,8 @@ public class Map {
 				char c = str.charAt(col);
 				switch (c) {
 				case DESTROYABLE_BLOCK:
-					objetos.add(createDestroyable(row, col, room, stage, g.nextInt(4)));
+					objetos.add(createDestroyable(row, col, room, stage,
+							g.nextInt(4)));
 					break;
 				case BLOCK:
 					objetos.add(createBlock(row, col, room));
@@ -93,12 +114,22 @@ public class Map {
 
 		s.close();
 
-		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
-				width * Initialization.TILE_WIDTH, height * Initialization.TILE_HEIGHT));
+		objetos.add(new Level(Initialization.MAP_X_OFFSET,
+				Initialization.MAP_Y_OFFSET, width * Initialization.TILE_WIDTH,
+				height * Initialization.TILE_HEIGHT));
 
 		return objetos;
 	}
 
+	/**
+	 * Generates a random map from various templates
+	 * 
+	 * @param room
+	 *            room to create the map in
+	 * @param stage
+	 *            theme of the map
+	 * @return list of object result of creating the map
+	 */
 	public static List<Objeto> generateMap(Room room, Initialization.STAGE stage) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
@@ -114,7 +145,8 @@ public class Map {
 		int playery = 0;
 
 		// Find bomberman
-		Scanner b = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
+		Scanner b = new Scanner(Map.class.getClassLoader().getResourceAsStream(
+				file));
 
 		int row = 0;
 		int blockCount = 0;
@@ -144,7 +176,8 @@ public class Map {
 
 		b.close();
 
-		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
+		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(
+				file));
 
 		List<Character> list = generateListOfObjects();
 
@@ -183,9 +216,12 @@ public class Map {
 						Objeto obj = createEnemy(row, col, room, stage);
 						objetos.add(obj);
 					} else if (list.size() == (total - count)
-							|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row) && put != 0)) {
+							|| (result >= prob
+									&& validDistanceToPlayer(playerx, playery,
+											col, row) && put != 0)) {
 						prob = decreaseProb(prob);
-						Objeto obj = generateRandomObject(row, col, room, stage, list);
+						Objeto obj = generateRandomObject(row, col, room,
+								stage, list);
 						if (obj != null) {
 							objetos.add(obj);
 							put--;
@@ -232,13 +268,31 @@ public class Map {
 
 		s.close();
 
-		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
-				widthMap * Initialization.TILE_WIDTH, heightMap * Initialization.TILE_HEIGHT));
+		objetos.add(new Level(Initialization.MAP_X_OFFSET,
+				Initialization.MAP_Y_OFFSET, widthMap
+						* Initialization.TILE_WIDTH, heightMap
+						* Initialization.TILE_HEIGHT));
 
 		return objetos;
 	}
 
-	private static Objeto createDestroyable(int row, int col, Room room, STAGE stage, int kind) {
+	/**
+	 * Create destroyable block
+	 * 
+	 * @param row
+	 *            row in which create the destroyable block
+	 * @param col
+	 *            column in which create the destroyable block
+	 * @param room
+	 *            room in which create the destroyable block
+	 * @param stage
+	 *            them of the destroyable block
+	 * @param kind
+	 *            kind of powerup it will drop when destroyed
+	 * @return
+	 */
+	private static Objeto createDestroyable(int row, int col, Room room,
+			STAGE stage, int kind) {
 		int x = getX(col);
 		int y = getY(row);
 
@@ -267,6 +321,17 @@ public class Map {
 		return new DestroyableBlock(x, y, 0, room, stage, tipo);
 	}
 
+	/**
+	 * Creates a block
+	 * 
+	 * @param row
+	 *            row in which create the block
+	 * @param col
+	 *            column in which create the block
+	 * @param room
+	 *            room in which create the block
+	 * @return a block
+	 */
 	private static Objeto createBlock(int row, int col, Room room) {
 		int x = getX(col);
 		int y = getY(row);
@@ -274,6 +339,19 @@ public class Map {
 		return new Block(x, y, 0, room);
 	}
 
+	/**
+	 * Creates an enemy
+	 * 
+	 * @param row
+	 *            row in which create the enemy
+	 * @param col
+	 *            column in which create the enemy
+	 * @param room
+	 *            room in which create the enemy
+	 * @param stage
+	 *            theme of the enemy
+	 * @return an enemy
+	 */
 	private static Objeto createEnemy(int row, int col, Room room, STAGE stage) {
 		int x = getX(col);
 		int y = getY(row) - fixpos;
@@ -281,6 +359,17 @@ public class Map {
 		return new Enemy(x, y, 0, room, stage);
 	}
 
+	/**
+	 * Creates the player
+	 * 
+	 * @param row
+	 *            row in which create the player
+	 * @param col
+	 *            column in which create the player
+	 * @param room
+	 *            room in which create the player
+	 * @return the player
+	 */
 	private static Objeto createBomberman(int row, int col, Room room) {
 		int x = getX(col);
 		int y = getY(row) - fixpos;
@@ -288,22 +377,50 @@ public class Map {
 		return new Player(x, y, 0, room, 0);
 	}
 
+	/**
+	 * @param col
+	 *            column
+	 * @return x coordinate
+	 */
 	public static int getX(int col) {
 		return Initialization.MAP_X_OFFSET + col * Initialization.TILE_WIDTH;
 	}
 
+	/**
+	 * @param row
+	 *            row
+	 * @return y coordinate
+	 */
 	public static int getY(int row) {
 		return Initialization.MAP_Y_OFFSET + row * Initialization.TILE_HEIGHT;
 	}
 
+	/**
+	 * @param y
+	 *            y coordinate
+	 * @return row
+	 */
 	public static int getRow(int y) {
-		return (y - Initialization.MAP_Y_OFFSET + Initialization.TILE_HEIGHT / 2) / Initialization.TILE_HEIGHT;
+		return (y - Initialization.MAP_Y_OFFSET + Initialization.TILE_HEIGHT / 2)
+				/ Initialization.TILE_HEIGHT;
 	}
 
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @return column
+	 */
 	public static int getCol(int x) {
-		return (x - Initialization.MAP_X_OFFSET + Initialization.TILE_WIDTH / 2) / Initialization.TILE_WIDTH;
+		return (x - Initialization.MAP_X_OFFSET + Initialization.TILE_WIDTH / 2)
+				/ Initialization.TILE_WIDTH;
 	}
 
+	/**
+	 * Generates a list of types of destroyable blocks to use when generating
+	 * random maps
+	 * 
+	 * @return a list of types of destroyable blocks
+	 */
 	private static List<Character> generateListOfObjects() {
 		List<Character> c = new ArrayList<Character>();
 		for (int i = 0; i < 25; i++) {
@@ -326,7 +443,23 @@ public class Map {
 		return c;
 	}
 
-	private static Objeto generateRandomObject(int row, int col, Room room, STAGE stage, List<Character> list) {
+	/**
+	 * Generates a random object
+	 * 
+	 * @param row
+	 *            row
+	 * @param col
+	 *            column
+	 * @param room
+	 *            room
+	 * @param stage
+	 *            theme
+	 * @param list
+	 *            list of types of destroyable blocks
+	 * @return a random object
+	 */
+	private static Objeto generateRandomObject(int row, int col, Room room,
+			STAGE stage, List<Character> list) {
 		if (list.size() == 0) {
 			return null;
 		} else {
@@ -356,14 +489,36 @@ public class Map {
 		}
 	}
 
-	private static boolean validDistanceToPlayer(int playerx, int playery, int col, int row) {
+	/**
+	 * Check if the distance to the player is valid
+	 * 
+	 * @param playerx
+	 *            column of the player
+	 * @param playery
+	 *            row of the player
+	 * @param col
+	 *            column
+	 * @param row
+	 *            row
+	 * @return
+	 */
+	private static boolean validDistanceToPlayer(int playerx, int playery,
+			int col, int row) {
 		boolean valid = true;
-		if (col >= playerx - 3 && col <= playerx + 3 && row >= playery - 3 && row <= playery + 3) {
+		if (col >= playerx - 3 && col <= playerx + 3 && row >= playery - 3
+				&& row <= playery + 3) {
 			valid = false;
 		}
 		return valid;
 	}
 
+	/**
+	 * Increases probability
+	 * 
+	 * @param input
+	 *            input probability
+	 * @return increased probability
+	 */
 	private static double increaseProb(double input) {
 		double returned = input - 2;
 		if (input <= 0) {
@@ -372,6 +527,13 @@ public class Map {
 		return returned;
 	}
 
+	/**
+	 * Decreases probability
+	 * 
+	 * @param input
+	 *            input probability
+	 * @return decreased probability
+	 */
 	private static double decreaseProb(double input) {
 		double returned = input + 2;
 		if (input >= 1) {
@@ -380,42 +542,51 @@ public class Map {
 		return returned;
 	}
 
+	/**
+	 * Generates a random position on the map
+	 * 
+	 * @param room
+	 *            room in which generate a random position
+	 * @return a random position, unoccupied
+	 */
 	public static Point2D randomPosition(Room room) {
 		Point2D position = null;
-		
+
 		int widthMap = Initialization.MAP_WIDTH;
 		int heightMap = Initialization.MAP_HEIGHT;
-		
-		BoundingBox bb = new BoundingBox(new Point2D(-Initialization.TILE_WIDTH/2, -Initialization.TILE_HEIGHT/2), 
-				new Point2D(Initialization.TILE_WIDTH/2, Initialization.TILE_HEIGHT/2));
-		
+
+		BoundingBox bb = new BoundingBox(
+				new Point2D(-Initialization.TILE_WIDTH / 2,
+						-Initialization.TILE_HEIGHT / 2), new Point2D(
+						Initialization.TILE_WIDTH / 2,
+						Initialization.TILE_HEIGHT / 2));
+
 		Random random = new Random(System.nanoTime());
-		
-		while(position == null){
+
+		while (position == null) {
 			boolean free = true;
-			
+
 			int col = random.nextInt(widthMap);
 			int row = random.nextInt(heightMap);
-			
+
 			int x = getX(col);
 			int y = getY(row);
-			
+
 			bb.update(x, y);
-			for(Objeto obj : room.objetos){
-				if(BoundingBox.collision(bb, obj.boundingBox)){
+			for (Objeto obj : room.objetos) {
+				if (BoundingBox.collision(bb, obj.boundingBox)) {
 					free = false;
 					break;
 				}
 			}
-			
-			if(free){
+
+			if (free) {
 				position = new Point2D(x, y);
-			}
-			else{
+			} else {
 				bb.update(-x, -y);
 			}
 		}
-		
+
 		return position;
 	}
 }

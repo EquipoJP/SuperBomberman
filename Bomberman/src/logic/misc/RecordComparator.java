@@ -1,3 +1,6 @@
+/**
+ * Class defining the logic behind the comparison of two records
+ */
 package logic.misc;
 
 import java.util.Comparator;
@@ -12,7 +15,7 @@ public class RecordComparator implements Comparator<Record> {
 		if (arg0.getScore() < arg1.getScore()) {
 			return 1;
 		}
-		
+
 		return 0;
 	}
 }
