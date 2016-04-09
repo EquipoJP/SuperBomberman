@@ -1,3 +1,6 @@
+/**
+ * Class to load the music onto the system
+ */
 package sound;
 
 import kuusisto.tinysound.Music;
@@ -5,8 +8,12 @@ import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 import utils.FileUtils;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class MusicRepository {
-	
+
 	public static Music battle = null;
 	public static Music credits = null;
 	public static Music gameOver = null;
@@ -15,13 +22,16 @@ public class MusicRepository {
 	public static Music defeat = null;
 	public static Music intro = null;
 	public static Music victory = null;
-	
+
 	public static Sound explosion = null;
 	public static Sound putBomb = null;
 	public static Sound select = null;
 	public static Sound powerup = null;
-	
-	public static void load(){
+
+	/**
+	 * Load the music onto the system
+	 */
+	public static void load() {
 		loadBattleMusic();
 		loadCreditsMusic();
 		loadGameOverMusic();
@@ -30,132 +40,198 @@ public class MusicRepository {
 		loadDefeatMusic();
 		loadIntroMusic();
 		loadVictoryMusic();
-		
+
 		loadSFX();
 	}
-	
-	public static void unload(){
+
+	/**
+	 * Unload the music from the system
+	 */
+	public static void unload() {
 		unloadBattleMusic();
 		unloadCreditsMusic();
 		unloadGameOverMusic();
 		unloadMenuMusic();
 		unloadPauseMusic();
-		
-		unloadDefeatSound();
-		unloadIntroSound();
-		unloadVictorySound();
+
+		unloadDefeatMusic();
+		unloadIntroMusic();
+		unloadVictoryMusic();
 	}
 
+	/**
+	 * Load the battle music
+	 */
 	private static void loadBattleMusic() {
-		if(battle == null){
-			battle = TinySound.loadMusic(FileUtils.getFile(SoundTrack.BATTLE_MUSIC));
+		if (battle == null) {
+			battle = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.BATTLE_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the credits music
+	 */
 	private static void loadCreditsMusic() {
-		if(credits == null){
-			credits = TinySound.loadMusic(FileUtils.getFile(SoundTrack.CREDITS_MUSIC));
+		if (credits == null) {
+			credits = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.CREDITS_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the game over music
+	 */
 	private static void loadGameOverMusic() {
-		if(gameOver == null){
-			gameOver = TinySound.loadMusic(FileUtils.getFile(SoundTrack.GAMEOVER_MUSIC));
+		if (gameOver == null) {
+			gameOver = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.GAMEOVER_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the menu music
+	 */
 	private static void loadMenuMusic() {
-		if(menu == null){
-			menu = TinySound.loadMusic(FileUtils.getFile(SoundTrack.MENU_MUSIC));
+		if (menu == null) {
+			menu = TinySound
+					.loadMusic(FileUtils.getFile(SoundTrack.MENU_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the pause menu music
+	 */
 	private static void loadPauseMusic() {
-		if(pause == null){
-			pause = TinySound.loadMusic(FileUtils.getFile(SoundTrack.PAUSE_MUSIC));
+		if (pause == null) {
+			pause = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.PAUSE_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the defeat music
+	 */
 	private static void loadDefeatMusic() {
-		if(defeat == null){
-			defeat = TinySound.loadMusic(FileUtils.getFile(SoundTrack.DEFEAT_MUSIC));
+		if (defeat == null) {
+			defeat = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.DEFEAT_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the intro-to-stage music
+	 */
 	private static void loadIntroMusic() {
-		if(intro == null){
-			intro = TinySound.loadMusic(FileUtils.getFile(SoundTrack.INTRO_MUSIC));
+		if (intro == null) {
+			intro = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.INTRO_MUSIC));
 		}
 	}
-	
+
+	/**
+	 * Load the victory music
+	 */
 	private static void loadVictoryMusic() {
-		if(victory == null){
-			victory = TinySound.loadMusic(FileUtils.getFile(SoundTrack.VICTORY_MUSIC));
+		if (victory == null) {
+			victory = TinySound.loadMusic(FileUtils
+					.getFile(SoundTrack.VICTORY_MUSIC));
 		}
 	}
-	
-	private static void loadSFX(){
-		if(explosion == null){
-			explosion = TinySound.loadSound(FileUtils.getFile(SoundTrack.EXPLOSION_SND));
+
+	/**
+	 * Load the sound effects
+	 */
+	private static void loadSFX() {
+		if (explosion == null) {
+			explosion = TinySound.loadSound(FileUtils
+					.getFile(SoundTrack.EXPLOSION_SND));
 		}
-		
-		if(putBomb == null){
-			putBomb = TinySound.loadSound(FileUtils.getFile(SoundTrack.PUTBOMB_SND));
+
+		if (putBomb == null) {
+			putBomb = TinySound.loadSound(FileUtils
+					.getFile(SoundTrack.PUTBOMB_SND));
 		}
-		
-		if(select == null){
-			select = TinySound.loadSound(FileUtils.getFile(SoundTrack.SELECT_SND));
+
+		if (select == null) {
+			select = TinySound.loadSound(FileUtils
+					.getFile(SoundTrack.SELECT_SND));
 		}
-		
-		if(powerup == null){
-			powerup = TinySound.loadSound(FileUtils.getFile(SoundTrack.POWERUP_SND));
+
+		if (powerup == null) {
+			powerup = TinySound.loadSound(FileUtils
+					.getFile(SoundTrack.POWERUP_SND));
 		}
 	}
-	
+
+	/**
+	 * Unload the battle music
+	 */
 	private static void unloadBattleMusic() {
-		if(battle == null){
+		if (battle == null) {
 			battle.unload();
 		}
 	}
-	
+
+	/**
+	 * Unload the credits music
+	 */
 	private static void unloadCreditsMusic() {
-		if(credits == null){
+		if (credits == null) {
 			credits.unload();
 		}
 	}
-	
+
+	/**
+	 * Unload the game over music
+	 */
 	private static void unloadGameOverMusic() {
-		if(gameOver == null){
+		if (gameOver == null) {
 			gameOver.unload();
 		}
 	}
-	
+
+	/**
+	 * Unload the menu music
+	 */
 	private static void unloadMenuMusic() {
-		if(menu == null){
+		if (menu == null) {
 			menu.unload();
 		}
 	}
-	
+
+	/**
+	 * Unload the pause music
+	 */
 	private static void unloadPauseMusic() {
-		if(pause == null){
+		if (pause == null) {
 			pause.unload();
 		}
 	}
-	
-	private static void unloadDefeatSound() {
-		if(defeat == null){
+
+	/**
+	 * Unload the defeat music
+	 */
+	private static void unloadDefeatMusic() {
+		if (defeat == null) {
 			defeat.unload();
 		}
 	}
-	
-	private static void unloadIntroSound() {
-		if(intro == null){
+
+	/**
+	 * Unload the intro-to-stage music
+	 */
+	private static void unloadIntroMusic() {
+		if (intro == null) {
 			intro.unload();
 		}
 	}
-	
-	private static void unloadVictorySound() {
-		if(victory == null){
+
+	/**
+	 * Unload the victory music
+	 */
+	private static void unloadVictoryMusic() {
+		if (victory == null) {
 			victory.unload();
 		}
 	}

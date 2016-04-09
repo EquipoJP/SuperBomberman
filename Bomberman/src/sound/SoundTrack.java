@@ -1,5 +1,12 @@
+/**
+ * Class to store music constants
+ */
 package sound;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class SoundTrack {
 	
 	private static final String AUDIO = "audio/";
