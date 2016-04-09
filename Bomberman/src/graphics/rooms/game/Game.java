@@ -1,5 +1,5 @@
 /**
- * Class representing the generic game screen
+ * Class representing the game screen
  */
 package graphics.rooms.game;
 
@@ -71,6 +71,14 @@ public class Game extends Room {
 	private boolean startedLevel = false;
 	private boolean defeatedMusic = false;
 
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 */
 	public Game(int w, int h, String n) {
 		super(w, h, n);
 
@@ -121,10 +129,14 @@ public class Game extends Room {
 		drawHUD(g);
 
 		if (level != null) {
-			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles.getWidth()) {
-				for (int y = level.mapInitY; y < level.mapInitY + level.mapHeight; y += tiles.getHeight()) {
+			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles
+					.getWidth()) {
+				for (int y = level.mapInitY; y < level.mapInitY
+						+ level.mapHeight; y += tiles.getHeight()) {
 					if (tiles != null) {
-						g.drawImage(tiles.getSubsprites()[0], x - tiles.getCenterX(), y - tiles.getCenterY(), null);
+						g.drawImage(tiles.getSubsprites()[0],
+								x - tiles.getCenterX(), y - tiles.getCenterY(),
+								null);
 					}
 				}
 			}
@@ -148,14 +160,16 @@ public class Game extends Room {
 			g.fillRect(0, 0, width, height);
 			g.setColor(Color.black);
 
-			Point2D initial_position = new Point2D(width / 2 - Initialization.ALPHANUM_WIDTH / 2,
-					height / 2 + Initialization.ALPHANUM_HEIGHT);
+			Point2D initial_position = new Point2D(width / 2
+					- Initialization.ALPHANUM_WIDTH / 2, height / 2
+					+ Initialization.ALPHANUM_HEIGHT);
 			String stage = "Stage";
-			Point2D initial_position_text = new Point2D(
-					width / 2 - (Initialization.ALPHANUM_WIDTH * stage.length()) / 2,
+			Point2D initial_position_text = new Point2D(width / 2
+					- (Initialization.ALPHANUM_WIDTH * stage.length()) / 2,
 					height / 2 - Initialization.ALPHANUM_HEIGHT);
 			int lvl = Global.levels.level() + 1;
-			PaintService.paintTextColor(stage, initial_position_text, g, PaintService.DIGITS_ORANGE.getRGB());
+			PaintService.paintTextColor(stage, initial_position_text, g,
+					PaintService.DIGITS_ORANGE.getRGB());
 			PaintService.paintDigits("" + lvl, initial_position, g);
 			break;
 		default:
@@ -164,6 +178,12 @@ public class Game extends Room {
 		}
 	}
 
+	/**
+	 * Draws the HUD, including the timer
+	 * 
+	 * @param g
+	 *            graphics to paint into
+	 */
 	private void drawHUD(Graphics g) {
 		g.drawImage(hud.getSubsprites()[0], 0, 0, null);
 
@@ -171,7 +191,8 @@ public class Game extends Room {
 		int y = ((124 - 32 / 2) / 2) - (32 / 2);
 		Point2D init_pos = new Point2D(x, y);
 
-		PaintService.paintDigits(ConvertTimeService.timeToString(seconds), init_pos, g);
+		PaintService.paintDigits(ConvertTimeService.timeToString(seconds),
+				init_pos, g);
 	}
 
 	@Override
@@ -210,31 +231,33 @@ public class Game extends Room {
 			} else if (checkTime()) {
 				callForDestruction();
 			} else if (objective.test(this)) {
-				if(! noStairs()){
+				if (!noStairs()) {
 					Objeto stairs = null;
-					for(Objeto obj : objetos){
-						if(obj instanceof Stairs){
+					for (Objeto obj : objetos) {
+						if (obj instanceof Stairs) {
 							stairs = obj;
 						}
 					}
-					if(stairs != null){
+					if (stairs != null) {
 						stairs.destroy();
 					}
 				}
 				callForVictory();
-			} else if(objective.gameOver(this)){
+			} else if (objective.gameOver(this)) {
 				callForDestruction();
-			} else if(objective instanceof GetToTheStairsObjective && noStairs()){
+			} else if (objective instanceof GetToTheStairsObjective
+					&& noStairs()) {
 				GetToTheStairsObjective gttso = (GetToTheStairsObjective) objective;
-				if(gttso.noMoreEnemies(this)){
+				if (gttso.noMoreEnemies(this)) {
 					Point2D position = Map.randomPosition(this);
-					
-					Stairs stairs = new Stairs(position.getX(), position.getY(), 0, this);
+
+					Stairs stairs = new Stairs(position.getX(),
+							position.getY(), 0, this);
 					addObjeto(stairs);
 				}
 			}
 			setTimer();
-			
+
 			break;
 		case DESTRUCTION:
 			super.step(key, direction);
@@ -262,9 +285,11 @@ public class Game extends Room {
 			for (Objeto obj : objetos) {
 				if (obj instanceof Player) {
 					Player player = (Player) obj;
-					if (!player.sprite_index.equals(GameRepository.player.get(Initialization.BOMBERMAN_SPRS[5]))){
-						player.sprite_index = GameRepository.player.get(Initialization.BOMBERMAN_SPRS[5]);
-			
+					if (!player.sprite_index.equals(GameRepository.player
+							.get(Initialization.BOMBERMAN_SPRS[5]))) {
+						player.sprite_index = GameRepository.player
+								.get(Initialization.BOMBERMAN_SPRS[5]);
+
 					}
 					player.step(KEY.NO_KEY, KEY.NO_KEY);
 				}
@@ -309,18 +334,23 @@ public class Game extends Room {
 		setTimer();
 	}
 
+	/**
+	 * Calls for destruction
+	 */
 	public void callForDestruction() {
 		state = STATE.DESTRUCTION;
 		cancelTimer();
 		for (Objeto obj : objetos) {
 			if (obj instanceof Player) {
 				Player player = (Player) obj;
-				System.out.println("Time out!");
 				player.callForDestruction();
 			}
 		}
 	}
 
+	/**
+	 * Calls for victory
+	 */
 	public void callForVictory() {
 		state = STATE.VICTORY;
 		if (victoryVisual == null) {
@@ -337,16 +367,24 @@ public class Game extends Room {
 			addObjeto(victoryVisual);
 		}
 	}
-	
-	private boolean noStairs(){
-		for(Objeto obj : objetos){
-			if(obj instanceof Stairs){
+
+	/**
+	 * Check if there is no stairs
+	 * 
+	 * @return true if there is no stairs, false otherwise
+	 */
+	private boolean noStairs() {
+		for (Objeto obj : objetos) {
+			if (obj instanceof Stairs) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	/**
+	 * Terminates the game, updating the score
+	 */
 	private void terminate() {
 		if (state != STATE.DESTRUCTION) {
 			Global.scoreManager.updateScoreSeconds(seconds);
@@ -355,6 +393,9 @@ public class Game extends Room {
 		Global.scoreManager.updateScoreBlocks(blocksDestroyed);
 	}
 
+	/**
+	 * Sets the primary timer
+	 */
 	private void setTimer() {
 		if (!loadComplete()) {
 			return;
@@ -376,10 +417,16 @@ public class Game extends Room {
 		}
 	}
 
+	/**
+	 * @return true if there is no more time left, false otherwise
+	 */
 	private boolean checkTime() {
 		return (seconds <= 0);
 	}
 
+	/**
+	 * Cancels the timer
+	 */
 	private void cancelTimer() {
 		if (timer != null) {
 			timer.cancel();

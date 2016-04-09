@@ -1,3 +1,6 @@
+/**
+ * Class containing the resources for the game
+ */
 package graphics.rooms.game;
 
 import java.util.Map;
@@ -7,6 +10,10 @@ import main.Initialization;
 import main.Initialization.STAGE;
 import main.Initialization.TYPE;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class GameRepository {
 
 	static Sprite hud = null;
@@ -44,6 +51,12 @@ public class GameRepository {
 
 	public static Sprite destroyItem = null;
 
+	/**
+	 * Load resources
+	 * 
+	 * @param stage
+	 *            theme
+	 */
 	public static void load(STAGE stage) {
 		loadHUD();
 		loadVictory();
@@ -66,6 +79,9 @@ public class GameRepository {
 		loadItems();
 	}
 
+	/**
+	 * Load HUD
+	 */
 	private static void loadHUD() {
 		if (hud == null) {
 			hud = Initialization.getSpriteFromMenu(Initialization.MENUS.HUD
@@ -73,6 +89,9 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load victory
+	 */
 	private static void loadVictory() {
 		if (victory == null) {
 			victory = Initialization
@@ -80,11 +99,20 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load tiles
+	 * 
+	 * @param stage
+	 *            theme
+	 */
 	private static void loadTiles(STAGE stage) {
 		tiles = Initialization.getSpriteFromMap(stage.toString() + "_"
 				+ Initialization.TYPE.TILE.toString());
 	}
 
+	/**
+	 * Load background
+	 */
 	private static void loadBackground() {
 		if (background == null) {
 			background = Initialization
@@ -93,18 +121,33 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load block
+	 * 
+	 * @param stage
+	 *            theme
+	 */
 	private static void loadBlock(STAGE stage) {
 		block = Initialization.getSpriteFromMap(stage.toString() + "_"
 				+ TYPE.BLOCK.toString());
 	}
 
+	/**
+	 * Load destroyable blocl
+	 * 
+	 * @param stage
+	 *            theme
+	 */
 	private static void loadDestroyables(STAGE stage) {
-		destroyableBlock1 = Initialization.getSpriteFromMap(stage
-				.toString() + "_" + TYPE.DESTROYABLE_BLOCK.toString());
-		destroyableBlock2 = Initialization.getSpriteFromMap(stage
-				.toString() + "_" + TYPE.DESTROY_BLOCK.toString());
+		destroyableBlock1 = Initialization.getSpriteFromMap(stage.toString()
+				+ "_" + TYPE.DESTROYABLE_BLOCK.toString());
+		destroyableBlock2 = Initialization.getSpriteFromMap(stage.toString()
+				+ "_" + TYPE.DESTROY_BLOCK.toString());
 	}
 
+	/**
+	 * Load player
+	 */
 	private static void loadPlayer() {
 		if (player == null) {
 			player = Initialization.getSpritesFromTableSprites(
@@ -113,12 +156,21 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load enemy
+	 * 
+	 * @param stage
+	 *            theme
+	 */
 	private static void loadEnemy(STAGE stage) {
 		enemy = Initialization.getSpritesFromTableSprites(
 				Initialization.SPRITES.ENEMY.toString() + "_"
 						+ stage.toString(), Initialization.ENEMIES_SPRS);
 	}
 
+	/**
+	 * Load bomb
+	 */
 	private static void loadBomb() {
 		if (bomb == null) {
 			bomb = Initialization
@@ -127,6 +179,9 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load stairs
+	 */
 	private static void loadStairs() {
 		if (stairs == null) {
 			stairs = Initialization
@@ -135,6 +190,9 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load explosions
+	 */
 	private static void loadExplosions() {
 		if (coreExplosion == null) {
 			coreExplosion = Initialization
@@ -173,6 +231,9 @@ public class GameRepository {
 		}
 	}
 
+	/**
+	 * Load items
+	 */
 	private static void loadItems() {
 		if (itemBomb == null) {
 			itemBomb = Initialization
