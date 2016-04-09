@@ -23,6 +23,10 @@ public class Input extends KeyAdapter {
 	private boolean up, down, left, right, space, enter, escape;
 	private KEY lastKey;
 
+	/**
+	 * @param game
+	 *            game to which attach the input
+	 */
 	public Input(Game game) {
 		this.game = game;
 
@@ -92,60 +96,60 @@ public class Input extends KeyAdapter {
 		}
 	}
 
+	/**
+	 * Gets the key pressed (no rebounds, does not take into account
+	 * long-pressed keys)
+	 * 
+	 * @return key
+	 */
 	public synchronized KEY getKey() {
 		return getNoReboundsKey();
 	}
 
+	/**
+	 * Gets the key pressed. No rebounds, does not take into account
+	 * long-pressed keys.
+	 * 
+	 * @return key
+	 */
 	private KEY getNoReboundsKey() {
 		/*
-		 * Key's priority order: 
-		 * 1. Escape 
-		 * 2. Enter 
-		 * 3. Space 
-		 * 4. Right 
-		 * 5. Left 
-		 * 6. Down 
-		 * 7. Up
+		 * Key's priority order: 1. Escape 2. Enter 3. Space 4. Right 5. Left 6.
+		 * Down 7. Up
 		 */
 		KEY key = KEY.NO_KEY;
 		if (escape) {
 			key = KEY.ESCAPE;
-		}
-		else if (enter) {
+		} else if (enter) {
 			key = KEY.ENTER;
-		}
-		else if (space) {
+		} else if (space) {
 			key = KEY.SPACE;
-		}
-		else if (right) {
+		} else if (right) {
 			key = KEY.RIGHT;
-		}
-		else if (left) {
+		} else if (left) {
 			key = KEY.LEFT;
-		}
-		else if (down) {
+		} else if (down) {
 			key = KEY.DOWN;
-		}
-		else if (up) {
+		} else if (up) {
 			key = KEY.UP;
 		}
-		
-		if(key != lastKey){
+
+		if (key != lastKey) {
 			lastKey = key;
 			return key;
-		}
-		else{
+		} else {
 			return KEY.NO_KEY;
 		}
 	}
 
+	/**
+	 * Gets the direction key, taking long-pressed keys into account
+	 * 
+	 * @return key
+	 */
 	public synchronized KEY getDirection() {
 		/*
-		 * Key's priority order: 
-		 * 1. Right 
-		 * 2. Left 
-		 * 3. Down 
-		 * 4. Up
+		 * Key's priority order: 1. Right 2. Left 3. Down 4. Up
 		 */
 		if (right) {
 			return KEY.RIGHT;

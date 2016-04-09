@@ -41,6 +41,8 @@ public class StatesMachine {
 
 	/**
 	 * Creation of the states machine. It starts on the game's intro
+	 * 
+	 * @param in
 	 */
 	public static void initStatesMachine(Input in) {
 		state = STATE.INTRO;
@@ -83,9 +85,14 @@ public class StatesMachine {
 		default:
 			break;
 		}
-
 	}
 
+	/**
+	 * Render a frame
+	 * 
+	 * @param g
+	 *            graphics in which to paint
+	 */
 	public static void render(Graphics g) {
 		switch (state) {
 		case INTRO:
@@ -117,6 +124,14 @@ public class StatesMachine {
 		}
 	}
 
+	/**
+	 * Changes room
+	 * 
+	 * @param st
+	 *            state to go to
+	 * @param persist
+	 *            true if the room needn't be cleaned
+	 */
 	public static void goToRoom(STATE st, boolean persist) {
 		if (persist && state == STATE.GAME) {
 			persistent();
@@ -139,10 +154,19 @@ public class StatesMachine {
 		stateMachine();
 	}
 
+	/**
+	 * Pause the game
+	 */
 	private static void persistent() {
 		gameScreen.pause();
 	}
 
+	/**
+	 * Cleans the state's room
+	 * 
+	 * @param st
+	 *            state
+	 */
 	private static void clearRoom(STATE st) {
 		switch (st) {
 		case INTRO:
@@ -186,7 +210,9 @@ public class StatesMachine {
 	 * Shows the introduction of the game
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void intro(KEY key, KEY direction) {
 
@@ -197,42 +223,46 @@ public class StatesMachine {
 	}
 
 	/**
-	 * Shows the menu of the game
+	 * Shows the main menu of the game
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void main_menu(KEY key, KEY direction) {
 
 		if (titleScreen == null) {
-			// ////////////////////////////////////////////////////////////////////////////////
-			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT, "Main menu");
-			// ////////////////////////////////////////////////////////////////////////////////
+			titleScreen = new MainMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Main menu");
 		}
 		titleScreen.step(key, direction);
-		// TODO complete the method
 	}
 
 	/**
-	 * Shows the options menu of the game
+	 * Shows the sound options menu of the game
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void options_menu(KEY key, KEY direction) {
 
 		if (optionScreen == null) {
-			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT, "Options menu");
+			optionScreen = new OptionsMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Options menu");
 		}
 		optionScreen.step(key, direction);
-		// TODO complete the method
 	}
 
 	/**
-	 * Traditional mode of the game
+	 * Game mode
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void game(KEY key, KEY direction) {
 
@@ -240,62 +270,73 @@ public class StatesMachine {
 			gameScreen = new Game(main.Game.WIDTH, main.Game.HEIGHT, "Game");
 		}
 		gameScreen.step(key, direction);
-		// TODO complete the method
 	}
 
 	/**
 	 * Pause mode
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void pause(KEY key, KEY direction) {
-		if(pauseScreen == null){
-			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT, "Pause");
+		if (pauseScreen == null) {
+			pauseScreen = new PauseMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Pause");
 		}
 		pauseScreen.step(key, direction);
-		// TODO complete the method
 	}
 
 	/**
-	 * Show the ranking of the Super-Bomber mode
+	 * Show the ranking of the game
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void ranks(KEY key, KEY direction) {
 
 		if (rankScreen == null) {
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Ranks", null);
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Ranks", null);
 		}
 		rankScreen.step(key, direction);
-		// TODO complete the method
 	}
 
 	/**
-	 * Let the player put a name to the highscore (entering the top 10)
+	 * Show the ranking of the game with a new record
 	 * 
 	 * @param key
+	 *            key
 	 * @param direction
+	 *            direction
 	 */
 	private static void top10(KEY key, KEY direction) {
 
 		if (rankScreen == null) {
 			Record record = Global.scoreManager.record();
 			Global.scoreManager.reset();
-			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT, "Top10", record);
+			rankScreen = new RankMenu(main.Game.WIDTH, main.Game.HEIGHT,
+					"Top10", record);
 		}
 		rankScreen.step(key, direction);
 	}
 
+	/**
+	 * Show the credits of the game
+	 * 
+	 * @param key
+	 *            key
+	 * @param direction
+	 *            direction
+	 */
 	private static void credits(KEY key, KEY direction) {
 
 		if (credits == null) {
-			// ////////////////////////////////////////////////////////////////////////////////
 			credits = new Credits(main.Game.WIDTH, main.Game.HEIGHT, "Credits");
-			// ////////////////////////////////////////////////////////////////////////////////
 		}
 		credits.step(key, direction);
-		// TODO complete the method
 	}
 }
