@@ -29,7 +29,6 @@ public class Ranking implements Serializable{
 	}
 	
 	public boolean newRecord(Record record){
-		System.out.println("New record");
 		records.add(record);
 		Collections.sort(records, new RecordComparator());
 		

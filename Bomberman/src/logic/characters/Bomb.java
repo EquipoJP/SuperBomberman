@@ -39,7 +39,7 @@ public class Bomb extends Objeto {
 
 	@Override
 	public void create() {
-		System.out.println(SECONDS * (int) Game.FPS);
+		//System.out.println(SECONDS * (int) Game.FPS);
 		setAlarm(0, SECONDS * (int) Game.FPS);
 	}
 
@@ -47,7 +47,6 @@ public class Bomb extends Objeto {
 	public void alarm(int alarmNo) {
 		switch (alarmNo) {
 		case 0:
-			System.out.println("Alarm");
 			Sound expl = MusicRepository.explosion;
 			expl.play();
 			destroyBomb();

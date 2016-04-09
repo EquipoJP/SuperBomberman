@@ -1,10 +1,9 @@
 package sound;
 
-import java.io.File;
-
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
+import utils.FileUtils;
 
 public class MusicRepository {
 	
@@ -49,67 +48,67 @@ public class MusicRepository {
 
 	private static void loadBattleMusic() {
 		if(battle == null){
-			battle = TinySound.loadMusic(new File(SoundTrack.BATTLE_MUSIC));
+			battle = TinySound.loadMusic(FileUtils.getFile(SoundTrack.BATTLE_MUSIC));
 		}
 	}
 	
 	private static void loadCreditsMusic() {
 		if(credits == null){
-			credits = TinySound.loadMusic(new File(SoundTrack.CREDITS_MUSIC));
+			credits = TinySound.loadMusic(FileUtils.getFile(SoundTrack.CREDITS_MUSIC));
 		}
 	}
 	
 	private static void loadGameOverMusic() {
 		if(gameOver == null){
-			gameOver = TinySound.loadMusic(new File(SoundTrack.GAMEOVER_MUSIC));
+			gameOver = TinySound.loadMusic(FileUtils.getFile(SoundTrack.GAMEOVER_MUSIC));
 		}
 	}
 	
 	private static void loadMenuMusic() {
 		if(menu == null){
-			menu = TinySound.loadMusic(new File(SoundTrack.MENU_MUSIC));
+			menu = TinySound.loadMusic(FileUtils.getFile(SoundTrack.MENU_MUSIC));
 		}
 	}
 	
 	private static void loadPauseMusic() {
 		if(pause == null){
-			pause = TinySound.loadMusic(new File(SoundTrack.PAUSE_MUSIC));
+			pause = TinySound.loadMusic(FileUtils.getFile(SoundTrack.PAUSE_MUSIC));
 		}
 	}
 	
 	private static void loadDefeatMusic() {
 		if(defeat == null){
-			defeat = TinySound.loadMusic(new File(SoundTrack.DEFEAT_MUSIC));
+			defeat = TinySound.loadMusic(FileUtils.getFile(SoundTrack.DEFEAT_MUSIC));
 		}
 	}
 	
 	private static void loadIntroMusic() {
 		if(intro == null){
-			intro = TinySound.loadMusic(new File(SoundTrack.INTRO_MUSIC));
+			intro = TinySound.loadMusic(FileUtils.getFile(SoundTrack.INTRO_MUSIC));
 		}
 	}
 	
 	private static void loadVictoryMusic() {
 		if(victory == null){
-			victory = TinySound.loadMusic(new File(SoundTrack.VICTORY_MUSIC));
+			victory = TinySound.loadMusic(FileUtils.getFile(SoundTrack.VICTORY_MUSIC));
 		}
 	}
 	
 	private static void loadSFX(){
 		if(explosion == null){
-			explosion = TinySound.loadSound(new File(SoundTrack.EXPLOSION_SND));
+			explosion = TinySound.loadSound(FileUtils.getFile(SoundTrack.EXPLOSION_SND));
 		}
 		
 		if(putBomb == null){
-			putBomb = TinySound.loadSound(new File(SoundTrack.PUTBOMB_SND));
+			putBomb = TinySound.loadSound(FileUtils.getFile(SoundTrack.PUTBOMB_SND));
 		}
 		
 		if(select == null){
-			select = TinySound.loadSound(new File(SoundTrack.SELECT_SND));
+			select = TinySound.loadSound(FileUtils.getFile(SoundTrack.SELECT_SND));
 		}
 		
 		if(powerup == null){
-			powerup = TinySound.loadSound(new File(SoundTrack.POWERUP_SND));
+			powerup = TinySound.loadSound(FileUtils.getFile(SoundTrack.POWERUP_SND));
 		}
 	}
 	
@@ -160,5 +159,4 @@ public class MusicRepository {
 			victory.unload();
 		}
 	}
-
 }

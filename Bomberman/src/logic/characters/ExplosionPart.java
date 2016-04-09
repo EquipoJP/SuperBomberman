@@ -95,17 +95,17 @@ public class ExplosionPart extends Objeto {
 				if (obj instanceof Player) {
 					Game g = (Game) myRoom;
 					g.callForDestruction();
-					System.out.println("Player hit");
+					//System.out.println("Player hit");
 				}
 				if (obj instanceof Enemy) {
 					Enemy en = (Enemy) obj;
 					en.callForDestruction();
-					System.out.println("Enemy hit");
+					//System.out.println("Enemy hit");
 				}
 				if(obj instanceof Item){
 					Item it = (Item) obj;
 					it.callForDestruction();
-					System.out.println("Item hit");
+					//System.out.println("Item hit");
 				}
 			}
 		}

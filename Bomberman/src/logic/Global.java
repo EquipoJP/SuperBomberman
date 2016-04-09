@@ -5,42 +5,43 @@ import logic.misc.LevelManager;
 import logic.misc.Ranking;
 import logic.misc.ScoreManager;
 import sound.MusicRepository;
+import utils.RunFromJar;
 import utils.SaveSystemService;
 
 public class Global {
 
 	public static final int EFFECTS_DEPTH = -3000;
-	public static final boolean DEBUG = true;
-	
+	public static final boolean DEBUG = !RunFromJar.runningFromJar();
+
 	public static final String SAVE = "savefile.sav";
-	
+
 	public static ScoreManager scoreManager;
 	public static Ranking ranking;
-	
+
 	public static LevelManager levels;
 	public static boolean is2D;
-	
-	public static void startGame(){
+
+	public static void startGame() {
 		createRanking();
 		TinySound.init();
-		
+
 		scoreManager = new ScoreManager();
 		levels = new LevelManager();
 		is2D = true;
 	}
-	
-	public static void stopGame(){
+
+	public static void stopGame() {
 		saveRanking();
 		MusicRepository.unload();
 		TinySound.shutdown();
 	}
-	
-	public static void createRanking(){
+
+	public static void createRanking() {
 		// Get the ranking from the save file or create one new
 		ranking = SaveSystemService.load(SAVE);
 	}
-	
-	public static void saveRanking(){
+
+	public static void saveRanking() {
 		SaveSystemService.save(ranking, SAVE);
 	}
 }

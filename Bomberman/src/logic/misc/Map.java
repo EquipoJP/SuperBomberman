@@ -2,8 +2,6 @@ package logic.misc;
 
 import graphics.rooms.Room;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -21,6 +19,7 @@ import logic.collisions.BoundingBox;
 import logic.collisions.Point2D;
 import main.Initialization;
 import main.Initialization.STAGE;
+import utils.FileUtils;
 
 public class Map {
 
@@ -41,64 +40,59 @@ public class Map {
 		int width = 0;
 		int height = 0;
 
-		try {
-			Scanner s = new Scanner(new File(System.getProperty("user.dir") + "/resources/" + file));
+		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
 
-			Random g = new Random();
-			int row = 0;
+		Random g = new Random();
+		int row = 0;
 
-			// Read file
-			while (s.hasNextLine()) {
-				String str = s.nextLine();
+		// Read file
+		while (s.hasNextLine()) {
+			String str = s.nextLine();
 
-				for (int col = 0; col < str.length(); col++) {
-					if (col == 0) {
-						objetos.add(createBlock(row, -1, room));
-					}
-					if (col == str.length() - 1) {
-						objetos.add(createBlock(row, str.length(), room));
-					}
-
-					char c = str.charAt(col);
-					switch (c) {
-					case DESTROYABLE_BLOCK:
-						objetos.add(createDestroyable(row, col, room, stage, g.nextInt(4)));
-						break;
-					case BLOCK:
-						objetos.add(createBlock(row, col, room));
-						break;
-					case ENEMY:
-						objetos.add(createEnemy(row, col, room, stage));
-						break;
-					case BOMBERMAN:
-						objetos.add(createBomberman(row, col, room));
-						break;
-					}
-				}
-
-				width = str.length();
-
-				row++;
-			}
-
-			for (int col = 0; col < width; col++) {
+			for (int col = 0; col < str.length(); col++) {
 				if (col == 0) {
 					objetos.add(createBlock(row, -1, room));
 				}
-				if (col == width - 1) {
-					objetos.add(createBlock(row, width, room));
+				if (col == str.length() - 1) {
+					objetos.add(createBlock(row, str.length(), room));
 				}
-				objetos.add(createBlock(row, col, room));
+
+				char c = str.charAt(col);
+				switch (c) {
+				case DESTROYABLE_BLOCK:
+					objetos.add(createDestroyable(row, col, room, stage, g.nextInt(4)));
+					break;
+				case BLOCK:
+					objetos.add(createBlock(row, col, room));
+					break;
+				case ENEMY:
+					objetos.add(createEnemy(row, col, room, stage));
+					break;
+				case BOMBERMAN:
+					objetos.add(createBomberman(row, col, room));
+					break;
+				}
 			}
 
-			height = row;
+			width = str.length();
 
-			s.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			row++;
 		}
 
-		System.out.println(width + " " + height);
+		for (int col = 0; col < width; col++) {
+			if (col == 0) {
+				objetos.add(createBlock(row, -1, room));
+			}
+			if (col == width - 1) {
+				objetos.add(createBlock(row, width, room));
+			}
+			objetos.add(createBlock(row, col, room));
+		}
+
+		height = row;
+
+		s.close();
+
 		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
 				width * Initialization.TILE_WIDTH, height * Initialization.TILE_HEIGHT));
 
@@ -111,139 +105,133 @@ public class Map {
 		// Choose random file
 		long seed = System.nanoTime();
 		Random g = new Random(seed);
-		String folder = "/resources/maps/templates";
-		int numberOfFiles = new File(System.getProperty("user.dir") + folder).listFiles().length;
-		String file = folder + "/n" + g.nextInt(numberOfFiles) + ".txt";
+		String folder = "maps/templates/";
+		int numberOfFiles = FileUtils.numberOfFiles(folder, "n", ".txt");
+		String file = folder + "n" + g.nextInt(numberOfFiles) + ".txt";
 		int widthMap = Initialization.MAP_WIDTH;
 		int heightMap = Initialization.MAP_HEIGHT;
 		int playerx = 0;
 		int playery = 0;
 
-		try {
+		// Find bomberman
+		Scanner b = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
 
-			// Find bomberman
-			Scanner b = new Scanner(new File(System.getProperty("user.dir") + file));
+		int row = 0;
+		int blockCount = 0;
+		int enemyCount = 0;
 
-			int row = 0;
-			int blockCount = 0;
-			int enemyCount = 0;
+		// Read file
+		while (b.hasNextLine()) {
+			String str = b.nextLine();
 
-			// Read file
-			while (b.hasNextLine()) {
-				String str = b.nextLine();
-
-				for (int col = 0; col < str.length(); col++) {
-					char c = str.charAt(col);
-					switch (c) {
-					case BOMBERMAN:
-						playerx = col;
-						playery = row;
-						break;
-					case BLOCK:
-						blockCount++;
-						break;
-					default:
-						break;
-					}
+			for (int col = 0; col < str.length(); col++) {
+				char c = str.charAt(col);
+				switch (c) {
+				case BOMBERMAN:
+					playerx = col;
+					playery = row;
+					break;
+				case BLOCK:
+					blockCount++;
+					break;
+				default:
+					break;
 				}
-
-				row++;
 			}
 
-			b.close();
+			row++;
+		}
 
-			Scanner s = new Scanner(new File(System.getProperty("user.dir") + file));
+		b.close();
 
-			List<Character> list = generateListOfObjects();
+		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
 
-			row = 0;
-			int count = 0;
-			int originalPut = list.size() / 8;
-			int put = originalPut;
-			int iterCount = 0;
-			int total = (widthMap * heightMap) - blockCount - 1;
-			double prob = 0.5;
-			// Read file
-			while (s.hasNextLine()) {
-				String str = s.nextLine();
+		List<Character> list = generateListOfObjects();
 
-				for (int col = 0; col < str.length(); col++) {
-					if (col == 0) {
-						objetos.add(createBlock(row, -1, room));
-					}
-					if (col == str.length() - 1) {
-						objetos.add(createBlock(row, str.length(), room));
-					}
+		row = 0;
+		int count = 0;
+		int originalPut = list.size() / 8;
+		int put = originalPut;
+		int iterCount = 0;
+		int total = (widthMap * heightMap) - blockCount - 1;
+		double prob = 0.5;
+		// Read file
+		while (s.hasNextLine()) {
+			String str = s.nextLine();
 
-					char c = str.charAt(col);
-					switch (c) {
-					case BLOCK:
-						objetos.add(createBlock(row, col, room));
-						break;
-					case NOTHING:
-						iterCount++;
-						double result = g.nextDouble();
-						if (enemyCount == 0 && total - iterCount <= 3) {
-							// Assure 1 enemy
-							list.add(0, '?');
-							list.add(0, '?');
-							enemyCount++;
-							Objeto obj = createEnemy(row, col, room, stage);
-							objetos.add(obj);
-						} else if (list.size() == (total - count)
-								|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row) && put != 0)) {
-							prob = decreaseProb(prob);
-							Objeto obj = generateRandomObject(row, col, room, stage, list);
-							if (obj != null) {
-								objetos.add(obj);
-								put--;
-							}
-							if (obj instanceof Enemy) {
-								list.add(0, '?');
-								list.add(0, '?');
-								enemyCount++;
-							}
-						}
-
-						if (result < prob) {
-							prob = increaseProb(prob);
-						}
-
-						if (row % (widthMap / 5) == 0) {
-							// Reset prob
-							prob = 0.5;
-
-							// Reset put
-							put = originalPut;
-						}
-
-						break;
-					case BOMBERMAN:
-						objetos.add(createBomberman(row, col, room));
-						break;
-					}
-					count++;
-				}
-
-				row++;
-			}
-
-			for (int col = 0; col < widthMap; col++) {
+			for (int col = 0; col < str.length(); col++) {
 				if (col == 0) {
 					objetos.add(createBlock(row, -1, room));
 				}
-				if (col == widthMap - 1) {
-					objetos.add(createBlock(row, widthMap, room));
+				if (col == str.length() - 1) {
+					objetos.add(createBlock(row, str.length(), room));
 				}
-				objetos.add(createBlock(row, col, room));
+
+				char c = str.charAt(col);
+				switch (c) {
+				case BLOCK:
+					objetos.add(createBlock(row, col, room));
+					break;
+				case NOTHING:
+					iterCount++;
+					double result = g.nextDouble();
+					if (enemyCount == 0 && total - iterCount <= 3) {
+						// Assure 1 enemy
+						list.add(0, '?');
+						list.add(0, '?');
+						enemyCount++;
+						Objeto obj = createEnemy(row, col, room, stage);
+						objetos.add(obj);
+					} else if (list.size() == (total - count)
+							|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row) && put != 0)) {
+						prob = decreaseProb(prob);
+						Objeto obj = generateRandomObject(row, col, room, stage, list);
+						if (obj != null) {
+							objetos.add(obj);
+							put--;
+						}
+						if (obj instanceof Enemy) {
+							list.add(0, '?');
+							list.add(0, '?');
+							enemyCount++;
+						}
+					}
+
+					if (result < prob) {
+						prob = increaseProb(prob);
+					}
+
+					if (row % (widthMap / 5) == 0) {
+						// Reset prob
+						prob = 0.5;
+
+						// Reset put
+						put = originalPut;
+					}
+
+					break;
+				case BOMBERMAN:
+					objetos.add(createBomberman(row, col, room));
+					break;
+				}
+				count++;
 			}
 
-			s.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			row++;
 		}
 
-		System.out.println(widthMap + " " + heightMap);
+		for (int col = 0; col < widthMap; col++) {
+			if (col == 0) {
+				objetos.add(createBlock(row, -1, room));
+			}
+			if (col == widthMap - 1) {
+				objetos.add(createBlock(row, widthMap, room));
+			}
+			objetos.add(createBlock(row, col, room));
+		}
+
+		s.close();
+
 		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
 				widthMap * Initialization.TILE_WIDTH, heightMap * Initialization.TILE_HEIGHT));
 

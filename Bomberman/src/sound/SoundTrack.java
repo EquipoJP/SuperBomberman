@@ -2,7 +2,7 @@ package sound;
 
 public class SoundTrack {
 	
-	private static final String AUDIO = "resources/audio/";
+	private static final String AUDIO = "audio/";
 	private static final String MUSIC = AUDIO + "music/";
 	private static final String SOUND = AUDIO + "sound/";
 	

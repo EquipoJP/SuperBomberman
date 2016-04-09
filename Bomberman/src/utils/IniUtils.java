@@ -3,8 +3,8 @@
  */
 package utils;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
@@ -29,9 +29,9 @@ public class IniUtils {
 	 */
 	public static String getValue(String file, String section, String term) {
 		String value = null;
-		File f = new File(file);
+		InputStream is = IniUtils.class.getClassLoader().getResourceAsStream(file);
 		try {
-			Ini ini = new Ini(f);
+			Ini ini = new Ini(is);
 			Section iniSection = ini.get(section);
 			value = iniSection.get(term);
 
@@ -57,9 +57,9 @@ public class IniUtils {
 	 *            value to put
 	 */
 	public static void addValue(String file, String section, String term, String value) {
-		File f = new File(file);
+		InputStream is = IniUtils.class.getClassLoader().getResourceAsStream(file);
 		try {
-			Ini ini = new Ini(f);
+			Ini ini = new Ini(is);
 			ini.put(section, term, value);
 			ini.store();
 

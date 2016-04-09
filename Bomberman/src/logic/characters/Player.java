@@ -48,7 +48,6 @@ public class Player extends Objeto {
 
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
-		System.out.println("PLAYER " + boundingBox);
 
 		speed = 1.5;
 		acceleration = INITIAL_ACCELERATION;
@@ -121,7 +120,6 @@ public class Player extends Objeto {
 				image_speed = 0.2;
 			}
 		} else {
-			System.out.println("Animation end: " + animation_end);
 			if (animation_end) {
 				destroy();
 			}

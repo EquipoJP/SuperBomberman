@@ -35,8 +35,6 @@ public class MainMenu extends Room {
 
 	public MainMenu(int w, int h, String n) {
 		super(w, h, n);
-
-		System.out.println("MAIN MENU");
 	}
 
 	@Override

@@ -4,8 +4,8 @@
 package main;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +22,9 @@ import utils.IniUtils;
 public class Initialization {
 
 	/* attributes */
-	public static final String SPRITE_FILE = "resources/iniFiles/sprites.ini";
-	public static final String MAP_FILE = "resources/iniFiles/maps.ini";
-	public static final String MENU_FILE = "resources/iniFiles/menus.ini";
+	public static final String SPRITE_FILE = "iniFiles/sprites.ini";
+	public static final String MAP_FILE = "iniFiles/maps.ini";
+	public static final String MENU_FILE = "iniFiles/menus.ini";
 
 	public static final String[] BOMBERMAN_SPRS = { "IDLE", "WALKDOWN", "WALKSIDE_RIGHT", "WALKSIDE_LEFT", "WALKUP",
 			"VICTORY", "DEATH" };
@@ -111,10 +111,11 @@ public class Initialization {
 		int frames = Integer.parseInt(strNoSprites);
 		int width = Integer.parseInt(strWidth);
 		int height = Integer.parseInt(strHeight);
-
+		
 		BufferedImage sheet = null;
 		try {
-			sheet = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/" + spriteSheet));
+			InputStream is = Initialization.class.getClassLoader().getResourceAsStream(spriteSheet);
+			sheet = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

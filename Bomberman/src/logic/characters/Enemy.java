@@ -120,7 +120,7 @@ public class Enemy extends Objeto {
 				if (obj instanceof Player) {
 					Player player = (Player) obj;
 					player.callForDestruction();
-					System.out.println("Player hit");
+					//System.out.println("Player hit");
 				}
 			}
 		}

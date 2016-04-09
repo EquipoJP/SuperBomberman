@@ -61,7 +61,6 @@ public class OptionsMenu extends Room {
 	
 	private int getImageIndex(){
 		double volume = TinySound.getGlobalVolume();
-		System.out.println(volume);
 		int img_index = 0;
 		
 		if(volume >= 1.0 && volume < 1.25){
@@ -76,8 +75,6 @@ public class OptionsMenu extends Room {
 			img_index = 4;
 		}
 		
-		System.out.println(img_index);
-
 		return img_index;
 	}
 

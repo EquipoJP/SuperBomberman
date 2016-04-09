@@ -10,9 +10,9 @@ public class Loader implements Runnable{
 
 	@Override
 	public void run() {
-		System.out.println("Running");
+		System.out.print("Running " + room.name + " loader" + "... ");
 		room.load();
-		System.out.println("Done");
+		System.out.println("Done loading");
 	}
 
 }
