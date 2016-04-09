@@ -33,6 +33,14 @@ public class MainMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 25;
 	private static final int TITLEBUTTON_BORDER = 64;
 
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 */
 	public MainMenu(int w, int h, String n) {
 		super(w, h, n);
 	}
@@ -52,16 +60,20 @@ public class MainMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
-		
+
 		setMusic(MusicRepository.menu, true);
 	}
 
+	/**
+	 * Create some buttons
+	 */
 	private void createButtons() {
 		menuButtons = new Button[selection.values().length];
 
 		// variables
 		int x = this.width / 2;
-		int y = PADDING_BORDER + MainMenuRepository.titleButton.getHeight() + TITLEBUTTON_BORDER;
+		int y = PADDING_BORDER + MainMenuRepository.titleButton.getHeight()
+				+ TITLEBUTTON_BORDER;
 
 		// Game button
 		Sprite sprite = MainMenuRepository.gameButton;
@@ -92,23 +104,38 @@ public class MainMenu extends Room {
 		}
 	}
 
+	/**
+	 * Selects a button
+	 * 
+	 * @param no
+	 *            number of the selected button
+	 */
 	private void select(int no) {
 		menuButtons[selected].unselect();
 		selected = no;
 		menuButtons[no].select();
 	}
 
+	/**
+	 * Next button
+	 */
 	private void next() {
 		int no = (selected + 1) % menuButtons.length;
 		select(no);
 	}
 
+	/**
+	 * Previous button
+	 */
 	private void previous() {
-		// -1 % 5 = -1. With this thing it gets 4
-		int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
+		int no = ((selected - 1) % menuButtons.length + menuButtons.length)
+				% menuButtons.length;
 		select(no);
 	}
 
+	/**
+	 * Confirm the button
+	 */
 	private void confirm() {
 		switch (selected) {
 		case 0:
