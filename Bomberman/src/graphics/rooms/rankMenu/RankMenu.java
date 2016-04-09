@@ -33,6 +33,16 @@ public class RankMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 48;
 	private static final int TITLEBUTTON_BORDER = 64;
 
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 * @param record
+	 *            new record, or null
+	 */
 	public RankMenu(int w, int h, String n, Record record) {
 		super(w, h, n);
 
@@ -42,7 +52,7 @@ public class RankMenu extends Room {
 	@Override
 	public void load() {
 		RankMenuRepository.load();
-		
+
 		this.background = RankMenuRepository.background;
 
 		int x = width / 2;
@@ -53,14 +63,16 @@ public class RankMenu extends Room {
 			newRecord = Global.ranking.newRecord(record);
 
 			Sprite next = RankMenuRepository.continueButton;
-			next.setSubsprites(new BufferedImage[] { next.getSubsprites()[next.getSubimages()-1] });
+			next.setSubsprites(new BufferedImage[] { next.getSubsprites()[next
+					.getSubimages() - 1] });
 			next.setSubimages(1);
 			int y = this.height - PADDING_BORDER - next.getHeight() / 2;
 
 			addObjeto(new Visual(x, y, this, next));
 		} else {
 			Sprite back = RankMenuRepository.backButton;
-			back.setSubsprites(new BufferedImage[] { back.getSubsprites()[back.getSubimages()-1] });
+			back.setSubsprites(new BufferedImage[] { back.getSubsprites()[back
+					.getSubimages() - 1] });
 			back.setSubimages(1);
 			int y = this.height - PADDING_BORDER - back.getHeight() / 2;
 
@@ -70,11 +82,10 @@ public class RankMenu extends Room {
 		Sprite title = RankMenuRepository.titleButton;
 		int y = PADDING_BORDER + title.getHeight() / 2;
 		addObjeto(new Visual(x, y, this, title));
-		
-		if(gameOver){
+
+		if (gameOver) {
 			setMusic(MusicRepository.gameOver, true);
-		}
-		else{
+		} else {
 			setMusic(MusicRepository.menu, true);
 		}
 
@@ -92,7 +103,8 @@ public class RankMenu extends Room {
 
 		// TODO dimensiones x y
 		int x = 150;
-		int y = PADDING_BORDER + RankMenuRepository.titleButton.getHeight() + TITLEBUTTON_BORDER;
+		int y = PADDING_BORDER + RankMenuRepository.titleButton.getHeight()
+				+ TITLEBUTTON_BORDER;
 
 		int modY = INTERBUTTON_BORDER;
 
@@ -114,7 +126,8 @@ public class RankMenu extends Room {
 		if (record != null && !newRecord) {
 			String str = "NEW " + this.record.getScore();
 			x = width / 2;
-			Point2D initial_position = new Point2D(x, y + modY * (records.size() + 1));
+			Point2D initial_position = new Point2D(x, y + modY
+					* (records.size() + 1));
 			PaintService.paintDigits(str, initial_position, g);
 		}
 
@@ -131,6 +144,9 @@ public class RankMenu extends Room {
 		}
 	}
 
+	/**
+	 * Changes state
+	 */
 	private void confirm() {
 		StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 	}
