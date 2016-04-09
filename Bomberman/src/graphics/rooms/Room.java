@@ -26,63 +26,98 @@ public abstract class Room {
 	public int height;
 	public String name;
 	public List<Objeto> objetos;
-	
+
 	public Visual loadSymbol;
-	
+
 	private Music music;
 	public Sprite background;
-	
+
 	protected Thread loader = null;
-	
+
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 */
 	public Room(int w, int h, String n) {
 		width = w;
 		height = h;
-		
+
 		background = null;
-		
+
 		name = n;
 		objetos = new LinkedList<Objeto>();
-		
+
 		loader = null;
 		loadResources();
 	}
-	
-	public void setMusic(Music music, boolean replay){
+
+	/**
+	 * @param music
+	 *            music to play
+	 * @param replay
+	 *            replay or sound just once
+	 */
+	public void setMusic(Music music, boolean replay) {
 		this.music = music;
 		this.music.play(replay);
 	}
-	
-	public void stopMusic(){
+
+	/**
+	 * Stops the music
+	 */
+	public void stopMusic() {
 		this.music.stop();
 	}
-	
-	public void addObjeto(Objeto o){
+
+	/**
+	 * Adds an object to the room
+	 * 
+	 * @param o
+	 *            object to add
+	 */
+	public void addObjeto(Objeto o) {
 		objetos.add(o);
-		Collections.sort(objetos,new ObjetoComparator());
+		Collections.sort(objetos, new ObjetoComparator());
 	}
-	
-	public void destroy(Objeto o){
+
+	/**
+	 * Destroy and object
+	 * 
+	 * @param o
+	 *            object to destroy
+	 */
+	public void destroy(Objeto o) {
 		objetos.remove(o);
 		Collections.sort(objetos, new ObjetoComparator());
 	}
-	
-	public void loadResources(){
-		if (loader == null){
+
+	/**
+	 * Load resources
+	 */
+	public void loadResources() {
+		if (loader == null) {
 			LoaderRepository.load();
-			loadSymbol = new Visual(width / 2, height / 2, this, LoaderRepository.loading);
-			
+			loadSymbol = new Visual(width / 2, height / 2, this,
+					LoaderRepository.loading);
+
 			loader = new Thread(new Loader(this));
 			loader.start();
 		}
 	}
-	
+
 	public abstract void load();
-	
-	public boolean loadComplete(){
-		if(loader != null){
+
+	/**
+	 * @return true if the loading is complete
+	 */
+	public boolean loadComplete() {
+		if (loader != null) {
 			return !loader.isAlive();
-		}
-		else{
+		} else {
 			return true;
 		}
 	}
@@ -93,58 +128,62 @@ public abstract class Room {
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public void render(Graphics g){
-		if(loadComplete()){
+	public void render(Graphics g) {
+		if (loadComplete()) {
 			drawBackground(g);
 			Collections.sort(objetos, new ObjetoComparator());
-			for(int i = 0; i < objetos.size(); i++){
+			for (int i = 0; i < objetos.size(); i++) {
 				Objeto o = objetos.get(i);
 				o.render(g);
 			}
-		}
-		else{
-			// TODO
+		} else {
 			g.clearRect(0, 0, width, height);
 			loadSymbol.render(g);
 		}
 	}
-	
-	/**
-	 * 
-	 */
+
 	public abstract void drawBackground(Graphics g);
-	
+
 	/**
 	 * Method to process a step in the actual room
 	 * 
 	 * @param g
 	 *            graphics section to paint
 	 */
-	public void step(KEY key, KEY direction){
-		if(!loadComplete()){
-			return ;
+	public void step(KEY key, KEY direction) {
+		if (!loadComplete()) {
+			return;
 		}
 		for (int i = 0; i < objetos.size(); i++) {
 			objetos.get(i).step(key, direction);
 		}
 	}
-	
-	public void destroy(){
-		if(music != null){
+
+	/**
+	 * Destroy the room
+	 */
+	public void destroy() {
+		if (music != null) {
 			music.stop();
 		}
 	}
-	
-	public void pause(){
-		if(music != null){
+
+	/**
+	 * Pause the room
+	 */
+	public void pause() {
+		if (music != null) {
 			music.pause();
 		}
 	}
-	
-	public void resume(){
-		if(music != null){
+
+	/**
+	 * Resume the room
+	 */
+	public void resume() {
+		if (music != null) {
 			music.resume();
 		}
 	}
-	
+
 }
