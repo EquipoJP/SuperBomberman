@@ -1,5 +1,5 @@
 /**
- * Class containing methods for the acess, read and write of ini files (based on ini4j jar)
+ * Class containing methods for the access, read and write of ini files (based on ini4j jar)
  */
 package utils;
 
@@ -30,6 +30,7 @@ public class IniUtils {
 	public static String getValue(String file, String section, String term) {
 		String value = null;
 		InputStream is = IniUtils.class.getClassLoader().getResourceAsStream(file);
+		
 		try {
 			Ini ini = new Ini(is);
 			Section iniSection = ini.get(section);
@@ -58,6 +59,7 @@ public class IniUtils {
 	 */
 	public static void addValue(String file, String section, String term, String value) {
 		InputStream is = IniUtils.class.getClassLoader().getResourceAsStream(file);
+		
 		try {
 			Ini ini = new Ini(is);
 			ini.put(section, term, value);
