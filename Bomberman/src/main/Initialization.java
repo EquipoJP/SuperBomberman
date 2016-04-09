@@ -70,6 +70,7 @@ public class Initialization {
 	 * 
 	 * @param name
 	 *            name of the sprite
+	 *            @param sprs sprite terms to look for
 	 * @return a map with the different sprites
 	 */
 	public static Map<String, Sprite> getSpritesFromTableSprites(String name,

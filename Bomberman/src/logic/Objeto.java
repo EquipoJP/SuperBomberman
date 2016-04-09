@@ -122,7 +122,7 @@ public abstract class Objeto {
 	/**
 	 * Render the animated sprite of the object
 	 * 
-	 * @param g
+	 * @param g graphics
 	 */
 	public void render(Graphics g) {
 		if (sprite_index != null) {
@@ -157,8 +157,8 @@ public abstract class Objeto {
 	/**
 	 * Step event
 	 * 
-	 * @param key
-	 * @param direction
+	 * @param key key
+	 * @param direction direction
 	 */
 	public void step(KEY key, KEY direction) {
 		alarmHandling();

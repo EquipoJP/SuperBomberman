@@ -18,7 +18,7 @@ public class Record implements Serializable {
 	/**
 	 * Creates a new record from a score
 	 * 
-	 * @param score
+	 * @param score score
 	 */
 	public Record(int score) {
 		this.score = score;

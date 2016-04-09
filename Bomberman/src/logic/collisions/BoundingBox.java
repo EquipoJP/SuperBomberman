@@ -45,7 +45,7 @@ public class BoundingBox {
 	 *            first bounding box
 	 * @param bb2
 	 *            seconds bounding box
-	 * @return
+	 * @return true if bb1 and bb2 collide, false otherwise
 	 */
 	public static boolean collision(BoundingBox bb1, BoundingBox bb2) {
 		if (bb1 == null || bb2 == null) {

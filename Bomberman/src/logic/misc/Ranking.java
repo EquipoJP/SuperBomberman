@@ -29,7 +29,7 @@ public class Ranking implements Serializable {
 	/**
 	 * Creates a ranking from a set of records
 	 * 
-	 * @param records
+	 * @param records list of records
 	 */
 	public Ranking(List<Record> records) {
 		this.records = records;

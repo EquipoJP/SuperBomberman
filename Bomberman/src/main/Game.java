@@ -146,7 +146,7 @@ public class Game extends Canvas implements Runnable {
 	/**
 	 * Main method to start, initialize and load up the game
 	 * 
-	 * @param args
+	 * @param args no arguments
 	 */
 	public static void main(String[] args) {
 		Game game = new Game();

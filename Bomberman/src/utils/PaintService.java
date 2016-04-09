@@ -174,7 +174,7 @@ public class PaintService {
 	/**
 	 * Method to paint colored digits on screen
 	 * 
-	 * @param text
+	 * @param number
 	 *            text to paint on screen
 	 * @param initial_position
 	 *            initial position in which start to paint
@@ -222,7 +222,7 @@ public class PaintService {
 	 * Method for painting colored text on the screen at initial_position
 	 * position
 	 * 
-	 * @param text
+	 * @param number
 	 *            text to paint on screen
 	 * @param initial_position
 	 *            initial position in which start to paint

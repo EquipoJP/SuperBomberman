@@ -22,8 +22,11 @@ public class Point2D {
 
 	/**
 	 * Creates a point in (x,y)
+	 * 
 	 * @param x
+	 *            x coordinate
 	 * @param y
+	 *            y coordinate
 	 */
 	public Point2D(int x, int y) {
 		this.x = x;
@@ -32,14 +35,17 @@ public class Point2D {
 
 	/**
 	 * Updates a point
-	 * @param xMov x update
-	 * @param yMov y update
+	 * 
+	 * @param xMov
+	 *            x update
+	 * @param yMov
+	 *            y update
 	 */
 	public void update(int xMov, int yMov) {
 		this.x = this.x + xMov;
 		this.y = this.y + yMov;
 	}
-	
+
 	/**
 	 * @return x coordinate
 	 */

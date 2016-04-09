@@ -147,8 +147,10 @@ public abstract class Room {
 	/**
 	 * Method to process a step in the actual room
 	 * 
-	 * @param g
-	 *            graphics section to paint
+	 * @param key
+	 *            key
+	 * @param direction
+	 *            direction
 	 */
 	public void step(KEY key, KEY direction) {
 		if (!loadComplete()) {

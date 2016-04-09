@@ -42,7 +42,7 @@ public class StatesMachine {
 	/**
 	 * Creation of the states machine. It starts on the game's intro
 	 * 
-	 * @param in
+	 * @param in input
 	 */
 	public static void initStatesMachine(Input in) {
 		state = STATE.INTRO;
