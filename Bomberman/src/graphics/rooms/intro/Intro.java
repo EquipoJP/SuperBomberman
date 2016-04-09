@@ -28,15 +28,23 @@ public class Intro extends Room {
 	public boolean created;
 	public boolean fadeOutCreated;
 
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 */
 	public Intro(int w, int h, String n) {
 		super(w, h, n);
 	}
-	
+
 	@Override
 	public void load() {
 		MusicRepository.load();
 		IntroRepository.load();
-		
+
 		addObjeto(new Fade(0, 0, this, false));
 		addObjeto(new Visual(width / 2, height / 2, this, IntroRepository.logo));
 		created = false;
@@ -45,10 +53,10 @@ public class Intro extends Room {
 
 	@Override
 	public void step(KEY key, KEY direction) {
-		if(!loadComplete()){
-			return ;
+		if (!loadComplete()) {
+			return;
 		}
-		
+
 		boolean fadeInFound = false;
 		boolean fadeOutFound = false;
 		for (int i = 0; i < objetos.size(); i++) {
@@ -76,10 +84,10 @@ public class Intro extends Room {
 
 	@Override
 	public void drawBackground(Graphics g) {
-		if(!loadComplete()){
-			return ;
+		if (!loadComplete()) {
+			return;
 		}
-		
+
 		BufferedImage curtain = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
