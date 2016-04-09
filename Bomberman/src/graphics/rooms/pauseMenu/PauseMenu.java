@@ -1,5 +1,5 @@
 /**
- * Class representing the pause menu (independent of the game mode currently being played)
+ * Class representing the pause menu
  */
 package graphics.rooms.pauseMenu;
 
@@ -33,6 +33,14 @@ public class PauseMenu extends Room {
 	private static final int INTERBUTTON_BORDER = 25;
 	private static final int TITLEBUTTON_BORDER = 64;
 
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 */
 	public PauseMenu(int w, int h, String n) {
 		super(w, h, n);
 	}
@@ -40,7 +48,7 @@ public class PauseMenu extends Room {
 	@Override
 	public void load() {
 		PauseMenuRepository.load();
-		
+
 		background = PauseMenuRepository.background;
 		Sprite title = PauseMenuRepository.titleButton;
 		int x = width / 2;
@@ -51,10 +59,13 @@ public class PauseMenu extends Room {
 		createButtons();
 		selected = 0;
 		select(0);
-		
+
 		setMusic(MusicRepository.pause, true);
 	}
 
+	/**
+	 * Create the buttons of the pause menu
+	 */
 	private void createButtons() {
 		menuButtons = new Button[selection.values().length];
 
@@ -88,24 +99,38 @@ public class PauseMenu extends Room {
 		}
 	}
 
+	/**
+	 * Select a button
+	 * 
+	 * @param no
+	 *            number of the button selected
+	 */
 	private void select(int no) {
 		menuButtons[selected].unselect();
 		selected = no;
 		menuButtons[no].select();
 	}
 
+	/**
+	 * Select next button
+	 */
 	private void next() {
 		int no = (selected + 1) % menuButtons.length;
 		select(no);
 	}
 
+	/**
+	 * Select previous button
+	 */
 	private void previous() {
-		// -1 % 5 = -1. With this thing it gets 4
 		int no = ((selected - 1) % menuButtons.length + menuButtons.length)
 				% menuButtons.length;
 		select(no);
 	}
 
+	/**
+	 * Confirm the selected button
+	 */
 	private void confirm() {
 		switch (selected) {
 		case 0:
