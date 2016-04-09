@@ -1,3 +1,6 @@
+/**
+ * Class representing a fade-in/fade-out effect
+ */
 package graphics.effects;
 
 import java.awt.Color;
@@ -8,6 +11,10 @@ import logic.Global;
 import logic.Input.KEY;
 import logic.Objeto;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Fade extends Objeto {
 
 	private float alpha = 0.0f;
@@ -17,6 +24,16 @@ public class Fade extends Objeto {
 	private final float MIN = 0.0f;
 	private final float MAX = 1.0f;
 
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param r
+	 *            room
+	 * @param isFadeOut
+	 *            true if is fade-out, false if is fade-in
+	 */
 	public Fade(int x, int y, Room r, boolean isFadeOut) {
 		super(x, y, 0, r);
 		depth = Global.EFFECTS_DEPTH;
@@ -64,6 +81,9 @@ public class Fade extends Objeto {
 		}
 	}
 
+	/**
+	 * @return if is fade-out
+	 */
 	public boolean isFadeOut() {
 		return sum;
 	}

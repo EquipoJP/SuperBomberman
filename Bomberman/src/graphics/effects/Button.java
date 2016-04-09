@@ -1,3 +1,6 @@
+/**
+ * Class representing a button
+ */
 package graphics.effects;
 
 import logic.Input.KEY;
@@ -5,39 +8,61 @@ import graphics.rooms.Room;
 import logic.Objeto;
 import logic.Sprite;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Button extends Objeto {
-	
+
 	private boolean selected;
-	
+
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param r
+	 *            room
+	 * @param sprite
+	 *            sprite to use
+	 */
 	public Button(int x, int y, Room r, Sprite sprite) {
 		super(x, y, 0, r);
-		
+
 		sprite_index = sprite;
 		image_speed = 0;
 		image_index = 0;
-		
+
 		selected = false;
 	}
 
 	@Override
 	public void customStep(KEY key, KEY direction) {
-		if(selected){
+		if (selected) {
 			image_index = 1;
-		}
-		else{
+		} else {
 			image_index = 0;
 		}
 	}
-	
-	public void select(){
+
+	/**
+	 * Select the button
+	 */
+	public void select() {
 		this.selected = true;
 	}
-	
-	public void unselect(){
+
+	/**
+	 * Unselect the button
+	 */
+	public void unselect() {
 		this.selected = false;
 	}
-	
-	public boolean isSelected(){
+
+	/**
+	 * @return true if it is selected, false otherwise
+	 */
+	public boolean isSelected() {
 		return this.selected;
 	}
 }
