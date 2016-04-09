@@ -1,3 +1,6 @@
+/**
+ * Class representing the player
+ */
 package logic.characters;
 
 import java.awt.Rectangle;
@@ -18,6 +21,10 @@ import main.Game;
 import main.Initialization;
 import sound.MusicRepository;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Player extends Objeto {
 
 	/* Info to get Sprites */
@@ -37,7 +44,17 @@ public class Player extends Objeto {
 	public int bombsLimit;
 	private ArrayList<Objeto> ownBombs;
 
-	public Player(int x, int y, int z, Room r, int depth) {
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param z
+	 *            z coordinate
+	 * @param r
+	 *            room
+	 */
+	public Player(int x, int y, int z, Room r) {
 		super(x, y, z, r);
 	}
 
@@ -79,26 +96,33 @@ public class Player extends Objeto {
 			if (!keyed) {
 				switch (direction) {
 				case DOWN:
-					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[1]);
+					sprite_index = sprites
+							.get(Initialization.BOMBERMAN_SPRS[1]);
 					unsetAlarm(0);
 					break;
 				case UP:
-					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[4]);
+					sprite_index = sprites
+							.get(Initialization.BOMBERMAN_SPRS[4]);
 					unsetAlarm(0);
 					break;
 				case LEFT:
-					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[3]);
+					sprite_index = sprites
+							.get(Initialization.BOMBERMAN_SPRS[3]);
 					unsetAlarm(0);
 					break;
 				case RIGHT:
-					sprite_index = sprites.get(Initialization.BOMBERMAN_SPRS[2]);
+					sprite_index = sprites
+							.get(Initialization.BOMBERMAN_SPRS[2]);
 					unsetAlarm(0);
 					break;
 				case NO_KEY:
 					acceleration = INITIAL_ACCELERATION;
 					stop = true;
-					if (!isAlarmSet(0) && sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[0])
-							&& sprite_index != sprites.get(Initialization.BOMBERMAN_SPRS[5])) {
+					if (!isAlarmSet(0)
+							&& sprite_index != sprites
+									.get(Initialization.BOMBERMAN_SPRS[0])
+							&& sprite_index != sprites
+									.get(Initialization.BOMBERMAN_SPRS[5])) {
 						int seconds = 5;
 						setAlarm(0, seconds * (int) Game.FPS);
 					}
@@ -109,9 +133,11 @@ public class Player extends Objeto {
 			}
 
 			// change speed
-			if (sprite_index.equals(sprites.get(Initialization.BOMBERMAN_SPRS[0]))) {
+			if (sprite_index.equals(sprites
+					.get(Initialization.BOMBERMAN_SPRS[0]))) {
 				image_speed = 0.1;
-			} else if (sprite_index.equals(sprites.get(Initialization.BOMBERMAN_SPRS[5]))) {
+			} else if (sprite_index.equals(sprites
+					.get(Initialization.BOMBERMAN_SPRS[5]))) {
 				image_speed = 0.1;
 			} else if (stop) {
 				image_speed = 0;
@@ -197,6 +223,9 @@ public class Player extends Objeto {
 		}
 	}
 
+	/**
+	 * Puts a bomb on the tile the player is currently standing on top of
+	 */
 	private void putBomb() {
 		if (bombs < bombsLimit) {
 			// center of the tile in which the player is standing
@@ -215,10 +244,18 @@ public class Player extends Objeto {
 		}
 	}
 
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @return true if there's been a collision, false otherwise
+	 */
 	private boolean checkCollision(int x, int y) {
-		BoundingBox bb = new BoundingBox(
-				new Point2D(x - Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH / 4),
-				new Point2D(x + Initialization.TILE_HEIGHT / 4, y + Initialization.TILE_WIDTH / 4));
+		BoundingBox bb = new BoundingBox(new Point2D(x
+				- Initialization.TILE_HEIGHT / 4, y - Initialization.TILE_WIDTH
+				/ 4), new Point2D(x + Initialization.TILE_HEIGHT / 4, y
+				+ Initialization.TILE_WIDTH / 4));
 		for (Objeto obj : myRoom.objetos) {
 			if (!obj.equals(this)) {
 				boolean collision = BoundingBox.collision(bb, obj.boundingBox);
@@ -230,6 +267,9 @@ public class Player extends Objeto {
 		return false;
 	}
 
+	/**
+	 * Calls for the destruction of the player
+	 */
 	public void callForDestruction() {
 		if (!destruction) {
 			resetAnimationEnd();
@@ -253,33 +293,36 @@ public class Player extends Objeto {
 			return false;
 		} else if (returned == 1) {
 			Objeto o = newList.get(0);
-			
-			Rectangle r = BoundingBox.collisionRectangle(this.boundingBox, o.boundingBox);
+
+			Rectangle r = BoundingBox.collisionRectangle(this.boundingBox,
+					o.boundingBox);
 			if (modX != 0) {
-				// Nos estamos moviendo a izquierda o derecha
+				// moving left or right
 				if (r.height >= 1 && r.height <= HELP_THRESHOLD) {
-					// Si que hay que ayudar al jugador
+					// hep the player
 					y = y + (r.height * (int) Math.signum(this.y - o.y));
-					boundingBox.update(0, r.height * (int) Math.signum(this.y - o.y));
+					boundingBox.update(0,
+							r.height * (int) Math.signum(this.y - o.y));
 					x = x + modX;
 					y = y + modY;
 					return true;
 				} else {
-					// No ayudamos al jugador, colision absoluta
+					// not helping the player (absolute collision)
 					boundingBox.update(-modX, -modY);
 					return false;
 				}
 			} else {
-				// Nos estamos moviendo arriba o abajo
+				// moving up and down
 				if (r.width >= 1 && r.width <= HELP_THRESHOLD) {
-					// Si que hay que ayudar al jugador
+					// help the player
 					x = x + (r.width * (int) Math.signum(this.x - o.x));
-					boundingBox.update(r.width * (int) Math.signum(this.x - o.x), 0);
+					boundingBox.update(
+							r.width * (int) Math.signum(this.x - o.x), 0);
 					x = x + modX;
 					y = y + modY;
 					return true;
 				} else {
-					// No ayudamos al jugador, colision absoluta
+					// not helping the player (absolute collision)
 					boundingBox.update(-modX, -modY);
 					return false;
 				}
@@ -292,19 +335,21 @@ public class Player extends Objeto {
 	}
 
 	/**
-	 * Returns 0 if it has no collisions with nothing Returns 1 if it has only
-	 * one collision with a solid Returns 2 or more if it has multiple
-	 * collisions with solids
-	 * 
-	 * finalCollision contains those collisions remaining
+	 * @param toCheck
+	 *            objects to check collision with
+	 * @param finalCollision
+	 *            out parameter
+	 * @return 0 if it has no collisions with nothing; 1 if it has only one
+	 *         collision with a solid; 2 or more if it has multiple collisions
+	 *         with solids. finalCollision contains those collisions remaining
 	 */
-	public int checkPlayerCollisions(List<Objeto> toCheck, List<Objeto> finalCollision) {
+	public int checkPlayerCollisions(List<Objeto> toCheck,
+			List<Objeto> finalCollision) {
 		if (toCheck != null) {
 			List<Objeto> objsToCheck = new ArrayList<Objeto>();
 			objsToCheck.addAll(toCheck);
 			for (int i = 0; i < ownBombs.size(); i++) {
-				// Booleano para comprobar si seguimos colisionando con una
-				// bomba
+				// are we colliding still with the bomb?
 				boolean bombFound = false;
 				for (int j = 0; j < toCheck.size() && !bombFound; j++) {
 					if (toCheck.get(j).equals(ownBombs.get(i))) {
@@ -327,8 +372,8 @@ public class Player extends Objeto {
 					j--;
 				}
 			}
-			
-			if(finalCollision == null){
+
+			if (finalCollision == null) {
 				finalCollision = new ArrayList<Objeto>();
 			}
 			finalCollision.addAll(toCheck);
@@ -340,6 +385,12 @@ public class Player extends Objeto {
 		}
 	}
 
+	/**
+	 * Get the power up from the item
+	 * 
+	 * @param item
+	 *            item to get the power up from
+	 */
 	private void getPowerUp(Item item) {
 		if (!item.hasBeenPickedUp()) {
 			switch (item.getType()) {

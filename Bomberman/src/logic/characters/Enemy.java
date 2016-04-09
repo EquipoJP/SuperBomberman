@@ -1,18 +1,25 @@
+/**
+ * Class representing an enemy
+ */
 package logic.characters;
+
+import graphics.rooms.Room;
+import graphics.rooms.game.GameRepository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import graphics.rooms.Room;
-import graphics.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
 import logic.collisions.PerspectiveBoundingBox;
 import main.Initialization;
-import main.Initialization.STAGE;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Enemy extends Objeto {
 
 	private int modX;
@@ -25,7 +32,19 @@ public class Enemy extends Objeto {
 
 	Map<String, Sprite> sprites;
 
-	public Enemy(int x, int y, int z, Room r, STAGE stage) {
+	/**
+	 * Creates a new enemy
+	 * 
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param z
+	 *            z coordinate
+	 * @param r
+	 *            room
+	 */
+	public Enemy(int x, int y, int z, Room r) {
 		super(x, y, z, r);
 		sprites = GameRepository.enemy;
 		image_speed = 0.1;
@@ -92,6 +111,9 @@ public class Enemy extends Objeto {
 		}
 	}
 
+	/**
+	 * @return random key (L, R, U, D)
+	 */
 	private KEY randomizeKey() {
 		/*
 		 * 0. DOWN 1. UP 2. LEFT 3. RIGHT
@@ -111,6 +133,14 @@ public class Enemy extends Objeto {
 		return null;
 	}
 
+	/**
+	 * Checks for collisions with player
+	 * 
+	 * @param modx
+	 *            x update
+	 * @param mody
+	 *            y update
+	 */
 	private void checkCollision(int modx, int mody) {
 		boundingBox.update(modx, mody);
 		List<Objeto> collisions = collision();
@@ -120,12 +150,15 @@ public class Enemy extends Objeto {
 				if (obj instanceof Player) {
 					Player player = (Player) obj;
 					player.callForDestruction();
-					//System.out.println("Player hit");
+					// System.out.println("Player hit");
 				}
 			}
 		}
 	}
 
+	/**
+	 * Call for the destruction of the enemy
+	 */
 	public void callForDestruction() {
 		if (!destruction) {
 			resetAnimationEnd();
@@ -143,7 +176,8 @@ public class Enemy extends Objeto {
 		if (collisions != null) {
 			boolean returned = true;
 			for (int i = 0; i < collisions.size() && returned; i++) {
-				if (collisions.get(i) instanceof Block || collisions.get(i) instanceof DestroyableBlock
+				if (collisions.get(i) instanceof Block
+						|| collisions.get(i) instanceof DestroyableBlock
 						|| collisions.get(i) instanceof Bomb) {
 					returned = false;
 				}

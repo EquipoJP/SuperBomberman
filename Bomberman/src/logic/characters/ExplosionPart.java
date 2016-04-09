@@ -1,3 +1,6 @@
+/**
+ * Class representing a single tile explosion
+ */
 package logic.characters;
 
 import java.util.List;
@@ -10,9 +13,13 @@ import logic.Objeto;
 import logic.collisions.BoundingBox;
 import logic.collisions.Point2D;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class ExplosionPart extends Objeto {
 
-	/* Enums publicas */
+	/* enumerations */
 	public enum KIND {
 		CORE, MID, EDGE
 	};
@@ -21,10 +28,24 @@ public class ExplosionPart extends Objeto {
 		UP, DOWN, LEFT, RIGHT
 	};
 
-	/* Atributos */
+	/* attributes */
 	private KIND kind;
 	private SIDE side;
 
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param z
+	 *            z coordinate
+	 * @param r
+	 *            room
+	 * @param k
+	 *            kind of explosion part
+	 * @param s
+	 *            side of explosion part
+	 */
 	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s) {
 		super(x, y, z, r);
 		depth = 10;
@@ -74,7 +95,7 @@ public class ExplosionPart extends Objeto {
 			break;
 		}
 
-		// Centro en la esquina superior izquierda
+		// centered on the left-up corner
 		sprite_index.setCenterX(0);
 		sprite_index.setCenterY(0);
 		image_speed = 0.23;
@@ -86,7 +107,7 @@ public class ExplosionPart extends Objeto {
 				sprite_index.getCenterY()), new Point2D(
 				sprite_index.getCenterX() + sprite_index.getWidth(),
 				sprite_index.getCenterY() + sprite_index.getHeight()));
-		
+
 		boundingBox.update(x, y);
 
 		List<Objeto> collisions = collision();
@@ -95,17 +116,17 @@ public class ExplosionPart extends Objeto {
 				if (obj instanceof Player) {
 					Game g = (Game) myRoom;
 					g.callForDestruction();
-					//System.out.println("Player hit");
+					// System.out.println("Player hit");
 				}
 				if (obj instanceof Enemy) {
 					Enemy en = (Enemy) obj;
 					en.callForDestruction();
-					//System.out.println("Enemy hit");
+					// System.out.println("Enemy hit");
 				}
-				if(obj instanceof Item){
+				if (obj instanceof Item) {
 					Item it = (Item) obj;
 					it.callForDestruction();
-					//System.out.println("Item hit");
+					// System.out.println("Item hit");
 				}
 			}
 		}

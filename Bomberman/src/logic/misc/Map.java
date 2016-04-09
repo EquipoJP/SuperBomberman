@@ -21,7 +21,6 @@ import logic.characters.Player;
 import logic.collisions.BoundingBox;
 import logic.collisions.Point2D;
 import main.Initialization;
-import main.Initialization.STAGE;
 import utils.FileUtils;
 
 /**
@@ -48,12 +47,9 @@ public class Map {
 	 *            file to read the map from
 	 * @param room
 	 *            room in which create the map
-	 * @param stage
-	 *            theme of the map
 	 * @return list of objects result of creating the map
 	 */
-	public static List<Objeto> getMap(String file, Room room,
-			Initialization.STAGE stage) {
+	public static List<Objeto> getMap(String file, Room room) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
 		int width = 0;
@@ -80,14 +76,13 @@ public class Map {
 				char c = str.charAt(col);
 				switch (c) {
 				case DESTROYABLE_BLOCK:
-					objetos.add(createDestroyable(row, col, room, stage,
-							g.nextInt(4)));
+					objetos.add(createDestroyable(row, col, room, g.nextInt(4)));
 					break;
 				case BLOCK:
 					objetos.add(createBlock(row, col, room));
 					break;
 				case ENEMY:
-					objetos.add(createEnemy(row, col, room, stage));
+					objetos.add(createEnemy(row, col, room));
 					break;
 				case BOMBERMAN:
 					objetos.add(createBomberman(row, col, room));
@@ -126,11 +121,9 @@ public class Map {
 	 * 
 	 * @param room
 	 *            room to create the map in
-	 * @param stage
-	 *            theme of the map
 	 * @return list of object result of creating the map
 	 */
-	public static List<Objeto> generateMap(Room room, Initialization.STAGE stage) {
+	public static List<Objeto> generateMap(Room room) {
 		List<Objeto> objetos = new LinkedList<Objeto>();
 
 		// Choose random file
@@ -213,15 +206,14 @@ public class Map {
 						list.add(0, '?');
 						list.add(0, '?');
 						enemyCount++;
-						Objeto obj = createEnemy(row, col, room, stage);
+						Objeto obj = createEnemy(row, col, room);
 						objetos.add(obj);
 					} else if (list.size() == (total - count)
 							|| (result >= prob
 									&& validDistanceToPlayer(playerx, playery,
 											col, row) && put != 0)) {
 						prob = decreaseProb(prob);
-						Objeto obj = generateRandomObject(row, col, room,
-								stage, list);
+						Objeto obj = generateRandomObject(row, col, room, list);
 						if (obj != null) {
 							objetos.add(obj);
 							put--;
@@ -285,14 +277,12 @@ public class Map {
 	 *            column in which create the destroyable block
 	 * @param room
 	 *            room in which create the destroyable block
-	 * @param stage
-	 *            them of the destroyable block
 	 * @param kind
 	 *            kind of powerup it will drop when destroyed
 	 * @return
 	 */
 	private static Objeto createDestroyable(int row, int col, Room room,
-			STAGE stage, int kind) {
+			int kind) {
 		int x = getX(col);
 		int y = getY(row);
 
@@ -318,7 +308,7 @@ public class Map {
 			break;
 		}
 
-		return new DestroyableBlock(x, y, 0, room, stage, tipo);
+		return new DestroyableBlock(x, y, 0, room, tipo);
 	}
 
 	/**
@@ -348,15 +338,13 @@ public class Map {
 	 *            column in which create the enemy
 	 * @param room
 	 *            room in which create the enemy
-	 * @param stage
-	 *            theme of the enemy
 	 * @return an enemy
 	 */
-	private static Objeto createEnemy(int row, int col, Room room, STAGE stage) {
+	private static Objeto createEnemy(int row, int col, Room room) {
 		int x = getX(col);
 		int y = getY(row) - fixpos;
 
-		return new Enemy(x, y, 0, room, stage);
+		return new Enemy(x, y, 0, room);
 	}
 
 	/**
@@ -374,7 +362,7 @@ public class Map {
 		int x = getX(col);
 		int y = getY(row) - fixpos;
 
-		return new Player(x, y, 0, room, 0);
+		return new Player(x, y, 0, room);
 	}
 
 	/**
@@ -459,7 +447,7 @@ public class Map {
 	 * @return a random object
 	 */
 	private static Objeto generateRandomObject(int row, int col, Room room,
-			STAGE stage, List<Character> list) {
+			List<Character> list) {
 		if (list.size() == 0) {
 			return null;
 		} else {
@@ -468,19 +456,19 @@ public class Map {
 			Objeto obj = null;
 			switch (c) {
 			case DESTROYABLE_BLOCK:
-				obj = createDestroyable(row, col, room, stage, 0);
+				obj = createDestroyable(row, col, room, 0);
 				break;
 			case DESTROYABLE_BLOCK_SPEED:
-				obj = createDestroyable(row, col, room, stage, 3);
+				obj = createDestroyable(row, col, room, 3);
 				break;
 			case DESTROYABLE_BLOCK_POWER:
-				obj = createDestroyable(row, col, room, stage, 2);
+				obj = createDestroyable(row, col, room, 2);
 				break;
 			case DESTROYABLE_BLOCK_BOMBS:
-				obj = createDestroyable(row, col, room, stage, 1);
+				obj = createDestroyable(row, col, room, 1);
 				break;
 			case ENEMY:
-				obj = createEnemy(row, col, room, stage);
+				obj = createEnemy(row, col, room);
 				break;
 			default:
 				break;

@@ -1,3 +1,6 @@
+/**
+ * Class representing an item
+ */
 package logic.characters;
 
 import graphics.rooms.Room;
@@ -10,6 +13,10 @@ import logic.collisions.NoPerspectiveBoundingBox;
 import main.Initialization;
 import sound.MusicRepository;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Item extends Objeto {
 
 	public enum TYPE {
@@ -23,6 +30,18 @@ public class Item extends Objeto {
 	private boolean destroying = false;
 	private Sprite destroySprite = GameRepository.destroyItem;
 
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param z
+	 *            z coordinate
+	 * @param r
+	 *            room
+	 * @param t
+	 *            type of item
+	 */
 	public Item(int x, int y, int z, Room r, TYPE t) {
 		super(x, y, z, r);
 
@@ -53,24 +72,36 @@ public class Item extends Objeto {
 			switch (type) {
 			case BOMB:
 				sprite_index = GameRepository.pickupBomb;
-				sprite_index.setCenterX(
-						Initialization.getCenterXFromSpriteName(Initialization.SPRITES.BOMB_PICKUP.toString()));
-				sprite_index.setCenterY(
-						Initialization.getCenterYFromSpriteName(Initialization.SPRITES.BOMB_PICKUP.toString()));
+				sprite_index
+						.setCenterX(Initialization
+								.getCenterXFromSpriteName(Initialization.SPRITES.BOMB_PICKUP
+										.toString()));
+				sprite_index
+						.setCenterY(Initialization
+								.getCenterYFromSpriteName(Initialization.SPRITES.BOMB_PICKUP
+										.toString()));
 				break;
 			case POWER:
 				sprite_index = GameRepository.pickupPower;
-				sprite_index.setCenterX(
-						Initialization.getCenterXFromSpriteName(Initialization.SPRITES.POWER_PICKUP.toString()));
-				sprite_index.setCenterY(
-						Initialization.getCenterYFromSpriteName(Initialization.SPRITES.POWER_PICKUP.toString()));
+				sprite_index
+						.setCenterX(Initialization
+								.getCenterXFromSpriteName(Initialization.SPRITES.POWER_PICKUP
+										.toString()));
+				sprite_index
+						.setCenterY(Initialization
+								.getCenterYFromSpriteName(Initialization.SPRITES.POWER_PICKUP
+										.toString()));
 				break;
 			case SPEED:
 				sprite_index = GameRepository.pickupSpeed;
-				sprite_index.setCenterX(
-						Initialization.getCenterXFromSpriteName(Initialization.SPRITES.SPEED_PICKUP.toString()));
-				sprite_index.setCenterY(
-						Initialization.getCenterYFromSpriteName(Initialization.SPRITES.SPEED_PICKUP.toString()));
+				sprite_index
+						.setCenterX(Initialization
+								.getCenterXFromSpriteName(Initialization.SPRITES.SPEED_PICKUP
+										.toString()));
+				sprite_index
+						.setCenterY(Initialization
+								.getCenterYFromSpriteName(Initialization.SPRITES.SPEED_PICKUP
+										.toString()));
 				break;
 			}
 
@@ -88,6 +119,9 @@ public class Item extends Objeto {
 		}
 	}
 
+	/**
+	 * Pick up the item
+	 */
 	public void pickUp() {
 		if (!destroying) {
 			Sound powerup = MusicRepository.powerup;
@@ -97,16 +131,25 @@ public class Item extends Objeto {
 		}
 	}
 
+	/**
+	 * Calls for the destruction of the item
+	 */
 	public void callForDestruction() {
 		if (!pickedup) {
 			destroying = true;
 		}
 	}
 
+	/**
+	 * @return type of item
+	 */
 	public TYPE getType() {
 		return type;
 	}
 
+	/**
+	 * @return true if it has been picked up, false otherwise
+	 */
 	public boolean hasBeenPickedUp() {
 		return pickedup;
 	}

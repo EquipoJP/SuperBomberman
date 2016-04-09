@@ -59,7 +59,6 @@ public class Game extends Room {
 
 	private final long SECONDS_PHASE = 180; // TODO
 
-	private STAGE stage;
 	private Objective objective;
 
 	private Sprite hud;
@@ -81,7 +80,7 @@ public class Game extends Room {
 
 	@Override
 	public void load() {
-		this.stage = Global.levels.actualLevel().getStage();
+		STAGE stage = Global.levels.actualLevel().getStage();
 		this.objective = Global.levels.actualLevel().getObjective();
 
 		GameRepository.load(stage);
@@ -93,7 +92,7 @@ public class Game extends Room {
 		secondsVictory = -1;
 
 		tiles = GameRepository.tiles;
-		List<Objeto> objetos = Map.generateMap(this, stage);
+		List<Objeto> objetos = Map.generateMap(this);
 
 		for (Objeto obj : objetos) {
 			if (obj instanceof Level) {
