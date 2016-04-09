@@ -1,3 +1,6 @@
+/**
+ * Credits room
+ */
 package graphics.rooms.credits;
 
 import graphics.effects.Visual;
@@ -12,13 +15,21 @@ import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Credits extends Room {
 
 	private static final int PADDING_BORDER = 25;
 
+	/**
+	 * @param w width
+	 * @param h height
+	 * @param n name
+	 */
 	public Credits(int w, int h, String n) {
 		super(w, h, n);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -58,6 +69,9 @@ public class Credits extends Room {
 		}
 	}
 
+	/**
+	 * Confirms
+	 */
 	private void confirm() {
 		StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 	}
