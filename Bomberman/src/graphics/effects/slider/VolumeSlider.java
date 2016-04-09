@@ -1,16 +1,23 @@
+/**
+ * Class containing the logic of a volume slider
+ */
 package graphics.effects.slider;
 
 import kuusisto.tinysound.TinySound;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class VolumeSlider implements SliderHelper {
 
 	/*
-	 * TinySound Global Volume goes from 1.0 to infinite. 
-	 * It is a sound_volume * global_volume function.
+	 * TinySound Global Volume goes from 1.0 to infinite. It is a sound_volume *
+	 * global_volume function.
 	 * 
 	 * Ours will be from 1.0 - 1.25 - 1.5 - 1.75 - 2.0
 	 */
-	
+
 	@Override
 	public void action(int subimage) {
 		double volume = 1.0;
