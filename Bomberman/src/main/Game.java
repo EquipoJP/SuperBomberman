@@ -1,3 +1,6 @@
+/**
+ * Main class. Loads up the game. Have the game's heart.
+ */
 package main;
 
 import java.awt.Canvas;
@@ -12,6 +15,10 @@ import logic.Global;
 import logic.Input;
 import logic.StatesMachine;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 5374655311458429613L;
@@ -27,8 +34,12 @@ public class Game extends Canvas implements Runnable {
 	public boolean running = false;
 	private Thread thread;
 
-	public static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	public static BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
+			BufferedImage.TYPE_INT_RGB);
 
+	/**
+	 * Start the game
+	 */
 	private synchronized void start() {
 		if (running) {
 			return;
@@ -38,6 +49,9 @@ public class Game extends Canvas implements Runnable {
 		thread.start();
 	}
 
+	/**
+	 * Stop the game
+	 */
 	private synchronized void stop() {
 		if (!running) {
 			return;
@@ -53,6 +67,9 @@ public class Game extends Canvas implements Runnable {
 		System.exit(1);
 	}
 
+	/**
+	 * Initializes the game
+	 */
 	private synchronized void init() {
 		Global.startGame();
 		input = new Input(this);
@@ -63,7 +80,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		init();
 		long lastTime = System.nanoTime();
-		final double amountOfTicks = 60.0;
+		final double amountOfTicks = FPS;	// FPS
 
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
@@ -86,8 +103,8 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				if(Global.DEBUG){
-				System.out.println(updates + " ticks");
+				if (Global.DEBUG) {
+					System.out.println(updates + " fps");
 				}
 				updates = 0;
 			}
@@ -96,7 +113,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * Method to render the screen
+	 * Method to render the screen on triple buffering stategy to avoid
+	 * flickering
 	 */
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -108,19 +126,24 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		///////////////////////////////////////////////////
+		// /////////////////////////////////////////////////
 
 		Graphics gg = image.createGraphics();
 		StatesMachine.render(gg);
 		gg.dispose();
-		
+
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 
-		///////////////////////////////////////////////////
+		// /////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
 	}
 
+	/**
+	 * Main method to start, initialize and load up the game
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Game game = new Game();
 
@@ -136,7 +159,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		game.setFocusable(true);
-		
+
 		game.start();
 	}
 }
