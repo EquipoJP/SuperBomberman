@@ -6,9 +6,13 @@ package main;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import logic.Global;
@@ -80,7 +84,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		init();
 		long lastTime = System.nanoTime();
-		final double amountOfTicks = FPS;	// FPS
+		final double amountOfTicks = FPS; // FPS
 
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
@@ -150,8 +154,18 @@ public class Game extends Canvas implements Runnable {
 		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
+		
+		Image image = null;
+		try {
+			InputStream is = Initialization.class.getClassLoader()
+					.getResourceAsStream("icon.png");
+			image = ImageIO.read(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		frame = new JFrame(TITLE);
+		frame.setIconImage(image);
 		frame.add(game);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
