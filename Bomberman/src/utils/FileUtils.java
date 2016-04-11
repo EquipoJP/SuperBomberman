@@ -8,8 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import sound.MusicRepository;
-
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
@@ -26,7 +24,7 @@ public class FileUtils {
 	 */
 	public static File getFile(String file) {
 		try {
-			InputStream in = MusicRepository.class.getClassLoader()
+			InputStream in = FileUtils.class.getClassLoader()
 					.getResourceAsStream(file);
 			if (in == null) {
 				return null;
