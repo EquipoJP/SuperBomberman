@@ -254,16 +254,22 @@ public class GameRepository {
 			pickupSpeed = Initialization
 					.getSpriteFromSprites(Initialization.SPRITES.SPEED_PICKUP
 							.toString());
+			pickupSpeed.setCenterX(Initialization.getCenterXFromSpriteName(Initialization.SPRITES.SPEED_PICKUP.toString()));
+			pickupSpeed.setCenterX(Initialization.getCenterYFromSpriteName(Initialization.SPRITES.SPEED_PICKUP.toString()));
 		}
 		if (pickupPower == null) {
 			pickupPower = Initialization
 					.getSpriteFromSprites(Initialization.SPRITES.POWER_PICKUP
 							.toString());
+			pickupPower.setCenterX(Initialization.getCenterXFromSpriteName(Initialization.SPRITES.POWER_PICKUP.toString()));
+			pickupPower.setCenterY(Initialization.getCenterYFromSpriteName(Initialization.SPRITES.POWER_PICKUP.toString()));
 		}
 		if (pickupBomb == null) {
 			pickupBomb = Initialization
 					.getSpriteFromSprites(Initialization.SPRITES.BOMB_PICKUP
 							.toString());
+			pickupBomb.setCenterX(Initialization.getCenterXFromSpriteName(Initialization.SPRITES.BOMB_PICKUP.toString()));
+			pickupBomb.setCenterY(Initialization.getCenterYFromSpriteName(Initialization.SPRITES.BOMB_PICKUP.toString()));
 		}
 		if (destroyItem == null) {
 			destroyItem = Initialization

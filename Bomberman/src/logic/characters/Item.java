@@ -29,8 +29,6 @@ public class Item extends Objeto {
 	private boolean pickedupSpriteStarted = false;
 	private boolean destroying = false;
 	private Sprite destroySprite = GameRepository.destroyItem;
-	private int centerX;
-	private int centerY;
 
 	/**
 	 * @param x
@@ -63,21 +61,6 @@ public class Item extends Objeto {
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		image_speed = 0;
-
-		switch (type) {
-		case BOMB:
-			centerX = Initialization.getCenterXFromSpriteName(Initialization.SPRITES.BOMB_PICKUP.toString());
-			centerY = Initialization.getCenterYFromSpriteName(Initialization.SPRITES.BOMB_PICKUP.toString());
-			break;
-		case POWER:
-			centerX = Initialization.getCenterXFromSpriteName(Initialization.SPRITES.POWER_PICKUP.toString());
-			centerY = Initialization.getCenterYFromSpriteName(Initialization.SPRITES.POWER_PICKUP.toString());
-			break;
-		case SPEED:
-			centerX = Initialization.getCenterXFromSpriteName(Initialization.SPRITES.SPEED_PICKUP.toString());
-			centerY = Initialization.getCenterYFromSpriteName(Initialization.SPRITES.SPEED_PICKUP.toString());
-			break;
-		}
 	}
 
 	@Override
@@ -97,9 +80,6 @@ public class Item extends Objeto {
 				sprite_index = GameRepository.pickupSpeed;
 				break;
 			}
-
-			sprite_index.setCenterX(centerX);
-			sprite_index.setCenterY(centerY);
 
 			depth = Initialization.getDepth("Item");
 		}

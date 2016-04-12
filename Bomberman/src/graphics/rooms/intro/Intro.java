@@ -13,6 +13,11 @@ import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
+import graphics.rooms.credits.CreditsRepository;
+import graphics.rooms.mainMenu.MainMenuRepository;
+import graphics.rooms.optionsMenu.OptionsMenuRepository;
+import graphics.rooms.pauseMenu.PauseMenuRepository;
+import graphics.rooms.rankMenu.RankMenuRepository;
 import logic.Input.KEY;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
@@ -44,6 +49,11 @@ public class Intro extends Room {
 	public void load() {
 		MusicRepository.load();
 		IntroRepository.load();
+		PauseMenuRepository.load();
+		CreditsRepository.load();
+		OptionsMenuRepository.load();
+		MainMenuRepository.load();
+		RankMenuRepository.load();
 
 		addObjeto(new Fade(0, 0, this, false));
 		addObjeto(new Visual(width / 2, height / 2, this, IntroRepository.logo));
