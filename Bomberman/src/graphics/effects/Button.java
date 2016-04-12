@@ -15,6 +15,7 @@ import logic.Sprite;
 public class Button extends Objeto {
 
 	private boolean selected;
+	private Runnable function;
 
 	/**
 	 * @param x
@@ -26,7 +27,7 @@ public class Button extends Objeto {
 	 * @param sprite
 	 *            sprite to use
 	 */
-	public Button(int x, int y, Room r, Sprite sprite) {
+	public Button(int x, int y, Room r, Sprite sprite, Runnable run) {
 		super(x, y, 0, r);
 
 		sprite_index = sprite;
@@ -34,6 +35,7 @@ public class Button extends Objeto {
 		image_index = 0;
 
 		selected = false;
+		function = run;
 	}
 
 	@Override
@@ -64,5 +66,9 @@ public class Button extends Objeto {
 	 */
 	public boolean isSelected() {
 		return this.selected;
+	}
+	
+	public void confirm(){
+		function.run();
 	}
 }

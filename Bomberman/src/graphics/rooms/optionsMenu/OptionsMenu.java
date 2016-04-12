@@ -47,7 +47,7 @@ public class OptionsMenu extends Room {
 
 		Sprite back = OptionsMenuRepository.backButton;
 		int y = this.height - PADDING_BORDER - back.getHeight() / 2;
-		Button back_obj = new Button(x, y, this, back);
+		Button back_obj = new Button(x, y, this, back, null);
 		back_obj.select();
 		addObjeto(back_obj);
 

@@ -65,14 +65,14 @@ public class RankMenu extends Room {
 			Sprite next = RankMenuRepository.continueButton;
 			int y = this.height - PADDING_BORDER - next.getHeight() / 2;
 
-			Button next_obj = new Button(x, y, this, next);
+			Button next_obj = new Button(x, y, this, next, null);
 			next_obj.select();
 			addObjeto(next_obj);
 		} else {
 			Sprite back = RankMenuRepository.backButton;
 			int y = this.height - PADDING_BORDER - back.getHeight() / 2;
 
-			Button back_obj = new Button(x, y, this, back);
+			Button back_obj = new Button(x, y, this, back, null);
 			back_obj.select();
 			addObjeto(back_obj);
 		}

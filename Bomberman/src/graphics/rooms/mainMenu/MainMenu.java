@@ -3,18 +3,19 @@
  */
 package graphics.rooms.mainMenu;
 
-import java.awt.Graphics;
-
-import sound.MusicRepository;
 import graphics.effects.Button;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
+
+import java.awt.Graphics;
+
 import kuusisto.tinysound.Sound;
 import logic.Global;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
+import sound.MusicRepository;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -22,12 +23,11 @@ import logic.StatesMachine.STATE;
  */
 public class MainMenu extends Room {
 
-	private static enum selection {
-		GAME, OPTIONS, RANKING, CREDITS, QUIT
-	};
-
-	private Button[] menuButtons;
+	private Button[][] menuButtons;
+	private final int ROWS = 3;
+	private final int COLUMNS = 2;
 	private int selected;
+	private int column;
 
 	private static final int PADDING_BORDER = 25;
 	private static final int INTERBUTTON_BORDER = 25;
@@ -59,6 +59,7 @@ public class MainMenu extends Room {
 
 		createButtons();
 		selected = 0;
+		column = 0;
 		select(0);
 
 		setMusic(MusicRepository.menu, true);
@@ -68,40 +69,80 @@ public class MainMenu extends Room {
 	 * Create some buttons
 	 */
 	private void createButtons() {
-		menuButtons = new Button[selection.values().length];
+		menuButtons = new Button[ROWS][COLUMNS];
 
 		// variables
-		int x = this.width / 2;
+		int _width = width / 2;
+		int x = _width / 2;
+		int x2 = x + _width;
 		int y = PADDING_BORDER + MainMenuRepository.titleButton.getHeight()
 				+ TITLEBUTTON_BORDER;
 
 		// Game button
 		Sprite sprite = MainMenuRepository.gameButton;
-		menuButtons[0] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
+		menuButtons[0][0] = new Button(x, y + sprite.getHeight() / 2, this,
+				sprite, new Runnable() {
+
+					@Override
+					public void run() {
+						StatesMachine.goToRoom(STATE.GAME, false);
+					}
+				});
+		addObjeto(menuButtons[0][0]);
+
+		// Ranking button
+		sprite = MainMenuRepository.rankingButton;
+		menuButtons[0][1] = new Button(x2, y + sprite.getHeight() / 2, this,
+				sprite, new Runnable() {
+
+					@Override
+					public void run() {
+						StatesMachine.goToRoom(STATE.RANKS, false);
+					}
+				});
+		addObjeto(menuButtons[0][1]);
+
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 
 		// Options button
 		sprite = MainMenuRepository.optionsButton;
-		menuButtons[1] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
-		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		menuButtons[1][0] = new Button(x, y + sprite.getHeight() / 2, this,
+				sprite, new Runnable() {
 
-		// Ranking button
-		sprite = MainMenuRepository.rankingButton;
-		menuButtons[2] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
-		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
-
+					@Override
+					public void run() {
+						StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
+					}
+				});
+		addObjeto(menuButtons[1][0]);
+		
 		// Credits button
 		sprite = MainMenuRepository.creditsButton;
-		menuButtons[3] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
+		menuButtons[1][1] = new Button(x2, y + sprite.getHeight() / 2, this,
+				sprite, new Runnable() {
+
+					@Override
+					public void run() {
+						StatesMachine.goToRoom(STATE.CREDITS, false);
+					}
+				});
+		addObjeto(menuButtons[1][1]);
+		
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 
 		// Quit button
 		sprite = MainMenuRepository.quitButton;
-		menuButtons[4] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
+		menuButtons[2][0] = new Button(width/2, y + sprite.getHeight() / 2, this,
+				sprite, new Runnable() {
 
-		for (Button b : menuButtons) {
-			addObjeto(b);
-		}
+					@Override
+					public void run() {
+						Global.stopGame();
+						System.exit(0);
+					}
+				});
+		menuButtons[2][1] = menuButtons[2][0];
+		addObjeto(menuButtons[2][0]);
 	}
 
 	/**
@@ -111,9 +152,19 @@ public class MainMenu extends Room {
 	 *            number of the selected button
 	 */
 	private void select(int no) {
-		menuButtons[selected].unselect();
+		unselect();
 		selected = no;
-		menuButtons[no].select();
+		menuButtons[no][column].select();
+	}
+
+	private void unselect() {
+		for (int i = 0; i < menuButtons.length; i++) {
+			for (int j = 0; j < menuButtons[i].length; j++) {
+				if (menuButtons[i][j] != null) {
+					menuButtons[i][j].unselect();
+				}
+			}
+		}
 	}
 
 	/**
@@ -122,6 +173,11 @@ public class MainMenu extends Room {
 	private void next() {
 		int no = (selected + 1) % menuButtons.length;
 		select(no);
+	}
+
+	private void nextColumn() {
+		column = (column + 1) % COLUMNS;
+		select(selected);
 	}
 
 	/**
@@ -133,32 +189,16 @@ public class MainMenu extends Room {
 		select(no);
 	}
 
+	private void previousColumn() {
+		column = ((column - 1) % COLUMNS + COLUMNS) % COLUMNS;
+		select(selected);
+	}
+
 	/**
 	 * Confirm the button
 	 */
 	private void confirm() {
-		switch (selected) {
-		case 0:
-			StatesMachine.goToRoom(STATE.GAME, false);
-			break;
-		case 1:
-			StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
-			break;
-		case 2:
-			StatesMachine.goToRoom(STATE.RANKS, false);
-			break;
-		case 3:
-			StatesMachine.goToRoom(STATE.CREDITS, false);
-			break;
-		case 4:
-			Global.stopGame();
-			System.exit(0);
-			break;
-		default:
-			Global.stopGame();
-			System.exit(-1);
-			break;
-		}
+		menuButtons[selected][column].confirm();
 	}
 
 	@Override
@@ -186,6 +226,14 @@ public class MainMenu extends Room {
 			break;
 		case UP:
 			previous();
+			sel.play();
+			break;
+		case RIGHT:
+			nextColumn();
+			sel.play();
+			break;
+		case LEFT:
+			previousColumn();
 			sel.play();
 			break;
 		case ENTER:

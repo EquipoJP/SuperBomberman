@@ -76,12 +76,12 @@ public class PauseMenu extends Room {
 
 		// Continue button
 		Sprite sprite = PauseMenuRepository.continueButton;
-		menuButtons[0] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
+		menuButtons[0] = new Button(x, y + sprite.getHeight() / 2, this, sprite, null);
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 
 		// Quit button
 		sprite = PauseMenuRepository.quitButton;
-		menuButtons[1] = new Button(x, y + sprite.getHeight() / 2, this, sprite);
+		menuButtons[1] = new Button(x, y + sprite.getHeight() / 2, this, sprite, null);
 
 		for (Button b : menuButtons) {
 			addObjeto(b);
