@@ -3,13 +3,14 @@
  */
 package graphics.rooms;
 
-import graphics.effects.Visual;
-
 import java.awt.Graphics;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import graphics.effects.Visual;
 import kuusisto.tinysound.Music;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -31,6 +32,9 @@ public abstract class Room {
 
 	private Music music;
 	public Sprite background;
+	
+	private Timer timerInit;
+	private long seconds;
 
 	protected Thread loader = null;
 
@@ -50,6 +54,16 @@ public abstract class Room {
 
 		name = n;
 		objetos = new LinkedList<Objeto>();
+		
+		seconds = 0;
+		timerInit = new Timer();
+		timerInit.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				seconds++;
+			}
+		}, 0, (1 * 1000));
 
 		loader = null;
 		loadResources();
@@ -137,8 +151,11 @@ public abstract class Room {
 				o.render(g);
 			}
 		} else {
-			g.clearRect(0, 0, width, height);
-			loadSymbol.render(g);
+			if(seconds > 0){
+				timerInit.cancel();
+				g.clearRect(0, 0, width, height);
+				loadSymbol.render(g);
+			}
 		}
 	}
 
