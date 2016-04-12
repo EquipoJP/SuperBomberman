@@ -101,7 +101,6 @@ public class RankMenu extends Room {
 
 		List<Record> records = Global.ranking.getRecords();
 
-		// TODO dimensiones x y
 		int x = 150;
 		int y = PADDING_BORDER + RankMenuRepository.titleButton.getHeight()
 				+ TITLEBUTTON_BORDER;
