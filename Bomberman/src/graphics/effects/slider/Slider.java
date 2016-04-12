@@ -45,13 +45,15 @@ public class Slider extends Visual {
 		super.processKey(key, direction);
 
 		switch (key) {
-		case SPACE:
+		case RIGHT:
 			image_index = (image_index + 1) % sprite_index.getSubimages();
-			sliderHelper.action((int) image_index);
 			break;
+		case LEFT:
+			image_index = (image_index - 1) % sprite_index.getSubimages();
 		default:
 			break;
 		}
+		sliderHelper.action((int) image_index);
 	}
 
 }

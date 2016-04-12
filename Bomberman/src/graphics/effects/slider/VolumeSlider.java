@@ -43,5 +43,4 @@ public class VolumeSlider implements SliderHelper {
 		}
 		TinySound.setGlobalVolume(volume);
 	}
-
 }
