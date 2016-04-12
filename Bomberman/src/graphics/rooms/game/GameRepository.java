@@ -106,6 +106,9 @@ public class GameRepository {
 	 *            theme
 	 */
 	private static void loadTiles(STAGE stage) {
+		if(stage == null){
+			return ;
+		}
 		tiles = Initialization.getSpriteFromMap(stage.toString() + "_"
 				+ Initialization.TYPE.TILE.toString());
 	}
@@ -128,6 +131,9 @@ public class GameRepository {
 	 *            theme
 	 */
 	private static void loadBlock(STAGE stage) {
+		if(stage == null){
+			return ;
+		}
 		block = Initialization.getSpriteFromMap(stage.toString() + "_"
 				+ TYPE.BLOCK.toString());
 	}
@@ -139,6 +145,9 @@ public class GameRepository {
 	 *            theme
 	 */
 	private static void loadDestroyables(STAGE stage) {
+		if(stage == null){
+			return ;
+		}
 		destroyableBlock1 = Initialization.getSpriteFromMap(stage.toString()
 				+ "_" + TYPE.DESTROYABLE_BLOCK.toString());
 		destroyableBlock2 = Initialization.getSpriteFromMap(stage.toString()
@@ -163,6 +172,9 @@ public class GameRepository {
 	 *            theme
 	 */
 	private static void loadEnemy(STAGE stage) {
+		if(stage == null){
+			return ;
+		}
 		enemy = Initialization.getSpritesFromTableSprites(
 				Initialization.SPRITES.ENEMY.toString() + "_"
 						+ stage.toString(), Initialization.ENEMIES_SPRS);

@@ -3,17 +3,16 @@
  */
 package graphics.rooms.credits;
 
+import java.awt.Graphics;
+
+import graphics.effects.Button;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
-
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
-import sound.MusicRepository;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
+import sound.MusicRepository;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -41,11 +40,10 @@ public class Credits extends Room {
 		int x = width / 2;
 
 		Sprite back = CreditsRepository.backButton;
-		back.setSubsprites(new BufferedImage[] { back.getSubsprites()[back
-				.getSubimages() - 1] });
-		back.setSubimages(1);
 		int y = this.height - PADDING_BORDER - back.getHeight() / 2;
-		addObjeto(new Visual(x, y, this, back));
+		Button back_obj = new Button(x, y, this, back);
+		back_obj.select();
+		addObjeto(back_obj);
 
 		Sprite title = CreditsRepository.titleButton;
 		y = PADDING_BORDER + title.getHeight() / 2;

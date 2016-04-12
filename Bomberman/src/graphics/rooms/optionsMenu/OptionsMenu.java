@@ -3,20 +3,19 @@
  */
 package graphics.rooms.optionsMenu;
 
+import java.awt.Graphics;
+
+import graphics.effects.Button;
 import graphics.effects.Visual;
 import graphics.effects.slider.Slider;
 import graphics.effects.slider.VolumeSlider;
 import graphics.rooms.Room;
-
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
-import sound.MusicRepository;
 import kuusisto.tinysound.TinySound;
 import logic.Input.KEY;
 import logic.Sprite;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
+import sound.MusicRepository;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -47,11 +46,10 @@ public class OptionsMenu extends Room {
 		int x = width / 2;
 
 		Sprite back = OptionsMenuRepository.backButton;
-		back.setSubsprites(new BufferedImage[] { back.getSubsprites()[back
-				.getSubimages() - 1] });
-		back.setSubimages(1);
 		int y = this.height - PADDING_BORDER - back.getHeight() / 2;
-		addObjeto(new Visual(x, y, this, back));
+		Button back_obj = new Button(x, y, this, back);
+		back_obj.select();
+		addObjeto(back_obj);
 
 		y = height / 2;
 		Sprite slider = OptionsMenuRepository.slider;

@@ -19,6 +19,10 @@ public class RankMenuRepository {
 	static Sprite continueButton = null;
 	static Sprite backButton = null;
 
+	public static Sprite alphabet = null;
+	public static Sprite digits = null;
+	public static Sprite newRecord = null;
+
 	/**
 	 * Load resources
 	 */
@@ -27,6 +31,7 @@ public class RankMenuRepository {
 		loadTitleButton();
 		loadContinueButton();
 		loadBackButton();
+		loadPaintService();
 	}
 
 	/**
@@ -34,9 +39,7 @@ public class RankMenuRepository {
 	 */
 	private static void loadBackground() {
 		if (background == null) {
-			background = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.BACKGROUND
-							.toString());
+			background = Initialization.getSpriteFromMenu(Initialization.MENUS.BACKGROUND.toString());
 		}
 	}
 
@@ -45,9 +48,7 @@ public class RankMenuRepository {
 	 */
 	private static void loadTitleButton() {
 		if (titleButton == null) {
-			titleButton = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON
-							.toString());
+			titleButton = Initialization.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON.toString());
 		}
 	}
 
@@ -56,9 +57,7 @@ public class RankMenuRepository {
 	 */
 	private static void loadContinueButton() {
 		if (continueButton == null) {
-			continueButton = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.CONTINUE_BUTTON
-							.toString());
+			continueButton = Initialization.getSpriteFromMenu(Initialization.MENUS.CONTINUE_BUTTON.toString());
 		}
 	}
 
@@ -67,9 +66,22 @@ public class RankMenuRepository {
 	 */
 	private static void loadBackButton() {
 		if (backButton == null) {
-			backButton = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.BACK_BUTTON
-							.toString());
+			backButton = Initialization.getSpriteFromMenu(Initialization.MENUS.BACK_BUTTON.toString());
+		}
+	}
+
+	/**
+	 * Load the paint service
+	 */
+	private static void loadPaintService() {
+		if (alphabet == null) {
+			alphabet = Initialization.getSpriteFromMenu(Initialization.MENUS.ALPHABET.toString());
+		}
+		if (digits == null) {
+			digits = Initialization.getSpriteFromMenu(Initialization.MENUS.DIGITS.toString());
+		}
+		if (newRecord == null) {
+			newRecord = Initialization.getSpriteFromMenu(Initialization.MENUS.NEW.toString());
 		}
 	}
 

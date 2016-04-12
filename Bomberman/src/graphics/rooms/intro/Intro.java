@@ -7,13 +7,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 
-import sound.MusicRepository;
 import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
 import graphics.rooms.credits.CreditsRepository;
+import graphics.rooms.game.GameRepository;
 import graphics.rooms.mainMenu.MainMenuRepository;
 import graphics.rooms.optionsMenu.OptionsMenuRepository;
 import graphics.rooms.pauseMenu.PauseMenuRepository;
@@ -21,6 +22,7 @@ import graphics.rooms.rankMenu.RankMenuRepository;
 import logic.Input.KEY;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
+import sound.MusicRepository;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -47,13 +49,31 @@ public class Intro extends Room {
 
 	@Override
 	public void load() {
+		System.out.println(new Date().toString() + " Before music");
 		MusicRepository.load();
+		
+		System.out.println(new Date().toString() + " Before intro");
 		IntroRepository.load();
+		
+		System.out.println(new Date().toString() + " Before pause menu");
 		PauseMenuRepository.load();
+		
+		System.out.println(new Date().toString() + " Before credits");
 		CreditsRepository.load();
+		
+		System.out.println(new Date().toString() + " Before game");
+		GameRepository.load(null);
+		
+		System.out.println(new Date().toString() + " Before options menu");
 		OptionsMenuRepository.load();
+		
+		System.out.println(new Date().toString() + " Before main menu");
 		MainMenuRepository.load();
+		
+		System.out.println(new Date().toString() + " Before rank menu");
 		RankMenuRepository.load();
+		
+		System.out.println(new Date().toString() + " After verything");
 
 		addObjeto(new Fade(0, 0, this, false));
 		addObjeto(new Visual(width / 2, height / 2, this, IntroRepository.logo));
