@@ -24,7 +24,7 @@ import sound.MusicRepository;
 public class MainMenu extends Room {
 
 	private Button[][] menuButtons;
-	private final int ROWS = 3;
+	private final int ROWS = 4;
 	private final int COLUMNS = 2;
 	private int selected;
 	private int column;
@@ -117,8 +117,22 @@ public class MainMenu extends Room {
 		addObjeto(menuButtons[1][0]);
 		
 		// Credits button
-		sprite = MainMenuRepository.creditsButton;
+		sprite = MainMenuRepository.controlsButton;
 		menuButtons[1][1] = new Button(x2, y + sprite.getHeight() / 2, this,
+				sprite, new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO controls room
+					}
+				});
+		addObjeto(menuButtons[1][1]);
+		
+		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		
+		// Controls button
+		sprite = MainMenuRepository.creditsButton;
+		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this,
 				sprite, new Runnable() {
 
 					@Override
@@ -126,13 +140,13 @@ public class MainMenu extends Room {
 						StatesMachine.goToRoom(STATE.CREDITS, false);
 					}
 				});
-		addObjeto(menuButtons[1][1]);
+		addObjeto(menuButtons[2][0]);
 		
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 
 		// Quit button
 		sprite = MainMenuRepository.quitButton;
-		menuButtons[2][0] = new Button(width/2, y + sprite.getHeight() / 2, this,
+		menuButtons[3][0] = new Button(width/2, y + sprite.getHeight() / 2, this,
 				sprite, new Runnable() {
 
 					@Override
@@ -141,8 +155,8 @@ public class MainMenu extends Room {
 						System.exit(0);
 					}
 				});
-		menuButtons[2][1] = menuButtons[2][0];
-		addObjeto(menuButtons[2][0]);
+		menuButtons[3][1] = menuButtons[3][0];
+		addObjeto(menuButtons[3][0]);
 	}
 
 	/**

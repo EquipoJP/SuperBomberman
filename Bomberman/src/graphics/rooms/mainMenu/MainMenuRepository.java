@@ -20,6 +20,7 @@ public class MainMenuRepository {
 	static Sprite rankingButton = null;
 	static Sprite creditsButton = null;
 	static Sprite quitButton = null;
+	static Sprite controlsButton = null;
 
 	/**
 	 * Load resources
@@ -32,6 +33,7 @@ public class MainMenuRepository {
 		loadRankingButton();
 		loadCreditsButton();
 		loadQuitButton();
+		loadControlsButton();
 	}
 
 	/**
@@ -107,6 +109,17 @@ public class MainMenuRepository {
 		if (quitButton == null) {
 			quitButton = Initialization
 					.getSpriteFromMenu(Initialization.MENUS.QUIT_BUTTON
+							.toString());
+		}
+	}
+	
+	/**
+	 * Load controls button
+	 */
+	private static void loadControlsButton() {
+		if (controlsButton == null) {
+			controlsButton = Initialization
+					.getSpriteFromMenu(Initialization.MENUS.CONTROLS_BUTTON
 							.toString());
 		}
 	}
