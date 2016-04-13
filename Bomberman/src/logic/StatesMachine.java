@@ -3,8 +3,7 @@
  */
 package logic;
 
-import java.awt.Graphics;
-
+import graphics.rooms.controlsMenu.Controls;
 import graphics.rooms.credits.Credits;
 import graphics.rooms.game.Game;
 import graphics.rooms.intro.Intro;
@@ -12,6 +11,9 @@ import graphics.rooms.mainMenu.MainMenu;
 import graphics.rooms.optionsMenu.OptionsMenu;
 import graphics.rooms.pauseMenu.PauseMenu;
 import graphics.rooms.rankMenu.RankMenu;
+
+import java.awt.Graphics;
+
 import logic.Input.KEY;
 import logic.misc.Record;
 
@@ -23,7 +25,7 @@ public class StatesMachine {
 
 	/* machine's states */
 	public enum STATE {
-		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, PAUSE, RANKS, TOP10, CREDITS
+		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, PAUSE, RANKS, TOP10, CREDITS, CONTROLS
 	};
 
 	/* private attributes */
@@ -38,6 +40,7 @@ public class StatesMachine {
 	private static Game gameScreen = null;
 	private static PauseMenu pauseScreen = null;
 	private static Credits credits = null;
+	private static Controls controls = null;
 
 	/**
 	 * Creation of the states machine. It starts on the game's intro
@@ -82,6 +85,9 @@ public class StatesMachine {
 		case CREDITS:
 			credits(key, direction);
 			break;
+		case CONTROLS:
+			controls(key, direction);
+			break;
 		default:
 			break;
 		}
@@ -118,6 +124,9 @@ public class StatesMachine {
 			break;
 		case CREDITS:
 			credits.render(g);
+			break;
+		case CONTROLS:
+			controls.render(g);
 			break;
 		default:
 			break;
@@ -200,6 +209,10 @@ public class StatesMachine {
 		case CREDITS:
 			credits.destroy();
 			credits = null;
+			break;
+		case CONTROLS:
+			controls.destroy();
+			controls = null;
 			break;
 		default:
 			break;
@@ -338,5 +351,21 @@ public class StatesMachine {
 			credits = new Credits(main.Game.WIDTH, main.Game.HEIGHT, "Credits");
 		}
 		credits.step(key, direction);
+	}
+	
+	/**
+	 * Show the controls of the game
+	 * 
+	 * @param key
+	 *            key
+	 * @param direction
+	 *            direction
+	 */
+	private static void controls(KEY key, KEY direction) {
+
+		if (controls == null) {
+			controls = new Controls(main.Game.WIDTH, main.Game.HEIGHT, "Controls");
+		}
+		controls.step(key, direction);
 	}
 }

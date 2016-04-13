@@ -13,6 +13,7 @@ import graphics.effects.Fade;
 import graphics.effects.IntroTemporizer;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
+import graphics.rooms.controlsMenu.ControlsRepository;
 import graphics.rooms.credits.CreditsRepository;
 import graphics.rooms.game.GameRepository;
 import graphics.rooms.mainMenu.MainMenuRepository;
@@ -72,6 +73,9 @@ public class Intro extends Room {
 		
 		System.out.println(new Date().toString() + " Before rank menu");
 		RankMenuRepository.load();
+		
+		System.out.println(new Date().toString() + " Before controls menu");
+		ControlsRepository.load();
 		
 		System.out.println(new Date().toString() + " After verything");
 

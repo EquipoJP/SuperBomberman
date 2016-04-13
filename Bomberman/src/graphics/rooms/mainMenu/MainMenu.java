@@ -116,21 +116,21 @@ public class MainMenu extends Room {
 				});
 		addObjeto(menuButtons[1][0]);
 		
-		// Credits button
+		// Controls button
 		sprite = MainMenuRepository.controlsButton;
 		menuButtons[1][1] = new Button(x2, y + sprite.getHeight() / 2, this,
 				sprite, new Runnable() {
 
 					@Override
 					public void run() {
-						// TODO controls room
+						StatesMachine.goToRoom(STATE.CONTROLS, false);
 					}
 				});
 		addObjeto(menuButtons[1][1]);
 		
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		
-		// Controls button
+		// Credits button
 		sprite = MainMenuRepository.creditsButton;
 		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this,
 				sprite, new Runnable() {
