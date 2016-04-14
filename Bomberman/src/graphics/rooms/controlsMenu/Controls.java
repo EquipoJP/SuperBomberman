@@ -277,7 +277,7 @@ public class Controls extends Room {
 			previousColumn();
 			sel.play();
 			break;
-		case ENTER:
+		case CONFIRM:
 			confirm();
 			break;
 		default:

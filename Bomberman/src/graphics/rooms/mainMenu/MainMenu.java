@@ -250,7 +250,7 @@ public class MainMenu extends Room {
 			previousColumn();
 			sel.play();
 			break;
-		case ENTER:
+		case CONFIRM:
 			confirm();
 			break;
 		default:

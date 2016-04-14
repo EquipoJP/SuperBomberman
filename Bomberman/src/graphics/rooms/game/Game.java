@@ -225,7 +225,7 @@ public class Game extends Room {
 			if (!MusicRepository.battle.done())
 				setMusic(MusicRepository.battle, true);
 
-			if (key == KEY.ESCAPE && secondsVictory < 0) {
+			if (key == KEY.PAUSE && secondsVictory < 0) {
 				// Pause menu being persistent
 				StatesMachine.goToRoom(StatesMachine.STATE.PAUSE, true);
 			} else if (checkTime()) {

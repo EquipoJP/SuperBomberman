@@ -112,10 +112,10 @@ public class OptionsMenu extends Room {
 			return;
 		}
 		switch (key) {
-		case ENTER:
+		case CONFIRM:
 			confirm();
 			break;
-		case ESCAPE:
+		case PAUSE:
 			confirm();
 			break;
 		default:

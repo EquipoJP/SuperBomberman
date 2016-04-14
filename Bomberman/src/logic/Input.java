@@ -15,12 +15,13 @@ import main.Game;
 public class Input extends KeyAdapter {
 
 	Game game;
+	public KeyMapper mapper;
 
 	public enum KEY {
-		UP, DOWN, LEFT, RIGHT, SPACE, ENTER, ESCAPE, NO_KEY
+		UP, DOWN, LEFT, RIGHT, BOMB, CONFIRM, PAUSE, NO_KEY
 	}
 
-	private boolean up, down, left, right, space, enter, escape;
+	private boolean up, down, left, right, bomb, confirm, pause;
 	private KEY lastKey;
 
 	/**
@@ -29,14 +30,15 @@ public class Input extends KeyAdapter {
 	 */
 	public Input(Game game) {
 		this.game = game;
+		mapper = new KeyMapper();
 
 		up = false;
 		down = false;
 		left = false;
 		right = false;
-		space = false;
-		enter = false;
-		escape = false;
+		bomb = false;
+		confirm = false;
+		pause = false;
 
 		lastKey = KEY.NO_KEY;
 		game.addKeyListener(this);
@@ -44,55 +46,43 @@ public class Input extends KeyAdapter {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_UP:
+		int code = e.getKeyCode();
+
+		if (code == mapper.getCodeKey(KEY.UP)) {
 			up = true;
-			break;
-		case KeyEvent.VK_DOWN:
+		} else if (code == mapper.getCodeKey(KEY.DOWN)) {
 			down = true;
-			break;
-		case KeyEvent.VK_LEFT:
+		} else if (code == mapper.getCodeKey(KEY.LEFT)) {
 			left = true;
-			break;
-		case KeyEvent.VK_RIGHT:
+		} else if (code == mapper.getCodeKey(KEY.RIGHT)) {
 			right = true;
-			break;
-		case KeyEvent.VK_SPACE:
-			space = true;
-			break;
-		case KeyEvent.VK_ENTER:
-			enter = true;
-			break;
-		case KeyEvent.VK_ESCAPE:
-			escape = true;
-			break;
+		} else if (code == mapper.getCodeKey(KEY.BOMB)) {
+			bomb = true;
+		} else if (code == mapper.getCodeKey(KEY.CONFIRM)) {
+			confirm = true;
+		} else if (code == mapper.getCodeKey(KEY.PAUSE)) {
+			pause = true;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_UP:
+		int code = e.getKeyCode();
+
+		if (code == mapper.getCodeKey(KEY.UP)) {
 			up = false;
-			break;
-		case KeyEvent.VK_DOWN:
+		} else if (code == mapper.getCodeKey(KEY.DOWN)) {
 			down = false;
-			break;
-		case KeyEvent.VK_LEFT:
+		} else if (code == mapper.getCodeKey(KEY.LEFT)) {
 			left = false;
-			break;
-		case KeyEvent.VK_RIGHT:
+		} else if (code == mapper.getCodeKey(KEY.RIGHT)) {
 			right = false;
-			break;
-		case KeyEvent.VK_SPACE:
-			space = false;
-			break;
-		case KeyEvent.VK_ENTER:
-			enter = false;
-			break;
-		case KeyEvent.VK_ESCAPE:
-			escape = false;
-			break;
+		} else if (code == mapper.getCodeKey(KEY.BOMB)) {
+			bomb = false;
+		} else if (code == mapper.getCodeKey(KEY.CONFIRM)) {
+			confirm = false;
+		} else if (code == mapper.getCodeKey(KEY.PAUSE)) {
+			pause = false;
 		}
 	}
 
@@ -118,12 +108,12 @@ public class Input extends KeyAdapter {
 		 * Down 7. Up
 		 */
 		KEY key = KEY.NO_KEY;
-		if (escape) {
-			key = KEY.ESCAPE;
-		} else if (enter) {
-			key = KEY.ENTER;
-		} else if (space) {
-			key = KEY.SPACE;
+		if (pause) {
+			key = KEY.PAUSE;
+		} else if (confirm) {
+			key = KEY.CONFIRM;
+		} else if (bomb) {
+			key = KEY.BOMB;
 		} else if (right) {
 			key = KEY.RIGHT;
 		} else if (left) {

@@ -156,7 +156,7 @@ public class PauseMenu extends Room {
 		case UP:
 			previous();
 			break;
-		case ENTER:
+		case CONFIRM:
 			confirm();
 			break;
 		default:

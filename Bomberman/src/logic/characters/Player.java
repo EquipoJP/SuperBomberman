@@ -83,7 +83,7 @@ public class Player extends Objeto {
 		if (!destruction) {
 			boolean keyed = false;
 			switch (key) {
-			case SPACE:
+			case BOMB:
 				keyed = true;
 				unsetAlarm(0);
 				break;
@@ -201,7 +201,7 @@ public class Player extends Objeto {
 			}
 
 			switch (key) {
-			case SPACE:
+			case BOMB:
 				putBomb();
 				break;
 			default:

@@ -20,6 +20,7 @@ import graphics.rooms.mainMenu.MainMenuRepository;
 import graphics.rooms.optionsMenu.OptionsMenuRepository;
 import graphics.rooms.pauseMenu.PauseMenuRepository;
 import graphics.rooms.rankMenu.RankMenuRepository;
+import logic.Global;
 import logic.Input.KEY;
 import logic.StatesMachine;
 import logic.StatesMachine.STATE;
@@ -50,34 +51,23 @@ public class Intro extends Room {
 
 	@Override
 	public void load() {
-		System.out.println(new Date().toString() + " Before music");
+		if (Global.DEBUG) {
+			System.out.println(new Date().toString() + " Loading");
+		}
+
 		MusicRepository.load();
-		
-		System.out.println(new Date().toString() + " Before intro");
 		IntroRepository.load();
-		
-		System.out.println(new Date().toString() + " Before pause menu");
 		PauseMenuRepository.load();
-		
-		System.out.println(new Date().toString() + " Before credits");
 		CreditsRepository.load();
-		
-		System.out.println(new Date().toString() + " Before game");
 		GameRepository.load(null);
-		
-		System.out.println(new Date().toString() + " Before options menu");
 		OptionsMenuRepository.load();
-		
-		System.out.println(new Date().toString() + " Before main menu");
 		MainMenuRepository.load();
-		
-		System.out.println(new Date().toString() + " Before rank menu");
 		RankMenuRepository.load();
-		
-		System.out.println(new Date().toString() + " Before controls menu");
 		ControlsRepository.load();
-		
-		System.out.println(new Date().toString() + " After verything");
+
+		if (Global.DEBUG) {
+			System.out.println(new Date().toString() + " Finished loading");
+		}
 
 		addObjeto(new Fade(0, 0, this, false));
 		addObjeto(new Visual(width / 2, height / 2, this, IntroRepository.logo));
@@ -122,8 +112,7 @@ public class Intro extends Room {
 			return;
 		}
 
-		BufferedImage curtain = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
+		BufferedImage curtain = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics = (Graphics2D) curtain.getGraphics();
 		graphics.setPaint(new Color(255, 255, 255));
 		graphics.fillRect(0, 0, curtain.getWidth(), curtain.getHeight());
