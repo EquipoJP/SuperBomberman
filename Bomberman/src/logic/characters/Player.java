@@ -27,7 +27,7 @@ import sound.MusicRepository;
  */
 public class Player extends Objeto {
 
-	/* Info for getting Sprites */
+	/* Info Sprites */
 	private Map<String, Sprite> sprites;
 
 	private static final int HELP_THRESHOLD = 8;
