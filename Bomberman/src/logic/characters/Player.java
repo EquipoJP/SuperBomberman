@@ -27,7 +27,7 @@ import sound.MusicRepository;
  */
 public class Player extends Objeto {
 
-	/* Info for getting Sprites */
+	/* Info for getting Sprites LOL MENUDO MERGE */
 	private Map<String, Sprite> sprites;
 
 	private static final int HELP_THRESHOLD = 8;
