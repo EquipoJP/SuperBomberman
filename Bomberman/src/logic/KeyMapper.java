@@ -2,6 +2,7 @@ package logic;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +42,9 @@ public class KeyMapper {
 		if(f.exists() && f.isFile()){
 			for(KEY key : KEY.values()){
 				String strValue = IniUtils.getValue(file, KM_SECTION, key.toString());
-				mapper.put(key, Integer.parseInt(strValue));
+				if(strValue != null){
+					mapper.put(key, Integer.parseInt(strValue));
+				}
 			}
 			return true;
 		}
@@ -84,7 +87,7 @@ public class KeyMapper {
 		value = KeyEvent.VK_ENTER;
 		mapper.put(key, value);
 		
-		return true;
+		return saveKeyMapper();
 	}
 	
 	public boolean saveKeyMapper(){
@@ -100,6 +103,12 @@ public class KeyMapper {
 		}
 		
 		File f = new File(file);
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		if(f.exists() && f.isFile()){
 			for(KEY key : mapper.keySet()){
 				Integer intValue = mapper.get(key);
