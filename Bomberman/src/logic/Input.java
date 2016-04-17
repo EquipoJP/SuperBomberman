@@ -16,12 +16,13 @@ public class Input extends KeyAdapter {
 
 	Game game;
 	public KeyMapper mapper;
+	public static int lastCode;
 
 	public enum KEY {
-		UP, DOWN, LEFT, RIGHT, BOMB, CONFIRM, PAUSE, NO_KEY
+		UP, DOWN, LEFT, RIGHT, BOMB, CONFIRM, PAUSE, NO_KEY, OTHER
 	}
 
-	private boolean up, down, left, right, bomb, confirm, pause;
+	private boolean up, down, left, right, bomb, confirm, pause, other;
 	private KEY lastKey;
 
 	/**
@@ -47,6 +48,7 @@ public class Input extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
+		lastCode = code;
 
 		if (code == mapper.getCodeKey(KEY.UP)) {
 			up = true;
@@ -62,6 +64,8 @@ public class Input extends KeyAdapter {
 			confirm = true;
 		} else if (code == mapper.getCodeKey(KEY.PAUSE)) {
 			pause = true;
+		} else{
+			other = true;
 		}
 	}
 
@@ -83,6 +87,8 @@ public class Input extends KeyAdapter {
 			confirm = false;
 		} else if (code == mapper.getCodeKey(KEY.PAUSE)) {
 			pause = false;
+		} else{
+			other = false;
 		}
 	}
 
@@ -122,6 +128,8 @@ public class Input extends KeyAdapter {
 			key = KEY.DOWN;
 		} else if (up) {
 			key = KEY.UP;
+		} else if (other){
+			key = KEY.OTHER;
 		}
 
 		if (key != lastKey) {
@@ -156,4 +164,8 @@ public class Input extends KeyAdapter {
 		return KEY.NO_KEY;
 	}
 
+	public void reloadMapping(){
+		mapper = new KeyMapper();
+	}
+	
 }

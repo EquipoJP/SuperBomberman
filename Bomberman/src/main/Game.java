@@ -176,4 +176,8 @@ public class Game extends Canvas implements Runnable {
 
 		game.start();
 	}
+	
+	public void reloadMapping(){
+		input.reloadMapping();
+	}
 }

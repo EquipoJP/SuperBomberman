@@ -3,6 +3,9 @@
  */
 package utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,7 +32,15 @@ public class IniUtils {
 	 */
 	public static String getValue(String file, String section, String term) {
 		String value = null;
+		
 		InputStream is = IniUtils.class.getClassLoader().getResourceAsStream(file);
+		if(is == null){
+			try {
+				is = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		try {
 			Ini ini = new Ini(is);
@@ -59,11 +70,23 @@ public class IniUtils {
 	 */
 	public static void addValue(String file, String section, String term, String value) {
 		InputStream is = IniUtils.class.getClassLoader().getResourceAsStream(file);
+		boolean isFile = false;
+		
+		if(is == null){
+			try {
+				is = new FileInputStream(file);
+				isFile = true;
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		try {
 			Ini ini = new Ini(is);
 			ini.put(section, term, value);
-			ini.store();
+			if(isFile){
+				ini.store(new File(file));
+			}
 
 		} catch (InvalidFileFormatException e) {
 			e.printStackTrace();
