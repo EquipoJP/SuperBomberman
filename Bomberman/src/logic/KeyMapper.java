@@ -109,12 +109,15 @@ public class KeyMapper {
 			e.printStackTrace();
 		}
 		
-		if(f.exists() && f.isFile()){
-			for(KEY key : mapper.keySet()){
-				Integer intValue = mapper.get(key);
-				IniUtils.addValue(file, KM_SECTION, key.toString(), intValue + "");
+					for(KEY key : mapper.keySet()){
+						Integer intValue = mapper.get(key);
+						IniUtils.addValue(file, KM_SECTION, key.toString(), intValue + "");
+					}
+					return true;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-			return true;
 		}
 		return false;
 	}
