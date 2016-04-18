@@ -1,10 +1,12 @@
 package graphics.rooms.controlsMenu;
 
 import graphics.effects.Button;
+import graphics.effects.ControlButton;
 import graphics.effects.PintableButton;
 import graphics.rooms.Room;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 import kuusisto.tinysound.Sound;
 import logic.Input.KEY;
@@ -18,7 +20,8 @@ public class Controls extends Room {
 	private static final int PADDING_BORDER = 25;
 	private static final int INTERBUTTON_BORDER = 25;
 
-	private Button[][] menuButtons;
+	public Button[][] menuButtons;
+	public boolean selectingKey = false;
 	private final int ROWS = 8;
 	private final int COLUMNS = 2;
 	private int selected;
@@ -51,139 +54,89 @@ public class Controls extends Room {
 		// variables
 		int _width = width / 2;
 		int x = _width / 2;
-		int x2 = x + _width/2;
+		int x2 = x + _width / 2;
 		int y = PADDING_BORDER;
+		int i = 0;
 
 		// UP button
 		Sprite sprite = ControlsRepository.up;
-		menuButtons[0][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[0][0]);
-		
-		menuButtons[0][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "Up");
-		addObjeto(menuButtons[0][1]);
+		createOneButton(x, y, sprite, KEY.UP, i, 0, x2, i, 1, getKeyText(KEY.UP));
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
-
+		i++;
+		
 		// DOWN button
 		sprite = ControlsRepository.down;
-		menuButtons[1][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[1][0]);
-		
-		menuButtons[1][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "Down");
-		addObjeto(menuButtons[1][1]);
+		createOneButton(x, y, sprite, KEY.DOWN, i, 0, x2, i, 1, getKeyText(KEY.DOWN));
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		i++;
 
 		// LEFT button
 		sprite = ControlsRepository.left;
-		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[2][0]);
-		
-		menuButtons[2][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "Left");
-		addObjeto(menuButtons[2][1]);
+		createOneButton(x, y, sprite, KEY.LEFT, i, 0, x2, i, 1, getKeyText(KEY.LEFT));
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		i++;
 
 		// RIGHT button
 		sprite = ControlsRepository.right;
-		menuButtons[3][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[3][0]);
-		
-		menuButtons[3][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "Right");
-		addObjeto(menuButtons[3][1]);
+		createOneButton(x, y, sprite, KEY.RIGHT, i, 0, x2, i, 1, getKeyText(KEY.RIGHT));
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
-
+		i++;
+		
 		// BOMB button
 		sprite = ControlsRepository.bomb;
-		menuButtons[4][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[4][0]);
-		
-		menuButtons[4][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "Space");
-		addObjeto(menuButtons[4][1]);
+		createOneButton(x, y, sprite, KEY.BOMB, i, 0, x2, i, 1, getKeyText(KEY.BOMB));
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		i++;
 
 		// PAUSE button
 		sprite = ControlsRepository.pause;
-		menuButtons[5][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[5][0]);
-		
-		menuButtons[5][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "Escape");
-		addObjeto(menuButtons[5][1]);
+		createOneButton(x, y, sprite, KEY.PAUSE, i, 0, x2, i, 1, getKeyText(KEY.PAUSE));
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		i++;
 
 		// CONFIRM button
 		sprite = ControlsRepository.confirm;
-		menuButtons[6][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		createOneButton(x, y, sprite, KEY.CONFIRM, i, 0, x2, i, 1, getKeyText(KEY.CONFIRM));
 
-					@Override
-					public void run() {
-						// TODO
-					}
-				});
-		addObjeto(menuButtons[6][0]);
-		
-		menuButtons[6][1] = new PintableButton(x2, y + sprite.getHeight()/2 - sprite.getCenterY(), this, null, null, "enter");
-		addObjeto(menuButtons[6][1]);
-		
 		Sprite next = ControlsRepository.continueButton;
 		y = this.height - PADDING_BORDER - next.getHeight() / 2;
+		i++;
 
-		menuButtons[7][0] = new Button(width/2, y, this, next, new Runnable() {
-			
+		menuButtons[i][0] = new Button(width / 2, y, this, next, new Runnable() {
+
 			@Override
 			public void run() {
-				StatesMachine.goToRoom(STATE.MAIN_MENU, false);				
+				StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 			}
 		});
-		
+
 		menuButtons[7][1] = menuButtons[7][0];
 		addObjeto(menuButtons[7][0]);
+	}
+
+	private void createOneButton(int x, int y, Sprite sprite, KEY key, int i1, int j1, int x2, int i2, int j2, String text) {
+		menuButtons[i1][j1] = new ControlButton(x, y + sprite.getHeight() / 2, this, sprite, key, new Runnable() {
+
+			@Override
+			public void run() {
+				// Set new text to pintable
+				ControlButton cb = ((ControlButton) menuButtons[i1][j1]);
+				cb.setPintableText("...");
+				cb.selecting = true;
+			}
+		});
+		addObjeto(menuButtons[i1][j1]);
+
+		menuButtons[i2][j2] = new PintableButton(x2, y + sprite.getHeight() / 2 - sprite.getCenterY(), this, null, null,
+				text);
+		addObjeto(menuButtons[i2][j2]);
+		((ControlButton) menuButtons[i1][j1]).setPintable((PintableButton) menuButtons[i2][j2]);
 	}
 
 	/**
@@ -216,23 +169,12 @@ public class Controls extends Room {
 		select(no);
 	}
 
-	private void nextColumn() {
-		column = (column + 1) % COLUMNS;
-		select(selected);
-	}
-
 	/**
 	 * Previous button
 	 */
 	private void previous() {
-		int no = ((selected - 1) % menuButtons.length + menuButtons.length)
-				% menuButtons.length;
+		int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
 		select(no);
-	}
-
-	private void previousColumn() {
-		column = ((column - 1) % COLUMNS + COLUMNS) % COLUMNS;
-		select(selected);
 	}
 
 	/**
@@ -260,28 +202,35 @@ public class Controls extends Room {
 			return;
 		}
 		Sound sel = MusicRepository.select;
-		switch (key) {
-		case DOWN:
-			next();
-			sel.play();
-			break;
-		case UP:
-			previous();
-			sel.play();
-			break;
-		case RIGHT:
-			nextColumn();
-			sel.play();
-			break;
-		case LEFT:
-			previousColumn();
-			sel.play();
-			break;
-		case CONFIRM:
-			confirm();
-			break;
-		default:
-			break;
+		if (!selectingKey) {
+			switch (key) {
+			case DOWN:
+				next();
+				sel.play();
+				break;
+			case UP:
+				previous();
+				sel.play();
+				break;
+			case RIGHT:
+				break;
+			case LEFT:
+				break;
+			case CONFIRM:
+				confirm();
+				break;
+			default:
+				break;
+			}
 		}
+	}
+	
+	private String getKeyText(KEY key){
+		int code = StatesMachine.input.mapper.getCodeKey(key);
+		String returned = ControlButton.defaultTextes(code);
+		if(returned == null) {
+			returned = KeyEvent.getKeyText(code);
+		}
+		return returned;
 	}
 }

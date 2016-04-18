@@ -16,6 +16,7 @@ import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
 import logic.misc.ObjetoComparator;
+import main.Game;
 
 /**
  * @author Patricia Lazaro Tello (554309)
@@ -23,6 +24,7 @@ import logic.misc.ObjetoComparator;
  */
 public abstract class Room {
 
+	public Game g;
 	public int width;
 	public int height;
 	public String name;
