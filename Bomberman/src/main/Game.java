@@ -38,8 +38,7 @@ public class Game extends Canvas implements Runnable {
 	public boolean running = false;
 	private Thread thread;
 
-	public static BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
-			BufferedImage.TYPE_INT_RGB);
+	public static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
 	/**
 	 * Start the game
@@ -146,7 +145,8 @@ public class Game extends Canvas implements Runnable {
 	/**
 	 * Main method to start, initialize and load up the game
 	 * 
-	 * @param args no arguments
+	 * @param args
+	 *            no arguments
 	 */
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -154,11 +154,10 @@ public class Game extends Canvas implements Runnable {
 		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
-		
+
 		Image image = null;
 		try {
-			InputStream is = Game.class.getClassLoader()
-					.getResourceAsStream("icon.png");
+			InputStream is = Game.class.getClassLoader().getResourceAsStream("icon.png");
 			image = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -176,8 +175,8 @@ public class Game extends Canvas implements Runnable {
 
 		game.start();
 	}
-	
-	public void reloadMapping(){
+
+	public void reloadMapping() {
 		input.reloadMapping();
 	}
 }

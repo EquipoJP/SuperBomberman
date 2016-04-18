@@ -3,7 +3,9 @@ package logic;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import logic.Input.KEY;
@@ -117,6 +119,19 @@ public class KeyMapper {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean isAlreadyIntoTheMapper(int check){
+		Collection<Integer> col = mapper.values();
+		Iterator<Integer> it = col.iterator();
+		boolean found = false;
+		for(int i = 0; i < col.size() && !found; i++){
+			int number = it.next();
+			if(number == check){
+				found = true;
+			}
+		}
+		return found;
 	}
 
 }

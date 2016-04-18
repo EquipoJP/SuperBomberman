@@ -64,7 +64,7 @@ public class Input extends KeyAdapter {
 			confirm = true;
 		} else if (code == mapper.getCodeKey(KEY.PAUSE)) {
 			pause = true;
-		} else{
+		} else {
 			other = true;
 		}
 	}
@@ -87,9 +87,10 @@ public class Input extends KeyAdapter {
 			confirm = false;
 		} else if (code == mapper.getCodeKey(KEY.PAUSE)) {
 			pause = false;
-		} else{
+		} else {
 			other = false;
 		}
+		lastCode = -1;
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class Input extends KeyAdapter {
 			key = KEY.DOWN;
 		} else if (up) {
 			key = KEY.UP;
-		} else if (other){
+		} else if (other) {
 			key = KEY.OTHER;
 		}
 
@@ -164,8 +165,8 @@ public class Input extends KeyAdapter {
 		return KEY.NO_KEY;
 	}
 
-	public void reloadMapping(){
+	public void reloadMapping() {
 		mapper = new KeyMapper();
 	}
-	
+
 }
