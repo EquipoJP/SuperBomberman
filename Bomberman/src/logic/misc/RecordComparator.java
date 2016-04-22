@@ -5,6 +5,10 @@ package logic.misc;
 
 import java.util.Comparator;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class RecordComparator implements Comparator<Record> {
 
 	@Override

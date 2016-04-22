@@ -1,3 +1,6 @@
+/**
+ * Class representing the key map
+ */
 package logic;
 
 import java.awt.event.KeyEvent;
@@ -12,6 +15,10 @@ import logic.Input.KEY;
 import utils.IniUtils;
 import utils.SaveSystemService;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class KeyMapper {
 
 	private static final String KEYMAPPER_FILE = "keymap.ini";
@@ -19,6 +26,9 @@ public class KeyMapper {
 
 	private Map<KEY, Integer> mapper;
 
+	/**
+	 * Creates a new key mapper (if it is not loaded)
+	 */
 	public KeyMapper() {
 		mapper = new HashMap<KEY, Integer>();
 
@@ -28,15 +38,29 @@ public class KeyMapper {
 		}
 	}
 
+	/**
+	 * @param key
+	 *            key to get the code
+	 * @return ode of the key
+	 */
 	public int getCodeKey(KEY key) {
 		return mapper.get(key);
 	}
 
+	/**
+	 * @param key
+	 *            key to change the key code
+	 * @param code
+	 *            key code to change
+	 */
 	public void changeKeyCode(KEY key, int code) {
 		mapper.put(key, code);
 		saveKeyMapper();
 	}
 
+	/**
+	 * @return true if it can load the key mapper from file, false otherwise
+	 */
 	private boolean loadKeyMapper() {
 		String file = SaveSystemService.PATH + KEYMAPPER_FILE;
 		File f = new File(file);
@@ -53,6 +77,9 @@ public class KeyMapper {
 		return false;
 	}
 
+	/**
+	 * @return true if it can create the key mapper, false otherwise
+	 */
 	private boolean createKeyMapper() {
 		// up
 		KEY key = KEY.UP;
@@ -92,6 +119,9 @@ public class KeyMapper {
 		return saveKeyMapper();
 	}
 
+	/**
+	 * @return true if it can save the key mapper, false otherwise
+	 */
 	public boolean saveKeyMapper() {
 		String file = SaveSystemService.PATH + KEYMAPPER_FILE;
 
@@ -110,7 +140,7 @@ public class KeyMapper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (f.exists() && f.isFile()) {
 			for (KEY key : mapper.keySet()) {
 				Integer intValue = mapper.get(key);
@@ -121,14 +151,19 @@ public class KeyMapper {
 		}
 		return false;
 	}
-	
-	public boolean isAlreadyIntoTheMapper(int check){
+
+	/**
+	 * @param check
+	 *            key code to check
+	 * @return true if the code is already on the mapper, false otherwise
+	 */
+	public boolean isAlreadyIntoTheMapper(int check) {
 		Collection<Integer> col = mapper.values();
 		Iterator<Integer> it = col.iterator();
 		boolean found = false;
-		for(int i = 0; i < col.size() && !found; i++){
+		for (int i = 0; i < col.size() && !found; i++) {
 			int number = it.next();
-			if(number == check){
+			if (number == check) {
 				found = true;
 			}
 		}

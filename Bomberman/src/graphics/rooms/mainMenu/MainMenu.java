@@ -75,86 +75,79 @@ public class MainMenu extends Room {
 		int _width = width / 2;
 		int x = _width / 2;
 		int x2 = x + _width;
-		int y = PADDING_BORDER + MainMenuRepository.titleButton.getHeight()
-				+ TITLEBUTTON_BORDER;
+		int y = PADDING_BORDER + MainMenuRepository.titleButton.getHeight() + TITLEBUTTON_BORDER;
 
 		// Game button
 		Sprite sprite = MainMenuRepository.gameButton;
-		menuButtons[0][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		menuButtons[0][0] = new Button(x, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
-					@Override
-					public void run() {
-						StatesMachine.goToRoom(STATE.GAME, false);
-					}
-				});
+			@Override
+			public void run() {
+				StatesMachine.goToRoom(STATE.GAME, false);
+			}
+		});
 		addObjeto(menuButtons[0][0]);
 
 		// Ranking button
 		sprite = MainMenuRepository.rankingButton;
-		menuButtons[0][1] = new Button(x2, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		menuButtons[0][1] = new Button(x2, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
-					@Override
-					public void run() {
-						StatesMachine.goToRoom(STATE.RANKS, false);
-					}
-				});
+			@Override
+			public void run() {
+				StatesMachine.goToRoom(STATE.RANKS, false);
+			}
+		});
 		addObjeto(menuButtons[0][1]);
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 
 		// Options button
 		sprite = MainMenuRepository.optionsButton;
-		menuButtons[1][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		menuButtons[1][0] = new Button(x, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
-					@Override
-					public void run() {
-						StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
-					}
-				});
+			@Override
+			public void run() {
+				StatesMachine.goToRoom(STATE.OPTIONS_MENU, false);
+			}
+		});
 		addObjeto(menuButtons[1][0]);
-		
+
 		// Controls button
 		sprite = MainMenuRepository.controlsButton;
-		menuButtons[1][1] = new Button(x2, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		menuButtons[1][1] = new Button(x2, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
-					@Override
-					public void run() {
-						StatesMachine.goToRoom(STATE.CONTROLS, false);
-					}
-				});
+			@Override
+			public void run() {
+				StatesMachine.goToRoom(STATE.CONTROLS, false);
+			}
+		});
 		addObjeto(menuButtons[1][1]);
-		
+
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
-		
+
 		// Credits button
 		sprite = MainMenuRepository.creditsButton;
-		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
-					@Override
-					public void run() {
-						StatesMachine.goToRoom(STATE.CREDITS, false);
-					}
-				});
+			@Override
+			public void run() {
+				StatesMachine.goToRoom(STATE.CREDITS, false);
+			}
+		});
 		addObjeto(menuButtons[2][0]);
-		
+
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 
 		// Quit button
 		sprite = MainMenuRepository.quitButton;
-		menuButtons[3][0] = new Button(width/2, y + sprite.getHeight() / 2, this,
-				sprite, new Runnable() {
+		menuButtons[3][0] = new Button(width / 2, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
-					@Override
-					public void run() {
-						Global.stopGame();
-						System.exit(0);
-					}
-				});
+			@Override
+			public void run() {
+				Global.stopGame();
+				System.exit(0);
+			}
+		});
 		menuButtons[3][1] = menuButtons[3][0];
 		addObjeto(menuButtons[3][0]);
 	}
@@ -171,6 +164,9 @@ public class MainMenu extends Room {
 		menuButtons[no][column].select();
 	}
 
+	/**
+	 * Deselects buttons
+	 */
 	private void unselect() {
 		for (int i = 0; i < menuButtons.length; i++) {
 			for (int j = 0; j < menuButtons[i].length; j++) {
@@ -189,6 +185,9 @@ public class MainMenu extends Room {
 		select(no);
 	}
 
+	/**
+	 * Next column button
+	 */
 	private void nextColumn() {
 		column = (column + 1) % COLUMNS;
 		select(selected);
@@ -198,11 +197,13 @@ public class MainMenu extends Room {
 	 * Previous button
 	 */
 	private void previous() {
-		int no = ((selected - 1) % menuButtons.length + menuButtons.length)
-				% menuButtons.length;
+		int no = ((selected - 1) % menuButtons.length + menuButtons.length) % menuButtons.length;
 		select(no);
 	}
 
+	/**
+	 * Previous column button
+	 */
 	private void previousColumn() {
 		column = ((column - 1) % COLUMNS + COLUMNS) % COLUMNS;
 		select(selected);

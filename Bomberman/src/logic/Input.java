@@ -165,6 +165,9 @@ public class Input extends KeyAdapter {
 		return KEY.NO_KEY;
 	}
 
+	/**
+	 * Reloads the key mapper
+	 */
 	public void reloadMapping() {
 		mapper = new KeyMapper();
 	}

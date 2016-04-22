@@ -66,7 +66,7 @@ public class OptionsMenu extends Room {
 	}
 
 	/**
-	 * @return gets the image index of the slider from the global volume
+	 * @return image index of the slider from the global volume
 	 */
 	private int getImageIndex() {
 		double volume = TinySound.getGlobalVolume();
