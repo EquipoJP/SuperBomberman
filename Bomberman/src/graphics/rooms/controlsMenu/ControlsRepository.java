@@ -1,15 +1,22 @@
+/**
+ * Controls' repository
+ */
 package graphics.rooms.controlsMenu;
 
 import logic.Sprite;
 import main.Initialization;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class ControlsRepository {
 
 	static Sprite background = null;
 
 	static Sprite titleButton = null;
 	static Sprite continueButton = null;
-	
+
 	static Sprite up = null;
 	static Sprite down = null;
 	static Sprite left = null;
@@ -25,7 +32,7 @@ public class ControlsRepository {
 		loadBackground();
 		loadTitleButton();
 		loadContinueButton();
-		
+
 		loadControls();
 	}
 
@@ -34,9 +41,7 @@ public class ControlsRepository {
 	 */
 	private static void loadBackground() {
 		if (background == null) {
-			background = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.BACKGROUND
-							.toString());
+			background = Initialization.getSpriteFromMenu(Initialization.MENUS.BACKGROUND.toString());
 		}
 	}
 
@@ -45,9 +50,7 @@ public class ControlsRepository {
 	 */
 	private static void loadTitleButton() {
 		if (titleButton == null) {
-			titleButton = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON
-							.toString());
+			titleButton = Initialization.getSpriteFromMenu(Initialization.MENUS.TITLE_BUTTON.toString());
 		}
 	}
 
@@ -56,35 +59,33 @@ public class ControlsRepository {
 	 */
 	private static void loadContinueButton() {
 		if (continueButton == null) {
-			continueButton = Initialization
-					.getSpriteFromMenu(Initialization.MENUS.CONTINUE_BUTTON
-							.toString());
+			continueButton = Initialization.getSpriteFromMenu(Initialization.MENUS.CONTINUE_BUTTON.toString());
 		}
 	}
-	
+
 	/**
 	 * Load control buttons
 	 */
-	private static void loadControls(){
-		if(up == null){
+	private static void loadControls() {
+		if (up == null) {
 			up = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_UP.toString());
 		}
-		if(down == null){
+		if (down == null) {
 			down = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_DOWN.toString());
 		}
-		if(left == null){
+		if (left == null) {
 			left = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_LEFT.toString());
 		}
-		if(right == null){
+		if (right == null) {
 			right = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_RIGHT.toString());
 		}
-		if(pause == null){
+		if (pause == null) {
 			pause = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_PAUSE.toString());
 		}
-		if(bomb == null){
+		if (bomb == null) {
 			bomb = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_BOMB.toString());
 		}
-		if(confirm == null){
+		if (confirm == null) {
 			confirm = Initialization.getSpriteFromMenu(Initialization.CTRLS.CTRL_CONFIRM.toString());
 		}
 	}

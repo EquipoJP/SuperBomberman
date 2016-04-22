@@ -1,3 +1,6 @@
+/**
+ * Controls' room
+ */
 package graphics.rooms.controlsMenu;
 
 import graphics.effects.Button;
@@ -15,6 +18,10 @@ import logic.StatesMachine;
 import logic.StatesMachine.STATE;
 import sound.MusicRepository;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class Controls extends Room {
 
 	private static final int PADDING_BORDER = 25;
@@ -27,6 +34,14 @@ public class Controls extends Room {
 	private int selected;
 	private int column;
 
+	/**
+	 * @param w
+	 *            width
+	 * @param h
+	 *            height
+	 * @param n
+	 *            name
+	 */
 	public Controls(int w, int h, String n) {
 		super(w, h, n);
 	}
@@ -120,6 +135,28 @@ public class Controls extends Room {
 		addObjeto(menuButtons[7][0]);
 	}
 
+	/**
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 * @param sprite
+	 *            sprite
+	 * @param key
+	 *            key attached to the button
+	 * @param i1
+	 *            first row index
+	 * @param j1
+	 *            first column index
+	 * @param x2
+	 *            second x coordinate
+	 * @param i2
+	 *            second row index
+	 * @param j2
+	 *            second column index
+	 * @param text
+	 *            text to paint
+	 */
 	private void createOneButton(int x, int y, Sprite sprite, KEY key, int i1, int j1, int x2, int i2, int j2,
 			String text) {
 		menuButtons[i1][j1] = new ControlButton(x, y + sprite.getHeight() / 2, this, sprite, key, new Runnable() {
@@ -151,6 +188,9 @@ public class Controls extends Room {
 		menuButtons[no][column].select();
 	}
 
+	/**
+	 * Deselects a button
+	 */
 	private void unselect() {
 		for (int i = 0; i < menuButtons.length; i++) {
 			for (int j = 0; j < menuButtons[i].length; j++) {
@@ -225,6 +265,13 @@ public class Controls extends Room {
 		}
 	}
 
+	/**
+	 * Get text from a key
+	 * 
+	 * @param key
+	 *            key to get the text from
+	 * @return text attached to the key
+	 */
 	private String getKeyText(KEY key) {
 		int code = StatesMachine.input.mapper.getCodeKey(key);
 		String returned = ControlButton.defaultTextes(code);
