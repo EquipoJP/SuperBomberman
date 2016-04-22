@@ -1,6 +1,7 @@
 graphics.effects
 graphics.effects.slider
 graphics.rooms
+graphics.rooms.controlsMenu
 graphics.rooms.credits
 graphics.rooms.game
 graphics.rooms.intro

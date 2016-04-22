@@ -64,7 +64,7 @@ public class Controls extends Room {
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		i++;
-		
+
 		// DOWN button
 		sprite = ControlsRepository.down;
 		createOneButton(x, y, sprite, KEY.DOWN, i, 0, x2, i, 1, getKeyText(KEY.DOWN));
@@ -85,7 +85,7 @@ public class Controls extends Room {
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 		i++;
-		
+
 		// BOMB button
 		sprite = ControlsRepository.bomb;
 		createOneButton(x, y, sprite, KEY.BOMB, i, 0, x2, i, 1, getKeyText(KEY.BOMB));
@@ -120,7 +120,8 @@ public class Controls extends Room {
 		addObjeto(menuButtons[7][0]);
 	}
 
-	private void createOneButton(int x, int y, Sprite sprite, KEY key, int i1, int j1, int x2, int i2, int j2, String text) {
+	private void createOneButton(int x, int y, Sprite sprite, KEY key, int i1, int j1, int x2, int i2, int j2,
+			String text) {
 		menuButtons[i1][j1] = new ControlButton(x, y + sprite.getHeight() / 2, this, sprite, key, new Runnable() {
 
 			@Override
@@ -133,8 +134,7 @@ public class Controls extends Room {
 		});
 		addObjeto(menuButtons[i1][j1]);
 
-		menuButtons[i2][j2] = new PintableButton(x2, y + sprite.getHeight() / 2 - sprite.getCenterY(), this, null, null,
-				text);
+		menuButtons[i2][j2] = new PintableButton(x2, y + sprite.getHeight() / 2 - sprite.getCenterY(), this, text);
 		addObjeto(menuButtons[i2][j2]);
 		((ControlButton) menuButtons[i1][j1]).setPintable((PintableButton) menuButtons[i2][j2]);
 	}
@@ -224,11 +224,11 @@ public class Controls extends Room {
 			}
 		}
 	}
-	
-	private String getKeyText(KEY key){
+
+	private String getKeyText(KEY key) {
 		int code = StatesMachine.input.mapper.getCodeKey(key);
 		String returned = ControlButton.defaultTextes(code);
-		if(returned == null) {
+		if (returned == null) {
 			returned = KeyEvent.getKeyText(code);
 		}
 		return returned;
