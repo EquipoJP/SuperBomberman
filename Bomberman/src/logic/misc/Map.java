@@ -55,8 +55,7 @@ public class Map {
 		int width = 0;
 		int height = 0;
 
-		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(
-				file));
+		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
 
 		Random g = new Random();
 		int row = 0;
@@ -109,9 +108,8 @@ public class Map {
 
 		s.close();
 
-		objetos.add(new Level(Initialization.MAP_X_OFFSET,
-				Initialization.MAP_Y_OFFSET, width * Initialization.TILE_WIDTH,
-				height * Initialization.TILE_HEIGHT));
+		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
+				width * Initialization.TILE_WIDTH, height * Initialization.TILE_HEIGHT));
 
 		return objetos;
 	}
@@ -138,8 +136,7 @@ public class Map {
 		int playery = 0;
 
 		// Find bomberman
-		Scanner b = new Scanner(Map.class.getClassLoader().getResourceAsStream(
-				file));
+		Scanner b = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
 
 		int row = 0;
 		int blockCount = 0;
@@ -169,8 +166,7 @@ public class Map {
 
 		b.close();
 
-		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(
-				file));
+		Scanner s = new Scanner(Map.class.getClassLoader().getResourceAsStream(file));
 
 		List<Character> list = generateListOfObjects();
 
@@ -209,9 +205,7 @@ public class Map {
 						Objeto obj = createEnemy(row, col, room);
 						objetos.add(obj);
 					} else if (list.size() == (total - count)
-							|| (result >= prob
-									&& validDistanceToPlayer(playerx, playery,
-											col, row) && put != 0)) {
+							|| (result >= prob && validDistanceToPlayer(playerx, playery, col, row) && put != 0)) {
 						prob = decreaseProb(prob);
 						Objeto obj = generateRandomObject(row, col, room, list);
 						if (obj != null) {
@@ -260,10 +254,8 @@ public class Map {
 
 		s.close();
 
-		objetos.add(new Level(Initialization.MAP_X_OFFSET,
-				Initialization.MAP_Y_OFFSET, widthMap
-						* Initialization.TILE_WIDTH, heightMap
-						* Initialization.TILE_HEIGHT));
+		objetos.add(new Level(Initialization.MAP_X_OFFSET, Initialization.MAP_Y_OFFSET,
+				widthMap * Initialization.TILE_WIDTH, heightMap * Initialization.TILE_HEIGHT));
 
 		return objetos;
 	}
@@ -279,10 +271,9 @@ public class Map {
 	 *            room in which create the destroyable block
 	 * @param kind
 	 *            kind of powerup it will drop when destroyed
-	 * @return
+	 * @return destroyable block
 	 */
-	private static Objeto createDestroyable(int row, int col, Room room,
-			int kind) {
+	private static Objeto createDestroyable(int row, int col, Room room, int kind) {
 		int x = getX(col);
 		int y = getY(row);
 
@@ -389,8 +380,7 @@ public class Map {
 	 * @return row
 	 */
 	public static int getRow(int y) {
-		return (y - Initialization.MAP_Y_OFFSET + Initialization.TILE_HEIGHT / 2)
-				/ Initialization.TILE_HEIGHT;
+		return (y - Initialization.MAP_Y_OFFSET + Initialization.TILE_HEIGHT / 2) / Initialization.TILE_HEIGHT;
 	}
 
 	/**
@@ -399,8 +389,7 @@ public class Map {
 	 * @return column
 	 */
 	public static int getCol(int x) {
-		return (x - Initialization.MAP_X_OFFSET + Initialization.TILE_WIDTH / 2)
-				/ Initialization.TILE_WIDTH;
+		return (x - Initialization.MAP_X_OFFSET + Initialization.TILE_WIDTH / 2) / Initialization.TILE_WIDTH;
 	}
 
 	/**
@@ -440,14 +429,11 @@ public class Map {
 	 *            column
 	 * @param room
 	 *            room
-	 * @param stage
-	 *            theme
 	 * @param list
 	 *            list of types of destroyable blocks
 	 * @return a random object
 	 */
-	private static Objeto generateRandomObject(int row, int col, Room room,
-			List<Character> list) {
+	private static Objeto generateRandomObject(int row, int col, Room room, List<Character> list) {
 		if (list.size() == 0) {
 			return null;
 		} else {
@@ -488,13 +474,11 @@ public class Map {
 	 *            column
 	 * @param row
 	 *            row
-	 * @return
+	 * @return true if the distance to the player is valid
 	 */
-	private static boolean validDistanceToPlayer(int playerx, int playery,
-			int col, int row) {
+	private static boolean validDistanceToPlayer(int playerx, int playery, int col, int row) {
 		boolean valid = true;
-		if (col >= playerx - 3 && col <= playerx + 3 && row >= playery - 3
-				&& row <= playery + 3) {
+		if (col >= playerx - 3 && col <= playerx + 3 && row >= playery - 3 && row <= playery + 3) {
 			valid = false;
 		}
 		return valid;
@@ -543,11 +527,8 @@ public class Map {
 		int widthMap = Initialization.MAP_WIDTH;
 		int heightMap = Initialization.MAP_HEIGHT;
 
-		BoundingBox bb = new BoundingBox(
-				new Point2D(-Initialization.TILE_WIDTH / 2,
-						-Initialization.TILE_HEIGHT / 2), new Point2D(
-						Initialization.TILE_WIDTH / 2,
-						Initialization.TILE_HEIGHT / 2));
+		BoundingBox bb = new BoundingBox(new Point2D(-Initialization.TILE_WIDTH / 2, -Initialization.TILE_HEIGHT / 2),
+				new Point2D(Initialization.TILE_WIDTH / 2, Initialization.TILE_HEIGHT / 2));
 
 		Random random = new Random(System.nanoTime());
 

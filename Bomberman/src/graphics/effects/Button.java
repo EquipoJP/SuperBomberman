@@ -26,6 +26,8 @@ public class Button extends Objeto {
 	 *            room
 	 * @param sprite
 	 *            sprite to use
+	 * @param run
+	 *            function to run when selected
 	 */
 	public Button(int x, int y, Room r, Sprite sprite, Runnable run) {
 		super(x, y, 0, r);
@@ -67,8 +69,8 @@ public class Button extends Objeto {
 	public boolean isSelected() {
 		return this.selected;
 	}
-	
-	public void confirm(){
+
+	public void confirm() {
 		function.run();
 	}
 }
