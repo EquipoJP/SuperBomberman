@@ -134,6 +134,7 @@ public class MainMenu extends Room {
 				StatesMachine.goToRoom(STATE.CREDITS, false);
 			}
 		});
+		menuButtons[2][1] = menuButtons[2][0];
 		addObjeto(menuButtons[2][0]);
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
