@@ -45,7 +45,14 @@ public class LevelManager {
 	 * Get to the next level
 	 */
 	public void nextLevel() {
-		level = (level + 1) % NO_LEVELS;
+		level = (level + 1);
+		if (level > NO_LEVELS){
+			level = -1;
+		}
+	}
+	
+	public boolean continueLevel(){
+		return (level >= 0);
 	}
 
 	/**

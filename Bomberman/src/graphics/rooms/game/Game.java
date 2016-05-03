@@ -3,15 +3,14 @@
  */
 package graphics.rooms.game;
 
-import graphics.effects.Visual;
-import graphics.rooms.Room;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import graphics.effects.Visual;
+import graphics.rooms.Room;
 import kuusisto.tinysound.Music;
 import logic.Global;
 import logic.Input.KEY;
@@ -298,7 +297,12 @@ public class Game extends Room {
 			if (victoryMsc.done()) {
 				Global.levels.nextLevel();
 				terminate();
-				StatesMachine.goToRoom(StatesMachine.STATE.GAME, false);
+				if(Global.levels.continueLevel()){
+					StatesMachine.goToRoom(StatesMachine.STATE.GAME, false);
+				}
+				else{
+					StatesMachine.goToRoom(StatesMachine.STATE.TOP10, false);
+				}
 			}
 			break;
 		}
