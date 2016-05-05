@@ -22,6 +22,7 @@ public class Camara {
 	/* atributos privados */
 	private Vector4 posicion;	// posicion del ojo
 	private Vector4 direccion;	// direccion del ojo
+	private Vector4 origen;		//origen al que mira el ojo
 	
 	private Vector4 u, v, w;	// sistema de la camara
 	private double f;	// separacion ojo-pantalla
@@ -31,18 +32,18 @@ public class Camara {
 	private int filas, columnas;	// pixeles de anchura y altura
 
 	/**
-	 * @param posicion posicion de la camara
-	 * @param g vector direccion
+	 * @param posicion posicion inicial de la camara
+	 * @param origen origen al que mira la camara
 	 * @param f distancia focal
 	 * @param columnas columnas
 	 * @param filas filas
 	 * @param anchura anchura de la pantalla
 	 * @param altura altura de la pantalla
 	 */
-	public Camara(Vector4 posicion, Vector4 g, double f, 
+	public Camara(Vector4 posicion, Vector4 origen, double f, 
 			int columnas, int filas, int anchura, int altura){
 		this.posicion = posicion;
-		this.direccion = g.normalise();
+		this.origen = origen;
 		this.f = f;
 		
 		this.filas = filas;
@@ -51,6 +52,16 @@ public class Camara {
 		this.anchura = anchura;
 		this.altura = altura;
 		
+		setup();
+	}
+	
+	/**
+	 * Setea la direccion en la que mira la camara, asi como u, v y w
+	 */
+	private void setup(){
+		Vector4 g = Vector4.sub(origen, posicion).normalise();
+		this.direccion = g;
+		
 		/* u, v, w */
 		Vector4 up = new Vector4(0, 1, 0, 0);
 		
@@ -58,6 +69,11 @@ public class Camara {
 		u = Vector4.cross(up, w);
 		u = u.normalise();
 		v = Vector4.cross(w, u);
+	}
+	
+	public void step(double movX, double movY, double movZ){
+		this.posicion = Vector4.add(posicion, new Vector4(movX, movY, movZ, 0));
+		setup();
 	}
 	
 	/**

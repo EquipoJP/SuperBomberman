@@ -41,7 +41,7 @@ public class Escena {
 	private BufferedImage img;
 	List<Objeto> objetos;
 	List<Foco> focos;
-	Camara camara;
+	public Camara camara;
 
 	/* FLAGS DEBUG */
 	boolean TERMINO_AMBIENTAL;
@@ -74,15 +74,15 @@ public class Escena {
 		CAJAS_ENVOLVENTES = XMLFormatter.setCajas(xml);
 		MAX_REBOTES_RAYO = XMLFormatter.getRebotes(xml);
 		LUZ_AMBIENTAL = XMLFormatter.getLuzAmbiente(xml);
-		ANTIALIASING = XMLFormatter.getAntialiasing(xml);
+		ANTIALIASING = 1;	//XMLFormatter.getAntialiasing(xml);
 		
 		boolean[] flags = XMLFormatter.setFlags(xml);
 		if (flags != null) {
 			TERMINO_AMBIENTAL = flags[0];
 			TERMINO_DIFUSO = flags[1];
 			TERMINO_ESPECULAR = flags[2];
-			TERMINO_REFLEJADO = flags[3];
-			TERMINO_REFRACTADO = flags[4];
+			TERMINO_REFLEJADO = false;	//flags[3];
+			TERMINO_REFRACTADO = false;	//flags[4];
 		}
 		
 		EPSILON = XMLFormatter.getEpsilon(xml);
