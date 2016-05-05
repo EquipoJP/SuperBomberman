@@ -21,7 +21,7 @@ public class LevelManager {
 	 * Initializes the levels
 	 */
 	public LevelManager() {
-		level = 0;
+		resetLevel();
 		files = new LevelFile[NO_LEVELS];
 
 		files[0] = new LevelFile(STAGE.GREENVILLAGE, new KillEnemiesObjective());
@@ -46,7 +46,7 @@ public class LevelManager {
 	 */
 	public void nextLevel() {
 		level = (level + 1);
-		if (level > NO_LEVELS){
+		if (level >= NO_LEVELS){
 			level = -1;
 		}
 	}
