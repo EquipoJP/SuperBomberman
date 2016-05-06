@@ -1,17 +1,7 @@
 package graphics.d3.utils;
 
-import graphics.d3.data.Vector4;
-import graphics.d3.objetos.Caja;
-import graphics.d3.objetos.Esfera;
-import graphics.d3.objetos.Figura;
-import graphics.d3.objetos.Material;
-import graphics.d3.objetos.Objeto;
-import graphics.d3.objetos.Plano;
-import graphics.d3.objetos.Triangulo;
-import graphics.d3.trazador.Camara;
-import graphics.d3.trazador.Foco;
-
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +15,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import utils.FileUtils;
 import Jama.Matrix;
+import graphics.d3.data.Vector4;
+import graphics.d3.objetos.Caja;
+import graphics.d3.objetos.Esfera;
+import graphics.d3.objetos.Figura;
+import graphics.d3.objetos.Material;
+import graphics.d3.objetos.Objeto;
+import graphics.d3.objetos.Plano;
+import graphics.d3.objetos.Triangulo;
+import graphics.d3.trazador.Camara;
+import graphics.d3.trazador.Foco;
 
 /**
  * <h1>XMLFormatter</h1>
@@ -50,7 +49,7 @@ public class XMLFormatter {
 		try {
 			DocumentBuilder db;
 			db = dbf.newDocumentBuilder();
-			return db.parse(FileUtils.getFile(xml));
+			return db.parse(new File(xml));
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
