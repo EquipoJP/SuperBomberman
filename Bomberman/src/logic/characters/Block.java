@@ -36,5 +36,6 @@ public class Block extends Objeto {
 		boundingBox.update(x, y);
 		
 		super.d3Object = d3object;
+		// TODO traslacion 3d
 	}
 }

@@ -60,6 +60,7 @@ public class Bomb extends Objeto {
 		depth = Initialization.getDepth("Bomb");
 		
 		super.d3Object = d3Object;
+		// TODO traslacion 3d
 	}
 
 	@Override

@@ -307,6 +307,7 @@ public class Player extends Objeto {
 							r.height * (int) Math.signum(this.y - o.y));
 					x = x + modX;
 					y = y + modY;
+					// TODO traslacion 3d
 					return true;
 				} else {
 					// not helping the player (absolute collision)
@@ -322,6 +323,7 @@ public class Player extends Objeto {
 							r.width * (int) Math.signum(this.x - o.x), 0);
 					x = x + modX;
 					y = y + modY;
+					// TODO traslacion 3d
 					return true;
 				} else {
 					// not helping the player (absolute collision)
@@ -332,6 +334,7 @@ public class Player extends Objeto {
 		} else {
 			x = x + modX;
 			y = y + modY;
+			// TODO traslacion 3d
 			return true;
 		}
 	}

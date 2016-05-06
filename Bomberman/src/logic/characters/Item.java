@@ -61,6 +61,7 @@ public class Item extends Objeto {
 		type = t;
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
+		// TODO traslacion 3d
 		image_speed = 0;
 	}
 

@@ -188,11 +188,13 @@ public class Enemy extends Objeto {
 			} else {
 				x = x + modX;
 				y = y + modY;
+				// TODO modificar traslacion 3d
 			}
 			return returned;
 		} else {
 			x = x + modX;
 			y = y + modY;
+			// TODO modificar traslacion 3d
 			return true;
 		}
 	}

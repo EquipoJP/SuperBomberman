@@ -51,6 +51,7 @@ public class DestroyableBlock extends Objeto {
 		type = t;
 		
 		super.d3Object = d3Object;
+		// TODO traslacion 3d
 	}
 
 	@Override
