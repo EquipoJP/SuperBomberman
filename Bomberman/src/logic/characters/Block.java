@@ -26,7 +26,7 @@ public class Block extends Objeto {
 	 * @param r
 	 *            room
 	 */
-	public Block(int x, int y, int z, Room r) {
+	public Block(int x, int y, int z, Room r, graphics.d3.objetos.Objeto d3object) {
 		super(x, y, z, r);
 
 		sprite_index = GameRepository.block;
@@ -34,5 +34,7 @@ public class Block extends Objeto {
 
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
+		
+		super.d3Object = d3object;
 	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import graphics.d3.trazador.Trazador;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
 import kuusisto.tinysound.Music;
@@ -42,6 +43,7 @@ public class Game extends Room {
 	private int blocksDestroyed;
 
 	protected Sprite tiles;
+	protected graphics.d3.objetos.Objeto plano;
 	protected Level level;
 
 	private long seconds;
@@ -99,6 +101,7 @@ public class Game extends Room {
 		secondsVictory = -1;
 
 		tiles = GameRepository.tiles;
+		plano = Game3DRepository.plano;
 		List<Objeto> objetos = Map.generateMap(this);
 
 		for (Objeto obj : objetos) {
@@ -127,7 +130,7 @@ public class Game extends Room {
 
 		drawHUD(g);
 
-		if (level != null) {
+		if (Global.is2D && level != null) {
 			for (int x = level.mapInitX; x < level.mapInitX + level.mapWidth; x += tiles
 					.getWidth()) {
 				for (int y = level.mapInitY; y < level.mapInitY
@@ -172,7 +175,12 @@ public class Game extends Room {
 			PaintService.paintDigits("" + lvl, initial_position, g);
 			break;
 		default:
-			super.render(g);
+			if(Global.is2D){
+				super.render(g);
+			}
+			else{
+				Trazador.work();
+			}
 			break;
 		}
 	}

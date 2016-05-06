@@ -83,18 +83,20 @@ public class MainMenu extends Room {
 
 			@Override
 			public void run() {
+				Global.is2D = true;
 				StatesMachine.goToRoom(STATE.GAME, false);
 			}
 		});
 		addObjeto(menuButtons[0][0]);
-
-		// Ranking button
-		sprite = MainMenuRepository.rankingButton;
+		
+		// 3D Game button
+		sprite = MainMenuRepository.d3gameButton;
 		menuButtons[0][1] = new Button(x2, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
 			@Override
 			public void run() {
-				StatesMachine.goToRoom(STATE.RANKS, false);
+				Global.is2D = false;
+				StatesMachine.goToRoom(STATE.GAME, false);
 			}
 		});
 		addObjeto(menuButtons[0][1]);
@@ -124,18 +126,28 @@ public class MainMenu extends Room {
 		addObjeto(menuButtons[1][1]);
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
+		
+		// Ranking button
+		sprite = MainMenuRepository.rankingButton;
+		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
+
+			@Override
+			public void run() {
+				StatesMachine.goToRoom(STATE.RANKS, false);
+			}
+		});
+		addObjeto(menuButtons[2][0]);
 
 		// Credits button
 		sprite = MainMenuRepository.creditsButton;
-		menuButtons[2][0] = new Button(x, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
+		menuButtons[2][1] = new Button(x2, y + sprite.getHeight() / 2, this, sprite, new Runnable() {
 
 			@Override
 			public void run() {
 				StatesMachine.goToRoom(STATE.CREDITS, false);
 			}
 		});
-		menuButtons[2][1] = menuButtons[2][0];
-		addObjeto(menuButtons[2][0]);
+		addObjeto(menuButtons[2][1]);
 
 		y = y + sprite.getHeight() + INTERBUTTON_BORDER;
 

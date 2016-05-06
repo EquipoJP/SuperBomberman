@@ -42,8 +42,9 @@ public class Item extends Objeto {
 	 * @param t
 	 *            type of item
 	 */
-	public Item(int x, int y, int z, Room r, TYPE t) {
+	public Item(int x, int y, int z, Room r, TYPE t, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
+		super.d3Object = d3Object;
 
 		switch (t) {
 		case BOMB:

@@ -44,7 +44,7 @@ public class Enemy extends Objeto {
 	 * @param r
 	 *            room
 	 */
-	public Enemy(int x, int y, int z, Room r) {
+	public Enemy(int x, int y, int z, Room r, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
 		sprites = GameRepository.enemy;
 		image_speed = 0.1;
@@ -52,6 +52,7 @@ public class Enemy extends Objeto {
 		sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
+		super.d3Object = d3Object;
 	}
 
 	@Override

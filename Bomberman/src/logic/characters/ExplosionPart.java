@@ -46,8 +46,9 @@ public class ExplosionPart extends Objeto {
 	 * @param s
 	 *            side of explosion part
 	 */
-	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s) {
+	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
+		super.d3Object = d3Object;
 		depth = 10;
 		kind = k;
 		side = s;

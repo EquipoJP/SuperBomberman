@@ -16,6 +16,7 @@ public class MainMenuRepository {
 
 	static Sprite titleButton = null;
 	static Sprite gameButton = null;
+	static Sprite d3gameButton = null;
 	static Sprite optionsButton = null;
 	static Sprite rankingButton = null;
 	static Sprite creditsButton = null;
@@ -29,6 +30,7 @@ public class MainMenuRepository {
 		loadBackground();
 		loadTitleButton();
 		loadGameButton();
+		loadD3GameButton();
 		loadOptionsButton();
 		loadRankingButton();
 		loadCreditsButton();
@@ -65,6 +67,17 @@ public class MainMenuRepository {
 		if (gameButton == null) {
 			gameButton = Initialization
 					.getSpriteFromMenu(Initialization.MENUS.GAME_BUTTON
+							.toString());
+		}
+	}
+	
+	/**
+	 * Load 3D game button
+	 */
+	private static void loadD3GameButton() {
+		if (d3gameButton == null) {
+			d3gameButton = Initialization
+					.getSpriteFromMenu(Initialization.MENUS.D3GAME_BUTTON
 							.toString());
 		}
 	}

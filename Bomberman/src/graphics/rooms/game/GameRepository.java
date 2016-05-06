@@ -58,6 +58,8 @@ public class GameRepository {
 	 *            theme
 	 */
 	public static void load(STAGE stage) {
+		Game3DRepository.load();
+		
 		loadHUD();
 		loadVictory();
 

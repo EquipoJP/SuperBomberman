@@ -6,6 +6,7 @@ package logic.characters;
 import java.util.List;
 
 import graphics.rooms.Room;
+import graphics.rooms.game.Game3DRepository;
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.characters.ExplosionPart.KIND;
@@ -50,7 +51,7 @@ public class ExplosionManager extends Objeto {
 		}
 		// Create core
 		r.addObjeto(new ExplosionPart(x, y, z, r, ExplosionPart.KIND.CORE,
-				ExplosionPart.SIDE.DOWN));
+				ExplosionPart.SIDE.DOWN, Game3DRepository.bloque));
 		// Create branches
 		for (int i = 1; i <= radius; i++) {
 
@@ -143,7 +144,7 @@ public class ExplosionManager extends Objeto {
 
 						// Create part
 						r.addObjeto(new ExplosionPart(xToCreate, yToCreate, z,
-								r, k, s));
+								r, k, s, Game3DRepository.bloque));
 					}
 				} // End of if we have to continue
 			} // End of for every direction

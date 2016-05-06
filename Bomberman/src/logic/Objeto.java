@@ -33,6 +33,8 @@ public abstract class Objeto {
 
 	private List<Integer> alarmsOff;
 	private double previous_image_index;
+	
+	public graphics.d3.objetos.Objeto d3Object;
 
 	/**
 	 * @param x
@@ -64,6 +66,8 @@ public abstract class Objeto {
 		previous_image_index = image_index;
 		animation_end = false;
 		image_speed = 0;
+		
+		d3Object = null;
 		create();
 	}
 

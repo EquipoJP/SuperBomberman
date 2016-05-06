@@ -1,5 +1,6 @@
 package graphics.d3.multithreading;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import graphics.d3.objetos.Objeto;
 import graphics.d3.trazador.Camara;
 import graphics.d3.trazador.Foco;
 import graphics.d3.utils.XMLFormatter;
+import graphics.rooms.game.Game3DRepository;
 
 /**
  * <h1>Escena</h1>
@@ -54,7 +56,7 @@ public class Escena {
 	 * Inicializa los parametros de la escena, incluyendo flags, 
 	 * camara y objetos de la escena
 	 * 
-	 * @param xml ruta del ficheor XML donde se encuentra la 
+	 * @param xml ruta del fichero XML donde se encuentra la 
 	 * informacion
 	 */
 	public Escena(String xml) {
@@ -65,12 +67,11 @@ public class Escena {
 		img = new BufferedImage(camara.getCols(), camara.getRows(), 
 				BufferedImage.TYPE_INT_RGB);
 		
-		objetos = XMLFormatter.getObjetos(xml);
 		focos = XMLFormatter.getFocos(xml);
 		
 		CAJAS_ENVOLVENTES = XMLFormatter.setCajas(xml);
 		LUZ_AMBIENTAL = XMLFormatter.getLuzAmbiente(xml);
-		ANTIALIASING = 1;	//XMLFormatter.getAntialiasing(xml);
+		ANTIALIASING = 1;
 		
 		boolean[] flags = XMLFormatter.setFlags(xml);
 		if (flags != null) {
@@ -80,6 +81,8 @@ public class Escena {
 		}
 		
 		EPSILON = XMLFormatter.getEpsilon(xml);
+		
+		objetos = Game3DRepository.getObjetos();
 	}
 	
 	/**

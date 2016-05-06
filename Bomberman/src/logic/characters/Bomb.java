@@ -40,7 +40,7 @@ public class Bomb extends Objeto {
 	 * @param player
 	 *            owner of the bomb
 	 */
-	public Bomb(int x, int y, int z, Room r, int radius, Player player) {
+	public Bomb(int x, int y, int z, Room r, int radius, Player player, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
 
 		Sound put = MusicRepository.putBomb;
@@ -58,6 +58,8 @@ public class Bomb extends Objeto {
 				+ Initialization.TILE_WIDTH / 2));
 
 		depth = Initialization.getDepth("Bomb");
+		
+		super.d3Object = d3Object;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import graphics.rooms.Room;
+import graphics.rooms.game.Game3DRepository;
 import graphics.rooms.game.GameRepository;
 import kuusisto.tinysound.Music;
 import logic.Input.KEY;
@@ -54,8 +55,9 @@ public class Player extends Objeto {
 	 * @param r
 	 *            room
 	 */
-	public Player(int x, int y, int z, Room r) {
+	public Player(int x, int y, int z, Room r, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
+		super.d3Object = d3Object;
 	}
 
 	@Override
@@ -236,7 +238,7 @@ public class Player extends Objeto {
 			int _y = logic.misc.Map.getY(row);
 
 			if (!checkCollision(_x, _y)) {
-				Bomb bomb = new Bomb(_x, _y, z, myRoom, bombRadius, this);
+				Bomb bomb = new Bomb(_x, _y, z, myRoom, bombRadius, this, Game3DRepository.bloque);
 				myRoom.addObjeto(bomb);
 				ownBombs.add(bomb);
 				bombs++;
