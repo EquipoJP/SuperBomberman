@@ -50,7 +50,7 @@ public class DestroyableBlock extends Objeto {
 
 		type = t;
 		
-		super.d3Object = d3Object;
+		super.d3Object = d3Object.clone();
 		// TODO traslacion 3d
 	}
 

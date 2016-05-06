@@ -216,4 +216,10 @@ public class Caja extends Objeto {
 	public boolean estaDentro(Rayo r, Vector4 interseccion) {
 		return conjuntoObjetos.estaDentro(r, interseccion);
 	}
+	
+	@Override
+	public Objeto clone() {
+		Objeto f = conjuntoObjetos.clone();
+		return new Caja(f);
+	}
 }

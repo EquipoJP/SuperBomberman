@@ -110,6 +110,10 @@ public class Game extends Room {
 			} else {
 				addObjeto(obj);
 			}
+			
+			if(obj.d3Object != null){
+				Trazador.escena.objetos.add(obj.d3Object);
+			}
 		}
 
 		hud = GameRepository.hud;

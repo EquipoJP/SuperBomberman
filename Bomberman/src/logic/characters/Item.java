@@ -44,7 +44,7 @@ public class Item extends Objeto {
 	 */
 	public Item(int x, int y, int z, Room r, TYPE t, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
-		super.d3Object = d3Object;
+		super.d3Object = d3Object.clone();
 
 		switch (t) {
 		case BOMB:

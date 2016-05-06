@@ -3,6 +3,7 @@ package graphics.d3.multithreading;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import graphics.d3.data.Rayo;
@@ -10,7 +11,6 @@ import graphics.d3.objetos.Objeto;
 import graphics.d3.trazador.Camara;
 import graphics.d3.trazador.Foco;
 import graphics.d3.utils.XMLFormatter;
-import graphics.rooms.game.Game3DRepository;
 
 /**
  * <h1>Escena</h1>
@@ -40,7 +40,7 @@ public class Escena {
 
 	/* Contenido de la escena */
 	private BufferedImage img;
-	List<Objeto> objetos;
+	public List<Objeto> objetos;
 	List<Foco> focos;
 	public Camara camara;
 
@@ -81,8 +81,7 @@ public class Escena {
 		}
 		
 		EPSILON = XMLFormatter.getEpsilon(xml);
-		
-		objetos = Game3DRepository.getObjetos();
+		objetos = new LinkedList<Objeto>();
 	}
 	
 	/**

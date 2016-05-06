@@ -219,4 +219,15 @@ public class Triangulo extends Objeto {
 	public boolean estaDentro(Rayo r, Vector4 interseccion){
 		return false;
 	}
+	
+	@Override
+	public Objeto clone() {
+		Matrix tt = T.copy();
+		Material m = new Material(material.getColor(), material.getKd(), material.getKs(), material.getKr(), material.getKt(), material.getIr(), material.getShiny());
+		Vector4 p11 = new Vector4(p1.getX(), p1.getY(), p1.getZ(), p1.getH());
+		Vector4 p21 = new Vector4(p2.getX(), p2.getY(), p2.getZ(), p2.getH());
+		Vector4 p31 = new Vector4(p3.getX(), p3.getY(), p3.getZ(), p3.getH());
+		
+		return new Triangulo(p11, p21, p31, m, tt);
+	}
 }

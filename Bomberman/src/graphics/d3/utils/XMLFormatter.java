@@ -120,30 +120,6 @@ public class XMLFormatter {
 	/**
 	 * @param xml
 	 *            path del fichero XML
-	 * @return numero de rayos a lanzar por pixel
-	 */
-	public static int getAntialiasing(String xml) {
-		Document doc = setup(xml);
-		doc.getDocumentElement().normalize();
-
-		return Integer.parseInt(doc.getDocumentElement().getAttribute("antialiasing"));
-	}
-
-	/**
-	 * @param xml
-	 *            path del fichero XML
-	 * @return numero de rebotes de los rayos
-	 */
-	public static int getRebotes(String xml) {
-		Document doc = setup(xml);
-		doc.getDocumentElement().normalize();
-
-		return Integer.parseInt(doc.getDocumentElement().getAttribute("rebotes"));
-	}
-
-	/**
-	 * @param xml
-	 *            path del fichero XML
 	 * @return componente de luz ambiental
 	 */
 	public static double getLuzAmbiente(String xml) {
@@ -252,10 +228,10 @@ public class XMLFormatter {
 		NodeList nl = doc.getElementsByTagName("cajas");
 		if (nl != null && nl.getLength() > 0) {
 			NodeList nl2 = ((Element) nl.item(0)).getElementsByTagName("caja");
-			if (nl2 != null && nl2.getLength() > 0) {
+			for (int i = 0; i < nl2.getLength(); i++) {
 				Caja caja = new Caja();
 
-				NodeList nl3_figuras = ((Element) nl2.item(0)).getElementsByTagName("bomberman");
+				NodeList nl3_figuras = ((Element) nl2.item(i)).getElementsByTagName("bomberman");
 
 				Element e = (Element) nl3_figuras.item(0);
 				String path = e.getAttribute("path");
@@ -360,10 +336,10 @@ public class XMLFormatter {
 		NodeList nl = doc.getElementsByTagName("cajas");
 		if (nl != null && nl.getLength() > 0) {
 			NodeList nl2 = ((Element) nl.item(0)).getElementsByTagName("caja");
-			if (nl2 != null && nl2.getLength() > 0) {
+			for (int i = 0; i < nl2.getLength(); i++) {
 				Caja caja = new Caja();
 
-				NodeList nl3_figuras = ((Element) nl2.item(0)).getElementsByTagName("enemigo");
+				NodeList nl3_figuras = ((Element) nl2.item(i)).getElementsByTagName("enemigo");
 
 				Element e = (Element) nl3_figuras.item(0);
 				String path = e.getAttribute("path");
@@ -468,10 +444,10 @@ public class XMLFormatter {
 		NodeList nl = doc.getElementsByTagName("cajas");
 		if (nl != null && nl.getLength() > 0) {
 			NodeList nl2 = ((Element) nl.item(0)).getElementsByTagName("caja");
-			if (nl2 != null && nl2.getLength() > 0) {
+			for (int i = 0; i < nl2.getLength(); i++) {
 				Caja caja = new Caja();
 
-				NodeList nl3_figuras = ((Element) nl2.item(0)).getElementsByTagName("bloque");
+				NodeList nl3_figuras = ((Element) nl2.item(i)).getElementsByTagName("bloque");
 
 				Element e = (Element) nl3_figuras.item(0);
 				String path = e.getAttribute("path");

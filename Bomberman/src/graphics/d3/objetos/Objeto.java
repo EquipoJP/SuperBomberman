@@ -101,4 +101,6 @@ public abstract class Objeto {
 	 * Actualiza las bounds del objeto
 	 */
 	public abstract void updateBounds();
+	
+	public abstract Objeto clone();
 }

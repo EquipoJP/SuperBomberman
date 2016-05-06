@@ -122,4 +122,12 @@ public class Esfera extends Objeto {
 		Vector4 normal = this.normal(interseccion);
 		return Vector4.dot(normal, r.getDireccion()) >= 0;
 	}
+	
+	@Override
+	public Objeto clone() {
+		Matrix tt = T.copy();
+		Material m = new Material(material.getColor(), material.getKd(), material.getKs(), material.getKr(), material.getKt(), material.getIr(), material.getShiny());
+		
+		return new Esfera(m, tt, radio);
+	}
 }

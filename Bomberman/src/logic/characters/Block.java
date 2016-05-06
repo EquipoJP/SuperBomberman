@@ -35,7 +35,7 @@ public class Block extends Objeto {
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
 		
-		super.d3Object = d3object;
+		super.d3Object = d3object.clone();
 		// TODO traslacion 3d
 	}
 }

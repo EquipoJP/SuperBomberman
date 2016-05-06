@@ -239,5 +239,17 @@ public class Plano extends Objeto {
 		}
 		upperBound = new Vector4(maxX, maxY, maxZ, 1);
 	}
+	
+	@Override
+	public Objeto clone() {
+		Matrix tt = T.copy();
+		Material m = new Material(material.getColor(), material.getKd(), material.getKs(), material.getKr(), material.getKt(), material.getIr(), material.getShiny());
+		Vector4 p11 = new Vector4(p1.getX(), p1.getY(), p1.getZ(), p1.getH());
+		Vector4 p21 = new Vector4(p2.getX(), p2.getY(), p2.getZ(), p2.getH());
+		Vector4 p31 = new Vector4(p3.getX(), p3.getY(), p3.getZ(), p3.getH());
+		Vector4 p41 = new Vector4(p4.getX(), p4.getY(), p4.getZ(), p4.getH());
+		
+		return new Plano(p11, p21, p31, p41, m, tt);
+	}
 
 }

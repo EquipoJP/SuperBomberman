@@ -1,6 +1,8 @@
 package graphics.d3.objetos;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import Jama.Matrix;
 import graphics.d3.data.Par;
@@ -21,7 +23,7 @@ import graphics.d3.utils.TransformacionesAfines;
 public class Figura extends Objeto {
 
 	/* Atributos privados */
-	private ArrayList<Objeto> lista;
+	private List<Objeto> lista;
 	private Vector4 lowerBound; // Tiene las minimas variables
 	private Vector4 upperBound; // Tiene las maximas variables
 	private Objeto lastObjetoIntersectado = null;
@@ -53,7 +55,7 @@ public class Figura extends Objeto {
 	 * Figura que contiene una lista de objetos @param l
 	 * @param l lista de objetos a ser contenidos en la figura
 	 */
-	public Figura(ArrayList<Objeto> l) {
+	public Figura(List<Objeto> l) {
 		lista = l;
 		this.T = TransformacionesAfines.getIdentity();
 		updateBounds();
@@ -295,5 +297,14 @@ public class Figura extends Objeto {
 			ret = ret + o.getMaterial().getColor().getRed()+" "+o.getMaterial().getColor().getGreen()+" "+o.getMaterial().getColor().getBlue()+" ";
 		}
 		return ret;
+	}
+	
+	@Override
+	public Objeto clone() {
+		List<Objeto> clonable = new LinkedList<Objeto>();
+		for(Objeto obj : lista){
+			clonable.add(obj.clone());
+		}
+		return new Figura(clonable);
 	}
 }

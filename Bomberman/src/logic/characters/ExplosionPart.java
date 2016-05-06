@@ -48,7 +48,7 @@ public class ExplosionPart extends Objeto {
 	 */
 	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
-		super.d3Object = d3Object;
+		super.d3Object = d3Object.clone();
 		// traslacion 3d
 		depth = 10;
 		kind = k;

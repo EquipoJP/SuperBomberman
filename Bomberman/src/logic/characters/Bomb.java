@@ -59,7 +59,7 @@ public class Bomb extends Objeto {
 
 		depth = Initialization.getDepth("Bomb");
 		
-		super.d3Object = d3Object;
+		super.d3Object = d3Object.clone();
 		// TODO traslacion 3d
 	}
 
