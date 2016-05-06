@@ -106,15 +106,11 @@ public class XMLFormatter {
 			int ambiente = Integer.parseInt(e.getElementsByTagName("ambiente").item(0).getTextContent());
 			int difusa = Integer.parseInt(e.getElementsByTagName("difusa").item(0).getTextContent());
 			int especular = Integer.parseInt(e.getElementsByTagName("especular").item(0).getTextContent());
-			int reflejo = Integer.parseInt(e.getElementsByTagName("reflejo").item(0).getTextContent());
-			int transparente = Integer.parseInt(e.getElementsByTagName("transparente").item(0).getTextContent());
 			
 			boolean returned[] = new boolean[5];
 			returned[0] = (ambiente == 1);
 			returned[1] = (difusa == 1);
 			returned[2] = (especular == 1);
-			returned[3] = (reflejo == 1);
-			returned[4] = (transparente == 1);
 			
 			return returned;
 		}
@@ -165,17 +161,6 @@ public class XMLFormatter {
 		doc.getDocumentElement().normalize();
 
 		return Double.parseDouble(doc.getDocumentElement().getAttribute("epsilon"));
-	}
-
-	/**
-	 * @param xml path del fichero XML
-	 * @return nombre del fichero donde volcar la imagen resultante
-	 */
-	public static String getFile(String xml) {
-		Document doc = setup(xml);
-		doc.getDocumentElement().normalize();
-
-		return doc.getDocumentElement().getAttribute("file");
 	}
 
 	/**

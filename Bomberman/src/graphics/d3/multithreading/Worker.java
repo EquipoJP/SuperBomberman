@@ -141,9 +141,6 @@ public class Worker implements Runnable {
 				finalColor = ColorOperations.escalar(finalColor, objeto.getMaterial().getKd());
 			}
 
-			Color colorReflejado = null;
-			Color colorRefractado = null;
-
 			for (Foco f : escena.focos) {
 
 				/*
@@ -203,89 +200,6 @@ public class Worker implements Runnable {
 						finalColor = ColorOperations.add(finalColor, specular);
 					}
 				}
-			}
-
-			/* Intenta lanzar nuevos rayos si todavia quedan rebotes */
-			if (rebotes < escena.MAX_REBOTES_RAYO) {
-
-				/*
-				 * Si el material del objeto es reflectante se lanza el rayo
-				 * reflejado
-				 */
-				if (!objeto.estaDentro(rayo, pIntersecFinal) && objeto.getMaterial().isReflectante()
-						&& escena.TERMINO_REFLEJADO) {
-					Rayo vista = new Rayo(pIntersecFinal, Vector4.negate(rayo.getDireccion()));
-					Rayo reflejado = Rayo.rayoReflejado(vista, objeto, pIntersecFinal, escena.EPSILON);
-					colorReflejado = trazar(reflejado, rebotes + 1, new ArrayList<Objeto>());
-					colorReflejado = ColorOperations.escalar(colorReflejado, objeto.getMaterial().getKr());
-				}
-				/*
-				 * Si el material del objeto es refractante se lanza el rayo
-				 * refractado
-				 */
-				if (objeto.getMaterial().isTransparente() && escena.TERMINO_REFRACTADO) {
-					Rayo refractado = null;
-					double nI = 1.0;
-					double nT = 1.0;
-					
-					/* Calcula los indices de refraccion nI y nT */
-					if(refractadoItems.size() == 0){
-
-						/* El medio anterior es el aire: nI = 1 y nT = Ir del objeto intersectado */
-						refractadoItems.add(objeto);
-						nI = 1.0;
-						nT = objeto.getMaterial().getIr();
-					}
-					else{
-						
-						/* El rayo esta dentro de al menos 1 objeto */
-						nI = refractadoItems.get(refractadoItems.size() - 1).getMaterial().getIr();
-						
-						boolean encontrado = false;
-						int index = 0;
-						while(!encontrado && index < refractadoItems.size()){
-							encontrado = refractadoItems.get(index).equals(objeto);
-							index++;
-						}
-						
-						if(encontrado){
-
-							/* Se ha interseccionado por segunda vez con un objeto, saliendo de el */
-							refractadoItems.remove(index-1);
-							
-							if (refractadoItems.size() == 0) {
-								
-								/* El rayo ha salido al aire desde el ultimo objeto en el que estaba contenido */
-								nT = 1.0;
-							}
-							else {
-								nT = refractadoItems.get(refractadoItems.size() - 1).getMaterial().getIr();
-							}
-						}
-						else{
-							
-							/* Se ha interseccionado por primera vez con un objeto, entrando en el */
-							refractadoItems.add(objeto);
-							nT = refractadoItems.get(refractadoItems.size() - 1).getMaterial().getIr();
-						}
-					}
-					
-					/* Lanza el rayo refractado */
-					refractado = Rayo.rayoRefractado(rayo, objeto, pIntersecFinal, escena.EPSILON, nI, nT);
-					colorRefractado = trazar(refractado, rebotes + 1,refractadoItems);
-					colorRefractado = ColorOperations.escalar(colorRefractado, objeto.getMaterial().getKt());
-				}
-
-				/* agregar reflejado y transmitido */
-				if (colorReflejado != null && colorRefractado != null) {
-					Color fresnelColor = ColorOperations.add(colorReflejado, colorRefractado);
-					finalColor = ColorOperations.add(finalColor, fresnelColor);
-				} else if (colorReflejado != null) {
-					finalColor = ColorOperations.add(finalColor, colorReflejado);
-				} else if (colorRefractado != null) {
-					finalColor = ColorOperations.add(finalColor, colorRefractado);
-				}
-
 			}
 		}
 		return finalColor;

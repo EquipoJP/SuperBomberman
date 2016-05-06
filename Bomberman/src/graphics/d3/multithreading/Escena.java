@@ -32,7 +32,6 @@ public class Escena {
 	int ANTIALIASING;
 
 	/* Variables escena */
-	int MAX_REBOTES_RAYO;
 	double LUZ_AMBIENTAL;
 	double EPSILON;
 	boolean CAJAS_ENVOLVENTES;
@@ -47,8 +46,6 @@ public class Escena {
 	boolean TERMINO_AMBIENTAL;
 	boolean TERMINO_DIFUSO;
 	boolean TERMINO_ESPECULAR;
-	boolean TERMINO_REFLEJADO;
-	boolean TERMINO_REFRACTADO;
 	
 	/* Variables workers */
 	List<Pixel> trabajos = new ArrayList<Pixel>();
@@ -72,7 +69,6 @@ public class Escena {
 		focos = XMLFormatter.getFocos(xml);
 		
 		CAJAS_ENVOLVENTES = XMLFormatter.setCajas(xml);
-		MAX_REBOTES_RAYO = XMLFormatter.getRebotes(xml);
 		LUZ_AMBIENTAL = XMLFormatter.getLuzAmbiente(xml);
 		ANTIALIASING = 1;	//XMLFormatter.getAntialiasing(xml);
 		
@@ -81,8 +77,6 @@ public class Escena {
 			TERMINO_AMBIENTAL = flags[0];
 			TERMINO_DIFUSO = flags[1];
 			TERMINO_ESPECULAR = flags[2];
-			TERMINO_REFLEJADO = false;	//flags[3];
-			TERMINO_REFRACTADO = false;	//flags[4];
 		}
 		
 		EPSILON = XMLFormatter.getEpsilon(xml);
