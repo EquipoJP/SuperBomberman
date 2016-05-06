@@ -1,15 +1,16 @@
 package graphics.d3.utils;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import graphics.d3.data.Vector4;
 import graphics.d3.objetos.Figura;
 import graphics.d3.objetos.Material;
 import graphics.d3.objetos.Triangulo;
+
+import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import utils.FileUtils;
 
 /**
  * <h1>PLYConverter</h1>
@@ -57,7 +58,7 @@ public class PLYConverter {
 		int count = 0;
 		
 		try {
-			Scanner s = new Scanner(new File(plyFile));
+			Scanner s = new Scanner(FileUtils.getFile(plyFile));
 			while (s.hasNextLine() && !fin) {
 				String line = s.nextLine();
 				Scanner lineScanner = new Scanner(line);
