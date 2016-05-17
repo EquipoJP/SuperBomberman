@@ -1,14 +1,15 @@
 package graphics.d3.multithreading;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
 import graphics.d3.data.Par;
 import graphics.d3.data.Rayo;
 import graphics.d3.data.Vector4;
 import graphics.d3.objetos.Objeto;
 import graphics.d3.trazador.ColorOperations;
 import graphics.d3.trazador.Foco;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h1>Worker</h1>
@@ -53,7 +54,7 @@ public class Worker implements Runnable {
 		
 		while (!terminar) {
 			Color pixel = null;
-			ArrayList<Rayo> rayos = escena.getRayo(id);
+			List<Rayo> rayos = escena.getRayo(id);
 			
 			/* Traza los rayos de un pixel */
 			for (int k = 0; k < escena.ANTIALIASING; k++) {

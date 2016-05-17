@@ -5,6 +5,7 @@ package logic.characters;
 
 import java.util.List;
 
+import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.Game;
 import graphics.rooms.game.GameRepository;
@@ -101,6 +102,9 @@ public class ExplosionPart extends Objeto {
 		sprite_index.setCenterX(0);
 		sprite_index.setCenterY(0);
 		image_speed = 0.23;
+		
+		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
+		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override

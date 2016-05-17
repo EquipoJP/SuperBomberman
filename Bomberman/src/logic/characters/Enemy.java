@@ -3,6 +3,7 @@
  */
 package logic.characters;
 
+import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.GameRepository;
 
@@ -52,7 +53,10 @@ public class Enemy extends Objeto {
 		sprite_index = sprites.get(Initialization.ENEMIES_SPRS[2]);
 		boundingBox = PerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
+		
 		super.d3Object = d3Object.clone();
+		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
+		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override
@@ -189,12 +193,16 @@ public class Enemy extends Objeto {
 				x = x + modX;
 				y = y + modY;
 				// TODO modificar traslacion 3d
+				super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
+				super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 			}
 			return returned;
 		} else {
 			x = x + modX;
 			y = y + modY;
 			// TODO modificar traslacion 3d
+			super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
+			super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 			return true;
 		}
 	}

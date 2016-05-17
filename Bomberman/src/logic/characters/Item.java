@@ -3,6 +3,7 @@
  */
 package logic.characters;
 
+import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.GameRepository;
 import kuusisto.tinysound.Sound;
@@ -63,6 +64,9 @@ public class Item extends Objeto {
 		boundingBox.update(x, y);
 		// TODO traslacion 3d
 		image_speed = 0;
+		
+		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
+		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override

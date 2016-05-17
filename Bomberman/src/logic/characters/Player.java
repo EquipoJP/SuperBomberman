@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.Game3DRepository;
 import graphics.rooms.game.GameRepository;
@@ -58,6 +59,9 @@ public class Player extends Objeto {
 	public Player(int x, int y, int z, Room r, graphics.d3.objetos.Objeto d3Object) {
 		super(x, y, z, r);
 		super.d3Object = d3Object.clone();
+		
+		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
+		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override
@@ -308,6 +312,8 @@ public class Player extends Objeto {
 					x = x + modX;
 					y = y + modY;
 					// TODO traslacion 3d
+					super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
+					super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 					return true;
 				} else {
 					// not helping the player (absolute collision)
@@ -324,6 +330,8 @@ public class Player extends Objeto {
 					x = x + modX;
 					y = y + modY;
 					// TODO traslacion 3d
+					super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
+					super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 					return true;
 				} else {
 					// not helping the player (absolute collision)
@@ -335,6 +343,8 @@ public class Player extends Objeto {
 			x = x + modX;
 			y = y + modY;
 			// TODO traslacion 3d
+			super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
+			super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 			return true;
 		}
 	}

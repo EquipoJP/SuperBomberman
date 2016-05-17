@@ -3,6 +3,7 @@
  */
 package logic.characters;
 
+import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.Game3DRepository;
 import graphics.rooms.game.GameRepository;
@@ -52,6 +53,8 @@ public class DestroyableBlock extends Objeto {
 		
 		super.d3Object = d3Object.clone();
 		// TODO traslacion 3d
+		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
+		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override

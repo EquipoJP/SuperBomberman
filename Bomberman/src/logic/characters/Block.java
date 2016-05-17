@@ -3,6 +3,7 @@
  */
 package logic.characters;
 
+import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.GameRepository;
 import logic.Objeto;
@@ -37,5 +38,7 @@ public class Block extends Objeto {
 		
 		super.d3Object = d3object.clone();
 		// TODO traslacion 3d
+		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
+		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 }

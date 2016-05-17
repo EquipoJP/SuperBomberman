@@ -110,8 +110,8 @@ public class Escena {
 	 * @param id identificador del trabajador
 	 * @return lista de rayos asignados al trabajador
 	 */
-	public synchronized ArrayList<Rayo> getRayo(int id){
-		ArrayList<Rayo> rayos = new ArrayList<Rayo>();
+	public synchronized List<Rayo> getRayo(int id){
+		List<Rayo> rayos = new ArrayList<Rayo>();
 		
 		/* Crea el rayo que pasa por el pixel j, i */
 		if (j < camara.getCols() - 1) {
@@ -122,7 +122,7 @@ public class Escena {
 				i++;
 				j = 0;
 				
-				if (i% (camara.getRows() / 10) == 0){
+				if (i% (camara.getRows() / 2) == 0){
 					double percentage = (double) i / (double) camara.getRows();
 					percentage = percentage * 100.0;
 					System.out.printf("%.0f%% completado%n", percentage);

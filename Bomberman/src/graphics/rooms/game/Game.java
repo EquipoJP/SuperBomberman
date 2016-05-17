@@ -95,13 +95,14 @@ public class Game extends Room {
 		GameRepository.load(stage);
 
 		this.background = GameRepository.background;
+		
+		tiles = GameRepository.tiles;
+		plano = Game3DRepository.plano;
 
 		state = STATE.INIT;
 		seconds = SECONDS_PHASE;
 		secondsVictory = -1;
 
-		tiles = GameRepository.tiles;
-		plano = Game3DRepository.plano;
 		List<Objeto> objetos = Map.generateMap(this);
 
 		for (Objeto obj : objetos) {
@@ -158,7 +159,12 @@ public class Game extends Room {
 
 		switch (state) {
 		case INIT:
-			super.render(g);
+			if(Global.is2D){
+				super.render(g);
+			}
+			else{
+				Trazador.work();
+			}
 
 			// transparency
 			Color transparent = new Color(0, 0, 0, 128);

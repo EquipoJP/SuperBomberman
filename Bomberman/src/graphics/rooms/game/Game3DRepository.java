@@ -14,13 +14,13 @@ public class Game3DRepository {
 	public static Objeto enemigo = null;
 	public static Objeto plano = null;
 	
-	private static String xml = "";
+	private static String xml = "iniFiles/d3file.xml";
 	
 	public static void load(){
+		loadPlano();
 		loadBomberman();
 		loadEnemigo();
 		loadBloque();
-		loadPlano();
 		Trazador.setup(xml);
 	}
 	

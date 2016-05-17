@@ -1,7 +1,7 @@
 <escena 
 	ambiente="0.3" 
 	epsilon="1e-6"
-	multithreading="4"
+	multithreading="2"
 	cajas="0">
 
 	<debug>
@@ -43,6 +43,7 @@
 				<rotacion x="0" y="0" z="0"/>	<!-- rotacion en ejes X, Y, Z -->
 				<simetria x="0" y="0" z="0"/>	<!-- simetria en ejes X, Y, Z -->
 				<cizalla x="0" y="0" z="0"/>	<!-- cizalla en ejes X, Y, Z -->
+				<order>12345678</order>	<!-- orden de aplicar matrices -->
 				
 				<!-- material -->
 				<material>
@@ -59,7 +60,7 @@
 		
 		<caja>
 			<!-- bomberman -->
-            <bomberman path="" x="0" y="0" z="0">
+            <bomberman path="3DModels/Bomberman.ply" x="0" y="0" z="0">
                 
                 <global>1.5</global>    <!-- escala global -->
                 <escala x="1" y="1" z="1"/>    <!-- escala local -->
@@ -83,7 +84,7 @@
 		
 		<caja>
 			<!-- enemigo -->
-            <enemigo path="" x="0" y="0" z="0">
+            <enemigo path="3DModels/Bomberman.ply" x="0" y="0" z="0">
                 
                 <global>1.5</global>    <!-- escala global -->
                 <escala x="1" y="1" z="1"/>    <!-- escala local -->
@@ -107,7 +108,7 @@
 		
 		<caja>
 			<!-- bloque -->
-            <bloque path="" x="0" y="0" z="0">
+            <bloque path="3DModels/Bomberman.ply" x="0" y="0" z="0">
                 
                 <global>1.5</global>    <!-- escala global -->
                 <escala x="1" y="1" z="1"/>    <!-- escala local -->
