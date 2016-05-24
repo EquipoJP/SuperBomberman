@@ -3,7 +3,6 @@
  */
 package graphics.rooms.mainMenu;
 
-import graphics.d3.SuperBomberman3D;
 import graphics.effects.Button;
 import graphics.effects.Visual;
 import graphics.rooms.Room;
@@ -96,7 +95,7 @@ public class MainMenu extends Room {
 
 			@Override
 			public void run() {
-				SuperBomberman3D.main(null);
+				StatesMachine.goToRoom(STATE.GAME3D, false);
 			}
 		});
 		addObjeto(menuButtons[0][1]);

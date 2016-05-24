@@ -1,11 +1,13 @@
 package graphics.d3;
 
-import logic.Input;
 import logic.StatesMachine;
+import logic.StatesMachine.STATE;
+import main.Game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
@@ -28,10 +30,13 @@ import com.badlogic.gdx.math.Vector3;
 public class SuperBomberman3D extends ApplicationAdapter implements
 		ApplicationListener {
 
-	public static void main(String[] arg) {
+	public static LwjglApplication main() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.forceExit = false;
-		new LwjglApplication(new SuperBomberman3D(), config);
+		config.height = Game.HEIGHT;
+		config.width = Game.WIDTH;
+		config.title = "Super Bomberman 3D";
+		return new LwjglApplication(new SuperBomberman3D(), config);
 	}
 
 	public PerspectiveCamera cam;
@@ -54,6 +59,8 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	@Override
 	public void create() {
+		Gdx.graphics.setContinuousRendering(false);
+		Gdx.graphics.requestRendering();
 		camera();
 		models();
 		environment();
@@ -107,7 +114,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	@Override
 	public void render() {
 		step();
-
+		
 		camController.update();
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
@@ -119,23 +126,28 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		modelBatch.end();
 	}
 
-	private void step() {
+	public void step() {
 		float x = 0;
-		float y = 0;
-
-		Input.KEY direction = StatesMachine.input.getDirection();
-
-		if (direction == Input.KEY.UP) {
-			y = 0.2f;
-		} else if (direction == Input.KEY.DOWN) {
-			y = -0.2f;
-		} else if (direction == Input.KEY.LEFT) {
+		float z = 0;
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
 			x = -0.2f;
-		} else if (direction == Input.KEY.RIGHT) {
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 			x = 0.2f;
 		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			z = 0.2f;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+			z = -0.2f;
+		}
 
-		bomberman.transform.translate(new Vector3(x, y, 0));
+		bomberman.transform.translate(new Vector3(x, 0, z));
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
+		}
 	}
 
 	@Override

@@ -3,6 +3,7 @@
  */
 package logic;
 
+import graphics.d3.SuperBomberman3D;
 import graphics.rooms.controlsMenu.Controls;
 import graphics.rooms.credits.Credits;
 import graphics.rooms.game.Game;
@@ -17,6 +18,9 @@ import java.awt.Graphics;
 import logic.Input.KEY;
 import logic.misc.Record;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
@@ -25,7 +29,7 @@ public class StatesMachine {
 
 	/* machine's states */
 	public enum STATE {
-		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, PAUSE, RANKS, TOP10, CREDITS, CONTROLS
+		INTRO, MAIN_MENU, OPTIONS_MENU, GAME, GAME3D, PAUSE, RANKS, TOP10, CREDITS, CONTROLS
 	};
 
 	/* private attributes */
@@ -41,6 +45,7 @@ public class StatesMachine {
 	private static PauseMenu pauseScreen = null;
 	private static Credits credits = null;
 	private static Controls controls = null;
+	private static LwjglApplication game3D = null;
 
 	/**
 	 * Creation of the states machine. It starts on the game's intro
@@ -73,6 +78,8 @@ public class StatesMachine {
 		case GAME:
 			game(key, direction);
 			break;
+		case GAME3D:
+			game3d(key, direction);
 		case PAUSE:
 			pause(key, direction);
 			break;
@@ -112,6 +119,9 @@ public class StatesMachine {
 			break;
 		case GAME:
 			gameScreen.render(g);
+			break;
+		case GAME3D:
+			Gdx.graphics.requestRendering();
 			break;
 		case PAUSE:
 			pauseScreen.render(g);
@@ -194,6 +204,9 @@ public class StatesMachine {
 			gameScreen.destroy();
 			gameScreen = null;
 			break;
+		case GAME3D:
+			game3D.exit();
+			game3D = null;
 		case PAUSE:
 			pauseScreen.destroy();
 			pauseScreen = null;
@@ -283,6 +296,21 @@ public class StatesMachine {
 			gameScreen = new Game(main.Game.WIDTH, main.Game.HEIGHT, "Game");
 		}
 		gameScreen.step(key, direction);
+	}
+	
+	/**
+	 * 3D Game mode
+	 * 
+	 * @param key
+	 *            key
+	 * @param direction
+	 *            direction
+	 */
+	private static void game3d(KEY key, KEY direction) {
+
+		if (game3D == null) {
+			game3D = SuperBomberman3D.main();
+		}
 	}
 
 	/**
