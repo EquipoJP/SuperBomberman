@@ -11,12 +11,14 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
@@ -36,10 +38,12 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	public CameraInputController camController;
 
 	public Model bombermanModel;
+	public Model planeModel;
 	public Environment env;
+	public ModelBatch modelBatch;
 
 	public ModelInstance bomberman;
-	public ModelBatch modelBatch;
+	public ModelInstance plane;
 
 	private int FIELD_OF_VIEW = 67;
 
@@ -75,6 +79,22 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 				new Material(ColorAttribute.createDiffuse(Color.RED)),
 				Usage.Position | Usage.Normal);
 		bomberman = new ModelInstance(bombermanModel);
+
+		planeModel = mb.createRect(-10, 0, 10,
+				10, 0, 10,
+				10, 0, -10,
+				-10, 0, -10,
+                0, 1, 0,
+                GL20.GL_TRIANGLES,
+                new Material(
+                    new ColorAttribute(
+                        ColorAttribute.createDiffuse(Color.BLUE)),
+                    new BlendingAttribute(
+                        GL20.GL_SRC_ALPHA,
+                        GL20.GL_ONE_MINUS_SRC_ALPHA)),
+                VertexAttributes.Usage.Position |
+                VertexAttributes.Usage.TextureCoordinates);
+		plane = new ModelInstance(planeModel);
 	}
 
 	private void environment() {
@@ -95,28 +115,26 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 		modelBatch.begin(cam);
 		modelBatch.render(bomberman, env);
+		modelBatch.render(plane, env);
 		modelBatch.end();
 	}
 
 	private void step() {
 		float x = 0;
 		float y = 0;
-		
+
 		Input.KEY direction = StatesMachine.input.getDirection();
-		
-		if(direction == Input.KEY.UP){
+
+		if (direction == Input.KEY.UP) {
 			y = 0.2f;
-		}
-		else if(direction == Input.KEY.DOWN){
+		} else if (direction == Input.KEY.DOWN) {
 			y = -0.2f;
-		}
-		else if(direction == Input.KEY.LEFT){
+		} else if (direction == Input.KEY.LEFT) {
 			x = -0.2f;
-		}
-		else if(direction == Input.KEY.RIGHT){
+		} else if (direction == Input.KEY.RIGHT) {
 			x = 0.2f;
 		}
-		
+
 		bomberman.transform.translate(new Vector3(x, y, 0));
 	}
 
