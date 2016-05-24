@@ -26,9 +26,13 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 
 public class SuperBomberman3D extends ApplicationAdapter implements
 		ApplicationListener {
+	
+	private final float MOV = 0.1f;
+	private final float MOD_MOV = 0.01f;
 
 	public static LwjglApplication main() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -80,10 +84,11 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	private void models() {
 		modelBatch = new ModelBatch();
 		ModelBuilder mb = new ModelBuilder();
-		bombermanModel = mb.createBox(5f, 5f, 5f,
+		bombermanModel = mb.createBox(3f, 3f, 3f,
 				new Material(ColorAttribute.createDiffuse(Color.RED)),
 				Usage.Position | Usage.Normal);
 		bomberman = new ModelInstance(bombermanModel);
+		bomberman.transform.translate(new Vector3(0, 2, 0));
 
 		planeModel = mb.createRect(-10, 0, 10,
 				10, 0, 10,
@@ -125,23 +130,62 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	}
 
 	public void step() {
+		float modX = 0;
+		float modY = 0;
+		float modZ = 0;
+		
 		float x = 0;
+		float y = 0;
 		float z = 0;
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-			x = -0.2f;
+			x = -MOV;
+			modX = MOD_MOV;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-			x = 0.2f;
+			x = MOV;
+			modX = -MOD_MOV;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			z = 0.2f;
+			z = MOV;
+			modZ = -MOD_MOV;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			z = -0.2f;
+			z = -MOV;
+			modZ = MOD_MOV;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.PAGE_UP)){
+			y = MOV;
+			modY = -MOD_MOV;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.PAGE_DOWN)){
+			y = -MOV;
+			modY = MOD_MOV;
 		}
 
-		bomberman.transform.translate(new Vector3(x, 0, z));
+		/* collisions and things */
+		bomberman.transform.translate(new Vector3(x, y, z));
+		
+		BoundingBox bb = new BoundingBox();
+		bomberman.calculateBoundingBox(bb);
+		bb = bb.mul(bomberman.transform);
+		
+		BoundingBox pp = new BoundingBox();
+		plane.calculateBoundingBox(pp);
+		pp = pp.mul(plane.transform);
+		
+		while(bb.intersects(pp)){
+			bomberman.transform.translate(new Vector3(modX, modY, modZ));
+			
+			bb = new BoundingBox();
+			bomberman.calculateBoundingBox(bb);
+			bb = bb.mul(bomberman.transform);
+			
+			pp = new BoundingBox();
+			plane.calculateBoundingBox(pp);
+			pp = pp.mul(plane.transform);
+		}
+		/* end of collisions and things */
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.F1)){
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);

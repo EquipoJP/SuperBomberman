@@ -44,7 +44,7 @@ public class StatesMachine {
 	private static PauseMenu pauseScreen = null;
 	private static Credits credits = null;
 	private static Controls controls = null;
-	private static LwjglApplication game3D = null;
+	public static LwjglApplication game3D = null;
 
 	/**
 	 * Creation of the states machine. It starts on the game's intro
