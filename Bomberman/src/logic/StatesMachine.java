@@ -18,7 +18,6 @@ import java.awt.Graphics;
 import logic.Input.KEY;
 import logic.misc.Record;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
 /**
@@ -33,7 +32,7 @@ public class StatesMachine {
 	};
 
 	/* private attributes */
-	private static STATE state = STATE.INTRO;
+	public static STATE state = STATE.INTRO;
 	public static Input input;
 
 	/* different screens */
@@ -80,6 +79,7 @@ public class StatesMachine {
 			break;
 		case GAME3D:
 			game3d(key, direction);
+			break;
 		case PAUSE:
 			pause(key, direction);
 			break;
@@ -121,7 +121,7 @@ public class StatesMachine {
 			gameScreen.render(g);
 			break;
 		case GAME3D:
-			Gdx.graphics.requestRendering();
+//			game3D.getGraphics().requestRendering();
 			break;
 		case PAUSE:
 			pauseScreen.render(g);
@@ -207,6 +207,7 @@ public class StatesMachine {
 		case GAME3D:
 			game3D.exit();
 			game3D = null;
+			break;
 		case PAUSE:
 			pauseScreen.destroy();
 			pauseScreen = null;
@@ -307,7 +308,6 @@ public class StatesMachine {
 	 *            direction
 	 */
 	private static void game3d(KEY key, KEY direction) {
-
 		if (game3D == null) {
 			game3D = SuperBomberman3D.main();
 		}

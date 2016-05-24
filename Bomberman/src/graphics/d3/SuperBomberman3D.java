@@ -59,8 +59,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	@Override
 	public void create() {
-		Gdx.graphics.setContinuousRendering(false);
-		Gdx.graphics.requestRendering();
 		camera();
 		models();
 		environment();
@@ -145,7 +143,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 		bomberman.transform.translate(new Vector3(x, 0, z));
 		
-		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+		if(Gdx.input.isKeyPressed(Input.Keys.F1)){
 			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
 		}
 	}
@@ -153,6 +151,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	@Override
 	public void dispose() {
 		bombermanModel.dispose();
+		planeModel.dispose();
 		modelBatch.dispose();
 	}
 }

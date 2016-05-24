@@ -246,6 +246,8 @@ public class MainMenu extends Room {
 			return;
 		}
 		Sound sel = MusicRepository.select;
+		
+		boolean print = true;
 		switch (key) {
 		case DOWN:
 			next();
@@ -267,7 +269,12 @@ public class MainMenu extends Room {
 			confirm();
 			break;
 		default:
+			print = false;
 			break;
+		}
+		
+		if(Global.DEBUG && print){
+			System.out.println(key);
 		}
 	}
 }
