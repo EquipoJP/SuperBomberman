@@ -3,12 +3,12 @@
  */
 package logic.characters;
 
-import java.util.List;
-
-import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.Game;
 import graphics.rooms.game.GameRepository;
+
+import java.util.List;
+
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.collisions.BoundingBox;
@@ -47,10 +47,8 @@ public class ExplosionPart extends Objeto {
 	 * @param s
 	 *            side of explosion part
 	 */
-	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s, graphics.d3.objetos.Objeto d3Object) {
+	public ExplosionPart(int x, int y, int z, Room r, KIND k, SIDE s) {
 		super(x, y, z, r);
-		super.d3Object = d3Object.clone();
-		// traslacion 3d
 		depth = 10;
 		kind = k;
 		side = s;
@@ -102,9 +100,6 @@ public class ExplosionPart extends Objeto {
 		sprite_index.setCenterX(0);
 		sprite_index.setCenterY(0);
 		image_speed = 0.23;
-		
-		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
-		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override

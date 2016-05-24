@@ -3,7 +3,6 @@
  */
 package logic.characters;
 
-import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.GameRepository;
 import kuusisto.tinysound.Sound;
@@ -41,7 +40,7 @@ public class Bomb extends Objeto {
 	 * @param player
 	 *            owner of the bomb
 	 */
-	public Bomb(int x, int y, int z, Room r, int radius, Player player, graphics.d3.objetos.Objeto d3Object) {
+	public Bomb(int x, int y, int z, Room r, int radius, Player player) {
 		super(x, y, z, r);
 
 		Sound put = MusicRepository.putBomb;
@@ -59,11 +58,6 @@ public class Bomb extends Objeto {
 				+ Initialization.TILE_WIDTH / 2));
 
 		depth = Initialization.getDepth("Bomb");
-		
-		super.d3Object = d3Object.clone();
-		// TODO traslacion 3d
-		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
-		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override

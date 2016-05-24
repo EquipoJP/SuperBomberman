@@ -3,7 +3,6 @@
  */
 package logic.characters;
 
-import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.GameRepository;
 import logic.Objeto;
@@ -27,7 +26,7 @@ public class Block extends Objeto {
 	 * @param r
 	 *            room
 	 */
-	public Block(int x, int y, int z, Room r, graphics.d3.objetos.Objeto d3object) {
+	public Block(int x, int y, int z, Room r) {
 		super(x, y, z, r);
 
 		sprite_index = GameRepository.block;
@@ -35,10 +34,5 @@ public class Block extends Objeto {
 
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
-		
-		super.d3Object = d3object.clone();
-		// TODO traslacion 3d
-		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
-		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 }

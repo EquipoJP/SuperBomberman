@@ -2,7 +2,7 @@
 	ambiente="0.3" 
 	epsilon="1e-6"
 	multithreading="2"
-	cajas="0">
+	cajas="1">
 
 	<debug>
 		<ambiente>1</ambiente>

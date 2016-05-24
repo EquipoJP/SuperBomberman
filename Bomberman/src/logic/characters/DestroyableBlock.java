@@ -3,9 +3,7 @@
  */
 package logic.characters;
 
-import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
-import graphics.rooms.game.Game3DRepository;
 import graphics.rooms.game.GameRepository;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -37,7 +35,7 @@ public class DestroyableBlock extends Objeto {
 	 * @param t
 	 *            type of destroyable block
 	 */
-	public DestroyableBlock(int x, int y, int z, Room r, TYPE t, graphics.d3.objetos.Objeto d3Object) {
+	public DestroyableBlock(int x, int y, int z, Room r, TYPE t) {
 		super(x, y, z, r);
 
 		sprite_index = GameRepository.destroyableBlock1;
@@ -50,11 +48,6 @@ public class DestroyableBlock extends Objeto {
 		destruction = false;
 
 		type = t;
-		
-		super.d3Object = d3Object.clone();
-		// TODO traslacion 3d
-		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
-		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override
@@ -76,7 +69,7 @@ public class DestroyableBlock extends Objeto {
 	@Override
 	public void customDestroy() {
 		if (type != null) {
-			Item i = new Item(x, y, z, myRoom, type, Game3DRepository.bloque);
+			Item i = new Item(x, y, z, myRoom, type);
 			myRoom.addObjeto(i);
 		}
 	}

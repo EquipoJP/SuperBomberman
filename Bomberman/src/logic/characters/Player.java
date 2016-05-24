@@ -3,15 +3,14 @@
  */
 package logic.characters;
 
+import graphics.rooms.Room;
+import graphics.rooms.game.GameRepository;
+
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import graphics.d3.utils.TransformacionesAfines;
-import graphics.rooms.Room;
-import graphics.rooms.game.Game3DRepository;
-import graphics.rooms.game.GameRepository;
 import kuusisto.tinysound.Music;
 import logic.Input.KEY;
 import logic.Objeto;
@@ -56,12 +55,8 @@ public class Player extends Objeto {
 	 * @param r
 	 *            room
 	 */
-	public Player(int x, int y, int z, Room r, graphics.d3.objetos.Objeto d3Object) {
+	public Player(int x, int y, int z, Room r) {
 		super(x, y, z, r);
-		super.d3Object = d3Object.clone();
-		
-		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
-		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override
@@ -242,7 +237,7 @@ public class Player extends Objeto {
 			int _y = logic.misc.Map.getY(row);
 
 			if (!checkCollision(_x, _y)) {
-				Bomb bomb = new Bomb(_x, _y, z, myRoom, bombRadius, this, Game3DRepository.bloque);
+				Bomb bomb = new Bomb(_x, _y, z, myRoom, bombRadius, this);
 				myRoom.addObjeto(bomb);
 				ownBombs.add(bomb);
 				bombs++;
@@ -311,9 +306,6 @@ public class Player extends Objeto {
 							r.height * (int) Math.signum(this.y - o.y));
 					x = x + modX;
 					y = y + modY;
-					// TODO traslacion 3d
-					super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
-					super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 					return true;
 				} else {
 					// not helping the player (absolute collision)
@@ -329,9 +321,6 @@ public class Player extends Objeto {
 							r.width * (int) Math.signum(this.x - o.x), 0);
 					x = x + modX;
 					y = y + modY;
-					// TODO traslacion 3d
-					super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
-					super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 					return true;
 				} else {
 					// not helping the player (absolute collision)
@@ -342,9 +331,6 @@ public class Player extends Objeto {
 		} else {
 			x = x + modX;
 			y = y + modY;
-			// TODO traslacion 3d
-			super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(modX));
-			super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(modY));
 			return true;
 		}
 	}

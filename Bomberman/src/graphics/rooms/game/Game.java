@@ -3,15 +3,16 @@
  */
 package graphics.rooms.game;
 
+import graphics.d3.SuperBomberman3D;
+import graphics.effects.Visual;
+import graphics.rooms.Room;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import graphics.d3.trazador.Trazador;
-import graphics.effects.Visual;
-import graphics.rooms.Room;
 import kuusisto.tinysound.Music;
 import logic.Global;
 import logic.Input.KEY;
@@ -43,7 +44,6 @@ public class Game extends Room {
 	private int blocksDestroyed;
 
 	protected Sprite tiles;
-	protected graphics.d3.objetos.Objeto plano;
 	protected Level level;
 
 	private long seconds;
@@ -71,6 +71,8 @@ public class Game extends Room {
 	private Music victoryMsc = null;
 	private boolean startedLevel = false;
 	private boolean defeatedMusic = false;
+	
+	private SuperBomberman3D sb;
 
 	/**
 	 * @param w
@@ -97,7 +99,6 @@ public class Game extends Room {
 		this.background = GameRepository.background;
 		
 		tiles = GameRepository.tiles;
-		plano = Game3DRepository.plano;
 
 		state = STATE.INIT;
 		seconds = SECONDS_PHASE;
@@ -111,15 +112,15 @@ public class Game extends Room {
 			} else {
 				addObjeto(obj);
 			}
-			
-			if(obj.d3Object != null){
-				Trazador.escena.objetos.add(obj.d3Object);
-			}
 		}
 
 		hud = GameRepository.hud;
 		victory = GameRepository.victory;
 		victoryVisual = null;
+		
+		// TODO
+		sb = new SuperBomberman3D();
+		sb.create();
 	}
 
 	@Override
@@ -163,7 +164,7 @@ public class Game extends Room {
 				super.render(g);
 			}
 			else{
-				Trazador.work();
+				// TODO
 			}
 
 			// transparency
@@ -189,7 +190,8 @@ public class Game extends Room {
 				super.render(g);
 			}
 			else{
-				Trazador.work();
+				// TODO
+				sb.render();
 			}
 			break;
 		}

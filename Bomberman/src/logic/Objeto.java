@@ -34,8 +34,6 @@ public abstract class Objeto {
 	private List<Integer> alarmsOff;
 	private double previous_image_index;
 	
-	public graphics.d3.objetos.Objeto d3Object;
-
 	/**
 	 * @param x
 	 *            x coordinate
@@ -67,7 +65,6 @@ public abstract class Objeto {
 		animation_end = false;
 		image_speed = 0;
 		
-		d3Object = null;
 		create();
 	}
 

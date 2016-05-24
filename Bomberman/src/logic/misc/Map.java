@@ -4,7 +4,6 @@
 package logic.misc;
 
 import graphics.rooms.Room;
-import graphics.rooms.game.Game3DRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -300,7 +299,7 @@ public class Map {
 			break;
 		}
 
-		return new DestroyableBlock(x, y, 0, room, tipo, Game3DRepository.bloque);
+		return new DestroyableBlock(x, y, 0, room, tipo);
 	}
 
 	/**
@@ -318,7 +317,7 @@ public class Map {
 		int x = getX(col);
 		int y = getY(row);
 
-		return new Block(x, y, 0, room, Game3DRepository.bloque);
+		return new Block(x, y, 0, room);
 	}
 
 	/**
@@ -336,7 +335,7 @@ public class Map {
 		int x = getX(col);
 		int y = getY(row) - fixpos;
 
-		return new Enemy(x, y, 0, room, Game3DRepository.enemigo);
+		return new Enemy(x, y, 0, room);
 	}
 
 	/**
@@ -354,7 +353,7 @@ public class Map {
 		int x = getX(col);
 		int y = getY(row) - fixpos;
 
-		return new Player(x, y, 0, room, Game3DRepository.bomberman);
+		return new Player(x, y, 0, room);
 	}
 
 	/**

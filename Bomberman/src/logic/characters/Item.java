@@ -3,13 +3,12 @@
  */
 package logic.characters;
 
-import graphics.d3.utils.TransformacionesAfines;
 import graphics.rooms.Room;
 import graphics.rooms.game.GameRepository;
 import kuusisto.tinysound.Sound;
+import logic.Input.KEY;
 import logic.Objeto;
 import logic.Sprite;
-import logic.Input.KEY;
 import logic.collisions.NoPerspectiveBoundingBox;
 import main.Initialization;
 import sound.MusicRepository;
@@ -43,9 +42,8 @@ public class Item extends Objeto {
 	 * @param t
 	 *            type of item
 	 */
-	public Item(int x, int y, int z, Room r, TYPE t, graphics.d3.objetos.Objeto d3Object) {
+	public Item(int x, int y, int z, Room r, TYPE t) {
 		super(x, y, z, r);
-		super.d3Object = d3Object.clone();
 
 		switch (t) {
 		case BOMB:
@@ -62,11 +60,7 @@ public class Item extends Objeto {
 		type = t;
 		boundingBox = NoPerspectiveBoundingBox.createBoundingBox(sprite_index);
 		boundingBox.update(x, y);
-		// TODO traslacion 3d
 		image_speed = 0;
-		
-		super.d3Object.addTransformation(TransformacionesAfines.getXTraslation(x));
-		super.d3Object.addTransformation(TransformacionesAfines.getYTraslation(y));
 	}
 
 	@Override
