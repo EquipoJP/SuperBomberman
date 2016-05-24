@@ -15,7 +15,6 @@ import graphics.effects.Visual;
 import graphics.rooms.Room;
 import graphics.rooms.controlsMenu.ControlsRepository;
 import graphics.rooms.credits.CreditsRepository;
-import graphics.rooms.game.Game3DRepository;
 import graphics.rooms.game.GameRepository;
 import graphics.rooms.mainMenu.MainMenuRepository;
 import graphics.rooms.optionsMenu.OptionsMenuRepository;
@@ -61,7 +60,6 @@ public class Intro extends Room {
 		PauseMenuRepository.load();
 		CreditsRepository.load();
 		GameRepository.load(null);
-		Game3DRepository.load();
 		OptionsMenuRepository.load();
 		MainMenuRepository.load();
 		RankMenuRepository.load();

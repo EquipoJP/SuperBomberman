@@ -22,6 +22,8 @@ import main.Game;
 import main.Initialization;
 import sound.MusicRepository;
 
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+
 /**
  * @author Patricia Lazaro Tello (554309)
  * @author Jaime Ruiz-Borau Vizarraga (546751)
@@ -44,6 +46,8 @@ public class Player extends Objeto {
 	public int bombRadius;
 	public int bombsLimit;
 	private ArrayList<Objeto> ownBombs;
+	
+	public ModelInstance obj;
 
 	/**
 	 * @param x
