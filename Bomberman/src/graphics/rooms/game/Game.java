@@ -44,7 +44,7 @@ public class Game extends Room {
 	private int blocksDestroyed;
 
 	protected Sprite tiles;
-	protected Level level;
+	public Level level;
 
 	private long seconds;
 	private long secondsVictory;
@@ -117,10 +117,6 @@ public class Game extends Room {
 		hud = GameRepository.hud;
 		victory = GameRepository.victory;
 		victoryVisual = null;
-		
-		// TODO
-		sb = new SuperBomberman3D();
-		sb.create();
 	}
 
 	@Override

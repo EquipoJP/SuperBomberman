@@ -309,7 +309,11 @@ public class StatesMachine {
 	 */
 	private static void game3d(KEY key, KEY direction) {
 		if (game3D == null) {
-			game3D = SuperBomberman3D.main();
+			Game game = new Game(main.Game.WIDTH, main.Game.HEIGHT, "Game");
+			while(!game.loadComplete()){
+				;
+			}
+			game3D = SuperBomberman3D.main(game);
 		}
 	}
 
