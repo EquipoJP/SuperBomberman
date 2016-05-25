@@ -8,8 +8,6 @@ import java.util.Map;
 
 import logic.Input.KEY;
 import logic.Objeto;
-import logic.StatesMachine;
-import logic.StatesMachine.STATE;
 import logic.characters.Block;
 import logic.characters.DestroyableBlock;
 import logic.characters.Enemy;
@@ -64,6 +62,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	public PerspectiveCamera cam;
 	public CameraInputController camController;
+	public Thread calcs;
 
 	public Model bombermanModel;
 	public Model enemyModel;
@@ -75,23 +74,35 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	private int FIELD_OF_VIEW = 67;
 
-	private Vector3 initialPosition = new Vector3(10f, 10f, 10f);
+	private Vector3 initialPosition = new Vector3(200f, 500f, 200f);
 	private Vector3 origin = new Vector3(0, 0, 0);
 	private float near = 1f;
-	private float far = 300f;
+	private float far = 5000f;
+//	private float ratio = 16;
 	
 	/* Game */
-	private graphics.rooms.game.Game room;
+	public graphics.rooms.game.Game room;
 	private int xInitPlane, zInitPlane, xEndPlane, zEndPlane;
-	Map<Objeto, ModelInstance> objetos;
-	ModelInstance plane;
+	public Map<Objeto, ModelInstance> objetos;
+	public Objeto bombermanObj;
+	public ModelInstance bombermanMI;
+	public ModelInstance plane;
 	/* End Game */
 
 	@Override
 	public void create() {
+		calcs = null;
 		init();
 		camera();
 		models();
+		calcs = new Thread(new Runnable() {
+			   @Override
+			   public void run() {
+			      // post a Runnable to the rendering thread that processes the result
+			      step();
+			   }
+			});
+		calcs.start();
 		environment();
 		System.out.println("Finished creating things");
 	}
@@ -101,7 +112,13 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		xInitPlane = lvl.mapInitX;
 		xEndPlane = lvl.mapInitX + lvl.mapWidth;
 		zInitPlane = lvl.mapInitY;
-		xEndPlane = lvl.mapInitY + lvl.mapHeight;
+		zEndPlane = lvl.mapInitY + lvl.mapHeight;
+		
+		float xMid = xInitPlane + (xEndPlane - xInitPlane)/2;
+		float zMid = zInitPlane + (zEndPlane - zInitPlane)/2;
+		
+		origin = new Vector3(xMid, 0, zMid);
+		initialPosition = new Vector3(0, 200, 0);
 	}
 
 	private void camera() {
@@ -121,30 +138,29 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		modelBatch = new ModelBatch();
 		ModelBuilder mb = new ModelBuilder();
 		
+		int width = GameRepository.block.getWidth();
+		
 		/* bomberman */
-		int playerWidth, playerHeight;
-		playerWidth = GameRepository.player.get(Initialization.BOMBERMAN_SPRS[0]).getWidth();
+		int playerHeight;
 		playerHeight = GameRepository.player.get(Initialization.BOMBERMAN_SPRS[0]).getHeight();
 		
-		bombermanModel = mb.createBox(playerWidth, playerHeight, playerWidth,
+		bombermanModel = mb.createBox(width - 15, playerHeight, width - 15,
 				new Material(ColorAttribute.createDiffuse(Color.BLUE)),
 				Usage.Position | Usage.Normal);
 		
 		/* enemy */
-		int enemyWidth, enemyHeight;
-		enemyWidth = GameRepository.enemy.get(Initialization.ENEMIES_SPRS[2]).getWidth();
+		int enemyHeight;
 		enemyHeight = GameRepository.enemy.get(Initialization.ENEMIES_SPRS[2]).getHeight();
 		
-		enemyModel = mb.createBox(enemyWidth, enemyHeight, enemyWidth,
+		enemyModel = mb.createBox(width - 10, enemyHeight, width - 10,
 				new Material(ColorAttribute.createDiffuse(Color.RED)),
 				Usage.Position | Usage.Normal);
 		
 		/* box */
-		int boxWidth, boxHeight;
-		boxWidth = GameRepository.block.getWidth();
+		int boxHeight;
 		boxHeight = GameRepository.block.getHeight();
 		
-		boxModel = mb.createBox(boxWidth, boxHeight, boxWidth,
+		boxModel = mb.createBox(width, boxHeight, width,
 				new Material(ColorAttribute.createDiffuse(Color.YELLOW)),
 				Usage.Position | Usage.Normal);
 
@@ -177,6 +193,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 				model = new ModelInstance(bombermanModel);
 				model.transform.translate(0, playerHeight/2, 0);
 				model.transform.translate(obj.x, 0, obj.y);
+				
+				bombermanMI = model;
+				bombermanObj = obj;
 			}
 			if(obj instanceof Block || obj instanceof DestroyableBlock){
 				insert = true;
@@ -206,7 +225,16 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	@Override
 	public void render() {
-		step();
+		if(!calcs.isAlive()){
+			calcs = new Thread(new Runnable() {
+				   @Override
+				   public void run() {
+				      // post a Runnable to the rendering thread that processes the result
+				      step();
+				   }
+				});
+			calcs.start();
+		}
 		
 		Collection<ModelInstance> objetosLista = objetos.values();
 		
@@ -249,16 +277,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		/* move bomberman */
 		moveBomberman(lastX, lastY);
 		/* end move bomberman */
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.F1)){
-			StatesMachine.goToRoom(STATE.MAIN_MENU, false);
-		}
 	}
 	
 	private void moveBomberman(float lastX, float lastY){
-		ModelInstance bomberman = getBomberman();
-		Player bombermanObjeto = getBombermanObject();
-		
 		float modX = 0;
 		float modY = 0;
 		float modZ = 0;
@@ -296,54 +317,57 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		}
 
 		/* collisions and things */
-		bomberman.transform.translate(new Vector3(x, y, z));
+		bombermanMI.transform.translate(new Vector3(x, y, z));
 		finalX = lastX + x;
 		finalZ = lastY + z;
 		
+		/*
 		BoundingBox bb = new BoundingBox();
-		bomberman.calculateBoundingBox(bb);
-		bb = bb.mul(bomberman.transform);
+		bombermanMI.calculateBoundingBox(bb);
+		bb = bb.mul(bombermanMI.transform);
 		
 		BoundingBox pp = new BoundingBox();
 		plane.calculateBoundingBox(pp);
 		pp = pp.mul(plane.transform);
 		
 		while(bb.intersects(pp)){
-			bomberman.transform.translate(new Vector3(modX, modY, modZ));
+			bombermanMI.transform.translate(new Vector3(modX, modY, modZ));
 			finalX = finalX + modX;
 			finalZ = finalZ + modZ;
 			
 			bb = new BoundingBox();
-			bomberman.calculateBoundingBox(bb);
-			bb = bb.mul(bomberman.transform);
+			bombermanMI.calculateBoundingBox(bb);
+			bb = bb.mul(bombermanMI.transform);
 			
 			pp = new BoundingBox();
 			plane.calculateBoundingBox(pp);
 			pp = pp.mul(plane.transform);
 		}
+		*/
 		
 		/* collision with stuff */
+		/*
 		for(ModelInstance model : objetos.values()){
-			if(model.equals(bomberman)){
+			if(model.equals(bombermanMI)){
 				;
 			}
 			else{
 				bb = new BoundingBox();
-				bomberman.calculateBoundingBox(bb);
-				bb = bb.mul(bomberman.transform);
+				bombermanMI.calculateBoundingBox(bb);
+				bb = bb.mul(bombermanMI.transform);
 				
 				BoundingBox mm = new BoundingBox();
 				model.calculateBoundingBox(mm);
 				mm = mm.mul(model.transform);
 				
 				while(bb.intersects(mm)){
-					bomberman.transform.translate(new Vector3(modX, modY, modZ));
+					bombermanMI.transform.translate(new Vector3(modX, modY, modZ));
 					finalX = finalX + modX;
 					finalZ = finalZ + modZ;
 					
 					bb = new BoundingBox();
-					bomberman.calculateBoundingBox(bb);
-					bb = bb.mul(bomberman.transform);
+					bombermanMI.calculateBoundingBox(bb);
+					bb = bb.mul(bombermanMI.transform);
 					
 					mm = new BoundingBox();
 					model.calculateBoundingBox(mm);
@@ -351,35 +375,13 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 				}
 			}
 		}
+		*/
 		/* end collision with stuff */
 		
-		bombermanObjeto.x = (int) finalX;
-		bombermanObjeto.y = (int) finalZ;
+		bombermanObj.x = (int) finalX;
+		bombermanObj.y = (int) finalZ;
 		
 		/* end of collisions and things */
-	}
-	
-	private ModelInstance getBomberman(){
-		for (Map.Entry<Objeto, ModelInstance> entry : objetos.entrySet()) {
-		    Objeto key = entry.getKey();
-		    ModelInstance value = entry.getValue();
-		    
-		    if (key instanceof Player){
-		    	return value;
-		    }
-		}
-		return null;
-	}
-	
-	private Player getBombermanObject(){
-		for (Map.Entry<Objeto, ModelInstance> entry : objetos.entrySet()) {
-		    Objeto key = entry.getKey();
-		    
-		    if (key instanceof Player){
-		    	return (Player) key;
-		    }
-		}
-		return null;
 	}
 
 	@Override
