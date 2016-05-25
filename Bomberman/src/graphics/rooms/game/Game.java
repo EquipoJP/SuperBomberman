@@ -49,11 +49,11 @@ public class Game extends Room {
 	private long seconds;
 	private long secondsVictory;
 
-	private enum STATE {
+	public enum STATE {
 		INIT, GAME, DESTRUCTION, VICTORY
 	};
 
-	private STATE state;
+	public STATE state;
 
 	private Timer timer;
 	private TimerTask task;

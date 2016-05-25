@@ -1,5 +1,6 @@
 package graphics.d3;
 
+import graphics.rooms.game.Game.STATE;
 import graphics.rooms.game.GameRepository;
 
 import java.util.Collection;
@@ -39,14 +40,10 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.BoundingBox;
 
 public class SuperBomberman3D extends ApplicationAdapter implements
 		ApplicationListener {
 	
-	private final float MOV = 0.1f;
-	private final float MOD_MOV = 0.01f;
-
 	public SuperBomberman3D(graphics.rooms.game.Game game) {
 		room = game;
 	}
@@ -78,7 +75,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	private Vector3 origin = new Vector3(0, 0, 0);
 	private float near = 1f;
 	private float far = 5000f;
-//	private float ratio = 16;
 	
 	/* Game */
 	public graphics.rooms.game.Game room;
@@ -95,14 +91,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		init();
 		camera();
 		models();
-		calcs = new Thread(new Runnable() {
-			   @Override
-			   public void run() {
-			      // post a Runnable to the rendering thread that processes the result
-			      step();
-			   }
-			});
-		calcs.start();
 		environment();
 		System.out.println("Finished creating things");
 	}
@@ -225,17 +213,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	@Override
 	public void render() {
-		if(!calcs.isAlive()){
-			calcs = new Thread(new Runnable() {
-				   @Override
-				   public void run() {
-				      // post a Runnable to the rendering thread that processes the result
-				      step();
-				   }
-				});
-			calcs.start();
-		}
-		
+		step();
 		Collection<ModelInstance> objetosLista = objetos.values();
 		
 		camController.update();
@@ -256,134 +234,40 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 			lastPos.put(obj, new Point2D(obj.x, obj.y));
 		}
 		
-		room.step(KEY.NO_KEY, KEY.NO_KEY);
+		KEY dir = KEY.NO_KEY;
+		KEY keyPressed = KEY.NO_KEY;
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+			dir = KEY.UP;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+			dir = KEY.DOWN;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			dir = KEY.LEFT;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+			dir = KEY.RIGHT;
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+			keyPressed = KEY.BOMB;
+		}
 		
-		float lastX = 0, lastY = 0;
+		room.step(keyPressed, dir);
+		
 		for (Map.Entry<Objeto, ModelInstance> entry : objetos.entrySet()) {
 		    Objeto key = entry.getKey();
 		    ModelInstance value = entry.getValue();
 		    
 		    Point2D last = lastPos.get(key);
-		    if (! (key instanceof Player)){
-		    	value.transform.translate(key.x - last.getX(), 0, key.y - last.getY());
-		    }
-		    else{
-		    	lastX = last.getX();
-		    	lastY = last.getY();
-		    }
+		    value.transform.translate(key.x - last.getX(), 0, key.y - last.getY());
 		}
 		/* end move objects */
 		
-		/* move bomberman */
-		moveBomberman(lastX, lastY);
-		/* end move bomberman */
+		if(room.state == STATE.DESTRUCTION || room.state == STATE.VICTORY){
+			Gdx.app.exit();
+		}
 	}
 	
-	private void moveBomberman(float lastX, float lastY){
-		float modX = 0;
-		float modY = 0;
-		float modZ = 0;
-		
-		float x = 0;
-		float y = 0;
-		float z = 0;
-		
-		float finalX = 0;
-		float finalZ = 0;
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-			x = -MOV;
-			modX = MOD_MOV;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-			x = MOV;
-			modX = -MOD_MOV;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			z = MOV;
-			modZ = -MOD_MOV;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-			z = -MOV;
-			modZ = MOD_MOV;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.PAGE_UP)){
-			y = MOV;
-			modY = -MOD_MOV;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.PAGE_DOWN)){
-			y = -MOV;
-			modY = MOD_MOV;
-		}
-
-		/* collisions and things */
-		bombermanMI.transform.translate(new Vector3(x, y, z));
-		finalX = lastX + x;
-		finalZ = lastY + z;
-		
-		/*
-		BoundingBox bb = new BoundingBox();
-		bombermanMI.calculateBoundingBox(bb);
-		bb = bb.mul(bombermanMI.transform);
-		
-		BoundingBox pp = new BoundingBox();
-		plane.calculateBoundingBox(pp);
-		pp = pp.mul(plane.transform);
-		
-		while(bb.intersects(pp)){
-			bombermanMI.transform.translate(new Vector3(modX, modY, modZ));
-			finalX = finalX + modX;
-			finalZ = finalZ + modZ;
-			
-			bb = new BoundingBox();
-			bombermanMI.calculateBoundingBox(bb);
-			bb = bb.mul(bombermanMI.transform);
-			
-			pp = new BoundingBox();
-			plane.calculateBoundingBox(pp);
-			pp = pp.mul(plane.transform);
-		}
-		*/
-		
-		/* collision with stuff */
-		/*
-		for(ModelInstance model : objetos.values()){
-			if(model.equals(bombermanMI)){
-				;
-			}
-			else{
-				bb = new BoundingBox();
-				bombermanMI.calculateBoundingBox(bb);
-				bb = bb.mul(bombermanMI.transform);
-				
-				BoundingBox mm = new BoundingBox();
-				model.calculateBoundingBox(mm);
-				mm = mm.mul(model.transform);
-				
-				while(bb.intersects(mm)){
-					bombermanMI.transform.translate(new Vector3(modX, modY, modZ));
-					finalX = finalX + modX;
-					finalZ = finalZ + modZ;
-					
-					bb = new BoundingBox();
-					bombermanMI.calculateBoundingBox(bb);
-					bb = bb.mul(bombermanMI.transform);
-					
-					mm = new BoundingBox();
-					model.calculateBoundingBox(mm);
-					mm = mm.mul(model.transform);
-				}
-			}
-		}
-		*/
-		/* end collision with stuff */
-		
-		bombermanObj.x = (int) finalX;
-		bombermanObj.y = (int) finalZ;
-		
-		/* end of collisions and things */
-	}
-
 	@Override
 	public void dispose() {
 		bombermanModel.dispose();
