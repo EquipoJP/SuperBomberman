@@ -5,13 +5,16 @@ import graphics.rooms.game.GameRepository;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import logic.Input.KEY;
 import logic.Objeto;
 import logic.characters.Block;
+import logic.characters.Bomb;
 import logic.characters.DestroyableBlock;
 import logic.characters.Enemy;
+import logic.characters.ExplosionPart;
 import logic.characters.Player;
 import logic.collisions.Point2D;
 import logic.misc.Level;
@@ -43,14 +46,14 @@ import com.badlogic.gdx.math.Vector3;
 
 public class SuperBomberman3D extends ApplicationAdapter implements
 		ApplicationListener {
-	
+
 	public SuperBomberman3D(graphics.rooms.game.Game game) {
 		room = game;
 	}
 
 	public static LwjglApplication main(graphics.rooms.game.Game game) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		//config.forceExit = false;
+		// config.forceExit = false;
 		config.height = Game.HEIGHT;
 		config.width = Game.WIDTH;
 		config.title = "Super Bomberman 3D";
@@ -64,8 +67,10 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	public Model bombermanModel;
 	public Model enemyModel;
 	public Model boxModel;
+	public Model bombModel;
+	public Model explosionModel;
 	public Model planeModel;
-	
+
 	public Environment env;
 	public ModelBatch modelBatch;
 
@@ -75,14 +80,13 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	private Vector3 origin = new Vector3(0, 0, 0);
 	private float near = 1f;
 	private float far = 5000f;
-	
+
 	/* Game */
 	public graphics.rooms.game.Game room;
 	private int xInitPlane, zInitPlane, xEndPlane, zEndPlane;
 	public Map<Objeto, ModelInstance> objetos;
-	public Objeto bombermanObj;
-	public ModelInstance bombermanMI;
 	public ModelInstance plane;
+
 	/* End Game */
 
 	@Override
@@ -94,17 +98,17 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		environment();
 		System.out.println("Finished creating things");
 	}
-	
-	private void init(){
+
+	private void init() {
 		Level lvl = room.level;
 		xInitPlane = lvl.mapInitX;
 		xEndPlane = lvl.mapInitX + lvl.mapWidth;
 		zInitPlane = lvl.mapInitY;
 		zEndPlane = lvl.mapInitY + lvl.mapHeight;
-		
-		float xMid = xInitPlane + (xEndPlane - xInitPlane)/2;
-		float zMid = zInitPlane + (zEndPlane - zInitPlane)/2;
-		
+
+		float xMid = xInitPlane + (xEndPlane - xInitPlane) / 2;
+		float zMid = zInitPlane + (zEndPlane - zInitPlane) / 2;
+
 		origin = new Vector3(xMid, 0, zMid);
 		initialPosition = new Vector3(0, 200, 0);
 	}
@@ -125,80 +129,77 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	private void models() {
 		modelBatch = new ModelBatch();
 		ModelBuilder mb = new ModelBuilder();
-		
+
 		int width = GameRepository.block.getWidth();
-		
+
 		/* bomberman */
 		int playerHeight;
-		playerHeight = GameRepository.player.get(Initialization.BOMBERMAN_SPRS[0]).getHeight();
-		
+		playerHeight = GameRepository.player.get(
+				Initialization.BOMBERMAN_SPRS[0]).getHeight();
+
 		bombermanModel = mb.createBox(width - 15, playerHeight, width - 15,
 				new Material(ColorAttribute.createDiffuse(Color.BLUE)),
 				Usage.Position | Usage.Normal);
-		
+
 		/* enemy */
 		int enemyHeight;
-		enemyHeight = GameRepository.enemy.get(Initialization.ENEMIES_SPRS[2]).getHeight();
-		
+		enemyHeight = GameRepository.enemy.get(Initialization.ENEMIES_SPRS[2])
+				.getHeight();
+
 		enemyModel = mb.createBox(width - 10, enemyHeight, width - 10,
 				new Material(ColorAttribute.createDiffuse(Color.RED)),
 				Usage.Position | Usage.Normal);
-		
+
 		/* box */
 		int boxHeight;
 		boxHeight = GameRepository.block.getHeight();
-		
-		boxModel = mb.createBox(width, boxHeight, width,
-				new Material(ColorAttribute.createDiffuse(Color.YELLOW)),
-				Usage.Position | Usage.Normal);
 
+		boxModel = mb.createBox(width, boxHeight, width, new Material(
+				ColorAttribute.createDiffuse(Color.YELLOW)), Usage.Position
+				| Usage.Normal);
+		bombModel = mb.createBox(width, boxHeight, width, new Material(
+				ColorAttribute.createDiffuse(Color.BROWN)), Usage.Position
+				| Usage.Normal);
+		explosionModel = mb.createBox(width, boxHeight, width, new Material(
+				ColorAttribute.createDiffuse(Color.CORAL)), Usage.Position
+				| Usage.Normal);
 
 		/* plane model */
-		planeModel = mb.createRect(xInitPlane, 0, zEndPlane,
-				xEndPlane, 0, zEndPlane,
-				xEndPlane, 0, zInitPlane,
-				xInitPlane, 0, zInitPlane,
-                0, 1, 0,
-                GL20.GL_TRIANGLES,
-                new Material(
-                    new ColorAttribute(
-                        ColorAttribute.createDiffuse(Color.GREEN)),
-                    new BlendingAttribute(
-                        GL20.GL_SRC_ALPHA,
-                        GL20.GL_ONE_MINUS_SRC_ALPHA)),
-                VertexAttributes.Usage.Position |
-                VertexAttributes.Usage.TextureCoordinates);
+		planeModel = mb.createRect(xInitPlane, 0, zEndPlane, xEndPlane, 0,
+				zEndPlane, xEndPlane, 0, zInitPlane, xInitPlane, 0, zInitPlane,
+				0, 1, 0, GL20.GL_TRIANGLES, new Material(new ColorAttribute(
+						ColorAttribute.createDiffuse(Color.GREEN)),
+						new BlendingAttribute(GL20.GL_SRC_ALPHA,
+								GL20.GL_ONE_MINUS_SRC_ALPHA)),
+				VertexAttributes.Usage.Position
+						| VertexAttributes.Usage.TextureCoordinates);
 		plane = new ModelInstance(planeModel);
-		
-		
+
 		objetos = new HashMap<>();
-		for(Objeto obj : room.objetos){
+		for (Objeto obj : room.objetos) {
 			ModelInstance model = null;
 			boolean insert = false;
-			
-			if(obj instanceof Player){
+
+			if (obj instanceof Player) {
 				insert = true;
 				model = new ModelInstance(bombermanModel);
-				model.transform.translate(0, playerHeight/2, 0);
+				model.transform.translate(0, playerHeight / 2, 0);
 				model.transform.translate(obj.x, 0, obj.y);
-				
-				bombermanMI = model;
-				bombermanObj = obj;
 			}
-			if(obj instanceof Block || obj instanceof DestroyableBlock){
+			if (obj instanceof Block || obj instanceof DestroyableBlock) {
 				insert = true;
 				model = new ModelInstance(boxModel);
-				model.transform.translate(0, boxHeight/2, 0);
+				model.transform.translate(0, boxHeight / 2, 0);
 				model.transform.translate(obj.x, 0, obj.y);
 			}
-			if(obj instanceof Enemy){
+			if (obj instanceof Enemy) {
 				insert = true;
 				model = new ModelInstance(enemyModel);
-				model.transform.translate(0, enemyHeight/2, 0);
+				model.transform.translate(0, enemyHeight / 2, 0);
 				model.transform.translate(obj.x, 0, obj.y);
 			}
-			
-			if(insert){
+
+			if (insert) {
 				objetos.put(obj, model);
 			}
 		}
@@ -215,7 +216,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	public void render() {
 		step();
 		Collection<ModelInstance> objetosLista = objetos.values();
-		
+
 		camController.update();
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
@@ -230,49 +231,85 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	public void step() {
 		/* move objects */
 		Map<Objeto, Point2D> lastPos = new HashMap<>();
-		for(Objeto obj : objetos.keySet()){
+		for (Objeto obj : objetos.keySet()) {
 			lastPos.put(obj, new Point2D(obj.x, obj.y));
 		}
-		
+
 		KEY dir = KEY.NO_KEY;
 		KEY keyPressed = KEY.NO_KEY;
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			dir = KEY.UP;
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			dir = KEY.DOWN;
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			dir = KEY.LEFT;
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			dir = KEY.RIGHT;
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			keyPressed = KEY.BOMB;
 		}
-		
+
 		room.step(keyPressed, dir);
-		
+
+		for (Objeto obj : room.objetos) {
+			if (objetos.containsKey(obj)) {
+				;
+			} else {
+				int boxHeight, boxWidth;
+				boxWidth = GameRepository.block.getWidth();
+				boxHeight = GameRepository.block.getHeight();
+
+				if (obj instanceof Bomb) {
+					ModelInstance model = new ModelInstance(bombModel);
+					model.transform.translate(0, boxHeight / 2, 0);
+					model.transform.translate(obj.x, 0, obj.y);
+					objetos.put(obj, model);
+				}
+				if (obj instanceof ExplosionPart) {
+					ModelInstance model = new ModelInstance(explosionModel);
+					model.transform.translate(0, boxHeight / 2, 0);
+					model.transform.translate(obj.x + boxWidth/2, 0, obj.y + boxHeight/2);
+					objetos.put(obj, model);
+				}
+			}
+		}
+
+		for (Iterator<Map.Entry<Objeto, ModelInstance>> it = objetos.entrySet()
+				.iterator(); it.hasNext();) {
+			Map.Entry<Objeto, ModelInstance> entry = it.next();
+			if (!room.objetos.contains(entry.getKey())) {
+				it.remove();
+			}
+		}
+
 		for (Map.Entry<Objeto, ModelInstance> entry : objetos.entrySet()) {
-		    Objeto key = entry.getKey();
-		    ModelInstance value = entry.getValue();
-		    
-		    Point2D last = lastPos.get(key);
-		    value.transform.translate(key.x - last.getX(), 0, key.y - last.getY());
+			Objeto key = entry.getKey();
+			ModelInstance value = entry.getValue();
+
+			Point2D last = lastPos.get(key);
+			if (last != null) {
+				value.transform.translate(key.x - last.getX(), 0,
+						key.y - last.getY());
+			}
 		}
 		/* end move objects */
-		
-		if(room.state == STATE.DESTRUCTION || room.state == STATE.VICTORY){
+
+		if (room.state == STATE.DESTRUCTION || room.state == STATE.VICTORY) {
 			Gdx.app.exit();
 		}
 	}
-	
+
 	@Override
 	public void dispose() {
 		bombermanModel.dispose();
 		planeModel.dispose();
 		boxModel.dispose();
+		bombModel.dispose();
+		explosionModel.dispose();
 		enemyModel.dispose();
 		room.destroy();
 		modelBatch.dispose();
