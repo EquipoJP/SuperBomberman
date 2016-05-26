@@ -33,7 +33,7 @@ public abstract class Objeto {
 
 	private List<Integer> alarmsOff;
 	private double previous_image_index;
-	
+
 	/**
 	 * @param x
 	 *            x coordinate
@@ -64,7 +64,7 @@ public abstract class Objeto {
 		previous_image_index = image_index;
 		animation_end = false;
 		image_speed = 0;
-		
+
 		create();
 	}
 
@@ -123,13 +123,29 @@ public abstract class Objeto {
 	/**
 	 * Render the animated sprite of the object
 	 * 
-	 * @param g graphics
+	 * @param g
+	 *            graphics
 	 */
 	public void render(Graphics g) {
 		if (sprite_index != null) {
-			if (image_speed != 0
-					&& (prev_sprite_index == null || (prev_sprite_index != null && !sprite_index
-							.equals(prev_sprite_index)))) {
+			int temp_image_index = animate();
+			if(g != null){
+				g.drawImage(sprite_index.getSubsprites()[temp_image_index], x - sprite_index.getCenterX(),
+						y - sprite_index.getCenterY(), null);
+	
+				if (Global.DEBUG && boundingBox != null) {
+					g.setColor(Color.red);
+					g.drawRect(boundingBox.getX(), boundingBox.getY(), boundingBox.getWidth(), boundingBox.getHeight());
+					g.setColor(Color.black);
+				}
+			}
+		}
+	}
+
+	public int animate() {
+		if (sprite_index != null) {
+			if (image_speed != 0 && (prev_sprite_index == null
+					|| (prev_sprite_index != null && !sprite_index.equals(prev_sprite_index)))) {
 				prev_sprite_index = sprite_index;
 				image_index = 0;
 				previous_image_index = 0;
@@ -139,27 +155,23 @@ public abstract class Objeto {
 				previous_image_index = 0;
 			}
 			int temp_image_index = (int) Math.floor(image_index);
-			g.drawImage(sprite_index.getSubsprites()[temp_image_index], x
-					- sprite_index.getCenterX(), y - sprite_index.getCenterY(),
-					null);
 
-			image_index = (image_index + image_speed)
-					% sprite_index.getSubimages();
+			image_index = (image_index + image_speed) % sprite_index.getSubimages();
 
-			if (Global.DEBUG && boundingBox != null) {
-				g.setColor(Color.red);
-				g.drawRect(boundingBox.getX(), boundingBox.getY(),
-						boundingBox.getWidth(), boundingBox.getHeight());
-				g.setColor(Color.black);
-			}
+			return temp_image_index;
+		}
+		else{
+			return -1;
 		}
 	}
 
 	/**
 	 * Step event
 	 * 
-	 * @param key key
-	 * @param direction direction
+	 * @param key
+	 *            key
+	 * @param direction
+	 *            direction
 	 */
 	public void step(KEY key, KEY direction) {
 		alarmHandling();
@@ -279,8 +291,7 @@ public abstract class Objeto {
 
 		for (Objeto obj : objects) {
 			if (!obj.equals(this)) {
-				boolean collision = BoundingBox.collision(boundingBox,
-						obj.boundingBox);
+				boolean collision = BoundingBox.collision(boundingBox, obj.boundingBox);
 				if (collision) {
 					if (returned == null) {
 						returned = new LinkedList<Objeto>();
@@ -297,8 +308,7 @@ public abstract class Objeto {
 	 * Check the animation end
 	 */
 	public void checkAnimationEnd() {
-		if (image_index < previous_image_index
-				&& sprite_index == prev_sprite_index) {
+		if (image_index < previous_image_index && sprite_index == prev_sprite_index) {
 			animation_end = true;
 		}
 		previous_image_index = image_index;

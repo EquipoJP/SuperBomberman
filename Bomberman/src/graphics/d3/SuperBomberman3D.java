@@ -1,25 +1,10 @@
 package graphics.d3;
 
-import graphics.rooms.game.Game.STATE;
-import graphics.rooms.game.GameRepository;
-
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-
-import logic.Input.KEY;
-import logic.Objeto;
-import logic.characters.Block;
-import logic.characters.Bomb;
-import logic.characters.DestroyableBlock;
-import logic.characters.Enemy;
-import logic.characters.ExplosionPart;
-import logic.characters.Player;
-import logic.collisions.Point2D;
-import logic.misc.Level;
-import main.Game;
-import main.Initialization;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
@@ -44,8 +29,22 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
-public class SuperBomberman3D extends ApplicationAdapter implements
-		ApplicationListener {
+import graphics.rooms.game.Game.STATE;
+import graphics.rooms.game.GameRepository;
+import logic.Input.KEY;
+import logic.Objeto;
+import logic.characters.Block;
+import logic.characters.Bomb;
+import logic.characters.DestroyableBlock;
+import logic.characters.Enemy;
+import logic.characters.ExplosionPart;
+import logic.characters.Item;
+import logic.characters.Player;
+import logic.collisions.Point2D;
+import logic.misc.Level;
+import main.Game;
+
+public class SuperBomberman3D extends ApplicationAdapter implements ApplicationListener {
 
 	public SuperBomberman3D(graphics.rooms.game.Game game) {
 		room = game;
@@ -67,6 +66,8 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	public Model bombermanModel;
 	public Model enemyModel;
 	public Model boxModel;
+	public Model destroyableModel;
+	public Model itemModel;
 	public Model bombModel;
 	public Model explosionModel;
 	public Model planeModel;
@@ -80,6 +81,8 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	private Vector3 origin = new Vector3(0, 0, 0);
 	private float near = 1f;
 	private float far = 5000f;
+
+	private int width, height;
 
 	/* Game */
 	public graphics.rooms.game.Game room;
@@ -114,8 +117,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 	}
 
 	private void camera() {
-		cam = new PerspectiveCamera(FIELD_OF_VIEW, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		cam = new PerspectiveCamera(FIELD_OF_VIEW, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.set(initialPosition);
 		cam.lookAt(origin);
 		cam.near = near;
@@ -130,49 +132,35 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		modelBatch = new ModelBatch();
 		ModelBuilder mb = new ModelBuilder();
 
-		int width = GameRepository.block.getWidth();
+		width = GameRepository.block.getWidth();
+		height = GameRepository.block.getHeight();
 
 		/* bomberman */
-		int playerHeight;
-		playerHeight = GameRepository.player.get(
-				Initialization.BOMBERMAN_SPRS[0]).getHeight();
-
-		bombermanModel = mb.createBox(width - 15, playerHeight, width - 15,
-				new Material(ColorAttribute.createDiffuse(Color.BLUE)),
-				Usage.Position | Usage.Normal);
+		bombermanModel = mb.createBox(width - 10, height + height / 2, width - 10,
+				new Material(ColorAttribute.createDiffuse(Color.BLUE)), Usage.Position | Usage.Normal);
 
 		/* enemy */
-		int enemyHeight;
-		enemyHeight = GameRepository.enemy.get(Initialization.ENEMIES_SPRS[2])
-				.getHeight();
-
-		enemyModel = mb.createBox(width - 10, enemyHeight, width - 10,
-				new Material(ColorAttribute.createDiffuse(Color.RED)),
-				Usage.Position | Usage.Normal);
+		enemyModel = mb.createBox(width - 10, height + height / 2, width - 10,
+				new Material(ColorAttribute.createDiffuse(Color.RED)), Usage.Position | Usage.Normal);
 
 		/* box */
-		int boxHeight;
-		boxHeight = GameRepository.block.getHeight();
-
-		boxModel = mb.createBox(width, boxHeight, width, new Material(
-				ColorAttribute.createDiffuse(Color.YELLOW)), Usage.Position
-				| Usage.Normal);
-		bombModel = mb.createBox(width, boxHeight, width, new Material(
-				ColorAttribute.createDiffuse(Color.BROWN)), Usage.Position
-				| Usage.Normal);
-		explosionModel = mb.createBox(width, boxHeight, width, new Material(
-				ColorAttribute.createDiffuse(Color.CORAL)), Usage.Position
-				| Usage.Normal);
+		boxModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.YELLOW)),
+				Usage.Position | Usage.Normal);
+		destroyableModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.GRAY)),
+				Usage.Position | Usage.Normal);
+		itemModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.OLIVE)),
+				Usage.Position | Usage.Normal);
+		bombModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.BROWN)),
+				Usage.Position | Usage.Normal);
+		explosionModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.CORAL)),
+				Usage.Position | Usage.Normal);
 
 		/* plane model */
-		planeModel = mb.createRect(xInitPlane, 0, zEndPlane, xEndPlane, 0,
-				zEndPlane, xEndPlane, 0, zInitPlane, xInitPlane, 0, zInitPlane,
-				0, 1, 0, GL20.GL_TRIANGLES, new Material(new ColorAttribute(
-						ColorAttribute.createDiffuse(Color.GREEN)),
-						new BlendingAttribute(GL20.GL_SRC_ALPHA,
-								GL20.GL_ONE_MINUS_SRC_ALPHA)),
-				VertexAttributes.Usage.Position
-						| VertexAttributes.Usage.TextureCoordinates);
+		planeModel = mb.createRect(xInitPlane, 0, zEndPlane, xEndPlane, 0, zEndPlane, xEndPlane, 0, zInitPlane,
+				xInitPlane, 0, zInitPlane, 0, 1, 0, GL20.GL_TRIANGLES,
+				new Material(new ColorAttribute(ColorAttribute.createDiffuse(Color.GREEN)),
+						new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)),
+				VertexAttributes.Usage.Position | VertexAttributes.Usage.TextureCoordinates);
 		plane = new ModelInstance(planeModel);
 
 		objetos = new HashMap<>();
@@ -183,20 +171,26 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 			if (obj instanceof Player) {
 				insert = true;
 				model = new ModelInstance(bombermanModel);
-				model.transform.translate(0, playerHeight / 2, 0);
-				model.transform.translate(obj.x, 0, obj.y);
+				model.transform.translate(0, height / 2, 0);
+				model.transform.translate(obj.x, 0, obj.y + logic.misc.Map.fixpos);
 			}
-			if (obj instanceof Block || obj instanceof DestroyableBlock) {
+			if (obj instanceof Block) {
 				insert = true;
 				model = new ModelInstance(boxModel);
-				model.transform.translate(0, boxHeight / 2, 0);
+				model.transform.translate(0, height / 2, 0);
+				model.transform.translate(obj.x, 0, obj.y);
+			}
+			if (obj instanceof DestroyableBlock) {
+				insert = true;
+				model = new ModelInstance(destroyableModel);
+				model.transform.translate(0, height / 2, 0);
 				model.transform.translate(obj.x, 0, obj.y);
 			}
 			if (obj instanceof Enemy) {
 				insert = true;
 				model = new ModelInstance(enemyModel);
-				model.transform.translate(0, enemyHeight / 2, 0);
-				model.transform.translate(obj.x, 0, obj.y);
+				model.transform.translate(0, height / 2, 0);
+				model.transform.translate(obj.x, 0, obj.y + logic.misc.Map.fixpos);
 			}
 
 			if (insert) {
@@ -207,8 +201,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 	private void environment() {
 		env = new Environment();
-		env.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f,
-				0.2f, 1f));
+		env.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1f));
 		env.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 	}
 
@@ -218,8 +211,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		Collection<ModelInstance> objetosLista = objetos.values();
 
 		camController.update();
-		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		modelBatch.begin(cam);
@@ -254,34 +246,38 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		}
 
 		room.step(keyPressed, dir);
-		
-		for (Iterator<Map.Entry<Objeto, ModelInstance>> it = objetos.entrySet()
-				.iterator(); it.hasNext();) {
-			Map.Entry<Objeto, ModelInstance> entry = it.next();
-			if (!room.objetos.contains(entry.getKey())) {
-				it.remove();
-				System.out.println("Remove element");
+
+		List<Objeto> destroy = new LinkedList<Objeto>();
+		for (Objeto obj : objetos.keySet()) {
+			if (!room.objetos.contains(obj)) {
+				destroy.add(obj);
 			}
+		}
+		for (Objeto obj : destroy) {
+			objetos.remove(obj);
 		}
 
 		for (Objeto obj : room.objetos) {
+			obj.render(null);
 			if (objetos.containsKey(obj)) {
 				;
 			} else {
-				int boxHeight, boxWidth;
-				boxWidth = GameRepository.block.getWidth();
-				boxHeight = GameRepository.block.getHeight();
-
 				if (obj instanceof Bomb) {
 					ModelInstance model = new ModelInstance(bombModel);
-					model.transform.translate(0, boxHeight / 2, 0);
+					model.transform.translate(0, height / 2, 0);
 					model.transform.translate(obj.x, 0, obj.y);
 					objetos.put(obj, model);
 				}
 				if (obj instanceof ExplosionPart) {
 					ModelInstance model = new ModelInstance(explosionModel);
-					model.transform.translate(0, boxHeight / 2, 0);
-					model.transform.translate(obj.x + boxWidth/2, 0, obj.y + boxHeight/2);
+					model.transform.translate(0, height / 2, 0);
+					model.transform.translate(obj.x + width / 2, 0, obj.y + height / 2);
+					objetos.put(obj, model);
+				}
+				if (obj instanceof Item) {
+					ModelInstance model = new ModelInstance(itemModel);
+					model.transform.translate(0, height / 2, 0);
+					model.transform.translate(obj.x, 0, obj.y);
 					objetos.put(obj, model);
 				}
 			}
@@ -293,8 +289,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 
 			Point2D last = lastPos.get(key);
 			if (last != null) {
-				value.transform.translate(key.x - last.getX(), 0,
-						key.y - last.getY());
+				value.transform.translate(key.x - last.getX(), 0, key.y - last.getY());
 			}
 		}
 		/* end move objects */

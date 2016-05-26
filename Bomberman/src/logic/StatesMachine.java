@@ -16,6 +16,7 @@ import graphics.rooms.rankMenu.RankMenu;
 import java.awt.Graphics;
 
 import logic.Input.KEY;
+import logic.misc.LevelManager;
 import logic.misc.Record;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -309,6 +310,7 @@ public class StatesMachine {
 	 */
 	private static void game3d(KEY key, KEY direction) {
 		if (game3D == null) {
+			Global.levels = new LevelManager();
 			Game game = new Game(main.Game.WIDTH, main.Game.HEIGHT, "Game");
 			while(!game.loadComplete()){
 				;

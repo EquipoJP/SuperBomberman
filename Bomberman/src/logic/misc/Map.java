@@ -38,7 +38,7 @@ public class Map {
 	public static final char BOMBERMAN = 'B';
 	public static final char NOTHING = '-';
 
-	private static final int fixpos = 5;
+	public static final int fixpos = 5;
 
 	/**
 	 * Creates a map from a file
