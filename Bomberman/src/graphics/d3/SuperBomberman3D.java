@@ -110,7 +110,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		float zMid = zInitPlane + (zEndPlane - zInitPlane) / 2;
 
 		origin = new Vector3(xMid, 0, zMid);
-		initialPosition = new Vector3(0, 200, 0);
+		initialPosition = new Vector3(xMid, 600, zMid);
 	}
 
 	private void camera() {
@@ -254,6 +254,15 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 		}
 
 		room.step(keyPressed, dir);
+		
+		for (Iterator<Map.Entry<Objeto, ModelInstance>> it = objetos.entrySet()
+				.iterator(); it.hasNext();) {
+			Map.Entry<Objeto, ModelInstance> entry = it.next();
+			if (!room.objetos.contains(entry.getKey())) {
+				it.remove();
+				System.out.println("Remove element");
+			}
+		}
 
 		for (Objeto obj : room.objetos) {
 			if (objetos.containsKey(obj)) {
@@ -275,14 +284,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements
 					model.transform.translate(obj.x + boxWidth/2, 0, obj.y + boxHeight/2);
 					objetos.put(obj, model);
 				}
-			}
-		}
-
-		for (Iterator<Map.Entry<Objeto, ModelInstance>> it = objetos.entrySet()
-				.iterator(); it.hasNext();) {
-			Map.Entry<Objeto, ModelInstance> entry = it.next();
-			if (!room.objetos.contains(entry.getKey())) {
-				it.remove();
 			}
 		}
 
