@@ -176,6 +176,9 @@ public class Game extends Canvas implements Runnable {
 		game.start();
 	}
 
+	/**
+	 * Reloads the key mapping
+	 */
 	public void reloadMapping() {
 		input.reloadMapping();
 	}

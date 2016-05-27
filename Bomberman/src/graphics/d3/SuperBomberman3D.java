@@ -1,3 +1,7 @@
+/**
+ *  Main class for the 3D Game
+ */
+
 package graphics.d3;
 
 import java.util.Collection;
@@ -44,21 +48,34 @@ import logic.collisions.Point2D;
 import logic.misc.Level;
 import main.Game;
 
+/**
+ * @author Patricia Lazaro Tello (554309)
+ * @author Jaime Ruiz-Borau Vizarraga (546751)
+ */
 public class SuperBomberman3D extends ApplicationAdapter implements ApplicationListener {
 
+	/**
+	 * @param game
+	 *            2DGame room
+	 */
 	public SuperBomberman3D(graphics.rooms.game.Game game) {
 		room = game;
 	}
 
+	/**
+	 * @param game
+	 *            2DGame room
+	 * @return a new desktop libgdx application that runs the 3D game
+	 */
 	public static LwjglApplication main(graphics.rooms.game.Game game) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		// config.forceExit = false;
 		config.height = Game.HEIGHT;
 		config.width = Game.WIDTH;
 		config.title = "Super Bomberman 3D";
 		return new LwjglApplication(new SuperBomberman3D(game), config);
 	}
 
+	/* attributes */
 	public PerspectiveCamera cam;
 	public CameraInputController camController;
 	public Thread calcs;
@@ -102,6 +119,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 		System.out.println("Finished creating things");
 	}
 
+	/**
+	 * Initializes some variables
+	 */
 	private void init() {
 		Level lvl = room.level;
 		xInitPlane = lvl.mapInitX;
@@ -116,6 +136,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 		initialPosition = new Vector3(xMid, 600, zMid);
 	}
 
+	/**
+	 * Initializes the camera
+	 */
 	private void camera() {
 		cam = new PerspectiveCamera(FIELD_OF_VIEW, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.set(initialPosition);
@@ -128,6 +151,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 		Gdx.input.setInputProcessor(camController);
 	}
 
+	/**
+	 * Initializes the 3D models and instances them
+	 */
 	private void models() {
 		modelBatch = new ModelBatch();
 		ModelBuilder mb = new ModelBuilder();
@@ -146,12 +172,20 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 		/* box */
 		boxModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.YELLOW)),
 				Usage.Position | Usage.Normal);
+
+		/* destroyable */
 		destroyableModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.GRAY)),
 				Usage.Position | Usage.Normal);
+
+		/* item */
 		itemModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.OLIVE)),
 				Usage.Position | Usage.Normal);
+
+		/* bomb */
 		bombModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.BROWN)),
 				Usage.Position | Usage.Normal);
+
+		/* explosion */
 		explosionModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.CORAL)),
 				Usage.Position | Usage.Normal);
 
@@ -163,6 +197,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 				VertexAttributes.Usage.Position | VertexAttributes.Usage.TextureCoordinates);
 		plane = new ModelInstance(planeModel);
 
+		/* instances the objects of the 2D game room */
 		objetos = new HashMap<>();
 		for (Objeto obj : room.objetos) {
 			ModelInstance model = null;
@@ -199,6 +234,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 		}
 	}
 
+	/**
+	 * Initializes the environment
+	 */
 	private void environment() {
 		env = new Environment();
 		env.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1f));
@@ -220,13 +258,18 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 		modelBatch.end();
 	}
 
+	/**
+	 * Updates objects' positions, destroy the objects that needs to be
+	 * destroyed and creates the new ones
+	 */
 	public void step() {
-		/* move objects */
+		/* previous position */
 		Map<Objeto, Point2D> lastPos = new HashMap<>();
 		for (Objeto obj : objetos.keySet()) {
 			lastPos.put(obj, new Point2D(obj.x, obj.y));
 		}
 
+		/* key handling */
 		KEY dir = KEY.NO_KEY;
 		KEY keyPressed = KEY.NO_KEY;
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -245,8 +288,10 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 			keyPressed = KEY.BOMB;
 		}
 
+		/* step of the 2D Game */
 		room.step(keyPressed, dir);
 
+		/* objects to be destroyed */
 		List<Objeto> destroy = new LinkedList<Objeto>();
 		for (Objeto obj : objetos.keySet()) {
 			if (!room.objetos.contains(obj)) {
@@ -257,6 +302,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 			objetos.remove(obj);
 		}
 
+		/* creates new objects */
 		for (Objeto obj : room.objetos) {
 			obj.render(null);
 			if (objetos.containsKey(obj)) {
@@ -283,6 +329,7 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 			}
 		}
 
+		/* updates objects' positions */
 		for (Map.Entry<Objeto, ModelInstance> entry : objetos.entrySet()) {
 			Objeto key = entry.getKey();
 			ModelInstance value = entry.getValue();
@@ -292,7 +339,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 				value.transform.translate(key.x - last.getX(), 0, key.y - last.getY());
 			}
 		}
-		/* end move objects */
 
 		if (room.state == STATE.DESTRUCTION || room.state == STATE.VICTORY) {
 			Gdx.app.exit();

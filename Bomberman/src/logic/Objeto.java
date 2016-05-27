@@ -129,10 +129,10 @@ public abstract class Objeto {
 	public void render(Graphics g) {
 		if (sprite_index != null) {
 			int temp_image_index = animate();
-			if(g != null){
+			if (g != null) {
 				g.drawImage(sprite_index.getSubsprites()[temp_image_index], x - sprite_index.getCenterX(),
 						y - sprite_index.getCenterY(), null);
-	
+
 				if (Global.DEBUG && boundingBox != null) {
 					g.setColor(Color.red);
 					g.drawRect(boundingBox.getX(), boundingBox.getY(), boundingBox.getWidth(), boundingBox.getHeight());
@@ -142,6 +142,9 @@ public abstract class Objeto {
 		}
 	}
 
+	/**
+	 * @return previous animation index
+	 */
 	public int animate() {
 		if (sprite_index != null) {
 			if (image_speed != 0 && (prev_sprite_index == null
@@ -159,8 +162,7 @@ public abstract class Objeto {
 			image_index = (image_index + image_speed) % sprite_index.getSubimages();
 
 			return temp_image_index;
-		}
-		else{
+		} else {
 			return -1;
 		}
 	}

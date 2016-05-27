@@ -122,7 +122,6 @@ public class StatesMachine {
 			gameScreen.render(g);
 			break;
 		case GAME3D:
-//			game3D.getGraphics().requestRendering();
 			break;
 		case PAUSE:
 			pauseScreen.render(g);
