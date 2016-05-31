@@ -84,7 +84,9 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 	public Model enemyModel;
 	public Model boxModel;
 	public Model destroyableModel;
-	public Model itemModel;
+	public Model itemModelS;
+	public Model itemModelP;
+	public Model itemModelB;
 	public Model bombModel;
 	public Model explosionModel;
 	public Model planeModel;
@@ -167,26 +169,30 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 
 		/* enemy */
 		enemyModel = mb.createBox(width - 10, height + height / 2, width - 10,
-				new Material(ColorAttribute.createDiffuse(Color.RED)), Usage.Position | Usage.Normal);
+				new Material(ColorAttribute.createDiffuse(Color.ORANGE)), Usage.Position | Usage.Normal);
 
 		/* box */
-		boxModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.YELLOW)),
+		boxModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.BROWN)),
 				Usage.Position | Usage.Normal);
 
 		/* destroyable */
-		destroyableModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.GRAY)),
+		destroyableModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.OLIVE)),
 				Usage.Position | Usage.Normal);
 
 		/* item */
-		itemModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.OLIVE)),
+		itemModelS = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.CYAN)),
+				Usage.Position | Usage.Normal);
+		itemModelP = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.YELLOW)),
+				Usage.Position | Usage.Normal);
+		itemModelB = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.BLACK)),
 				Usage.Position | Usage.Normal);
 
 		/* bomb */
-		bombModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.BROWN)),
+		bombModel = mb.createSphere(width, height, width, 100,100,new Material(ColorAttribute.createDiffuse(Color.GRAY),ColorAttribute.createAmbient(Color.BLACK)),
 				Usage.Position | Usage.Normal);
-
+		
 		/* explosion */
-		explosionModel = mb.createBox(width, height, width, new Material(ColorAttribute.createDiffuse(Color.CORAL)),
+		explosionModel = mb.createCylinder(width, height, width, 100, new Material(ColorAttribute.createDiffuse(Color.RED)),
 				Usage.Position | Usage.Normal);
 
 		/* plane model */
@@ -321,7 +327,21 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 					objetos.put(obj, model);
 				}
 				if (obj instanceof Item) {
-					ModelInstance model = new ModelInstance(itemModel);
+					Item i = (Item) obj;
+					ModelInstance model = null;
+					switch(i.getType()){
+					case SPEED:
+						model = new ModelInstance(itemModelS);
+						break;
+					case BOMB:
+						model = new ModelInstance(itemModelB);
+						break;
+					case POWER:
+						model = new ModelInstance(itemModelP);
+						break;
+					default:
+						break; 
+					}
 					model.transform.translate(0, height / 2, 0);
 					model.transform.translate(obj.x, 0, obj.y);
 					objetos.put(obj, model);
