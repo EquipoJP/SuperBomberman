@@ -78,7 +78,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 	/* attributes */
 	public PerspectiveCamera cam;
 	public CameraInputController camController;
-	public Thread calcs;
 
 	public Model bombermanModel;
 	public Model enemyModel;
@@ -113,7 +112,6 @@ public class SuperBomberman3D extends ApplicationAdapter implements ApplicationL
 
 	@Override
 	public void create() {
-		calcs = null;
 		init();
 		camera();
 		models();
