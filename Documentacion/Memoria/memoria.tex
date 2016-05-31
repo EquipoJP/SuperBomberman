@@ -87,8 +87,10 @@ La única diferencia con el original es que la puntuación no se muestra hasta e
 	\label{fig:score}
 \end{figure}
 \paragraph{}Bomberman, el personaje que controla el jugador, puede moverse hacia arriba, abajo y hacia los lados; no puede atravesar bloques de ningún tipo y morirá si toca algún enemigo o la explosión de alguna bomba. Sin embargo, puede poner bombas para abrirse camino entre los bloques destruibles y eliminar los enemigos que salgan a su paso.
+\paragraph{}La IA de los enemigos se ha implementado siguiendo las líneas del Bomberman clásico: patrones aleatorios de desplazamiento de los enemigos. Se ha optado por no implementar una IA más compleja ya que resultaba frustrante no poder acertarle a los enemigos y resultaba muy complicado el ganar las partidas, además de que el juego original no contaba con esa IA avanzada.
+\paragraph{}Inicialmente las bombas tienen un radio de explosión de 1 casilla, sólo es posible poner una bomba a la vez en el escenario y Bomberman se mueve relativamente despacio. 
 \newpage
-\paragraph{}Inicialmente las bombas tienen un radio de explosión de 1 casilla, sólo es posible poner una bomba a la vez en el escenario y Bomberman se mueve relativamente despacio. Sin embargo, conforme vaya obteniendo \textit{power ups}, el radio de las bombas cada vez es mayor, es posible poner más bombas en el escenario y Bomberman se irá moviendo más rápido, según el tipo de \textit{power up} que recoja.
+\paragraph{}Sin embargo, conforme vaya obteniendo \textit{power ups}, el radio de las bombas cada vez es mayor, es posible poner más bombas en el escenario y Bomberman se irá moviendo más rápido, según el tipo de \textit{power up} que recoja.
 \begin{figure}[H]
 	\centering
 	\begin{minipage}[b]{0.4\textwidth}
@@ -110,7 +112,6 @@ La única diferencia con el original es que la puntuación no se muestra hasta e
 	\end{minipage}
 	\label{fig:powerups}
 \end{figure}
-\paragraph{}La IA de los enemigos se ha implementado siguiendo las líneas del Bomberman clásico: patrones aleatorios de desplazamiento de los enemigos. Se ha optado por no implementar una IA más compleja ya que resultaba frustrante no poder acertarle a los enemigos y resultaba muy complicado el ganar las partidas, además de que el juego original no contaba con esa IA avanzada.
 \paragraph{}El juego también contiene un menú principal desde el que se puede acceder a todos los apartados del mismo: 
 \begin{itemize}
 	\item Juego en 2D
@@ -120,6 +121,12 @@ La única diferencia con el original es que la puntuación no se muestra hasta e
 	\item Ranking
 	\item Créditos
 \end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=2in]{menuses.png}
+	\caption{Pantalla principal}
+	\label{fig:menuses}
+\end{figure}
 \newpage
 \section{Detalles de la implementación en 3D}
 \paragraph{}En cuanto a la implementación del juego en 3D, se ha optado por utilizar una librería apta para el lenguaje Java; se trata de \textbf{libgdx}.
@@ -130,6 +137,7 @@ La única diferencia con el original es que la puntuación no se muestra hasta e
 	\caption{Pantalla del juego en 3D}
 	\label{fig:tresdes}
 \end{figure}
+Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente cambia su aspecto visual. Sin embargo, solo se ha implementado un nivel en la versión 3D.
 \newpage
 \begin{thebibliography}{99} 
 \bibitem{fig:primerBomberman} \textbf{Imágenes del primer Bomberman} - By Source, Fair use, [\url{https://en.wikipedia.org/w/index.php?curid=12465479}]
