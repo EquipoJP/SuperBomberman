@@ -160,10 +160,38 @@ Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente ca
 	
 \item El sistema de ayuda del juego: en versiones iniciales del juego no existía un sistema de ayuda al jugador para mover al Bomberman por la habitación. Esto hacía el juego muy complicado porque requería un control a nivel de píxel de las cajas de colisión, y hacía el juego muy frustrante y poco divertido. Para eliminar este problema se decidió incluir un sistema de ayuda que permite al jugador moverse más libremente: el programa rectifica la trayectoria del Bomberman para que se mueva en la dirección que el jugador desea con cierta libertad.
 
+\item Empaquetamiento de la aplicación: al ir a empaquetar la aplicación (crear un JAR con sus contenidos) también hubo problemas y dificultades de diversas índoles que no se habían contemplado hasta ese momento en el trabajo. A continuación se explican las más importantes:
+
+	\begin{itemize}
+	\item Cambios de ruta en el JAR: al hacer el JAR el juego no funcionaba, ya que tomaba rutas relativas fuera del JAR, cuando los archivos estaban dentro. Hubo varios problemas al respecto, ya que se utilizaban tanto archivos INI como archivos de música e imágenes (stripes de sprites) y su tratamiento era diferente.
+	
+	\paragraph{}El principal problema era que en un JAR no hay ficheros, como en el sistema de ficheros, que es desde donde se operaba hasta ese momento, sino recursos. Para los archivos INI y las imágenes no supuso ningún problema el utilizar recursos en vez de ficheros, pero para las músicas utilizamos la librería TinySound, que requerían expresamente de ficheros. Para solucionar este contratiempo se crearon ficheros temporales en el mismo lugar donde se encontraba el JAR.
+	
+	\paragraph{}El segundo gran problema que surgió fue que la estructura de directorios cambió al empaquetar en un JAR, y por tanto las rutas que se utilizaban ya no eran válidas. Para ello hubo que cambiar las rutas para que fueran relativas desde dentro de la carpeta ''resources''.
+	
+	\item Lentitud al cargar el JAR: en un principio se decidió empaquetar las librerías utilizadas dentro del JAR creado, pero debido a esto el juego cargaba muy lento desde el JAR (podía llegar a tardar un minuto en salir de la pantalla de carga, cuando desde el sistema de ficheros el juego tardaba menos de diez segundos en cargar).
+	
+	\paragraph{}Después de investigar este problema, el equipo se dio cuenta de que el empaquetamiento de librerías en el JAR era el causante de la lentitud. Como las librerías estaban empaquetadas, el JAR debía extraerlas y verificarlas cada vez que se lanzaba, y la etapa de verificación era muy costosa.
+	
+	\paragraph{}La solución a este problema fue tan sencilla como extraer las librerías dentro del JAR.
+	\end{itemize}
+
 \end{itemize}
 \newpage
 
 \section{Módulos y paquetes del juego}
+
+\subsection{Librerías utilizadas}
+
+\paragraph{}A continuación se listan las librerías externas que se han utilizado en la elaboración del juego y qué trabajos desarrollan dichas librerías dentro del juego.
+
+\begin{itemize}
+\item TinySound: es la librería responsable de reproducir la música de fondo y efectos de sonidos dentro del juego.
+
+\item Ini4j: es la librería encargada del acceso a los archivos INI. Proporciona una interfaz amigable para el acceso a archivos de este tipo y aunque este trabajo podría haberlo hecho el equipo sin una carga de trabajo adicional considerable, se decidió apoyarse en esta librería por la simplicidad de su API.
+
+\item Libgdx: es la librería encargada de gestionar la parte 3D del juego; es decir, es el motor gráfico 3D del juego.
+\end{itemize}
 \newpage
 
 \section{Reparto de tareas}
@@ -173,17 +201,19 @@ Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente ca
 \begin{itemize}
 \item Estructura básica del juego: Jaime Ruiz-Borau.
 \item Inteligencia Artificial: Patricia Lázaro.
-\item Control del personaje: 
-\item Menús:
+\item Control del personaje: Jaime Ruiz-Borau y Patricia Lázaro.
+\item Menús: Jaime Ruiz-Borau y Patricia Lázaro.
 \item Música: Jaime Ruiz-Borau.
-\item Gráficos:
+\item Gráficos: Jaime Ruiz-Borau y Patricia Lázaro.
 \item Paso a 3D: Patricia Lázaro.
 \end{itemize}
 \newpage
 
 \begin{thebibliography}{99}
 	\bibitem{fig:primerBomberman} \textbf{Imágenes del primer Bomberman} - By Source, Fair use, [\url{https://en.wikipedia.org/w/index.php?curid=12465479}]
+	
 	\bibitem{} \textbf{Enlace al repositorio de Github} - [\url{https://github.com/EquipoJP/SuperBomberman}]
+	
 	\bibitem{} \textbf{Descargas del juego} - [\url{https://github.com/EquipoJP/SuperBomberman/releases}]
 \end{thebibliography}
 
