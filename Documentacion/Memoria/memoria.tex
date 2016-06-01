@@ -128,6 +128,7 @@ La única diferencia con el original es que la puntuación no se muestra hasta e
 	\label{fig:menuses}
 \end{figure}
 \newpage
+
 \section{Detalles de la implementación en 3D}
 \paragraph{}En cuanto a la implementación del juego en 3D, se ha optado por utilizar una librería apta para el lenguaje Java; se trata de \textbf{libgdx}.
 \paragraph{}Esta librería permite cargar modelos 3D en el juego, así como utilizar y mover una cámara por el mundo 3D. Se han utilizado modelos de cubos para los bloques, enemigos, power ups y para Bomberman, variando únicamente en el color para distinguirlos. Para las bombas y sus explosiones se han utilizado esferas y cilindros, respectivamente.
@@ -139,12 +140,33 @@ La única diferencia con el original es que la puntuación no se muestra hasta e
 \end{figure}
 Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente cambia su aspecto visual. Sin embargo, solo se ha implementado un nivel en la versión 3D.
 \newpage
+
+\section{Principales dificultades encontradas}
+\paragraph{}A continuación se describen las principales dificultades encontradas durante la realización del videojuego, todas ellas referidas a detalles técnicos. En la sección creativa no se encontraron dificultades, ya que el juego desarrollado es un clon y no un juego original.
+
+\begin{itemize}
+
+\item Estructura básica del juego: uno de los primeros problemas encontrados fue cómo estructurar el juego, más allá del corazón del juego. Como ambos miembros del equipo habían utilizado la herramienta GameMaker, se decidió finalmente implementar un sistema de habitaciones parecido; los objetos (las instancias que descienden de la clase Objeto) también fueron modelados de acuerdo a GameMaker, pues se consideró que era la mejor estructura que implementar.
+
+\item El paso a 3D: para el paso a 3D del juego se decidió utilizar una librería (libgdx) ya que no se tenía tiempo suficiente para implementar un motor gráfico 3D para el juego. Esto resultó en algunos problemas, ya que solo se deseaba integrar la librería en la parte 3D del juego, y no en la 2D. Algunos de estos problemas, los más notables, fueron:
+
+	\begin{itemize}
+	\item Integración con el sistema de habitaciones realizado en el juego 2D: el juego debía funcionar igual en 3D que en 2D, y reimplementar todo para el juego 3D no era una opción. Al final, se decidió crear la habitación del juego 2D en el juego 3D, pero sin renderizarla.
+	
+	\item Integración con el sistema de ventanas: también hubo problemas integrando el juego 3D en el sistema de ventanas que se tenía hasta ese momento. No se pudo integrar finalmente y se tuvo que realizar el juego 3D en otra ventana aparte. Tampoco se pudo continuar el hilo del juego una vez terminado el modo 3D, ya que la librería no funcionaba bien si se recreaba la aplicación 3D más tarde.
+	
+	\item Cálculos en el juego: en un principio, se pensó en utilizar volúmenes envolventes para realizar el chequeo de colisiones de los cuerpos en el entorno y con otros cuerpos, pero se tuvo que desestimar la idea, ya que el cáclulo de colisiones de esta forma era muy pesado y no se podía ejecutar en el mismo hilo en el que se ejecutaba el rendering de la aplicación 3D (no había opción a ejecutarlo en otro hilo).
+	\end{itemize}
+	
+\item El sistema de ayuda del juego: en versiones iniciales del juego no existía un sistema de ayuda al jugador para mover al Bomberman por la habitación. Esto hacía el juego muy complicado porque requería un control a nivel de píxel de las cajas de colisión, y hacía el juego muy frustrante y poco divertido. Para eliminar este problema se decidió incluir un sistema de ayuda que permite al jugador moverse más libremente: el programa rectifica la trayectoria del Bomberman para que se mueva en la dirección que el jugador desea con cierta libertad.
+
+\end{itemize}
+\newpage
+
 \begin{thebibliography}{99}
 	\bibitem{fig:primerBomberman} \textbf{Imágenes del primer Bomberman} - By Source, Fair use, [\url{https://en.wikipedia.org/w/index.php?curid=12465479}]
 	\bibitem{} \textbf{Enlace al repositorio de Github} - [\url{https://github.com/EquipoJP/SuperBomberman}]
 	\bibitem{} \textbf{Descargas del juego} - [\url{https://github.com/EquipoJP/SuperBomberman/releases}]
-	
-
 \end{thebibliography}
 
 \end{document}
