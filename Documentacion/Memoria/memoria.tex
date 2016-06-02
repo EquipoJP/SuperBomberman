@@ -192,25 +192,25 @@ Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente ca
 	
 	\item \textbf{Graphics.rooms}: Incluye la clase abstracta \textbf{Room}, que representa la entidad que contiene, renderiza y gestiona los objetos del juego, así como dos clases más para cargar los recursos necesarios para cada Room antes de mostrarla y evitar así "lag" mientras se juega.
 	
-	\item \textbf{Graphics.rooms.controlsMenu}: Heredado de la clase Room incluye la clase ControlsMenu que representa la room con los controles y una clase ControlRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.controlsMenu}: Heredado de la clase Room, incluye la clase ControlsMenu que representa la room con los controles y una clase ControlRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.credits}: Heredado de la clase Room incluye la clase Credits que representa la room con los créditos y una clase  CreditsRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.credits}: Heredado de la clase Room, incluye la clase Credits que representa la room con los créditos y una clase  CreditsRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.game}: Heredado de la clase Room incluye la clase Game que representa la room con el juego principal y una clase  GameRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.game}: Heredado de la clase Room, incluye la clase Game que representa la room con el juego principal y una clase  GameRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.intro}: Heredado de la clase Room incluye la clase Intro que representa la room con la intro del juego y una clase  IntroRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.intro}: Heredado de la clase Room, incluye la clase Intro que representa la room con la intro del juego y una clase  IntroRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.mainMenu}: Heredado de la clase Room incluye la clase MainMenu que representa la room con el menú principal y una clase  MainMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.mainMenu}: Heredado de la clase Room, incluye la clase MainMenu que representa la room con el menú principal y una clase  MainMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.optionsMenu}: Heredado de la clase Room incluye la clase OptionsMenu que representa la room con las opciones del juego y una clase  OptionsMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.optionsMenu}: Heredado de la clase Room, incluye la clase OptionsMenu que representa la room con las opciones del juego y una clase  OptionsMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.pauseMenu}: Heredado de la clase Room incluye la clase PauseMenu que representa la room con el menú de pause y una clase  PauseMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.pauseMenu}: Heredado de la clase Room, incluye la clase PauseMenu que representa la room con el menú de pause y una clase  PauseMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
-	\item \textbf{Graphics.rooms.rankMenu}: Heredado de la clase Room incluye la clase RankMenu que representa la room con el ranking y una clase  RankMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
+	\item \textbf{Graphics.rooms.rankMenu}: Heredado de la clase Room, incluye la clase RankMenu que representa la room con el ranking y una clase  RankMenuRepository, donde se cargan todos los recursos necesarios para evitar posteriores tiempos de carga.
 	
 	\item \textbf{Logic}: Contiene la implementación de los elementos principales del motor del juego, tales como las variables globales, el mecanismo de entrada de inputs por teclado, la clase abstracta Objeto, la clase Sprite que contiene las subimágenes de un elemento del juego y la máquina de estados del juego, empleada para cargar las distintas rooms del mismo.
 	
-	\item \textbf{Logic.characters}: Implementando clases más concretas heredadas de la clase abstracta Objecto, este paquete incluye todos aquellos elementos del juego con los que el personaje protagonista, Bomberman, puede interactuar, él mismo incluido.
+	\item \textbf{Logic.characters}: Implementación de clases más concretas heredadas de la clase abstracta Objecto, este paquete incluye todos aquellos elementos del juego con los que el personaje protagonista, Bomberman, puede interactuar, él mismo incluido.
 	
 	\item \textbf{Logic.collisions}: Contiene todo el mecanismo de colisiones en 2D gestionado mediante intersecciones a lo largo de las 4 clases que lo componen mediante cajas de colisión.
 	
@@ -220,11 +220,10 @@ Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente ca
 	
 	\item \textbf{Main}: Contiene clases que se encargan de inicializar el juego.
 	
-	\item \textbf{Sound}: Contien clases para gestionar la música y los efectos de sonido del juego.
+	\item \textbf{Sound}: Contiene clases para gestionar la música y los efectos de sonido del juego.
 	
 	\item \textbf{Utils}: Similar al paquete Logic.misc, contiene clases que no tenían cabida en otro paquete, pero con un propósito más general que el de Logic.misc.
 \end{itemize}
-\newpage
 \subsection{Librerías utilizadas}
 
 \paragraph{}A continuación se listan las librerías externas que se han utilizado en la elaboración del juego y qué trabajos desarrollan dichas librerías dentro del juego.
@@ -237,6 +236,7 @@ Todo el sistema de juego 3D funciona exactamente igual que el 2D, únicamente ca
 \item Libgdx: es la librería encargada de gestionar la parte 3D del juego; es decir, es el motor gráfico 3D del juego.
 \end{itemize}
 
+\newpage
 \section{Reparto de tareas}
 
 \paragraph{}A continuación se muestra el reparto de tareas de acuerdo a los grandes bloques del juego. No obstante, los dos miembros del equipo han participado en todas las tareas; este reparto muestra quién ha realizado más en la tarea, y no es exclusiva de una persona.
